@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="PAJK-software" />
+        <module name="project" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="PAJK-software" target="1.5" />
+      <module name="project" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
