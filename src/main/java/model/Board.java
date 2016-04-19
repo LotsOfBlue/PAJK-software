@@ -58,7 +58,7 @@ public class Board {
     }
 
     public String toString(){
-        String result = cursor.getX() + (cursor.getY() + "\n");
+        String result = "(" + cursor.getX() + ", " + (cursor.getY() + ")" + "\n");
         for (int i = 0; i < tileMatrix.length; i++) {
             for (int j = 0; j < tileMatrix[0].length; j++) {
                 if (j == cursor.getX() && i == cursor.getY()){
