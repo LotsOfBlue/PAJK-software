@@ -1,5 +1,7 @@
-import controller.Controller;
-import model.Model;
+package pajk.game.main.java;
+
+import pajk.game.main.java.controller.Controller;
+import pajk.game.main.java.model.Model;
 
 import java.util.Scanner;
 

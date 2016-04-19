@@ -1,6 +1,6 @@
-package controller;
+package pajk.game.main.java.controller;
 
-import model.Model;
+import pajk.game.main.java.model.Model;
 
 /**
  * Created by palm on 2016-04-18.

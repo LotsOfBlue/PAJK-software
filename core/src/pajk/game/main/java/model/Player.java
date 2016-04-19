@@ -1,4 +1,4 @@
-package model;
+package pajk.game.main.java.model;
 
 import java.util.ArrayList;
 import java.util.List;
