@@ -1,4 +1,4 @@
-package model;
+package pajk.game.main.java.model;
 
 import org.junit.Test;
 
