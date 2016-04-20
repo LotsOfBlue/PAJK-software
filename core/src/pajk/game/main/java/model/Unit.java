@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by palm on 2016-04-15.
- * The unit class is the representation of a carachter on the gameboard, it has stats & stuff
+ * The unit class is the representation of a character on the game board, it has stats & stuff
  */
 class Unit {
     //Stats of a unit
@@ -21,7 +21,7 @@ class Unit {
     private int aid = 1;
     private UnitState state = UnitState.isReady;
     private UnitMovementType movementType = UnitMovementType.walking;
-    private Weapon weapon = new Weapon(Weapon.Type.Pike, );
+    private Weapon weapon = new Weapon(Weapon.Type.Pike,1,1,2);
     private ArrayList<Item> itemList;
     private Allegiance allegiance;
     public enum Allegiance{
