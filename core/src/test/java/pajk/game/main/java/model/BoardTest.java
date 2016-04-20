@@ -2,13 +2,25 @@ package pajk.game.main.java.model;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by palm on 2016-04-18.
  */
 public class BoardTest {
-
+    @Test
+    public void testGetTilesWithinRange() throws Exception {
+        Board testBoard = new Board(3);
+        Tile origin = testBoard.getTile(0,0);
+        Set<Tile> tileSet = testBoard.getTilesWithinRange(new HashSet<Tile>(), origin, origin, 3);
+        for (Tile t:
+                tileSet) {
+            System.out.println(t.getX() + " " + t.getY());
+        }
+    }
 
     @Test
     public void testGetTile() throws Exception {
