@@ -1,7 +1,7 @@
 # PAJK-software
 
 ##Guidelines:
-Alla filer ska vara i UTF-8.
+All files should use the UTF-8 encoding.
 
 ##Branching policy
 Master should always be runnable.
