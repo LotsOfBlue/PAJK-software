@@ -3,16 +3,16 @@ package pajk.game.main.java.model;
 /**
  * Created by palm on 2016-04-15.
  */
-public class Board {
+class Board {
 
-    public enum Direction{
+    enum Direction{
         NORTH, WEST, EAST, SOUTH
     }
 
     private Tile cursor;
     private Tile[][] tileMatrix;
 
-    public Board(int size){
+    Board(int size){
         initMatrix(size);
         cursor = tileMatrix[0][0];
     }
@@ -26,11 +26,11 @@ public class Board {
         }
     }
 
-    public Tile getTile(int x, int y){
+    Tile getTile(int x, int y){
         return tileMatrix[x][y];
     }
 
-    public void moveCursor(Direction dir){
+    void moveCursor(Direction dir){
         switch (dir){
             case NORTH:
                 moveCursor(0, -1);
@@ -73,7 +73,7 @@ public class Board {
         return result;
     }
 
-    public Tile getCursorTile(){
+    Tile getCursorTile(){
         return cursor;
     }
 }
