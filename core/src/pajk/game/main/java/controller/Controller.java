@@ -13,15 +13,19 @@ public class Controller {
 
     public void upInput(){
         model.performAction(Model.actionName.UP);
+        System.out.println("up");
     }
     public void leftInput(){
         model.performAction(Model.actionName.LEFT);
+        System.out.println("left");
     }
     public void rightInput(){
         model.performAction(Model.actionName.RIGHT);
+        System.out.println("right");
     }
     public void downInput(){
         model.performAction(Model.actionName.DOWN);
+        System.out.println("down");
     }
     public void enterInput(){
         model.performAction(Model.actionName.ENTER);

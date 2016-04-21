@@ -45,17 +45,17 @@ public class PajkGdxGame extends ApplicationAdapter {
 
 
 	private void listenToKeys(){
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
 			gameController.leftInput();
-		} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
 			gameController.rightInput();
-		} else if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
 			gameController.upInput();
-		} else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-			gameController.rightInput();
-		} else if (Gdx.input.isKeyPressed(Input.Keys.Z)){
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
+			gameController.downInput();
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.Z)){
 			gameController.enterInput();
-		} else if (Gdx.input.isKeyPressed(Input.Keys.X)){
+		} else if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
 			gameController.backInput();
 		}
 	}

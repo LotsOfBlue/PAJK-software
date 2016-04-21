@@ -19,7 +19,7 @@ public class Model {
         board = new Board(10);
         player = new Player(false);
         computer = new Player(true);
-        Unit myLittleSoldier = new Unit();
+        Unit myLittleSoldier = new Unit(Unit.Allegiance.human);
         player.addUnit(myLittleSoldier);
         System.out.println(board.toString());
     }
