@@ -4,12 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.States.GameStateManager;
 import pajk.game.main.java.States.MainMenuState;
 import pajk.game.main.java.controller.Controller;
-import pajk.game.main.java.model.Model;
+import pajk.game.main.java.model.StateManager;
 
 public class PajkGdxGame extends ApplicationAdapter {
 	public static final int WIDTH = 600;
@@ -18,7 +17,7 @@ public class PajkGdxGame extends ApplicationAdapter {
 	public static final String TITLE = "Pajkification";
 
 	private GameStateManager gameStateManager;
-	Controller gameController = new Controller(new Model());
+	Controller gameController = new Controller(StateManager.getInstance());
 
 	private SpriteBatch batch;
 //	Texture img;
