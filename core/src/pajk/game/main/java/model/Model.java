@@ -24,6 +24,8 @@ public class Model {
         System.out.println(board.toString());
     }
 
+
+
     public void performAction(actionName action){
         switch (action){
             case UP:
@@ -39,5 +41,9 @@ public class Model {
                 board.moveCursor(Board.Direction.SOUTH);
                 break;
         }
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }
