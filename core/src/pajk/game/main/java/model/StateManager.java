@@ -13,9 +13,22 @@ public class StateManager {
     private Board board;
     private Player player;
     private Player computer;
+    private Unit activeUnit;
+
+
     private MainState mainState;
+    private UnitMenuState unitMenuState;
+
+    public void setActiveUnit(Unit activeUnit) {
+        this.activeUnit = activeUnit;
+    }
+
+    public Unit getActiveUnit() {
+        return activeUnit;
+    }
+
     public enum StateName{
-        MAIN_STATE;
+        MAIN_STATE, UNIT_MENU;
     }
 
     public static StateManager getInstance(){
@@ -26,15 +39,25 @@ public class StateManager {
         board = new Board(10, 5);
         player = new Player(false);
         computer = new Player(true);
+        unitMenuState = new UnitMenuState(board);
         mainState = new MainState(board);
-        setState(mainState);
+        setState(StateName.MAIN_STATE);
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human);
         player.addUnit(myLittleSoldier);
         System.out.println(board.toString());
     }
 
-    public void setState(State state){
-        currentState = state;
+    public void setState(StateName state){
+        switch (state){
+            case MAIN_STATE:
+                currentState = mainState;
+                currentState.activate();
+                break;
+            case UNIT_MENU:
+                currentState = unitMenuState;
+                currentState.activate();
+                break;
+        }
     }
 
     public void performAction(ActionName action){

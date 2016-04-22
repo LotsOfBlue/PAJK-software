@@ -28,6 +28,17 @@ public class MainState implements State {
             case DOWN:
                 board.moveCursor(Board.Direction.SOUTH);
                 break;
+            case ENTER:
+                Tile cursorTile = board.getCursorTile();
+                if (cursorTile.hasUnit() && cursorTile.getUnit().getAllegiance() == Unit.Allegiance.human){
+                    StateManager.getInstance().setState(StateManager.StateName.UNIT_MENU);
+                }
+                break;
         }
+    }
+
+    @Override
+    public void activate() {
+
     }
 }

@@ -20,6 +20,10 @@ class Tile{
         return x;
     }
 
+    public boolean hasUnit(){
+        return unit != null;
+    }
+
     int getY(){
         return y;
     }
