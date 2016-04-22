@@ -15,15 +15,19 @@ class Board {
     private Tile cursor;
     private Tile[][] tileMatrix;
 
-    Board(int size){
-        initMatrix(size);
+    Board(int x, int y) {
+        initMatrix(x, y);
         cursor = tileMatrix[0][0];
     }
 
-    private void initMatrix(int size){
-        tileMatrix = new Tile[size][size];
-        for (int i = 0; i < size; i++){
-            for(int j = 0; j < size; j++){
+    Board(int size){
+        this(size, size);
+    }
+
+    private void initMatrix(int x, int y){
+        tileMatrix = new Tile[x][y];
+        for (int i = 0; i < x; i++){
+            for(int j = 0; j < y; j++){
                 tileMatrix[i][j] = new Tile(i,j);
             }
         }
@@ -83,7 +87,7 @@ class Board {
                 newY >= 0 && newY < getBoardHeight()){
             setCursor(newX, newY);
         }
-//        System.out.println(this.toString());
+        //System.out.println(this.toString());
     }
 
     /**
@@ -195,9 +199,9 @@ class Board {
     }
 
     public String toString(){
-        String result = "(" + cursor.getX() + ", " + (cursor.getY() + ")" + "\n");
-        for (int i = 0; i < tileMatrix.length; i++) {
-            for (int j = 0; j < tileMatrix[0].length; j++) {
+        String result = "(" + cursor.getX() + ", " + cursor.getY() + ")\n";
+        for (int i = 0; i < getBoardHeight(); i++) {
+            for (int j = 0; j < getBoardWidth(); j++) {
                 if (j == cursor.getX() && i == cursor.getY()){
                     result = result + "[X]";
                 } else {
