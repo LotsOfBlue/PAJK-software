@@ -11,7 +11,6 @@ class Tile{
     private Unit unit;
     private Color overlay;
 
-
     Tile(int x, int y){
         this.x = x;
         this.y = y;
