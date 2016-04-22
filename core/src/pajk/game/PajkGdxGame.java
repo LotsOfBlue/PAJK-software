@@ -14,9 +14,6 @@ public class PajkGdxGame extends ApplicationAdapter {
 	public static final int HEIGHT = 600;
 	public static final String TITLE = "Pajkification";
 
-
-
-
 	private StateManager gameModel;
 	private Controller gameController;
 	private BoardView gameView;
@@ -37,8 +34,7 @@ public class PajkGdxGame extends ApplicationAdapter {
 		gameView.render(batch);
 		listenToKeys();
 	}
-
-
+	
 	private void listenToKeys(){
 		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
 			gameController.leftInput();
