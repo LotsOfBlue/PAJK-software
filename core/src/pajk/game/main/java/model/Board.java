@@ -1,7 +1,6 @@
 package pajk.game.main.java.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -30,10 +29,30 @@ class Board {
         }
     }
 
-    Tile getTile(int x, int y){
-        return tileMatrix[x][y];
+    /**
+     * Get the tile with the given coordinates, if there is one.
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @return The tile with the given coordinates,
+     * null if the coordinates are illegal
+     */
+    Tile getTile(int x, int y) {
+        if (isWithinBoard(x, y)) {
+            return tileMatrix[x][y];
+        }
+        else return null;
     }
 
+    private Boolean isWithinBoard (int x, int y) {
+        return x >= 0 && x < getBoardWidth() &&
+                y >= 0 && y < getBoardHeight();
+    }
+
+    /**
+     * Moves the cursor in the given direction.
+     * @param dir The direction to move in.
+     *            Available values are NORTH, SOUTH, EAST and WEST.
+     */
     void moveCursor(Direction dir){
         switch (dir){
             case NORTH:
@@ -51,28 +70,58 @@ class Board {
         }
     }
 
+    /**
+     * Checks if the cursor can be moved in the given direction
+     * and moves it if that is the case.
+     * @param deltaX The X coordinate of the new tile, relative to the current tile
+     * @param deltaY The Y coordinate of the new tile, relative to the current tile
+     */
     private void moveCursor(int deltaX, int deltaY){
-        if (    cursor.getX() + deltaX >= 0 &&
-                cursor.getX() + deltaX < tileMatrix.length &&
-                cursor.getY() + deltaY >= 0 &&
-                cursor.getY() + deltaY < tileMatrix[0].length){
-            cursor = tileMatrix[cursor.getX() + deltaX][cursor.getY() + deltaY];
+        int newX = cursor.getX() + deltaX;
+        int newY = cursor.getY() + deltaY;
+        if (    newX >= 0 && newX < getBoardWidth() &&
+                newY >= 0 && newY < getBoardHeight()){
+            setCursor(newX, newY);
         }
         System.out.println(this.toString());
     }
 
+    /**
+     * Sets the cursor to the given coordinates
+     * @param x X coordinate
+     * @param y Y coordinate
+     */
+    void setCursor(int x, int y) {
+        cursor = tileMatrix[x][y];
+    }
+
+    /**
+     * @return The tile that the cursor is currently on.
+     */
     Tile getCursorTile(){
         return cursor;
     }
 
+    /**
+     * Displays an overlay on all the tiles that the given unit can move to.
+     * @param unit The unit to display movement range for.
+     */
     void showMoveRange(Unit unit) {
         Tile tile = getPos(unit);
         //TODO tile.getTerrainType()
-        int move = unit.getMovement();
-        Set<Tile> moveableTiles = getTilesWithinRange(new HashSet<Tile>(), tile, tile, unit.getMovement());
-        //TODO tile.setOverlay for every tile
+        Set<Tile> movableTiles = getTilesWithinRange(new HashSet<Tile>(), tile, tile, unit.getMovement());
+        //TODO tile.setOverlay for every tile in movableTiles
     }
 
+    /**
+     * Recursively checks every tile that can be reached from a given tile,
+     * with the given movement range, and adds them to a set.
+     * @param tiles The set containing the tiles.
+     * @param origin The tile to start from.
+     * @param previous The previously examined tile.
+     * @param range The movement range of the moving unit.
+     * @return A set containing every tile that can be reached from the origin tile.
+     */
     Set<Tile> getTilesWithinRange(Set<Tile> tiles, Tile origin, Tile previous, int range) {
         tiles.add(origin);
         if (range < 1){
