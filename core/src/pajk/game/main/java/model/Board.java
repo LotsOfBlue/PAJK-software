@@ -155,6 +155,16 @@ class Board {
         return tiles;
     }
 
+    /**
+     * TODO
+     * @param unit
+     */
+    void moveToCursor(Unit unit) {
+        Tile old = getPos(unit);
+        cursor.setUnit(unit);
+        old.setUnit(null);
+    }
+
     private int getBoardWidth(){
         return tileMatrix.length;
     }
