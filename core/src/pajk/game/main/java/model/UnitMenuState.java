@@ -9,6 +9,7 @@ public class UnitMenuState implements State {
 
     private Board board;
     private Unit activeUnit;
+    
 
     public UnitMenuState(Board board){
         this.board = board;
