@@ -1,5 +1,7 @@
 package pajk.game.main.java.model;
 
+import java.awt.*;
+
 /**
  * Created by palm on 2016-04-15.
  */
@@ -7,6 +9,7 @@ class Tile{
     private final int x;
     private final int y;
     private Unit unit;
+    private Color overlay;
 
     Tile(int x, int y){
         this.x = x;
@@ -27,6 +30,14 @@ class Tile{
 
     void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public Color getOverlay() {
+        return overlay;
+    }
+
+    public void setOverlay(Color overlay) {
+        this.overlay = overlay;
     }
 
     public String toString(){
