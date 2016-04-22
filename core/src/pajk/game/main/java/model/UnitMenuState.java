@@ -2,6 +2,9 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Gustav on 2016-04-22.
  */
@@ -9,26 +12,26 @@ public class UnitMenuState implements State {
 
     private Board board;
     private Unit activeUnit;
-    
+    private Map menuMap = new HashMap<Integer, String>();
+    private int menuItemSelected = 0;
 
     public UnitMenuState(Board board){
         this.board = board;
+        menuMap.put(new Integer(0), "Attack");
+        menuMap.put(new Integer(1), "Move");
+        menuMap.put(new Integer(2), "Wait");
     }
 
     @Override
     public void performAction(ActionName action) {
         switch (action){
             case UP:
-
-                break;
-            case LEFT:
-
-                break;
-            case RIGHT:
-
+                menuItemSelected = (menuItemSelected + 2) % menuMap.size();
+                System.out.println(menuItemSelected + (String)menuMap.get(menuItemSelected));
                 break;
             case DOWN:
-
+                menuItemSelected = (menuItemSelected + 1) % menuMap.size();
+                System.out.println(menuItemSelected + (String)menuMap.get(menuItemSelected));
                 break;
             case ENTER:
 

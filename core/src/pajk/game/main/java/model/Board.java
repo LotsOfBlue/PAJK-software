@@ -87,7 +87,7 @@ class Board {
                 newY >= 0 && newY < getBoardHeight()){
             setCursor(newX, newY);
         }
-        //System.out.println(this.toString());
+        System.out.println(this.toString());
     }
 
     /**
@@ -208,7 +208,9 @@ class Board {
             for (int j = 0; j < getBoardWidth(); j++) {
                 if (j == cursor.getX() && i == cursor.getY()){
                     result = result + "[X]";
-                } else {
+                } else if (getTile(j, i).hasUnit()){
+                    result = result + "[U]";
+                } else{
                     result = result + "[O]";
                 }
 

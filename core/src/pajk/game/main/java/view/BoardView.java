@@ -16,7 +16,7 @@ public class BoardView extends GameView{
     private Texture img;
 
     public BoardView(StateManager gameModel){
-        img = new Texture("grass-tile");
+        //img = new Texture("grass-tile");
         this.gameModel = gameModel;
     }
 
@@ -28,7 +28,7 @@ public class BoardView extends GameView{
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        spriteBatch.draw(img,0,0);
+        //spriteBatch.draw(img,0,0);
         spriteBatch.end();
     }
 

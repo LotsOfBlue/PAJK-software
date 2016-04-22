@@ -44,6 +44,7 @@ public class StateManager {
         setState(StateName.MAIN_STATE);
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human);
         player.addUnit(myLittleSoldier);
+        board.placeUnit(myLittleSoldier, board.getCursorTile());
         System.out.println(board.toString());
     }
 

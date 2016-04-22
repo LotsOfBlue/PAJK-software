@@ -14,19 +14,15 @@ public class Controller {
 
     public void upInput(){
         stateManager.performAction(ActionName.UP);
-        System.out.println("up");
     }
     public void leftInput(){
         stateManager.performAction(ActionName.LEFT);
-        System.out.println("left");
     }
     public void rightInput(){
         stateManager.performAction(ActionName.RIGHT);
-        System.out.println("right");
     }
     public void downInput(){
         stateManager.performAction(ActionName.DOWN);
-        System.out.println("down");
     }
     public void enterInput(){
         stateManager.performAction(ActionName.ENTER);
