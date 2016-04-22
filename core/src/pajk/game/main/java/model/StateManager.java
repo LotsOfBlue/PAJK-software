@@ -23,7 +23,7 @@ public class StateManager {
     }
 
     private StateManager(){
-        board = new Board(10);
+        board = new Board(10, 5);
         player = new Player(false);
         computer = new Player(true);
         mainState = new MainState(board);
