@@ -194,6 +194,114 @@ class Board {
 
     }
 
+    /**
+     * Sets the cursor to the given coordinates
+     * @param x X coordinate
+     * @param y Y coordinate
+     */
+    void setCursor(int x, int y) {
+        cursor = tileMatrix[x][y];
+    }
+
+    /**
+     * @return The tile that the cursor is currently on.
+     */
+    Tile getCursorTile(){
+        return cursor;
+    }
+
+    /**
+     * Displays an overlay on all the tiles that the given unit can move to.
+     * @param unit The unit to display movement range for.
+     */
+    void showMoveRange(Unit unit) {
+        Tile tile = getPos(unit);
+        //TODO tile.getTerrainType()
+        Set<Tile> movableTiles = getTilesWithinRange(new HashSet<Tile>(), tile, tile, unit.getMovement());
+        //TODO tile.setOverlay for every tile in movableTiles
+    }
+
+    /**
+     * Recursively checks every tile that can be reached from a given tile,
+     * with the given movement range, and adds them to a set.
+     * @param tiles The set containing the tiles.
+     * @param origin The tile to start from.
+     * @param previous The previously examined tile.
+     * @param range The movement range of the moving unit.
+     * @return A set containing every tile that can be reached from the origin tile.
+     */
+    Set<Tile> getTilesWithinRange(Set<Tile> tiles, Tile origin, Tile previous, int range) {
+        tiles.add(origin);
+        if (range < 1){
+            return tiles;
+        }
+
+        if (origin.getY() > 0){
+            Tile northTile = getTile(origin.getX(), origin.getY() - 1);
+            if (previous != northTile) {
+                tiles.addAll(getTilesWithinRange(tiles, northTile, origin, range - 1));
+            }
+        }
+        if (origin.getY() < getBoardHeight() - 1){
+            Tile southTile = getTile(origin.getX(), origin.getY() + 1);
+            if (previous != southTile) {
+                tiles.addAll(getTilesWithinRange(tiles, southTile, origin, range - 1));
+            }
+        }
+        if (origin.getX() > 0){
+            Tile westTile = getTile(origin.getX() - 1, origin.getY());
+            if (previous != westTile) {
+                tiles.addAll(getTilesWithinRange(tiles, westTile, origin, range - 1));
+            }
+        }
+        if (origin.getX() < getBoardWidth() - 1){
+            Tile eastTile = getTile(origin.getX() + 1, origin.getY());
+            if (previous != eastTile) {
+                tiles.addAll(getTilesWithinRange(tiles, eastTile, origin, range - 1));
+            }
+        }
+        return tiles;
+    }
+
+    /**
+     * TODO
+     * @param unit
+     */
+    void moveToCursor(Unit unit) {
+        Tile old = getPos(unit);
+        cursor.setUnit(unit);
+        old.setUnit(null);
+    }
+
+    private int getBoardWidth(){
+        return tileMatrix.length;
+    }
+
+    private int getBoardHeight(){
+        return tileMatrix[0].length;
+    }
+
+    /**
+     * Checks if there is a tile containing the specified unit.
+     * @param unit The unit to check for
+     * @return The Tile that the unit is standing on,
+     * null if the unit can't be found.
+     */
+    Tile getPos(Unit unit) {
+        for (Tile[] tCol : tileMatrix) {
+            for (Tile t : tCol) {
+                if(t.getUnit() == unit) {
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
+    void moveUnit(Unit unit, Tile dest) {
+
+    }
+
     public String toString(){
         String result = "(" + cursor.getX() + ", " + (cursor.getY() + ")" + "\n");
         for (int i = 0; i < tileMatrix.length; i++) {
