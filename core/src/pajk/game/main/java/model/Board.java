@@ -177,6 +177,10 @@ class Board {
         return tileMatrix[0].length;
     }
 
+    void placeUnit(Unit unit, Tile tile) {
+        tile.setUnit(unit);
+    }
+
     /**
      * Checks if there is a tile containing the specified unit.
      * @param unit The unit to check for
