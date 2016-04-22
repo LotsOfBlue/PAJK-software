@@ -54,7 +54,7 @@ class Board {
                 cursor.getY() + deltaY < tileMatrix[0].length){
             cursor = tileMatrix[cursor.getX() + deltaX][cursor.getY() + deltaY];
         }
-        System.out.println(this.toString());
+//        System.out.println(this.toString());
     }
 
     public String toString(){
