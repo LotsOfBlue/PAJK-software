@@ -3,8 +3,7 @@ package pajk.game.main.java.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
-import pajk.game.main.java.model.Model;
+import pajk.game.main.java.model.StateManager;
 
 
 /**
@@ -13,10 +12,10 @@ import pajk.game.main.java.model.Model;
 public class BoardView extends GameView{
 
 
-    private Model gameModel;
+    private StateManager gameModel;
     private Texture img;
 
-    public BoardView(Model gameModel){
+    public BoardView(StateManager gameModel){
         img = new Texture("grass-tile");
         this.gameModel = gameModel;
     }
@@ -33,9 +32,7 @@ public class BoardView extends GameView{
         spriteBatch.end();
     }
 
-    private void drawBoard(SpriteBatch spriteBatch){
 
-    }
 
 
 }

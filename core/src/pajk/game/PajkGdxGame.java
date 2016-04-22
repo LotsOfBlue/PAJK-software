@@ -6,15 +6,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.controller.Controller;
-import pajk.game.main.java.model.Model;
 import pajk.game.main.java.view.BoardView;
+import pajk.game.main.java.model.StateManager;
 
 public class PajkGdxGame extends ApplicationAdapter {
 	public static final int WIDTH = 600;
 	public static final int HEIGHT = 600;
 	public static final String TITLE = "Pajkification";
 
-	private Model gameModel;
+	private StateManager gameModel;
 	private Controller gameController;
 	private BoardView gameView;
 	private SpriteBatch batch;
@@ -22,8 +22,8 @@ public class PajkGdxGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		gameModel = new Model();
-		gameController = new Controller(gameModel);
+		gameModel = StateManager.getInstance();
+		gameController = new Controller(StateManager.getInstance());
 		gameView = new BoardView(gameModel);
 	}
 

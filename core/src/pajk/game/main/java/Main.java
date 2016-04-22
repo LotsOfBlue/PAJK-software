@@ -1,7 +1,7 @@
 package pajk.game.main.java;
 
 import pajk.game.main.java.controller.Controller;
-import pajk.game.main.java.model.Model;
+import pajk.game.main.java.model.StateManager;
 
 import java.util.Scanner;
 
@@ -10,23 +10,23 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        Controller cont = new Controller(new Model());
+        Controller control = new Controller(StateManager.getInstance());
         Scanner scan = new Scanner(System.in);
         while (true){
             String str = scan.next();
             char key = str.toCharArray()[0];
             switch (key){
                 case 'u':
-                    cont.upInput();
+                    control.upInput();
                     break;
                 case 'l':
-                    cont.leftInput();
+                    control.leftInput();
                     break;
                 case 'r':
-                    cont.rightInput();
+                    control.rightInput();
                     break;
                 case 'd':
-                    cont.downInput();
+                    control.downInput();
                     break;
             }
         }

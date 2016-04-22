@@ -1,37 +1,38 @@
 package pajk.game.main.java.controller;
 
-import pajk.game.main.java.model.Model;
+import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.StateManager;
 
 /**
  * Created by palm on 2016-04-18.
  */
 public class Controller {
-    private Model model;
-    public Controller(Model model){
-        this.model = model;
+    private StateManager stateManager;
+    public Controller(StateManager stateManager){
+        this.stateManager = stateManager;
     }
 
     public void upInput(){
-        model.performAction(Model.actionName.UP);
+        stateManager.performAction(ActionName.UP);
         System.out.println("up");
     }
     public void leftInput(){
-        model.performAction(Model.actionName.LEFT);
+        stateManager.performAction(ActionName.LEFT);
         System.out.println("left");
     }
     public void rightInput(){
-        model.performAction(Model.actionName.RIGHT);
+        stateManager.performAction(ActionName.RIGHT);
         System.out.println("right");
     }
     public void downInput(){
-        model.performAction(Model.actionName.DOWN);
+        stateManager.performAction(ActionName.DOWN);
         System.out.println("down");
     }
     public void enterInput(){
-        model.performAction(Model.actionName.ENTER);
+        stateManager.performAction(ActionName.ENTER);
     }
     public void backInput(){
-        model.performAction(Model.actionName.BACK);
+        stateManager.performAction(ActionName.BACK);
     }
 
 }
