@@ -10,8 +10,8 @@ import pajk.game.main.java.model.StateManager;
 import pajk.game.main.java.view.BoardView;
 
 public class PajkGdxGame extends ApplicationAdapter {
-	public static final int WIDTH = 600;
-	public static final int HEIGHT = 600;
+	public static final int WIDTH = 650;
+	public static final int HEIGHT = 650;
 	public static final String TITLE = "Pajkification";
 
 	private StateManager gameModel;
@@ -24,7 +24,7 @@ public class PajkGdxGame extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		gameModel = StateManager.getInstance();
 		gameController = new Controller(gameModel);
-		gameView = new BoardView(gameModel);
+		gameView = new BoardView();
 	}
 
 	@Override
