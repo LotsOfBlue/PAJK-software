@@ -5,9 +5,9 @@ package pajk.game.main.java.model;
  * Weapons are special items of a special type, with a range, damage and critmultiplier value.
  */
 class Weapon extends Item{
-    private Type weaponType;
-    private int range, damage, critMult;
-    public enum Type{
+    private WeaponType weaponType;
+    private int range, damage, critChance, accuracy;
+    public enum WeaponType{
         Sword,
         Axe,
         Pike,
@@ -16,18 +16,21 @@ class Weapon extends Item{
         Book
     }
 
-    Weapon(Type weaponType, int range, int damage, int criticalMultiplier){
+    Weapon(WeaponType weaponType, int range, int damage, int critChance, int accuracy){
         this.weaponType = weaponType;
-        this.critMult = critMult;
+        this.critChance = critChance;
         this.damage = damage;
         this.range = range;
+        this.accuracy = accuracy;
     }
 
-    public int getCritMult() {return critMult;}
+    public int getCritChance() {return critChance;}
 
     public int getDamage() {return damage;}
 
     public int getRange() {return range;}
 
-    public Type getWeaponType() {return weaponType;}
+    public int getAccuracy() {return accuracy;}
+
+    public WeaponType getWeaponType() {return weaponType;}
 }
