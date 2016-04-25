@@ -12,7 +12,7 @@ public class UnitMenuState implements State {
 
     private Board board;
     private Unit activeUnit;
-    private Map<Integer, String> menuMap = new HashMap<Integer, String>();
+    private Map<Integer, String> menuMap = new HashMap<>();
     private int menuItemSelected = 0;
 
     public UnitMenuState(Board board){
@@ -27,11 +27,11 @@ public class UnitMenuState implements State {
         switch (action){
             case UP:
                 menuItemSelected = (menuItemSelected + 2) % menuMap.size();
-                System.out.println(menuItemSelected + (String)menuMap.get(menuItemSelected));
+                System.out.println(menuItemSelected + menuMap.get(menuItemSelected));
                 break;
             case DOWN:
                 menuItemSelected = (menuItemSelected + 1) % menuMap.size();
-                System.out.println(menuItemSelected + (String)menuMap.get(menuItemSelected));
+                System.out.println(menuItemSelected + menuMap.get(menuItemSelected));
                 break;
             case ENTER:
 
