@@ -14,10 +14,12 @@ public class BoardView extends GameView{
 
     private StateManager gameModel;
     private Texture img;
+    private Texture unit;
 
-    public BoardView(StateManager gameModel){
-        //img = new Texture("grass-tile");
-        this.gameModel = gameModel;
+    public BoardView(){
+        img = new Texture("grass-tile");
+        unit = new Texture("unit-sprite.png");
+        this.gameModel = StateManager.getInstance();
     }
 
     @Override
@@ -28,12 +30,21 @@ public class BoardView extends GameView{
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
-        //spriteBatch.draw(img,0,0);
+        drawBoard(spriteBatch);
+        drawUnit(spriteBatch);
         spriteBatch.end();
     }
 
-    private void drawBoard(SpriteBatch spriteBatch){
+    private void drawUnit(SpriteBatch spriteBatch){
+        spriteBatch.draw(unit,0,0);
+    }
 
+    private void drawBoard(SpriteBatch spriteBatch){
+        for(int i = 0; i < 10 * 65; i+=65){
+            for (int j = 0; j < 10 * 65; j+=65){
+                spriteBatch.draw(img,i,j);
+            }
+        }
     }
 
 
