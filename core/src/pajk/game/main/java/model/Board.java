@@ -47,6 +47,10 @@ class Board {
         else return null;
     }
 
+    public Tile[][] getTileMatrix(){
+        return tileMatrix;
+    }
+
     private Boolean isWithinBoard (int x, int y) {
         return x >= 0 && x < getBoardWidth() &&
                 y >= 0 && y < getBoardHeight();

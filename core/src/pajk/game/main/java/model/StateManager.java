@@ -26,6 +26,9 @@ public class StateManager {
     public Unit getActiveUnit() {
         return activeUnit;
     }
+    public Board getBoard(){
+        return board;
+    }
 
     public enum StateName{
         MAIN_STATE, UNIT_MENU;
