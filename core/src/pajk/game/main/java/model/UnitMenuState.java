@@ -12,14 +12,14 @@ public class UnitMenuState implements State {
 
     private Board board;
     private Unit activeUnit;
-    private Map menuMap = new HashMap<Integer, String>();
+    private Map<Integer, String> menuMap = new HashMap<Integer, String>();
     private int menuItemSelected = 0;
 
     public UnitMenuState(Board board){
         this.board = board;
-        menuMap.put(new Integer(0), "Attack");
-        menuMap.put(new Integer(1), "Move");
-        menuMap.put(new Integer(2), "Wait");
+        menuMap.put(0, "Attack");
+        menuMap.put(1, "Move");
+        menuMap.put(2, "Wait");
     }
 
     @Override

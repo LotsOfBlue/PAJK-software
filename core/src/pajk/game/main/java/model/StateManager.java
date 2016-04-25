@@ -36,11 +36,14 @@ public class StateManager {
     }
 
     private StateManager(){
+        //Init game objects.
         board = new Board(10, 5);
         player = new Player(false);
         computer = new Player(true);
+        //Init states
         unitMenuState = new UnitMenuState(board);
         mainState = new MainState(board);
+
         setState(StateName.MAIN_STATE);
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human);
         player.addUnit(myLittleSoldier);
