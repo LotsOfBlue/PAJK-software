@@ -34,7 +34,11 @@ public class UnitMenuState implements State {
                 System.out.println(menuItemSelected + menuMap.get(menuItemSelected));
                 break;
             case ENTER:
-
+                //If the user selected 'Move'...
+                if (menuMap.get(menuItemSelected).equals("Move")) {
+                    System.out.println("Move selected");
+                    StateManager.getInstance().setState(StateManager.StateName.MAIN_STATE);
+                }
                 break;
         }
     }

@@ -28,7 +28,9 @@ public class StateManager {
     }
 
     public enum StateName{
-        MAIN_STATE, UNIT_MENU;
+        MAIN_STATE,
+        UNIT_MENU,
+        CHOOSE_TILE;
     }
 
     public static StateManager getInstance(){
