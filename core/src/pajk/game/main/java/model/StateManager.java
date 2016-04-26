@@ -33,7 +33,8 @@ public class StateManager {
     public enum StateName{
         MAIN_STATE,
         UNIT_MENU,
-        CHOOSE_TILE;
+        CHOOSE_TILE,
+        COMBAT_INFO;
     }
 
     public static StateManager getInstance(){
