@@ -5,9 +5,9 @@ import pajk.game.main.java.ActionName;
 /**
  * Created by palm on 2016-04-18.
  */
-public class StateManager {
+public final class StateManager {
 
-    private static StateManager ourInstance = new StateManager();
+    private static StateManager ourInstance = null;
 
     private State currentState;
     private Board board;
@@ -18,6 +18,7 @@ public class StateManager {
 
     private MainState mainState;
     private UnitMenuState unitMenuState;
+    private ChooseTileState chooseTileState;
 
     public void setActiveUnit(Unit activeUnit) {
         this.activeUnit = activeUnit;
@@ -37,6 +38,9 @@ public class StateManager {
     }
 
     public static StateManager getInstance(){
+        if(ourInstance == null) {
+            ourInstance = new StateManager();
+        }
         return ourInstance;
     }
 
@@ -46,8 +50,9 @@ public class StateManager {
         player = new Player(false);
         computer = new Player(true);
         //Init states
-        unitMenuState = new UnitMenuState(board);
+        unitMenuState = new UnitMenuState();
         mainState = new MainState(board);
+        chooseTileState = new ChooseTileState(board);
 
         setState(StateName.MAIN_STATE);
 
@@ -66,6 +71,10 @@ public class StateManager {
                 break;
             case UNIT_MENU:
                 currentState = unitMenuState;
+                currentState.activate();
+                break;
+            case CHOOSE_TILE:
+                currentState = chooseTileState;
                 currentState.activate();
                 break;
         }

@@ -10,13 +10,11 @@ import java.util.Map;
  */
 public class UnitMenuState implements State {
 
-    private Board board;
     private Unit activeUnit;
     private Map<Integer, String> menuMap = new HashMap<>();
     private int menuItemSelected = 0;
 
-    public UnitMenuState(Board board){
-        this.board = board;
+    public UnitMenuState(){
         menuMap.put(0, "Attack");
         menuMap.put(1, "Move");
         menuMap.put(2, "Wait");
@@ -37,7 +35,7 @@ public class UnitMenuState implements State {
                 //If the user selected 'Move'...
                 if (menuMap.get(menuItemSelected).equals("Move")) {
                     System.out.println("Move selected");
-                    StateManager.getInstance().setState(StateManager.StateName.MAIN_STATE);
+                    StateManager.getInstance().setState(StateManager.StateName.CHOOSE_TILE);
                 }
                 break;
         }
