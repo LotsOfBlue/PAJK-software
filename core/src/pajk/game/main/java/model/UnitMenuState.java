@@ -15,8 +15,8 @@ public class UnitMenuState implements State {
     private int menuItemSelected = 0;
 
     public UnitMenuState(){
-        menuMap.put(0, "Attack");
-        menuMap.put(1, "Move");
+        menuMap.put(0, "Move");
+        menuMap.put(1, "Attack");
         menuMap.put(2, "Wait");
     }
 
