@@ -41,7 +41,7 @@ class Unit {
         riding,
         flying
     }
-    Unit(Allegiance allegiance
+    Unit(Allegiance allegiance,
                     /*int level,
                     int experience,
                     int health,
@@ -51,14 +51,14 @@ class Unit {
                     int luck,
                     int defence,
                     int resistance,
-                    int movement,
+                    */int movement/*,
                     int constitution,
                     int aid,
                     ConditionType condition,
                     MovementType movementType,
                     AffinityType affinity*/){
         this.allegiance = allegiance;
-
+        this.movement = movement;
     }
     //----------------------------------------------Getters
 
