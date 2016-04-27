@@ -59,7 +59,8 @@ public final class StateManager {
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human);
         player.addUnit(myLittleSoldier);
-        board.placeUnit(myLittleSoldier, board.getTile(3,3));
+        board.placeUnit(myLittleSoldier, board.getTile(6,4));
+        board.placeUnit(myLittleSoldier, board.getTile(1,0));
         System.out.println(board.toString());
     }
 

@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by palm on 2016-04-15.
  */
-class Tile{
+public class Tile{
     private final int x;
     private final int y;
     private Unit unit;
@@ -16,7 +16,7 @@ class Tile{
         this.y = y;
     }
 
-    int getX(){
+    public int getX(){
         return x;
     }
 
@@ -24,7 +24,7 @@ class Tile{
         return unit != null;
     }
 
-    int getY(){
+    public int getY(){
         return y;
     }
 
