@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Created by palm on 2016-04-15.
  */
-class Board {
+public class Board {
 
     enum Direction{
         NORTH, WEST, EAST, SOUTH
@@ -40,7 +40,7 @@ class Board {
      * @return The tile with the given coordinates,
      * null if the coordinates are illegal
      */
-    Tile getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         if (isWithinBoard(x, y)) {
             return tileMatrix[x][y];
         }
@@ -50,6 +50,7 @@ class Board {
     public Tile[][] getTileMatrix(){
         return tileMatrix;
     }
+
 
     private Boolean isWithinBoard (int x, int y) {
         return x >= 0 && x < getBoardWidth() &&
@@ -106,7 +107,7 @@ class Board {
     /**
      * @return The tile that the cursor is currently on.
      */
-    Tile getCursorTile(){
+    public Tile getCursorTile(){
         return cursor;
     }
 
@@ -173,11 +174,11 @@ class Board {
         old.setUnit(null);
     }
 
-    private int getBoardWidth(){
+    public int getBoardWidth(){
         return tileMatrix.length;
     }
 
-    private int getBoardHeight(){
+    public int getBoardHeight(){
         return tileMatrix[0].length;
     }
 
