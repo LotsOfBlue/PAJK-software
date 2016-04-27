@@ -112,17 +112,6 @@ public class Board {
     }
 
     /**
-     * Displays an overlay on all the tiles that the given unit can move to.
-     * @param unit The unit to display movement range for.
-     */
-    void showMoveRange(Unit unit) {
-        Tile tile = getPos(unit);
-        //TODO tile.getTerrainType()
-        Set<Tile> movableTiles = getTilesWithinRange(new HashSet<Tile>(), tile, tile, unit.getMovement());
-        //TODO tile.setOverlay for every tile in movableTiles
-    }
-
-    /**
      * Recursively checks every tile that can be reached from a given tile,
      * with the given movement range, and adds them to a set.
      * @param tiles The set containing the tiles.

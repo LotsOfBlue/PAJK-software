@@ -39,7 +39,11 @@ public class ChooseTileState implements State{
                 for (Tile t:
                      allowedTiles) {
                     if (t == cursorTile){
-                        System.out.println("MOved the unit.");
+                        System.out.println("Moved the unit.");
+                        for (Tile ti:
+                                allowedTiles) {
+                            ti.setOverlay(Tile.Overlay.NONE);
+                        }
                         board.moveUnit(activeUnit, cursorTile);
                         manager.setState(StateManager.StateName.MAIN_STATE);
                         break;
@@ -55,5 +59,9 @@ public class ChooseTileState implements State{
         activeUnit = StateManager.getInstance().getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
         allowedTiles = board.getTilesWithinRange(new HashSet<>(), centerTile, centerTile, activeUnit.getMovement());
+        for (Tile t:
+             allowedTiles) {
+            t.setOverlay(Tile.Overlay.MOVEMENT);
+        }
     }
 }

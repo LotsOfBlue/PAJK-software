@@ -9,7 +9,11 @@ public class Tile{
     private final int x;
     private final int y;
     private Unit unit;
-    private Color overlay;
+    private Overlay overlay = Overlay.NONE;
+
+    public enum Overlay{
+        MOVEMENT, TARGET, NONE
+    }
 
     Tile(int x, int y){
         this.x = x;
@@ -36,16 +40,16 @@ public class Tile{
         this.unit = unit;
     }
 
-    public Color getOverlay() {
+    public Overlay getOverlay() {
         return overlay;
     }
 
-    public void setOverlay(Color overlay) {
+    public void setOverlay(Overlay overlay) {
         this.overlay = overlay;
     }
 
     public String toString(){
-        return "Tile at " +x +" "+y;
+        return "Tile at " +x+" "+y;
     }
 
     @Override
