@@ -203,7 +203,16 @@ class Board {
     }
 
     void moveUnit(Unit unit, Tile dest) {
-
+        for (Tile[] arr:
+             tileMatrix) {
+            for (Tile t:
+                 arr) {
+                if (t.hasUnit() && t.getUnit() == unit){
+                    t.setUnit(null);
+                }
+            }
+        }
+        dest.setUnit(unit);
     }
 
     public String toString(){

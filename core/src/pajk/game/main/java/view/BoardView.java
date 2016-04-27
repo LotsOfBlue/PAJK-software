@@ -18,7 +18,7 @@ public class BoardView extends GameView{
 
     public BoardView(){
         img = new Texture("grass-tile");
-        unit = new Texture("unit-sprite.png");
+        unit = new Texture("unit-sprite");
         this.gameModel = StateManager.getInstance();
     }
 
