@@ -1,6 +1,6 @@
 package pajk.game.main.java.model;
 
-import java.awt.*;
+import pajk.game.main.java.model.terrain.Terrain;
 
 /**
  * Created by palm on 2016-04-15.
@@ -8,6 +8,7 @@ import java.awt.*;
 public class Tile{
     private final int x;
     private final int y;
+    private final Terrain terrain;
     private Unit unit;
     private Overlay overlay = Overlay.NONE;
 
@@ -15,9 +16,10 @@ public class Tile{
         MOVEMENT, TARGET, NONE
     }
 
-    Tile(int x, int y){
+    Tile(int x, int y, Terrain terrain){
         this.x = x;
         this.y = y;
+        this.terrain = terrain;
     }
 
     public int getX(){
@@ -38,6 +40,14 @@ public class Tile{
 
     void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    int getMovementCost() {
+        return terrain.getMovementCost();
+    }
+
+    int getEvasion() {
+        return terrain.getEvasion();
     }
 
     public Overlay getOverlay() {
