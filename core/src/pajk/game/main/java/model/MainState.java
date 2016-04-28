@@ -31,8 +31,8 @@ public class MainState implements State {
             case ENTER:
                 Tile cursorTile = board.getCursorTile();
                 if (cursorTile.hasUnit() && cursorTile.getUnit().getAllegiance() == Unit.Allegiance.human){
-                    StateManager.getInstance().setActiveUnit(cursorTile.getUnit());
-                    StateManager.getInstance().setState(StateManager.StateName.UNIT_MENU);
+                    GameModel.getInstance().setActiveUnit(cursorTile.getUnit());
+                    GameModel.getInstance().setState(GameModel.StateName.UNIT_MENU);
                 }
                 break;
         }

@@ -2,11 +2,14 @@ package pajk.game.main.java.model;
 
 /**
  * Created by jonatan on 20/04/2016.
- * Weapons are special items of a special type, with a range, damage and critmultiplier value.
+ * Weapons are special items of a special type, with a minRange, damage and critmultiplier value.
  */
 class Weapon extends Item{
     private WeaponType weaponType;
-    private int range, damage, critChance, accuracy;
+    private int minRange, maxRange, damage, critChance, accuracy;
+
+
+
     public enum WeaponType{
         Sword,
         Axe,
@@ -16,19 +19,24 @@ class Weapon extends Item{
         Book
     }
 
-    Weapon(WeaponType weaponType, int range, int damage, int critChance, int accuracy){
+    Weapon(WeaponType weaponType, int minRange, int maxRange, int damage, int critChance, int accuracy){
         this.weaponType = weaponType;
         this.critChance = critChance;
         this.damage = damage;
-        this.range = range;
+        this.minRange = minRange;
+        this.maxRange = maxRange;
         this.accuracy = accuracy;
+    }
+
+    public int getMaxRange() {
+        return maxRange;
     }
 
     public int getCritChance() {return critChance;}
 
     public int getDamage() {return damage;}
 
-    public int getRange() {return range;}
+    public int getMinRange() {return minRange;}
 
     public int getAccuracy() {return accuracy;}
 

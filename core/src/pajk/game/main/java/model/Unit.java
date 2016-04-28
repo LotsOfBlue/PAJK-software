@@ -24,7 +24,7 @@ class Unit {
     private int aid = 1;
     private UnitState state = UnitState.isReady;
     private UnitMovementType movementType = UnitMovementType.walking;
-    private Weapon weapon = new Weapon(Weapon.WeaponType.Pike,1,1,2,1);
+    private Weapon weapon = new Weapon(Weapon.WeaponType.Pike,1,1,1,2,1);
     private ArrayList<Item> itemList;
     private Allegiance allegiance;
     public enum Allegiance{
@@ -133,7 +133,7 @@ class Unit {
     /**
      * @return the Weapon Type of the unit
      */
-    public Weapon.WeaponType getWeaponType(){return getWeaponType();}
+    public Weapon.WeaponType getWeaponType(){return weapon.getWeaponType();}
 
     /**
      * @return the weapon damage of the unit
@@ -145,7 +145,12 @@ class Unit {
     /**
      * @return the attack Range of the unit
      */
-    public int getWeaponRange(){return weapon.getRange();}
+    public int getWeaponMinRange(){return weapon.getMinRange();}
+
+    /**
+     * @return the maximum attack range of the unit.
+     */
+    public int getWeaponMaxRange(){return weapon.getMaxRange();}
 
     /**
      * @return the current State of the unit, see @UnitState

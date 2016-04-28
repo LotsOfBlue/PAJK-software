@@ -3,8 +3,12 @@ package pajk.game.main.java.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
+<<<<<<< e52c1eb1d52e0027b6be955821ffd00417fb63e7
 import pajk.game.main.java.model.StateManager;
 import pajk.game.main.java.model.Tile;
+=======
+import pajk.game.main.java.model.GameModel;
+>>>>>>> Completed the state for selecting a target
 
 
 /**
@@ -13,7 +17,7 @@ import pajk.game.main.java.model.Tile;
 public class BoardView extends GameView{
 
 
-    private StateManager gameModel;
+    private GameModel gameModel;
     private Texture img;
     private Texture unit;
     private Texture cursor;
@@ -26,10 +30,14 @@ public class BoardView extends GameView{
         img = new Texture("grass-tile");
         unit = new Texture("unit-sprite");
         cursor = new Texture("cursor");
+<<<<<<< e52c1eb1d52e0027b6be955821ffd00417fb63e7
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
 
         this.gameModel = StateManager.getInstance();
+=======
+        this.gameModel = GameModel.getInstance();
+>>>>>>> Completed the state for selecting a target
     }
 
     @Override

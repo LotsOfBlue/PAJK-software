@@ -14,6 +14,7 @@ public class UnitMenuState implements State {
     private Unit activeUnit;
     private Map<Integer, String> menuMap = new HashMap<>();
     private int menuItemSelected = 0;
+    private GameModel manager;
 
     public UnitMenuState(){
         menuMap.put(0, "Move");
@@ -34,9 +35,15 @@ public class UnitMenuState implements State {
                 break;
             case ENTER:
                 //If the user selected 'Move'...
-                if (menuMap.get(menuItemSelected).equals("Move")) {
-                    System.out.println("Move selected");
-                    StateManager.getInstance().setState(StateManager.StateName.CHOOSE_TILE);
+                switch (menuMap.get(menuItemSelected)){
+                    case "Move":
+                        System.out.println("Move selected");
+                        manager.setState(GameModel.StateName.MOVE_SELECT);
+                        break;
+                    case "Attack":
+                        System.out.println("Attack selected");
+                        manager.setState(GameModel.StateName.CHOOSE_TARGET);
+                        break;
                 }
                 break;
         }
@@ -44,7 +51,8 @@ public class UnitMenuState implements State {
 
     @Override
     public void activate() {
-        activeUnit = StateManager.getInstance().getActiveUnit();
+        manager = GameModel.getInstance();
+        activeUnit = GameModel.getInstance().getActiveUnit();
         System.out.println(this.toString());
     }
 

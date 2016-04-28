@@ -8,14 +8,14 @@ import java.util.Set;
 /**
  * Created by Gustav on 2016-04-25.
  */
-public class ChooseTileState implements State{
+public class MoveSelectionState implements State{
 
     private Unit activeUnit;
     private Board board;
-    private StateManager manager;
+    private GameModel manager;
     private Set<Tile> allowedTiles;
 
-    public ChooseTileState(Board board){
+    public MoveSelectionState(Board board){
         this.board = board;
     }
 
@@ -35,30 +35,34 @@ public class ChooseTileState implements State{
                 board.moveCursor(Board.Direction.SOUTH);
                 break;
             case ENTER:
-                Tile cursorTile = board.getCursorTile();
-                for (Tile t:
-                     allowedTiles) {
-                    if (t == cursorTile){
-                        System.out.println("Moved the unit.");
-                        for (Tile ti:
-                                allowedTiles) {
-                            ti.setOverlay(Tile.Overlay.NONE);
-                        }
-                        board.moveUnit(activeUnit, cursorTile);
-                        manager.setState(StateManager.StateName.MAIN_STATE);
-                        break;
-                    }
-                }
+                enterAction();
                 break;
+        }
+    }
+
+    private void enterAction(){
+        Tile cursorTile = board.getCursorTile();
+        for (Tile t:
+                allowedTiles) {
+            if (t == cursorTile){
+                System.out.println("Moved the unit.");
+                for (Tile ti:
+                        allowedTiles) {
+                    ti.setOverlay(Tile.Overlay.NONE);
+                }
+                board.moveUnit(activeUnit, cursorTile);
+                manager.setState(GameModel.StateName.MAIN_STATE);
+                break;
+            }
         }
     }
 
     @Override
     public void activate() {
-        manager = StateManager.getInstance();
-        activeUnit = StateManager.getInstance().getActiveUnit();
+        manager = GameModel.getInstance();
+        activeUnit = GameModel.getInstance().getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
-        allowedTiles = board.getTilesWithinRange(new HashSet<>(), centerTile, centerTile, activeUnit.getMovement());
+        allowedTiles = board.getTilesWithinMoveRange(new HashSet<>(), centerTile, centerTile, activeUnit.getMovement());
         for (Tile t:
              allowedTiles) {
             t.setOverlay(Tile.Overlay.MOVEMENT);

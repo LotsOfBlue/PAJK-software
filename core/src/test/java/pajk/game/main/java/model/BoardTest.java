@@ -15,7 +15,7 @@
 //    public void testGetTilesWithinRange() throws Exception {
 //        Board testBoard = new Board(3);
 //        Tile origin = testBoard.getTile(0,0);
-//        Set<Tile> tileSet = testBoard.getTilesWithinRange(new HashSet<Tile>(), origin, origin, 3);
+//        Set<Tile> tileSet = testBoard.getTilesWithinMoveRange(new HashSet<Tile>(), origin, origin, 3);
 //        for (Tile t:
 //                tileSet) {
 //            System.out.println(t.getX() + " " + t.getY());

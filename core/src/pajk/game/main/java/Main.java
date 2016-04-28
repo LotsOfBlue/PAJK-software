@@ -1,7 +1,7 @@
 package pajk.game.main.java;
 
 import pajk.game.main.java.controller.Controller;
-import pajk.game.main.java.model.StateManager;
+import pajk.game.main.java.model.GameModel;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        Controller control = new Controller(StateManager.getInstance());
+        Controller control = new Controller(GameModel.getInstance());
         Scanner scan = new Scanner(System.in);
         while (true){
             String str = scan.next();

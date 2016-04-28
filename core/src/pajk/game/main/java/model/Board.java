@@ -119,7 +119,7 @@ public class Board {
      * @param range The movement range of the moving unit.
      * @return A set containing every tile that can be reached from the origin tile.
      */
-    Set<Tile> getTilesWithinRange(Set<Tile> tiles, Tile origin, Tile previous, int range) {
+    public Set<Tile> getTilesWithinMoveRange(Set<Tile> tiles, Tile origin, Tile previous, int range) {
         tiles.add(origin);
         if (range < 1){
             return tiles;
@@ -128,28 +128,57 @@ public class Board {
         if (origin.getY() > 0){
             Tile northTile = getTile(origin.getX(), origin.getY() - 1);
             if (previous != northTile) {
-                tiles.addAll(getTilesWithinRange(tiles, northTile, origin, range - 1));
+                tiles.addAll(getTilesWithinMoveRange(tiles, northTile, origin, range - 1));
             }
         }
         if (origin.getY() < getBoardHeight() - 1){
             Tile southTile = getTile(origin.getX(), origin.getY() + 1);
             if (previous != southTile) {
-                tiles.addAll(getTilesWithinRange(tiles, southTile, origin, range - 1));
+                tiles.addAll(getTilesWithinMoveRange(tiles, southTile, origin, range - 1));
             }
         }
         if (origin.getX() > 0){
             Tile westTile = getTile(origin.getX() - 1, origin.getY());
             if (previous != westTile) {
-                tiles.addAll(getTilesWithinRange(tiles, westTile, origin, range - 1));
+                tiles.addAll(getTilesWithinMoveRange(tiles, westTile, origin, range - 1));
             }
         }
         if (origin.getX() < getBoardWidth() - 1){
             Tile eastTile = getTile(origin.getX() + 1, origin.getY());
             if (previous != eastTile) {
-                tiles.addAll(getTilesWithinRange(tiles, eastTile, origin, range - 1));
+                tiles.addAll(getTilesWithinMoveRange(tiles, eastTile, origin, range - 1));
             }
         }
         return tiles;
+    }
+
+    /**
+     * Returns the tiles that are at at least minRange steps away from the center tile but no more than maxRange steps away.
+     * Does not take tile movement costs into effect.
+     * @param center The tile oyu want to get the surrounding tiles of.
+     * @param minRange The minimum movement range to the returned tiles.
+     * @param maxRange The maximum movement range to the returned tiles.
+     * @return
+     */
+    public Set<Tile> getTilesAround(Tile center, int minRange, int maxRange){
+        Set<Tile> result = new HashSet<Tile>();
+        for (int i = minRange; i <= maxRange; i++) {
+            for (int j = 0; j < i; j++) {
+                if (isWithinBoard(center.getX() - i + j, center.getY() - j)){
+                    result.add(getTile(center.getX() - i + j, center.getY() - j));
+                }
+                if (isWithinBoard(center.getX()+ j, center.getY() - i + j)){
+                    result.add(getTile(center.getX()+ j, center.getY() - i + j));
+                }
+                if (isWithinBoard(center.getX() + i - j, center.getY() + j)){
+                    result.add(getTile(center.getX() + i - j, center.getY() + j));
+                }
+                if (isWithinBoard(center.getX() - j, center.getY() + i - j)){
+                    result.add(getTile(center.getX() - j, center.getY() + i - j));
+                }
+            }
+        }
+        return result;
     }
 
     /**

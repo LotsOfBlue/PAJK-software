@@ -5,22 +5,24 @@ import pajk.game.main.java.ActionName;
 /**
  * Created by palm on 2016-04-18.
  */
-public final class StateManager {
+public final class GameModel {
 
-    private static StateManager ourInstance = null;
+    private static GameModel ourInstance = null;
 
     private Board board;
     private Player player;
     private Player computerPlayer;
     private Unit activeUnit;
+    private Unit targetUnit;
 
     //States
     private State currentState;
     private final MainState mainState;
     private final UnitMenuState unitMenuState;
-    private final ChooseTileState chooseTileState;
-    private final CombatInfoState combatInfoState;
     private final EnemyTurnState enemyTurnState;
+    private final MoveSelectionState moveSelectionState;
+    private final ChooseTargetState chooseTargetState;
+    private final CombatInfoState combatInfoState;
 
     public void setActiveUnit(Unit activeUnit) {
         this.activeUnit = activeUnit;
@@ -33,23 +35,32 @@ public final class StateManager {
         return board;
     }
 
+    public Unit getTargetUnit() {
+        return targetUnit;
+    }
+
+    public void setTargetUnit(Unit targetUnit) {
+        this.targetUnit = targetUnit;
+    }
+
     public enum StateName{
         MAIN_STATE,
         UNIT_MENU,
-        CHOOSE_TILE,
+        ENEMY_TURN,
+        MOVE_SELECT,
         COMBAT_INFO,
-        ENEMY_TURN;
+        CHOOSE_TARGET
     }
 
-    public static StateManager getInstance(){
+    public static GameModel getInstance(){
         if(ourInstance == null) {
-            ourInstance = new StateManager();
+            ourInstance = new GameModel();
         }
         return ourInstance;
     }
 
-    private StateManager(){
-        //Initialize game objects.
+    private GameModel(){
+        //Init game objects.
         board = new Board(10, 5);
         player = new Player(false);
         computerPlayer = new Player(true);
@@ -57,17 +68,20 @@ public final class StateManager {
         //Initialize states
         unitMenuState = new UnitMenuState();
         mainState = new MainState(board);
-        chooseTileState = new ChooseTileState(board);
-        combatInfoState = new CombatInfoState();
         enemyTurnState = new EnemyTurnState();
-
+        moveSelectionState = new MoveSelectionState(board);
+        chooseTargetState = new ChooseTargetState(board);
+        combatInfoState = new CombatInfoState();
+        setState(StateName.MAIN_STATE);
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human, 4);
+        myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.Axe,2,3,1,1,90));
         player.addUnit(myLittleSoldier);
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
-
-        //Set starting state
-        setState(StateName.MAIN_STATE);
+        //Create an enemy
+        Unit theBigBad = new Unit(Unit.Allegiance.ai, 5);
+        computerPlayer.addUnit(theBigBad);
+        board.placeUnit(theBigBad, board.getTile(2,2));
     }
 
     public void setState(StateName state){
@@ -80,8 +94,12 @@ public final class StateManager {
                 currentState = unitMenuState;
                 currentState.activate();
                 break;
-            case CHOOSE_TILE:
-                currentState = chooseTileState;
+            case MOVE_SELECT:
+                currentState = moveSelectionState;
+                currentState.activate();
+                break;
+            case CHOOSE_TARGET:
+                currentState = chooseTargetState;
                 currentState.activate();
                 break;
             case COMBAT_INFO:
@@ -101,7 +119,8 @@ public final class StateManager {
     public Player getComputerPlayer() {
         return computerPlayer;
     }
-
+    
+    //Delegates the keyboard press to the current state handling the logic.
     public void performAction(ActionName action){
         currentState.performAction(action);
     }

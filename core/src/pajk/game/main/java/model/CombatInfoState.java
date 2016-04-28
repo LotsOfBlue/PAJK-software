@@ -15,7 +15,7 @@ public class CombatInfoState implements State{
                 break;
 
             case BACK:
-                StateManager.getInstance().setState(StateManager.StateName.CHOOSE_TILE);
+                GameModel.getInstance().setState(GameModel.StateName.MOVE_SELECT);
                 break;
         }
     }
