@@ -1,5 +1,7 @@
 package pajk.game.main.java.model;
 
+import pajk.game.main.java.model.terrain.Plains;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +30,7 @@ public class Board {
         tileMatrix = new Tile[x][y];
         for (int i = 0; i < x; i++){
             for(int j = 0; j < y; j++){
-                tileMatrix[i][j] = new Tile(i,j);
+                tileMatrix[i][j] = new Tile(i,j, new Plains());
             }
         }
     }
