@@ -8,12 +8,17 @@ import java.util.List;
  */
 class Player {
     private boolean computerControlled;
-    private List<Unit> unitList = new ArrayList<Unit>();
+    private List<Unit> unitList = new ArrayList<>();
+
     Player(boolean computerControlled){
         this.computerControlled = computerControlled;
     }
 
-    void addUnit(Unit unit){
+    public void addUnit(Unit unit){
         unitList.add(unit);
+    }
+
+    public List<Unit> getUnitList() {
+        return unitList;
     }
 }

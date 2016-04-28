@@ -9,18 +9,18 @@ public final class StateManager {
 
     private static StateManager ourInstance = null;
 
-    private State currentState;
     private Board board;
     private Player player;
-    private Player computer;
+    private Player computerPlayer;
     private Unit activeUnit;
 
     //States
+    private State currentState;
     private final MainState mainState;
     private final UnitMenuState unitMenuState;
     private final ChooseTileState chooseTileState;
     private final CombatInfoState combatInfoState;
-
+    private final EnemyTurnState enemyTurnState;
 
     public void setActiveUnit(Unit activeUnit) {
         this.activeUnit = activeUnit;
@@ -37,7 +37,8 @@ public final class StateManager {
         MAIN_STATE,
         UNIT_MENU,
         CHOOSE_TILE,
-        COMBAT_INFO;
+        COMBAT_INFO,
+        ENEMY_TURN;
     }
 
     public static StateManager getInstance(){
@@ -51,13 +52,14 @@ public final class StateManager {
         //Initialize game objects.
         board = new Board(10, 5);
         player = new Player(false);
-        computer = new Player(true);
+        computerPlayer = new Player(true);
 
         //Initialize states
         unitMenuState = new UnitMenuState();
         mainState = new MainState(board);
         chooseTileState = new ChooseTileState(board);
         combatInfoState = new CombatInfoState();
+        enemyTurnState = new EnemyTurnState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human, 4);
@@ -86,7 +88,18 @@ public final class StateManager {
                 currentState = combatInfoState;
                 currentState.activate();
                 break;
+            case ENEMY_TURN:
+                currentState = enemyTurnState;
+                currentState.activate();
         }
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Player getComputerPlayer() {
+        return computerPlayer;
     }
 
     public void performAction(ActionName action){
