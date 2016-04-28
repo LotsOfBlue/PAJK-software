@@ -23,6 +23,7 @@ public final class GameModel {
     private final MoveSelectionState moveSelectionState;
     private final ChooseTargetState chooseTargetState;
     private final CombatInfoState combatInfoState;
+    private final CombatState combatState;
 
     public void setActiveUnit(Unit activeUnit) {
         this.activeUnit = activeUnit;
@@ -49,7 +50,8 @@ public final class GameModel {
         ENEMY_TURN,
         MOVE_SELECT,
         COMBAT_INFO,
-        CHOOSE_TARGET
+        CHOOSE_TARGET,
+        COMBAT_STATE
     }
 
     public static GameModel getInstance(){
@@ -72,6 +74,7 @@ public final class GameModel {
         moveSelectionState = new MoveSelectionState(board);
         chooseTargetState = new ChooseTargetState(board);
         combatInfoState = new CombatInfoState();
+        combatState = new CombatState(board);
         setState(StateName.MAIN_STATE);
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human, 4);
@@ -108,6 +111,10 @@ public final class GameModel {
                 break;
             case ENEMY_TURN:
                 currentState = enemyTurnState;
+                currentState.activate();
+                break;
+            case COMBAT_STATE:
+                currentState = combatState;
                 currentState.activate();
         }
     }

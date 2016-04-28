@@ -12,6 +12,7 @@ public class CombatInfoState implements State{
         switch (action) {
             case ENTER:
                 //TODO Combat state
+                GameModel.getInstance().setState(GameModel.StateName.COMBAT_STATE);
                 break;
 
             case BACK:
