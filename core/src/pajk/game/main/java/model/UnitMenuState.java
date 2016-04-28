@@ -4,6 +4,7 @@ import pajk.game.main.java.ActionName;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Gustav on 2016-04-22.
@@ -25,11 +26,11 @@ public class UnitMenuState implements State {
         switch (action){
             case UP:
                 menuItemSelected = (menuItemSelected + 2) % menuMap.size();
-                System.out.println(menuItemSelected + menuMap.get(menuItemSelected));
+                System.out.println(this);
                 break;
             case DOWN:
                 menuItemSelected = (menuItemSelected + 1) % menuMap.size();
-                System.out.println(menuItemSelected + menuMap.get(menuItemSelected));
+                System.out.println(this);
                 break;
             case ENTER:
                 //If the user selected 'Move'...
@@ -44,5 +45,19 @@ public class UnitMenuState implements State {
     @Override
     public void activate() {
         activeUnit = StateManager.getInstance().getActiveUnit();
+        System.out.println(this.toString());
+    }
+
+    public String toString(){
+        Set<Integer> menuThings = menuMap.keySet();
+        String result = "";
+        for (Integer i :
+                menuThings) {
+            if (menuItemSelected == i){
+                result += ">";
+            }
+            result += "[" + menuMap.get(i) + "]\n";
+        }
+        return result;
     }
 }

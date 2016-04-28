@@ -92,7 +92,6 @@ public class Board {
                 newY >= 0 && newY < getBoardHeight()){
             setCursor(newX, newY);
         }
-        System.out.println(this.toString());
     }
 
     /**
