@@ -89,7 +89,7 @@ public class BoardView extends GameView{
                 }
                 if(gameModel.getBoard().getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
                     draw(x,y, overlayMove);
-                } else if(gameModel.getBoard().getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
+                } else if(gameModel.getBoard().getTile(x,y).getOverlay() == Tile.Overlay.TARGET){
                     draw(x,y, overlayAttack);
                 }
 
