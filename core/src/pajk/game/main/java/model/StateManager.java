@@ -15,10 +15,12 @@ public final class StateManager {
     private Player computer;
     private Unit activeUnit;
 
+    //States
+    private final MainState mainState;
+    private final UnitMenuState unitMenuState;
+    private final ChooseTileState chooseTileState;
+    private final CombatInfoState combatInfoState;
 
-    private MainState mainState;
-    private UnitMenuState unitMenuState;
-    private ChooseTileState chooseTileState;
 
     public void setActiveUnit(Unit activeUnit) {
         this.activeUnit = activeUnit;
@@ -46,21 +48,24 @@ public final class StateManager {
     }
 
     private StateManager(){
-        //Init game objects.
+        //Initialize game objects.
         board = new Board(10, 5);
         player = new Player(false);
         computer = new Player(true);
-        //Init states
+
+        //Initialize states
         unitMenuState = new UnitMenuState();
         mainState = new MainState(board);
         chooseTileState = new ChooseTileState(board);
-
-        setState(StateName.MAIN_STATE);
+        combatInfoState = new CombatInfoState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.human, 4);
         player.addUnit(myLittleSoldier);
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
+
+        //Set starting state
+        setState(StateName.MAIN_STATE);
     }
 
     public void setState(StateName state){
@@ -75,6 +80,10 @@ public final class StateManager {
                 break;
             case CHOOSE_TILE:
                 currentState = chooseTileState;
+                currentState.activate();
+                break;
+            case COMBAT_INFO:
+                currentState = combatInfoState;
                 currentState.activate();
                 break;
         }
