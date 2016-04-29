@@ -1,5 +1,6 @@
 package pajk.game.main.java.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -25,25 +26,26 @@ class Unit {
 
     private UnitState state;
     private MovementType movementType;
-    private List<Item> inventory;
+    private List<Item> inventory = new ArrayList<>();
     private Weapon weapon = new Weapon(Weapon.WeaponType.Pike, 1, 1, 1, 2, 1);
     private Allegiance allegiance;
 
     public enum Allegiance {
-        human,
-        ai
+        HUMAN,
+        AI
     }
 
     public enum UnitState {
-        isReady,
-        isMoved,
-        isDone
+        READY,
+        MOVED,
+        ATTACKED,
+        DONE
     }
 
     public enum MovementType {
-        walking,
-        riding,
-        flying
+        WALKING,
+        RIDING,
+        FLYING
     }
 
     Unit(Allegiance allegiance,
@@ -65,7 +67,7 @@ class Unit {
         this.allegiance = allegiance;
         this.movement = movement;
         this.movementType = movementType;
-        this.state = UnitState.isReady;
+        this.state = UnitState.READY;
     }
 
     //----------------------------------------------Getters
@@ -197,7 +199,7 @@ class Unit {
     }
 
     /**
-     * @return the Allegiance of the unit, ethier human or ai
+     * @return the Allegiance of the unit, either HUMAN or AI
      */
     public Allegiance getAllegiance() {
         return allegiance;
@@ -330,7 +332,7 @@ class Unit {
                 bonusVal = 10;
             }
         } else if (this.getWeaponType() == Weapon.WeaponType.Bow) {
-            if (enemy.getMovementType() == MovementType.flying) {
+            if (enemy.getMovementType() == MovementType.FLYING) {
                 bonusVal = 10;
             }
         }
