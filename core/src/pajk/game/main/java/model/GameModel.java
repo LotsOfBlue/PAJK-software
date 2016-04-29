@@ -45,7 +45,7 @@ public final class GameModel {
 
     private GameModel(){
         //Init game objects.
-        board = new Board(10, 5);
+        board = new Board("map1.txt");
         player = new Player(false);
         computerPlayer = new Player(true);
 

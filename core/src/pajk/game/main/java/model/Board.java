@@ -2,9 +2,6 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.model.terrain.*;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,19 +22,10 @@ public class Board {
     private Tile cursor;
     private Tile[][] tileMatrix;
 
-    Board(int x, int y) {
-        initMatrix("map1.txt");
+    Board(String fileName) {
+        initMatrix(fileName);
         //initMatrix(x, y);
         cursor = tileMatrix[0][0];
-    }
-
-    private void initMatrix(int x, int y){
-        tileMatrix = new Tile[x][y];
-        for (int i = 0; i < x; i++){
-            for(int j = 0; j < y; j++){
-                tileMatrix[i][j] = new Tile(i,j, new Plains());
-            }
-        }
     }
 
     private void initMatrix(String fileName){
