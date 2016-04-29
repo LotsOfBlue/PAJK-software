@@ -1,5 +1,7 @@
 package pajk.game.main.java.model;
 
+import pajk.game.main.java.model.terrain.Plains;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +30,7 @@ public class Board {
         tileMatrix = new Tile[x][y];
         for (int i = 0; i < x; i++){
             for(int j = 0; j < y; j++){
-                tileMatrix[i][j] = new Tile(i,j);
+                tileMatrix[i][j] = new Tile(i,j, new Plains());
             }
         }
     }
@@ -165,7 +167,7 @@ public class Board {
      * @return
      */
     public Set<Tile> getTilesAround(Tile center, int minRange, int maxRange){
-        Set<Tile> result = new HashSet<Tile>();
+        Set<Tile> result = new HashSet<>();
         for (int i = minRange; i <= maxRange; i++) {
             for (int j = 0; j < i; j++) {
                 if (isWithinBoard(center.getX() - i + j, center.getY() - j)){
@@ -186,7 +188,7 @@ public class Board {
     }
 
     /**
-     * TODO
+     * TODO delete?
      * @param unit
      */
     void moveToCursor(Unit unit) {

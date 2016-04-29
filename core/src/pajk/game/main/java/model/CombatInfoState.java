@@ -11,11 +11,11 @@ public class CombatInfoState implements State{
     public void performAction(ActionName action) {
         switch (action) {
             case ENTER:
-                //TODO Combat state
+                GameModel.getInstance().setState(GameModel.StateName.COMBAT_STATE);
                 break;
 
             case BACK:
-                GameModel.getInstance().setState(GameModel.StateName.MOVE_SELECT);
+                GameModel.getInstance().setState(GameModel.StateName.CHOOSE_TARGET);
                 break;
         }
     }

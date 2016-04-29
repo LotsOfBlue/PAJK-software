@@ -123,8 +123,6 @@ class Unit {
     public UnitMovementType getMovementType(){return movementType;}
     //private UnitAffinity affinity = UnitAfinity.;
 
-
-
     /**
      * @return all the Items of the unit
      */
@@ -218,26 +216,6 @@ class Unit {
         //TODO lvl up throwing?
     }
 
-    public void fight(Unit enemy){
-        //TODO math & stuff
-        //If active unit get 2 hits else 1 each
-        this.attack(enemy);
-        if(enemy.getHealth()>0){
-            enemy.attack(this);
-            if( (this.getHealth()>0) && (this.getSpeed()>=(enemy.getSpeed()+4))){
-                this.attack(enemy);
-            }
-        }
-
-
-    }
-
-    public void attack(Unit enemy) {
-        if (this.doesHit(enemy)) {
-            enemy.takeDamage(this.calcAttackDamage(enemy));
-
-        }
-    }
 
     public void takeDamage(int damage){
         health-=damage;
@@ -246,23 +224,28 @@ class Unit {
         }
     }
 
-    private int calcAttackDamage(Unit enemy){
+    public int calcAttackDamage(Unit enemy){
         int damage;
-        int critMultiplier = 1;
-        if (this.doesCrit(enemy)){
-            critMultiplier = 2;
-        }
-        if(this.getWeaponType()== Weapon.WeaponType.Book){
-            damage = critMultiplier*(this.getWeaponDamage()
-                    +this.getMight()
-                    +this.getWeaponAdvantage(enemy)
-                    -enemy.getResistance());
+        if(doesHit(enemy)){
+            int critMultiplier = 1;
+            if (this.doesCrit(enemy)){
+                critMultiplier = 2;
+            }
+            if(this.getWeaponType()== Weapon.WeaponType.Book){
+                damage = critMultiplier*(this.getWeaponDamage()
+                        +this.getMight()
+                        +this.getWeaponAdvantage(enemy)
+                        -enemy.getResistance());
+            }else{
+                damage = critMultiplier*(this.getWeaponDamage()
+                        +this.getStrength()
+                        +this.getWeaponAdvantage(enemy)
+                        -enemy.getDefence());
+            }
         }else{
-            damage = critMultiplier*(this.getWeaponDamage()
-                    +this.getStrength()
-                    +this.getWeaponAdvantage(enemy)
-                    -enemy.getDefence());
+            damage = 0;
         }
+
         return damage;
     }
 

@@ -12,7 +12,6 @@ import pajk.game.main.java.model.GameModel;
  */
 public class BoardView extends GameView{
 
-
     private GameModel gameModel;
     private Texture img;
     private Texture unit;
@@ -64,7 +63,6 @@ public class BoardView extends GameView{
     /**
      * Draws texture on board.
      * Converts from "board coordinates" to "pixel coordinates"
-     * @param spriteBatch
      * @param x
      * @param y
      * @param texture
@@ -92,11 +90,7 @@ public class BoardView extends GameView{
                 } else if(gameModel.getBoard().getTile(x,y).getOverlay() == Tile.Overlay.TARGET){
                     draw(x,y, overlayAttack);
                 }
-
             }
         }
-
     }
-
-
 }
