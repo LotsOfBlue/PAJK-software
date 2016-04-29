@@ -7,7 +7,7 @@ import java.util.Random;
  * Created by palm on 2016-04-15.
  * The unit class is the representation of a character on the game board, it has stats & stuff
  */
-class Unit {
+public class Unit {
     //Stats of a unit
     private int level = 1;
     private int experience = 1;

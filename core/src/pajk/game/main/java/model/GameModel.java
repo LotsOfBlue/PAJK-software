@@ -81,6 +81,9 @@ public final class GameModel {
         myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.Axe,2,3,1,1,90));
         player.addUnit(myLittleSoldier);
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
+        Unit myOtherSoldier = new Unit(Unit.Allegiance.human, 3);
+        player.addUnit(myOtherSoldier);
+        board.placeUnit(myOtherSoldier, board.getTile(5, 3));
         //Create an enemy
         Unit theBigBad = new Unit(Unit.Allegiance.ai, 5);
         computerPlayer.addUnit(theBigBad);

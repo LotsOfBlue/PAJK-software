@@ -2,7 +2,6 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -62,7 +61,7 @@ public class MoveSelectionState implements State{
         manager = GameModel.getInstance();
         activeUnit = GameModel.getInstance().getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
-        allowedTiles = board.getTilesWithinMoveRange(new HashSet<>(), centerTile, centerTile, activeUnit.getMovement());
+        allowedTiles = board.getTilesWithinMoveRange(activeUnit);
         for (Tile t:
              allowedTiles) {
             t.setOverlay(Tile.Overlay.MOVEMENT);
