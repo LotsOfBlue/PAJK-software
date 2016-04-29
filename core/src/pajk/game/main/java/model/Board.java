@@ -133,7 +133,7 @@ public class Board {
 
         if (origin.getY() > 0){
             Tile northTile = getTile(origin.getX(), origin.getY() - 1);
-            if (previous != northTile && (origin.hasUnit()?)) {
+            if (previous != northTile && (origin.hasUnit())) {
                 tiles.addAll(getTilesWithinMoveRange(tiles, northTile, origin, range - 1));
             }
         }
