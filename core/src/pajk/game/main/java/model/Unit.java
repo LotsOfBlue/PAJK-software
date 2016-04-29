@@ -24,7 +24,7 @@ class Unit {
     private int constitution = 1;
     private int aid = 1;
 
-    private UnitState state;
+    private UnitState unitState;
     private MovementType movementType;
     private List<Item> inventory = new ArrayList<>();
     private Weapon weapon = new Weapon(Weapon.WeaponType.Pike, 1, 1, 1, 2, 1);
@@ -38,8 +38,7 @@ class Unit {
     public enum UnitState {
         READY,
         MOVED,
-        ATTACKED,
-        DONE
+        ATTACKED
     }
 
     public enum MovementType {
@@ -67,7 +66,7 @@ class Unit {
         this.allegiance = allegiance;
         this.movement = movement;
         this.movementType = movementType;
-        this.state = UnitState.READY;
+        this.unitState = UnitState.READY;
     }
 
     //----------------------------------------------Getters
@@ -194,8 +193,8 @@ class Unit {
     /**
      * @return the current State of the unit, see @UnitState
      */
-    public UnitState getState() {
-        return state;
+    public UnitState getUnitState() {
+        return unitState;
     }
 
     /**
@@ -227,8 +226,8 @@ class Unit {
 
     //--------------------------------------------------Setters
 
-    public void setState(UnitState state) {
-        this.state = state;
+    public void setUnitState(UnitState unitState) {
+        this.unitState = unitState;
     }
 
     public void setAllegiance(Allegiance allegiance) {

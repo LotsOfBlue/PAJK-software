@@ -12,7 +12,7 @@ public class MoveSelectionState implements State{
 
     private Unit activeUnit;
     private Board board;
-    private GameModel manager;
+    private GameModel model;
     private Set<Tile> allowedTiles;
 
     public MoveSelectionState(Board board){
@@ -37,6 +37,9 @@ public class MoveSelectionState implements State{
             case ENTER:
                 enterAction();
                 break;
+            case BACK:
+                backToMenu();
+                break;
         }
     }
 
@@ -51,15 +54,26 @@ public class MoveSelectionState implements State{
                     ti.setOverlay(Tile.Overlay.NONE);
                 }
                 board.moveUnit(activeUnit, cursorTile);
-                manager.setState(GameModel.StateName.MAIN_STATE);
+                activeUnit.setUnitState(Unit.UnitState.MOVED);
+                model.setState(GameModel.StateName.MAIN_STATE);
                 break;
             }
         }
     }
 
+    /**
+     * Cancel moving and return back to the unit menu
+     */
+    private void backToMenu() {
+        for (Tile t : allowedTiles) {
+            t.setOverlay(Tile.Overlay.NONE);
+        }
+        GameModel.getInstance().setState(GameModel.StateName.UNIT_MENU);
+    }
+
     @Override
     public void activate() {
-        manager = GameModel.getInstance();
+        model = GameModel.getInstance();
         activeUnit = GameModel.getInstance().getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
         allowedTiles = board.getTilesWithinMoveRange(new HashSet<>(), centerTile, centerTile, activeUnit.getMovement());
