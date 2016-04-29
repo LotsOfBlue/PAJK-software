@@ -49,12 +49,18 @@ public class UnitMenuState implements State {
                             model.setState(GameModel.StateName.CHOOSE_TARGET);
                         }
                         break;
+                    //Don't do anything else this turn
+                    case "Wait":
+                        activeUnit.setUnitState(Unit.UnitState.ATTACKED);
+                        model.setActiveUnit(null);
+                        model.setState(GameModel.StateName.MAIN_STATE);
+                        break;
                 }
                 break;
             //Close the menu and return to the field
             case BACK:
-                GameModel.getInstance().setActiveUnit(null);
-                GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
+                model.setActiveUnit(null);
+                model.setState(GameModel.StateName.MAIN_STATE);
                 System.out.println("Closed menu."); //TODO debug
                 break;
         }
@@ -63,7 +69,7 @@ public class UnitMenuState implements State {
     @Override
     public void activate() {
         model = GameModel.getInstance();
-        activeUnit = GameModel.getInstance().getActiveUnit();
+        activeUnit = model.getActiveUnit();
         System.out.println(this.toString());
     }
 

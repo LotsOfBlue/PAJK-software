@@ -7,7 +7,8 @@ import pajk.game.main.java.ActionName;
  */
 public class MainState implements State {
 
-    Board board;
+    private GameModel model;
+    private Board board;
 
     public MainState(Board board){
         this.board = board;
@@ -30,9 +31,13 @@ public class MainState implements State {
                 break;
             case ENTER:
                 Tile cursorTile = board.getCursorTile();
-                if (cursorTile.hasUnit() && cursorTile.getUnit().getAllegiance() == Unit.Allegiance.HUMAN){
-                    GameModel.getInstance().setActiveUnit(cursorTile.getUnit());
-                    GameModel.getInstance().setState(GameModel.StateName.UNIT_MENU);
+                if (cursorTile.hasUnit()){
+                    Unit currentUnit = cursorTile.getUnit();
+                    if (    currentUnit.getAllegiance() == Unit.Allegiance.HUMAN &&
+                            currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
+                        model.setActiveUnit(cursorTile.getUnit());
+                        model.setState(GameModel.StateName.UNIT_MENU);
+                    }
                 }
                 break;
         }
@@ -40,6 +45,6 @@ public class MainState implements State {
 
     @Override
     public void activate() {
-
+        model = GameModel.getInstance();
     }
 }

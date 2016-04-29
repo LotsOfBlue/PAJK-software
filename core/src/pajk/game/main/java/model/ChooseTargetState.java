@@ -67,7 +67,7 @@ public class ChooseTargetState implements State {
         for (Tile t : allowedTiles) {
             t.setOverlay(Tile.Overlay.NONE);
         }
-        GameModel.getInstance().setState(GameModel.StateName.UNIT_MENU);
+        model.setState(GameModel.StateName.UNIT_MENU);
     }
 
     @Override
