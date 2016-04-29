@@ -53,7 +53,13 @@ public class MoveSelectionState implements State{
                     ti.setOverlay(Tile.Overlay.NONE);
                 }
                 board.moveUnit(activeUnit, cursorTile);
+
                 activeUnit.setUnitState(Unit.UnitState.MOVED);
+                //Force the previously active unit to finish its turn if it wasn't done
+                Unit prev = model.getPrevActiveUnit();
+                if (prev != null && prev.getUnitState() == Unit.UnitState.MOVED) {
+                    prev.setUnitState(Unit.UnitState.ATTACKED);
+                }
                 model.setState(GameModel.StateName.MAIN_STATE);
                 break;
             }

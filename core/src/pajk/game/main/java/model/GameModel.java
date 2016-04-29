@@ -13,6 +13,7 @@ public final class GameModel {
     private Player player;
     private Player computerPlayer;
     private Unit activeUnit;
+    private Unit prevActiveUnit;
     private Unit targetUnit;
 
     //States
@@ -24,25 +25,6 @@ public final class GameModel {
     private final ChooseTargetState chooseTargetState;
     private final CombatInfoState combatInfoState;
     private final CombatState combatState;
-
-    public void setActiveUnit(Unit activeUnit) {
-        this.activeUnit = activeUnit;
-    }
-
-    public Unit getActiveUnit() {
-        return activeUnit;
-    }
-    public Board getBoard(){
-        return board;
-    }
-
-    public Unit getTargetUnit() {
-        return targetUnit;
-    }
-
-    public void setTargetUnit(Unit targetUnit) {
-        this.targetUnit = targetUnit;
-    }
 
     public enum StateName{
         MAIN_STATE,
@@ -121,6 +103,35 @@ public final class GameModel {
                 currentState = combatState;
                 currentState.activate();
         }
+    }
+
+    public Board getBoard(){
+        return board;
+    }
+
+    public Unit getActiveUnit() {
+        return activeUnit;
+    }
+
+    /**
+     * Sets a new active unit and stores the old one as prevActiveUnit.
+     * @param activeUnit The new active unit.
+     */
+    public void setActiveUnit(Unit activeUnit) {
+        this.prevActiveUnit = this.activeUnit;
+        this.activeUnit = activeUnit;
+    }
+
+    public Unit getPrevActiveUnit() {
+        return prevActiveUnit;
+    }
+
+    public Unit getTargetUnit() {
+        return targetUnit;
+    }
+
+    public void setTargetUnit(Unit targetUnit) {
+        this.targetUnit = targetUnit;
     }
 
     public Player getPlayer() {

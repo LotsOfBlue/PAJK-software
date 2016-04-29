@@ -48,7 +48,11 @@ public class CombatState implements State {
             board.getPos(enemyUnit).setUnit(null);
         }
 
-        //Return to the main state once combat is finished
+        //If the previously active unit wasn't done, force it to finish its turn anyway
+        Unit prev = model.getPrevActiveUnit();
+        if (prev != null && prev.getUnitState() == Unit.UnitState.MOVED) {
+            prev.setUnitState(Unit.UnitState.ATTACKED);
+        }
         activeUnit.setUnitState(Unit.UnitState.ATTACKED);
         model.setState(GameModel.StateName.MAIN_STATE);
     }

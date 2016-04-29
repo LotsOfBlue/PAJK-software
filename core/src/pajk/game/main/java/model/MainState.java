@@ -35,7 +35,7 @@ public class MainState implements State {
                     Unit currentUnit = cursorTile.getUnit();
                     if (    currentUnit.getAllegiance() == Unit.Allegiance.HUMAN &&
                             currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
-                        model.setActiveUnit(cursorTile.getUnit());
+                        model.setActiveUnit(currentUnit);
                         model.setState(GameModel.StateName.UNIT_MENU);
                     }
                 }
