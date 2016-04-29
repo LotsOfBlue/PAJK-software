@@ -25,4 +25,9 @@ public class Plains implements Terrain {
     public int getEvasion() {
         return 0;
     }
+
+    @Override
+    public String getType() {
+        return "Plains";
+    }
 }

@@ -24,4 +24,9 @@ public class Mountain implements Terrain {
     public int getEvasion() {
         return 30;
     }
+
+    @Override
+    public String getType() {
+        return "Mountain";
+    }
 }

@@ -24,4 +24,9 @@ public class Forest implements Terrain {
     public int getEvasion() {
         return 20;
     }
+
+    @Override
+    public String getType() {
+        return "Forest";
+    }
 }

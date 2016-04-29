@@ -46,6 +46,10 @@ public class Tile{
         return terrain.getMovementCost(movType);
     }
 
+    public String getTerrainType(){
+        return terrain.getType();
+    }
+
     int getEvasion() {
         return terrain.getEvasion();
     }

@@ -3,6 +3,7 @@ package pajk.game.main.java.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
+import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.Tile;
 import pajk.game.main.java.model.GameModel;
 
@@ -18,6 +19,10 @@ public class BoardView extends GameView{
     private Texture cursor;
     private Texture overlayMove;
     private Texture overlayAttack;
+    private Texture plainsTexture;
+    private Texture forestTexture;
+    private Texture mountainTexture;
+    private Texture waterTexture;
     private int tileWidth = 64;
     private SpriteBatch spriteBatch;
 
@@ -27,6 +32,10 @@ public class BoardView extends GameView{
         cursor = new Texture("cursor");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
+        plainsTexture = new Texture("grass64.png");
+        forestTexture = new Texture("forest64.png");
+        mountainTexture=new Texture("mountain64.png");
+        waterTexture=new Texture("water64.png");
 
         this.gameModel = GameModel.getInstance();
     }
@@ -49,8 +58,23 @@ public class BoardView extends GameView{
         draw(x,y,unit);
     }
 
-    private void drawTile(int x, int y){
-        draw(x,y,img);
+    private void drawTile(Tile tile){
+        Texture sprite = img;
+        switch (tile.getTerrainType()){
+            case "Forest":
+                sprite = forestTexture;
+                break;
+            case "Plains":
+                sprite = plainsTexture;
+                break;
+            case "Mountain":
+                sprite = mountainTexture;
+                break;
+            case "River":
+                sprite = waterTexture;
+                break;
+        }
+        draw(tile.getX(),tile.getY(),sprite);
 
     }
 
@@ -78,16 +102,18 @@ public class BoardView extends GameView{
      *
      */
     private void drawBoard(){
+        Board board = gameModel.getBoard();
 
         for(int x = 0; x < gameModel.getBoard().getBoardWidth(); x++){
             for(int y = 0; y < gameModel.getBoard().getBoardHeight(); y++){
-                drawTile(x,y);
-                if(gameModel.getBoard().getTile(x,y).hasUnit()){
+                Tile tile = board.getTile(x, y);
+                drawTile(tile);
+                if(board.getTile(x,y).hasUnit()){
                     drawUnit(x,y);
                 }
-                if(gameModel.getBoard().getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
+                if(board.getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
                     draw(x,y, overlayMove);
-                } else if(gameModel.getBoard().getTile(x,y).getOverlay() == Tile.Overlay.TARGET){
+                } else if(board.getTile(x,y).getOverlay() == Tile.Overlay.TARGET){
                     draw(x,y, overlayAttack);
                 }
             }

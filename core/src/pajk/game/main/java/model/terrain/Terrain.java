@@ -10,4 +10,6 @@ public interface Terrain {
     int getMovementCost(Unit.MovementType movType);
 
     int getEvasion();
+
+    String getType();
 }
