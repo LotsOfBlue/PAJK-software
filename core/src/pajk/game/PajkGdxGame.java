@@ -23,6 +23,7 @@ public class PajkGdxGame extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		gameModel = GameModel.getInstance();
+		gameModel.setState(GameModel.StateName.MAIN_STATE);
 		gameController = new Controller(gameModel);
 		gameView = new BoardView();
 	}

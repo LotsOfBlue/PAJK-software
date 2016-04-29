@@ -75,7 +75,6 @@ public final class GameModel {
         chooseTargetState = new ChooseTargetState(board);
         combatInfoState = new CombatInfoState();
         combatState = new CombatState(board);
-        setState(StateName.MAIN_STATE);
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.HUMAN, 4, Unit.MovementType.WALKING);
