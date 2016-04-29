@@ -113,6 +113,8 @@ public class Board {
     /**
      * Recursively checks every tile that can be reached from a given tile,
      * with the given movement range, and adds them to a set.
+     * You can move through allied units but not enemy units. You can still not
+     * stand on the same tile as a friendly unit.
      * @param tiles The set containing the tiles.
      * @param origin The tile to start from.
      * @param previous The previously examined tile.
@@ -120,14 +122,16 @@ public class Board {
      * @return A set containing every tile that can be reached from the origin tile.
      */
     public Set<Tile> getTilesWithinMoveRange(Set<Tile> tiles, Tile origin, Tile previous, int range) {
-        tiles.add(origin);
+        if (!origin.hasUnit()){
+            tiles.add(origin);
+        }
         if (range < 1){
             return tiles;
         }
 
         if (origin.getY() > 0){
             Tile northTile = getTile(origin.getX(), origin.getY() - 1);
-            if (previous != northTile) {
+            if (previous != northTile && (origin.hasUnit()?)) {
                 tiles.addAll(getTilesWithinMoveRange(tiles, northTile, origin, range - 1));
             }
         }
