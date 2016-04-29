@@ -1,8 +1,16 @@
 package pajk.game.main.java.model;
 
-import pajk.game.main.java.model.terrain.Plains;
+import pajk.game.main.java.model.terrain.*;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,12 +26,9 @@ public class Board {
     private Tile[][] tileMatrix;
 
     Board(int x, int y) {
-        initMatrix(x, y);
+        initMatrix("map1.txt");
+        //initMatrix(x, y);
         cursor = tileMatrix[0][0];
-    }
-
-    Board(int size){
-        this(size, size);
     }
 
     private void initMatrix(int x, int y){
@@ -32,6 +37,43 @@ public class Board {
             for(int j = 0; j < y; j++){
                 tileMatrix[i][j] = new Tile(i,j, new Plains());
             }
+        }
+    }
+
+    private void initMatrix(String fileName){
+        List<String> lines = readMapFile(fileName);
+        int width = Integer.parseInt(lines.get(0));
+        int height = Integer.parseInt(lines.get(1));
+        tileMatrix = new Tile[width][height];
+        for (int y = 0; y < height; y++){
+            char[] row = lines.get(2 + y).toCharArray();
+            for(int x = 0; x < width; x++){
+                Terrain terra = new Plains();
+                switch (row[x]){
+                    case '0':
+                        terra = new Plains();
+                        break;
+                    case '1':
+                        terra = new Forest();
+                        break;
+                    case '2':
+                        terra = new Mountain();
+                        break;
+                    case '3':
+                        terra = new River();
+                        break;
+                }
+                tileMatrix[x][y] = new Tile(x,y, terra);
+            }
+        }
+    }
+
+    private List<String> readMapFile(String fileName){
+        try {
+            Path path = Paths.get(fileName);
+            return Files.readAllLines(path, StandardCharsets.UTF_8);
+        } catch (Exception e){
+            return null;
         }
     }
 

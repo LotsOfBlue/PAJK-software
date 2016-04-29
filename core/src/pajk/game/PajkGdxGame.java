@@ -30,7 +30,7 @@ public class PajkGdxGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor((float)0.46, (float)0.33, (float)0.16, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gameView.render(batch);
 		listenToKeys();

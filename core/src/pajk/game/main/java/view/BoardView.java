@@ -29,7 +29,7 @@ public class BoardView extends GameView{
     public BoardView(){
         img = new Texture("grass-tile");
         unit = new Texture("unit-sprite");
-        cursor = new Texture("cursor");
+        cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
         plainsTexture = new Texture("grass64.png");
