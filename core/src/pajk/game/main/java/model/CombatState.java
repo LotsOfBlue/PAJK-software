@@ -7,6 +7,7 @@ import pajk.game.main.java.ActionName;
  */
 public class CombatState implements State {
 
+    private GameModel model;
     private Unit activeUnit;
     private Unit enemyUnit;
     private Board board;
@@ -22,7 +23,8 @@ public class CombatState implements State {
 
     @Override
     public void activate(){
-        activeUnit = GameModel.getInstance().getActiveUnit();
+        model = GameModel.getInstance();
+        activeUnit = model.getActiveUnit();
         //Enemy chosen by user
         enemyUnit = board.getCursorTile().getUnit();
         //TODO make fight club great again
@@ -46,18 +48,29 @@ public class CombatState implements State {
             board.getPos(enemyUnit).setUnit(null);
         }
 
+        //Return to the main state once combat is finished
         activeUnit.setUnitState(Unit.UnitState.ATTACKED);
-        GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
+        model.setState(GameModel.StateName.MAIN_STATE);
     }
 
-    public Unit getActiveUnit() { return activeUnit; }
+    public Unit getActiveUnit() {
+        return activeUnit;
+    }
 
-    public Unit getEnemyUnit() { return enemyUnit; }
+    public Unit getEnemyUnit() {
+        return enemyUnit;
+    }
 
-    public int getDamageFromEnemyUnit() { return damageFromEnemyUnit; }
+    public int getDamageFromEnemyUnit() {
+        return damageFromEnemyUnit;
+    }
 
-    public int getSecondDamageFromActiveUnit() { return secondDamageFromActiveUnit; }
+    public int getSecondDamageFromActiveUnit() {
+        return secondDamageFromActiveUnit;
+    }
 
-    public int getFirstDamageFromActiveUnit() { return firstDamageFromActiveUnit; }
+    public int getFirstDamageFromActiveUnit() {
+        return firstDamageFromActiveUnit;
+    }
 }
 
