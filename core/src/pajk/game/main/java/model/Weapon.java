@@ -8,8 +8,6 @@ class Weapon extends Item{
     private WeaponType weaponType;
     private int minRange, maxRange, damage, critChance, accuracy;
 
-
-
     public enum WeaponType{
         Sword,
         Axe,

@@ -123,8 +123,6 @@ class Unit {
     public UnitMovementType getMovementType(){return movementType;}
     //private UnitAffinity affinity = UnitAfinity.;
 
-
-
     /**
      * @return all the Items of the unit
      */

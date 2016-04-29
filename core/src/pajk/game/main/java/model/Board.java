@@ -163,7 +163,7 @@ public class Board {
      * @return
      */
     public Set<Tile> getTilesAround(Tile center, int minRange, int maxRange){
-        Set<Tile> result = new HashSet<Tile>();
+        Set<Tile> result = new HashSet<>();
         for (int i = minRange; i <= maxRange; i++) {
             for (int j = 0; j < i; j++) {
                 if (isWithinBoard(center.getX() - i + j, center.getY() - j)){
@@ -184,7 +184,7 @@ public class Board {
     }
 
     /**
-     * TODO
+     * TODO delete?
      * @param unit
      */
     void moveToCursor(Unit unit) {
