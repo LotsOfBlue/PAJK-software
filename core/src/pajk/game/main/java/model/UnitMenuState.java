@@ -14,7 +14,7 @@ public class UnitMenuState implements State {
     private Unit activeUnit;
     private Map<Integer, String> menuMap = new HashMap<>();
     private int menuItemSelected = 0;
-    private GameModel manager;
+    private GameModel model;
 
     public UnitMenuState(){
         menuMap.put(0, "Move");
@@ -33,25 +33,36 @@ public class UnitMenuState implements State {
                 menuItemSelected = (menuItemSelected + 1) % menuMap.size();
                 System.out.println(this);
                 break;
+            //Selecting a menu item
             case ENTER:
-                //If the user selected 'Move'...
                 switch (menuMap.get(menuItemSelected)){
+                    //Prepare to move the unit
                     case "Move":
-                        System.out.println("Move selected");
-                        manager.setState(GameModel.StateName.MOVE_SELECT);
+                        if (activeUnit.getUnitState() == Unit.UnitState.READY) {
+                            model.setState(GameModel.StateName.MOVE_SELECT);
+                        }
                         break;
+                    //Prepare to attack with the unit
                     case "Attack":
-                        System.out.println("Attack selected");
-                        manager.setState(GameModel.StateName.CHOOSE_TARGET);
+                        if (activeUnit.getUnitState() == Unit.UnitState.READY ||
+                                activeUnit.getUnitState() == Unit.UnitState.MOVED) {
+                            model.setState(GameModel.StateName.CHOOSE_TARGET);
+                        }
                         break;
                 }
+                break;
+            //Close the menu and return to the field
+            case BACK:
+                GameModel.getInstance().setActiveUnit(null);
+                GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
+                System.out.println("Closed menu."); //TODO debug
                 break;
         }
     }
 
     @Override
     public void activate() {
-        manager = GameModel.getInstance();
+        model = GameModel.getInstance();
         activeUnit = GameModel.getInstance().getActiveUnit();
         System.out.println(this.toString());
     }

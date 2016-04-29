@@ -11,7 +11,7 @@ public class ChooseTargetState implements State {
 
     private Unit activeUnit;
     private Board board;
-    private GameModel manager;
+    private GameModel model;
     private Set<Tile> allowedTiles;
 
     public ChooseTargetState(Board board){
@@ -36,6 +36,9 @@ public class ChooseTargetState implements State {
             case ENTER:
                 enterAction();
                 break;
+            case BACK:
+                backToMenu();
+                break;
         }
     }
 
@@ -50,17 +53,27 @@ public class ChooseTargetState implements State {
                         allowedTiles) {
                     ti.setOverlay(Tile.Overlay.NONE);
                 }
-                manager.setTargetUnit(cursorTile.getUnit());
-                manager.setState(GameModel.StateName.COMBAT_INFO);
+                model.setTargetUnit(cursorTile.getUnit());
+                model.setState(GameModel.StateName.COMBAT_INFO);
                 break;
             }
         }
     }
 
+    /**
+     * Cancel the attack and return back to the unit menu
+     */
+    private void backToMenu() {
+        for (Tile t : allowedTiles) {
+            t.setOverlay(Tile.Overlay.NONE);
+        }
+        GameModel.getInstance().setState(GameModel.StateName.UNIT_MENU);
+    }
+
     @Override
     public void activate() {
-        manager = GameModel.getInstance();
-        activeUnit = manager.getActiveUnit();
+        model = GameModel.getInstance();
+        activeUnit = model.getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
         allowedTiles = board.getTilesAround(centerTile, activeUnit.getWeaponMinRange(), activeUnit.getWeaponMaxRange());
         for (Tile t:

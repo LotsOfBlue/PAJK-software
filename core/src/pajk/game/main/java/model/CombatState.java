@@ -1,6 +1,5 @@
 package pajk.game.main.java.model;
 
-import com.badlogic.gdx.Game;
 import pajk.game.main.java.ActionName;
 
 /**
@@ -8,19 +7,18 @@ import pajk.game.main.java.ActionName;
  */
 public class CombatState implements State {
 
-    private Unit activeUnit, enemyUnit;
+    private Unit activeUnit;
+    private Unit enemyUnit;
     private Board board;
-    int firstDamageFromActiveUnit = 0, secondDamageFromActiveUnit = 0, damageFromEnemyUnit = 0;
+    int firstDamageFromActiveUnit = 0;
+    int secondDamageFromActiveUnit = 0;
+    int damageFromEnemyUnit = 0;
 
 
     public CombatState(Board board){this.board = board;}
 
     @Override
-    public void performAction(ActionName action){
-
-        GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
-
-    }
+    public void performAction(ActionName action) {}
 
     @Override
     public void activate(){
@@ -48,6 +46,8 @@ public class CombatState implements State {
             board.getPos(enemyUnit).setUnit(null);
         }
 
+        activeUnit.setUnitState(Unit.UnitState.ATTACKED);
+        GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
     }
 
     public Unit getActiveUnit() { return activeUnit; }
