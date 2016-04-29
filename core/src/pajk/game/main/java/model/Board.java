@@ -136,7 +136,7 @@ public class Board {
         if (isWithinBoard(origin.getX(), origin.getY() - 1)){
             Tile northTile = getTile(origin.getX(), origin.getY() - 1);
             if (    previous != northTile && //Don't walk backwards
-                    (!northTile.hasUnit() || (northTile.getUnit().getAllegiance() == Unit.Allegiance.human)) && //Don't walk through enemy units, walk through allied.
+                    (!northTile.hasUnit() || (northTile.getUnit().getAllegiance() == Unit.Allegiance.HUMAN)) && //Don't walk through enemy units, walk through allied.
                     range >= northTile.getMovementCost(unit.getMovementType())) { //Make sure he has enough movement left to walk there.
                 tiles.addAll(calculateTiles(tiles, northTile, origin, unit, range - northTile.getMovementCost(unit.getMovementType())));
             }
@@ -145,7 +145,7 @@ public class Board {
         if (isWithinBoard(origin.getX() - 1, origin.getY())){
             Tile westTile = getTile(origin.getX() - 1, origin.getY());
             if (    previous != westTile &&
-                    (!westTile.hasUnit() || (westTile.getUnit().getAllegiance() == Unit.Allegiance.human)) &&
+                    (!westTile.hasUnit() || (westTile.getUnit().getAllegiance() == Unit.Allegiance.HUMAN)) &&
                     range >= westTile.getMovementCost(unit.getMovementType())) {
                 tiles.addAll(calculateTiles(tiles, westTile, origin, unit, range - westTile.getMovementCost(unit.getMovementType())));
             }
@@ -153,7 +153,7 @@ public class Board {
         if (isWithinBoard(origin.getX(), origin.getY() + 1)){
             Tile southTile = getTile(origin.getX(), origin.getY() + 1);
             if (    previous != southTile &&
-                    (!southTile.hasUnit() || (southTile.getUnit().getAllegiance() == Unit.Allegiance.human)) &&
+                    (!southTile.hasUnit() || (southTile.getUnit().getAllegiance() == Unit.Allegiance.HUMAN)) &&
                     range >= southTile.getMovementCost(unit.getMovementType())) {
                 tiles.addAll(calculateTiles(tiles, southTile, origin, unit, range - southTile.getMovementCost(unit.getMovementType())));
             }
@@ -161,7 +161,7 @@ public class Board {
         if (isWithinBoard(origin.getX() + 1, origin.getY())){
             Tile eastTile = getTile(origin.getX() + 1, origin.getY());
             if (    previous != eastTile &&
-                    (!eastTile.hasUnit() || (eastTile.getUnit().getAllegiance() == Unit.Allegiance.human)) &&
+                    (!eastTile.hasUnit() || (eastTile.getUnit().getAllegiance() == Unit.Allegiance.HUMAN)) &&
                     range >= eastTile.getMovementCost(unit.getMovementType())) {
                 tiles.addAll(calculateTiles(tiles, eastTile, origin, unit, range - eastTile.getMovementCost(unit.getMovementType())));
             }

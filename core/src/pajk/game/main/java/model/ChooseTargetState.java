@@ -43,7 +43,7 @@ public class ChooseTargetState implements State {
         Tile cursorTile = board.getCursorTile();
         for (Tile t:
                 allowedTiles) {
-            if (t == cursorTile && cursorTile.hasUnit() && cursorTile.getUnit().getAllegiance() == Unit.Allegiance.ai){
+            if (t == cursorTile && cursorTile.hasUnit() && cursorTile.getUnit().getAllegiance() == Unit.Allegiance.AI){
                 System.out.println("Found a target");
                 //Clear the overlay coloring.
                 for (Tile ti:

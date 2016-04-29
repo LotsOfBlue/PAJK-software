@@ -7,7 +7,7 @@ import pajk.game.main.java.model.Unit;
  */
 public class Mountain implements Terrain {
     @Override
-    public int getMovementCost(Unit.UnitMovementType movType) {
+    public int getMovementCost(Unit.MovementType movType) {
         switch (movType){
             case flying:
                 return 1;

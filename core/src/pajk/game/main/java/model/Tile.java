@@ -42,7 +42,7 @@ public class Tile{
         this.unit = unit;
     }
 
-    int getMovementCost(Unit.UnitMovementType movType) {
+    int getMovementCost(Unit.MovementType movType) {
         return terrain.getMovementCost(movType);
     }
 

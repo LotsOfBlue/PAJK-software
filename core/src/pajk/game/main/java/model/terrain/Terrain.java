@@ -7,7 +7,7 @@ import pajk.game.main.java.model.Unit;
  */
 public interface Terrain {
 
-    int getMovementCost(Unit.UnitMovementType movType);
+    int getMovementCost(Unit.MovementType movType);
 
     int getEvasion();
 }
