@@ -9,11 +9,11 @@ public class Mountain implements Terrain {
     @Override
     public int getMovementCost(Unit.MovementType movType) {
         switch (movType){
-            case flying:
+            case FLYING:
                 return 1;
-            case riding:
+            case RIDING:
                 return 8;
-            case walking:
+            case WALKING:
                 return 8;
             default:
                 return 100;
