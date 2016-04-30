@@ -67,8 +67,13 @@ public class UnitMenuState implements State {
     @Override
     public void activate() {
         model = GameModel.getInstance();
-        menuItemSelected = 0;
         activeUnit = model.getActiveUnit();
+        if (activeUnit.getUnitState() == Unit.UnitState.MOVED) {
+            menuItemSelected = 1;
+        }
+        else {
+            menuItemSelected = 0;
+        }
         System.out.println(this);
     }
 
