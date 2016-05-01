@@ -60,7 +60,8 @@ public class MoveSelectionState implements State{
                 if (prev != null && prev.getUnitState() == Unit.UnitState.MOVED) {
                     prev.setUnitState(Unit.UnitState.ATTACKED);
                 }
-                model.setState(GameModel.StateName.MAIN_STATE);
+                //Open the menu again when the unit is finished moving
+                model.setState(GameModel.StateName.UNIT_MENU);
                 break;
             }
         }
