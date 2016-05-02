@@ -2,8 +2,10 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.model.terrain.*;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -36,22 +38,22 @@ public class Board {
         for (int y = 0; y < height; y++){
             char[] row = lines.get(2 + y).toCharArray();
             for(int x = 0; x < width; x++){
-                Terrain terra = new Plains();
+                Terrain terrain = new Plains();
                 switch (row[x]){
                     case '0':
-                        terra = new Plains();
+                        terrain = new Plains();
                         break;
                     case '1':
-                        terra = new Forest();
+                        terrain = new Forest();
                         break;
                     case '2':
-                        terra = new Mountain();
+                        terrain = new Mountain();
                         break;
                     case '3':
-                        terra = new River();
+                        terrain = new River();
                         break;
                 }
-                tileMatrix[x][y] = new Tile(x,y, terra);
+                tileMatrix[x][y] = new Tile(x,y, terrain);
             }
         }
     }
@@ -60,7 +62,12 @@ public class Board {
         try {
             Path path = Paths.get(fileName);
             return Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch (Exception e){
+        } catch (InvalidPathException e) {
+            System.out.println("Couldn't load " + fileName);
+            e.printStackTrace();
+            return null;
+        } catch (IOException e){
+            e.printStackTrace();
             return null;
         }
     }
@@ -83,7 +90,12 @@ public class Board {
         return tileMatrix;
     }
 
-
+    /**
+     * Checks whether the tile with the given coordinates exists within the board.
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @return True if the tile has legal coordinates, False otherwise
+     */
     private Boolean isWithinBoard (int x, int y) {
         return x >= 0 && x < getBoardWidth() &&
                 y >= 0 && y < getBoardHeight();
