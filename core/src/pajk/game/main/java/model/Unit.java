@@ -12,22 +12,22 @@ public class Unit {
     //Stats of a unit
     private int level = 1;
     private int experience = 1;
-    private int health = 1;
-    private int strength = 1;
-    private int might = 1;
-    private int skill = 1;
-    private int speed = 1;
-    private int luck = 1;
-    private int defence = 1;
-    private int resistance = 1;
-    private int movement = 1;
-    private int constitution = 1;
-    private int aid = 1;
+    private int health = 20;
+    private int strength = 5;
+    private int might = 5;
+    private int skill = 5;
+    private int speed = 5;
+    private int luck = 5;
+    private int defence = 5;
+    private int resistance = 5;
+    private int movement = 3;
+    private int constitution = 5;
+    private int aid = 5;
 
     private UnitState unitState;
     private MovementType movementType;
     private List<Item> inventory = new ArrayList<>();
-    private Weapon weapon = new Weapon(Weapon.WeaponType.Pike, 1, 1, 1, 2, 1);
+    private Weapon weapon = new Weapon(Weapon.WeaponType.PIKE, 1, 1, 10, 5, 20);
     private Allegiance allegiance;
 
     public enum Allegiance {
@@ -276,7 +276,7 @@ public class Unit {
             if (this.doesCrit(enemy)) {
                 critMultiplier = 2;
             }
-            if (this.getWeaponType() == Weapon.WeaponType.Book) {
+            if (this.getWeaponType() == Weapon.WeaponType.BOOK) {
                 damage = critMultiplier * (this.getWeaponDamage()
                         + this.getMight()
                         + this.getWeaponAdvantage(enemy)
@@ -308,29 +308,35 @@ public class Unit {
                 + this.getSkill()
                 + this.getWeaponAdvantage(enemy)
                 - enemy.getSpeed())
-                > random.nextInt(100));
+                > random.nextInt(10));
     }
 
     private int getWeaponAdvantage(Unit enemy) {
 
         int bonusVal = 0;
-        if (this.getWeaponType() == Weapon.WeaponType.Axe) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.Pike) {
+        if (this.getWeaponType() == Weapon.WeaponType.AXE) {
+            if (enemy.getWeaponType() == Weapon.WeaponType.PIKE) {
+                bonusVal = 10;
+            }else if (enemy.getWeaponType() == Weapon.WeaponType.SWORD){
+                bonusVal = -10;
+            }
+        } else if (this.getWeaponType() == Weapon.WeaponType.PIKE) {
+            if (enemy.getWeaponType() == Weapon.WeaponType.SWORD) {
+                bonusVal = 10;
+            }else if (enemy.getWeaponType() == Weapon.WeaponType.AXE){
+                bonusVal = -10;
+            }
+        } else if (this.getWeaponType() == Weapon.WeaponType.SWORD) {
+            if (enemy.getWeaponType() == Weapon.WeaponType.AXE) {
+                bonusVal = 10;
+            }else if (enemy.getWeaponType() == Weapon.WeaponType.PIKE){
+                bonusVal = -10;
+            }
+        } else if (this.getWeaponType() == Weapon.WeaponType.BOOK) {
+            if (enemy.getWeaponType() == Weapon.WeaponType.BOOK) {
                 bonusVal = 10;
             }
-        } else if (this.getWeaponType() == Weapon.WeaponType.Pike) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.Sword) {
-                bonusVal = 10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.Sword) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.Axe) {
-                bonusVal = 10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.Book) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.Book) {
-                bonusVal = 10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.Bow) {
+        } else if (this.getWeaponType() == Weapon.WeaponType.BOW) {
             if (enemy.getMovementType() == MovementType.FLYING) {
                 bonusVal = 10;
             }

@@ -60,7 +60,7 @@ public final class GameModel {
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.HUMAN, 4, Unit.MovementType.WALKING);
-        myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.Axe,2,3,1,1,90));
+        myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.AXE,2,3,1,1,90));
         player.addUnit(myLittleSoldier);
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
         Unit myOtherSoldier = new Unit(Unit.Allegiance.HUMAN, 3, Unit.MovementType.WALKING);

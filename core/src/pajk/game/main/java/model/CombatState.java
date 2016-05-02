@@ -28,23 +28,30 @@ public class CombatState implements State {
         //Enemy chosen by user
         enemyUnit = board.getCursorTile().getUnit();
         //TODO make fight club great again
-
+        //Hit enemy
         firstDamageFromActiveUnit = activeUnit.calcAttackDamage(enemyUnit);
         enemyUnit.takeDamage(firstDamageFromActiveUnit);
-
+        //If enemy still alive, hit active
         if(enemyUnit.getHealth()>0){
             damageFromEnemyUnit = enemyUnit.calcAttackDamage(activeUnit);
             activeUnit.takeDamage(damageFromEnemyUnit);
-
-            if( (activeUnit.getHealth()>0) && (activeUnit.getSpeed()>=(enemyUnit.getSpeed()+4))){
-                secondDamageFromActiveUnit = activeUnit.calcAttackDamage(enemyUnit);
-                enemyUnit.takeDamage(secondDamageFromActiveUnit);
-
+            //If active still alive and fast enough, hit enemy again
+            if(activeUnit.getHealth()>0){
+                if(activeUnit.getSpeed()>=(enemyUnit.getSpeed()+4)){
+                    secondDamageFromActiveUnit = activeUnit.calcAttackDamage(enemyUnit);
+                    enemyUnit.takeDamage(secondDamageFromActiveUnit);
+                    //If enemy dead, remove
+                    if(enemyUnit.getHealth()<0){
+                        board.getPos(enemyUnit).setUnit(null);
+                    }
+                }
             }else{
+                //If active dead, remove
                 board.getPos(activeUnit).setUnit(null);
             }
 
         }else{
+            //If enemy dead, remove
             board.getPos(enemyUnit).setUnit(null);
         }
 
