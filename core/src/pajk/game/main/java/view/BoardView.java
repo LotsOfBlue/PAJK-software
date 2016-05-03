@@ -23,8 +23,8 @@ public class BoardView extends GameView{
     private Texture forestTexture;
     private Texture mountainTexture;
     private Texture waterTexture;
-    private int tileWidth = 64;
     private SpriteBatch spriteBatch;
+    private final int TILE_WIDTH = 64;
 
     public BoardView(){
         img = new Texture("grass-tile");
@@ -87,13 +87,13 @@ public class BoardView extends GameView{
     /**
      * Draws texture on board.
      * Converts from "board coordinates" to "pixel coordinates"
-     * @param x
-     * @param y
-     * @param texture
+     * @param x X "board" coordinate
+     * @param y Y "board" coordinate
+     * @param texture The tile's texture
      */
     private void draw(int x, int y, Texture texture){
-        int pixelX = x*(tileWidth+1);
-        int pixelY = (gameModel.getBoard().getBoardHeight() - 1 - y)*(tileWidth+1);
+        int pixelX = x*(TILE_WIDTH +1);
+        int pixelY = (gameModel.getBoard().getBoardHeight() - 1 - y)*(TILE_WIDTH +1);
         spriteBatch.draw(texture,pixelX,pixelY);
     }
 

@@ -217,7 +217,7 @@ public class Board {
      * @param center The tile oyu want to get the surrounding tiles of.
      * @param minRange The minimum movement range to the returned tiles.
      * @param maxRange The maximum movement range to the returned tiles.
-     * @return
+     * @return A set containing all eligible tiles.
      */
     public Set<Tile> getTilesAround(Tile center, int minRange, int maxRange){
         Set<Tile> result = new HashSet<>();
