@@ -265,84 +265,9 @@ public class Unit {
     public void takeDamage(int damage) {
         health -= damage;
         if (health > 0) {
-            //TODO unit death throwing
+            //TODO unit death throwing?
         }
     }
 
-    public int calcAttackDamage(Unit enemy) {
-        int damage;
-        if (doesHit(enemy)) {
-            int critMultiplier = 1;
-            if (this.doesCrit(enemy)) {
-                critMultiplier = 2;
-            }
-            if (this.getWeaponType() == Weapon.WeaponType.BOOK) {
-                damage = critMultiplier * (this.getWeaponDamage()
-                        + this.getMight()
-                        + this.getWeaponAdvantage(enemy)
-                        - enemy.getResistance());
-            } else {
-                damage = critMultiplier * (this.getWeaponDamage()
-                        + this.getStrength()
-                        + this.getWeaponAdvantage(enemy)
-                        - enemy.getDefence());
-            }
-        } else {
-            damage = 0;
-        }
-
-        return damage;
-    }
-
-    private boolean doesCrit(Unit enemy) {
-        Random random = new Random();
-        return ((this.getWeaponCritChance()
-                + this.getSkill()
-                - enemy.getLuck())
-                > random.nextInt(100));
-    }
-
-    private boolean doesHit(Unit enemy) {
-        Random random = new Random();
-        return ((this.getWeaponAccuracy()
-                + this.getSkill()
-                + this.getWeaponAdvantage(enemy)
-                - enemy.getSpeed())
-                > random.nextInt(10));
-    }
-
-    private int getWeaponAdvantage(Unit enemy) {
-
-        int bonusVal = 0;
-        if (this.getWeaponType() == Weapon.WeaponType.AXE) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.PIKE) {
-                bonusVal = 10;
-            }else if (enemy.getWeaponType() == Weapon.WeaponType.SWORD){
-                bonusVal = -10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.PIKE) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.SWORD) {
-                bonusVal = 10;
-            }else if (enemy.getWeaponType() == Weapon.WeaponType.AXE){
-                bonusVal = -10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.SWORD) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.AXE) {
-                bonusVal = 10;
-            }else if (enemy.getWeaponType() == Weapon.WeaponType.PIKE){
-                bonusVal = -10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.BOOK) {
-            if (enemy.getWeaponType() == Weapon.WeaponType.BOOK) {
-                bonusVal = 10;
-            }
-        } else if (this.getWeaponType() == Weapon.WeaponType.BOW) {
-            if (enemy.getMovementType() == MovementType.FLYING) {
-                bonusVal = 10;
-            }
-        }
-
-        return bonusVal;
-    }
 
 }
