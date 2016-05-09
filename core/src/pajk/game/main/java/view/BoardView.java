@@ -5,6 +5,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import pajk.game.PajkGdxGame;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.Tile;
 import pajk.game.main.java.model.GameModel;
@@ -35,6 +41,8 @@ public class BoardView extends GameView{
     private Texture menuOverlay;
     private final int TILE_WIDTH = 64;
 
+    private OrthographicCamera camera;
+
     public BoardView(){
         img = new Texture("grass-tile");
         unit = new Texture("unit-sprite");
@@ -49,6 +57,20 @@ public class BoardView extends GameView{
         font = new BitmapFont();
         menuOverlay = new Texture("menuOverlay.png");
         this.gameModel = GameModel.getInstance();
+
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        // Constructs a new OrthographicCamera, using the given viewport width and height
+        // Height is multiplied by aspect ratio.
+        camera = new OrthographicCamera(w, w * (h / w));
+
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.update();
+    }
+
+    private void resize(int width){
+
     }
 
     @Override
@@ -59,6 +81,10 @@ public class BoardView extends GameView{
     @Override
     public void render(SpriteBatch spriteBatch) {
         this.spriteBatch = spriteBatch;
+
+        camera.update();
+        spriteBatch.setProjectionMatrix(camera.combined);
+
         spriteBatch.begin();
         drawBoard();
         drawCursor();
@@ -132,8 +158,8 @@ public class BoardView extends GameView{
      * @param texture The tile's texture
      */
     private void draw(int x, int y, Texture texture){
-        int pixelX = x*(TILE_WIDTH +1);
-        int pixelY = (gameModel.getBoard().getBoardHeight() - 1 - y)*(TILE_WIDTH +1);
+        int pixelX = x*(TILE_WIDTH);
+        int pixelY = (gameModel.getBoard().getBoardHeight() - 1 - y)*(TILE_WIDTH);
         spriteBatch.draw(texture,pixelX,pixelY);
     }
 
@@ -143,9 +169,9 @@ public class BoardView extends GameView{
      */
     private void drawBoard(){
         Board board = gameModel.getBoard();
-
-        for(int x = 0; x < gameModel.getBoard().getBoardWidth(); x++){
-            for(int y = 0; y < gameModel.getBoard().getBoardHeight(); y++){
+        //Gdx.graphics.setWindowedMode(TILE_WIDTH * board.getBoardWidth(), TILE_WIDTH * board.getBoardHeight());
+        for(int x = 0; x < board.getBoardWidth(); x++){
+            for(int y = 0; y < board.getBoardHeight(); y++){
                 Tile tile = board.getTile(x, y);
                 drawTile(tile);
                 if(board.getTile(x,y).hasUnit()){
@@ -158,5 +184,7 @@ public class BoardView extends GameView{
                 }
             }
         }
+
+
     }
 }

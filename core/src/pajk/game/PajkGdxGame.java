@@ -10,8 +10,8 @@ import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.view.BoardView;
 
 public class PajkGdxGame extends ApplicationAdapter {
-	public static final int WIDTH = 650;
-	public static final int HEIGHT = 650;
+	public static final int WIDTH = 960;
+	public static final int HEIGHT = 540;
 	public static final String TITLE = "Pajkification";
 
 	private GameModel gameModel;
