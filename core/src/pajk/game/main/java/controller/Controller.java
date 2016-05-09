@@ -30,5 +30,6 @@ public class Controller {
     public void backInput(){
         gameModel.performAction(ActionName.BACK);
     }
+    public void combatDoneInput() { gameModel.performAction(ActionName.COMBAT_DONE); }
 
 }

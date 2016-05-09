@@ -47,7 +47,7 @@ public class Unit {
         FLYING
     }
 
-    Unit(Allegiance allegiance,
+    Unit(           Allegiance allegiance,
                     /*int level,
                     int experience,
                     int health,
@@ -57,7 +57,7 @@ public class Unit {
                     int luck,
                     int defence,
                     int resistance,
-                    */int movement,/*,
+                    */int movement,/*
                     int constitution,
                     int aid,
                     ConditionType condition,
@@ -71,158 +71,125 @@ public class Unit {
 
     //----------------------------------------------Getters
 
-    /**
-     * @return the Level of the unit
-     */
     public int getLevel() {
         return level;
     }
 
-    /**
-     * @return the Experience of the unit
-     */
+
     public int getExperience() {
         return experience;
     }
 
-    /**
-     * @return the Strength of the unit
-     */
+
     public int getStrength() {
         return strength;
     }
 
-    /**
-     * @return the Skill of the unit
-     */
+
     public int getSkill() {
         return skill;
     }
 
-    /**
-     * @return the Speed of the unit
-     */
+
     public int getSpeed() {
         return speed;
     }
 
-    /**
-     * @return the Luck of the unit
-     */
+
     public int getLuck() {
         return luck;
     }
 
-    /**
-     * @return the Defence of the unit
-     */
+
     public int getDefence() {
         return defence;
     }
 
-    /**
-     * @return the Resistance of the unit
-     */
+
     public int getResistance() {
         return resistance;
     }
 
-    /**
-     * @return the Movement of the unit
-     */
+
     public int getMovement() {
         return movement;
     }
 
-    /**
-     * @return the Constitution of the unit
-     */
+
     public int getConstitution() {
         return constitution;
     }
 
-    /**
-     * @return the Aid of the unit
-     */
+
     public int getAid() {
         return aid;
     }
 
-    /**
-     * @return the MovementType of the unit
-     */
+
     public MovementType getMovementType() {
         return movementType;
     }
 
-    /**
-     * @return all the Items of the unit
-     */
+
     public List<Item> getInventory() {
         return inventory;
     }
 
-    /**
-     * @return the Weapon Type of the unit
-     */
+
     public Weapon.WeaponType getWeaponType() {
         return weapon.getWeaponType();
     }
 
-    /**
-     * @return the weapon damage of the unit
-     */
+
     public int getWeaponDamage() {
         return weapon.getDamage();
     }
 
-    /**
-     * @return the attack Range of the unit
-     */
+
     public int getWeaponMinRange() {
         return weapon.getMinRange();
     }
 
-    /**
-     * @return the maximum attack range of the unit.
-     */
+
     public int getWeaponMaxRange() {
         return weapon.getMaxRange();
     }
 
-    /**
-     * @return the current State of the unit, see @UnitState
-     */
+
     public UnitState getUnitState() {
         return unitState;
     }
 
-    /**
-     * @return the Allegiance of the unit, either HUMAN or AI
-     */
+
     public Allegiance getAllegiance() {
         return allegiance;
     }
+
 
     public int getHealth() {
         return health;
     }
 
+
     public int getWeaponAccuracy() {
         return weapon.getAccuracy();
     }
+
 
     public int getWeaponCritChance() {
         return weapon.getCritChance();
     }
 
+
     public int getMight() {
         return might;
     }
 
+
     public Weapon getWeapon() {
         return weapon;
     }
+
 
     //--------------------------------------------------Setters
 

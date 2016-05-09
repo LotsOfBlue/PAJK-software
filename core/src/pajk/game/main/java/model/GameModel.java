@@ -105,6 +105,8 @@ public final class GameModel {
         }
     }
 
+    public State getState(){return currentState;}
+
     public Board getBoard(){
         return board;
     }

@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class CombatState implements State {
 
-    private GameModel model;
+    private GameModel gameModel;
     private Unit activeUnit;
     private Unit enemyUnit;
     private Board board;
@@ -33,10 +33,13 @@ public class CombatState implements State {
     public void performAction(ActionName action) {
         if(action.equals(ActionName.COMBAT_DONE)){
             flush();
-            model.setState(GameModel.StateName.MAIN_STATE);
+            gameModel.setState(GameModel.StateName.MAIN_STATE);
         }
     }
-
+    /*
+     * Flush is a cleanup function meant to reset every "case sensitive" variable in combat
+     *
+     */
     private void flush(){
         activeUnit = null;
         enemyUnit = null;
@@ -54,8 +57,8 @@ public class CombatState implements State {
 
     @Override
     public void activate(){
-        model = GameModel.getInstance();
-        activeUnit = model.getActiveUnit();
+        gameModel = GameModel.getInstance();
+        activeUnit = gameModel.getActiveUnit();
         //Enemy chosen by user
         enemyUnit = board.getCursorTile().getUnit();
         //TODO make fight club great again
@@ -120,14 +123,14 @@ public class CombatState implements State {
             board.getPos(enemyUnit).setUnit(null);
         }
 
-        calcDone = true;
+        calcDone = true; //Signals that graphics can now be presented
         //If the previously active unit wasn't done, force it to finish its turn anyway //TODO understand dis... why prev? should be curr?
-        Unit prev = model.getPrevActiveUnit();
+        /*Unit prev = gameModel.getPrevActiveUnit();
         if (prev != null && prev.getUnitState() == Unit.UnitState.MOVED) {
             prev.setUnitState(Unit.UnitState.ATTACKED);
-        }
+        }*/
         activeUnit.setUnitState(Unit.UnitState.ATTACKED);
-        model.setState(GameModel.StateName.MAIN_STATE);
+        //gameModel.setState(GameModel.StateName.MAIN_STATE);
     }
 
     @Override
