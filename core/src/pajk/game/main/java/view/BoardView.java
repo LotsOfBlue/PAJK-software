@@ -8,6 +8,9 @@ import pajk.game.PajkGdxGame;
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.Tile;
 import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.UnitMenuState;
+
+import java.util.Map;
 
 
 /**
@@ -29,6 +32,7 @@ public class BoardView extends GameView{
     private Texture background;
     private SpriteBatch spriteBatch;
     private BitmapFont font;        //TODO change to "freetype" instead, use gradle
+    private Texture menuOverlay;
     private final int TILE_WIDTH = 64;
 
     public BoardView(){
@@ -43,6 +47,7 @@ public class BoardView extends GameView{
         waterTexture=new Texture("water64.png");
         background = new Texture("background.png");
         font = new BitmapFont();
+        menuOverlay = new Texture("menuOverlay.png");
         this.gameModel = GameModel.getInstance();
     }
 
@@ -66,10 +71,26 @@ public class BoardView extends GameView{
             int x = 2;
             int y = 5 * 65 + 2;
             spriteBatch.draw(background, x, y);
-            font.getData().setScale(3, 3);
-            font.draw(spriteBatch, "Move", x, PajkGdxGame.HEIGHT - 30);
-            font.draw(spriteBatch, "Attack", x, PajkGdxGame.HEIGHT - 70);
-            font.draw(spriteBatch, "Wait", x, PajkGdxGame.HEIGHT - 110);
+            font.getData().setScale(2, 2);
+            font.draw(spriteBatch, "Move", x+5, PajkGdxGame.HEIGHT - 30);
+            font.draw(spriteBatch, "Attack", x+5, PajkGdxGame.HEIGHT - 70);
+            font.draw(spriteBatch, "Wait", x+5, PajkGdxGame.HEIGHT - 110);
+
+            Map<Integer,String> menuMap = gameModel.getMenuState().getMenuMap();
+            int selectedItem = gameModel.getMenuState().getMenuItemSelected();
+
+            if(selectedItem == 0){
+                spriteBatch.draw(menuOverlay, x+5, PajkGdxGame.HEIGHT - 70);
+            } else if (selectedItem == 1){
+                spriteBatch.draw(menuOverlay, x+5, PajkGdxGame.HEIGHT - 110);
+            } else if (selectedItem == 2){
+                spriteBatch.draw(menuOverlay, x+5, PajkGdxGame.HEIGHT - 150);
+            }
+
+            font.draw(spriteBatch, "Move", x+5, PajkGdxGame.HEIGHT - 30);
+            font.draw(spriteBatch, "Attack", x+5, PajkGdxGame.HEIGHT - 70);
+            font.draw(spriteBatch, "Wait", x+5, PajkGdxGame.HEIGHT - 110);
+
         }
     }
 
