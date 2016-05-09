@@ -36,6 +36,7 @@ public class BoardView extends GameView{
     private Texture mountainTexture;
     private Texture waterTexture;
     private Texture background;
+    private Texture gridTexture;
     private SpriteBatch spriteBatch;
     private BitmapFont font;        //TODO change to "freetype" instead, use gradle
     private Texture menuOverlay;
@@ -54,6 +55,7 @@ public class BoardView extends GameView{
         mountainTexture=new Texture("mountain64.png");
         waterTexture=new Texture("water64.png");
         background = new Texture("background.png");
+        gridTexture = new Texture("gridOverlay64.png");
         font = new BitmapFont();
         menuOverlay = new Texture("menuOverlay.png");
         this.gameModel = GameModel.getInstance();
@@ -139,6 +141,7 @@ public class BoardView extends GameView{
                 break;
         }
         draw(tile.getX(),tile.getY(),texture);
+        draw(tile.getX(),tile.getY(),gridTexture);
 
     }
 
