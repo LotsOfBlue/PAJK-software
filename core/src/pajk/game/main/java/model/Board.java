@@ -72,6 +72,16 @@ public class Board {
         }
     }
 
+    /*public void clearOverlays(){
+        for (Tile[] ta :
+                tileMatrix) {
+            for (Tile t :
+                    ta) {
+                t.setOverlay(Tile.Overlay.NONE);
+            }
+        }
+    }*/
+
     /**
      * Get the tile with the given coordinates, if there is one.
      * @param x X coordinate

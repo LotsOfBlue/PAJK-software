@@ -15,8 +15,11 @@ public class UnitMenuState implements State {
     private Map<Integer, String> menuMap = new HashMap<>();
     private int menuItemSelected = 0;
     private GameModel model;
+    private Tile oldPos;
+    private Board board;
 
-    public UnitMenuState(){
+    public UnitMenuState(Board board){
+        this.board = board;
         menuMap.put(0, "Move");
         menuMap.put(1, "Attack");
         menuMap.put(2, "Wait");
@@ -39,6 +42,7 @@ public class UnitMenuState implements State {
                     //Prepare to move the unit
                     case "Move":
                         if (activeUnit.getUnitState() == Unit.UnitState.READY) {
+                            oldPos = board.getPos(activeUnit);
                             model.setState(GameModel.StateName.MOVE_SELECT);
                         }
                         break;
@@ -58,9 +62,19 @@ public class UnitMenuState implements State {
                 break;
             //Close the menu and return to the field
             case BACK:
-                model.setState(GameModel.StateName.MAIN_STATE);
+                goBack();
                 System.out.println("Closed menu."); //TODO debug
                 break;
+        }
+    }
+
+    private void goBack(){
+        if (activeUnit.getUnitState() == Unit.UnitState.MOVED){
+            activeUnit.setUnitState(Unit.UnitState.READY);
+            board.moveUnit(activeUnit, oldPos);
+            model.setState(GameModel.StateName.MOVE_SELECT);
+        } else {
+            model.setState(GameModel.StateName.MAIN_STATE);
         }
     }
 

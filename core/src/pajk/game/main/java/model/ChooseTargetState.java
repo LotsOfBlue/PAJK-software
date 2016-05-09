@@ -78,7 +78,6 @@ public class ChooseTargetState implements State {
         allowedTiles = board.getTilesAround(centerTile, activeUnit.getWeaponMinRange(), activeUnit.getWeaponMaxRange());
         for (Tile t:
                 allowedTiles) {
-            System.out.println(t.toString());
             t.setOverlay(Tile.Overlay.TARGET);
         }
     }

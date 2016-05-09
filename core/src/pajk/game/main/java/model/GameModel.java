@@ -50,7 +50,7 @@ public final class GameModel {
         computerPlayer = new Player(true);
 
         //Initialize states
-        unitMenuState = new UnitMenuState();
+        unitMenuState = new UnitMenuState(board);
         mainState = new MainState(board);
         enemyTurnState = new EnemyTurnState();
         moveSelectionState = new MoveSelectionState(board);
@@ -118,8 +118,10 @@ public final class GameModel {
      * @param activeUnit The new active unit.
      */
     public void setActiveUnit(Unit activeUnit) {
-        this.prevActiveUnit = this.activeUnit;
-        this.activeUnit = activeUnit;
+        if (activeUnit != this.activeUnit){
+            this.prevActiveUnit = this.activeUnit;
+            this.activeUnit = activeUnit;
+        }
     }
 
     public Unit getPrevActiveUnit() {
