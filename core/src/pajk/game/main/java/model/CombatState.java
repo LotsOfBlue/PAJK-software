@@ -64,6 +64,11 @@ public class CombatState implements State {
         model.setState(GameModel.StateName.MAIN_STATE);
     }
 
+    @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.COMBAT_STATE;
+    }
+
     public Unit getActiveUnit() {
         return activeUnit;
     }

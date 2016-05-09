@@ -18,7 +18,7 @@ public class ChooseTargetState implements State {
         this.board = board;
     }
 
-    @Override
+    @Override       //TODO duplicate, make abstract class of chooseTargetState and Move selection state?
     public void performAction(ActionName action) {
         switch (action){
             case UP:
@@ -80,5 +80,10 @@ public class ChooseTargetState implements State {
                 allowedTiles) {
             t.setOverlay(Tile.Overlay.TARGET);
         }
+    }
+
+    @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.CHOOSE_TARGET;
     }
 }

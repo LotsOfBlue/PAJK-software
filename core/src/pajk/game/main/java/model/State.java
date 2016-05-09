@@ -7,6 +7,6 @@ import pajk.game.main.java.ActionName;
  */
 public interface State {
     void performAction(ActionName action);
-
+    GameModel.StateName getName();
     void activate();
 }

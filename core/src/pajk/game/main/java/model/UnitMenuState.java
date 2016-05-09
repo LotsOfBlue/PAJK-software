@@ -103,4 +103,9 @@ public class UnitMenuState implements State {
         }
         return result;
     }
+
+    @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.UNIT_MENU;
+    }
 }

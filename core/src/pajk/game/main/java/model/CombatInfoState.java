@@ -24,4 +24,9 @@ public class CombatInfoState implements State{
     public void activate() {
 
     }
+
+    @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.COMBAT_INFO;
+    }
 }
