@@ -1,8 +1,10 @@
 package pajk.game.main.java.view;
 
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
+import pajk.game.PajkGdxGame;
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.Tile;
 import pajk.game.main.java.model.GameModel;
@@ -10,6 +12,7 @@ import pajk.game.main.java.model.GameModel;
 
 /**
  * Created by palm on 2016-04-22.
+ * Should maybe be divided into smaller classes?
  */
 public class BoardView extends GameView{
 
@@ -23,7 +26,9 @@ public class BoardView extends GameView{
     private Texture forestTexture;
     private Texture mountainTexture;
     private Texture waterTexture;
+    private Texture background;
     private SpriteBatch spriteBatch;
+    private BitmapFont font;        //TODO change to "freetype" instead, use gradle
     private final int TILE_WIDTH = 64;
 
     public BoardView(){
@@ -36,7 +41,8 @@ public class BoardView extends GameView{
         forestTexture = new Texture("forest64.png");
         mountainTexture=new Texture("mountain64.png");
         waterTexture=new Texture("water64.png");
-
+        background = new Texture("background.png");
+        font = new BitmapFont();
         this.gameModel = GameModel.getInstance();
     }
 
@@ -51,7 +57,20 @@ public class BoardView extends GameView{
         spriteBatch.begin();
         drawBoard();
         drawCursor();
+        drawMenu();
         spriteBatch.end();
+    }
+
+    private void drawMenu(){
+        if(gameModel.getCurrentStateName() == GameModel.StateName.UNIT_MENU) {
+            int x = 2;
+            int y = 5 * 65 + 2;
+            spriteBatch.draw(background, x, y);
+            font.getData().setScale(3, 3);
+            font.draw(spriteBatch, "Move", x, PajkGdxGame.HEIGHT - 30);
+            font.draw(spriteBatch, "Attack", x, PajkGdxGame.HEIGHT - 70);
+            font.draw(spriteBatch, "Wait", x, PajkGdxGame.HEIGHT - 110);
+        }
     }
 
     private void drawUnit(int x, int y){
@@ -59,22 +78,22 @@ public class BoardView extends GameView{
     }
 
     private void drawTile(Tile tile){
-        Texture sprite = img;
+        Texture texture = img;
         switch (tile.getTerrainType()){
             case "Forest":
-                sprite = forestTexture;
+                texture = forestTexture;
                 break;
             case "Plains":
-                sprite = plainsTexture;
+                texture = plainsTexture;
                 break;
             case "Mountain":
-                sprite = mountainTexture;
+                texture = mountainTexture;
                 break;
             case "River":
-                sprite = waterTexture;
+                texture = waterTexture;
                 break;
         }
-        draw(tile.getX(),tile.getY(),sprite);
+        draw(tile.getX(),tile.getY(),texture);
 
     }
 

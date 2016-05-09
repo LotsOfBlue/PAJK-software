@@ -44,6 +44,11 @@ public class MainState implements State {
     }
 
     @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.MAIN_STATE;
+    }
+
+    @Override
     public void activate() {
         model = GameModel.getInstance();
     }

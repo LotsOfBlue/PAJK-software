@@ -42,6 +42,11 @@ public class MoveSelectionState implements State{
         }
     }
 
+    @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.MOVE_SELECT;
+    }
+
     private void enterAction(){
         Tile cursorTile = board.getCursorTile();
         for (Tile t:

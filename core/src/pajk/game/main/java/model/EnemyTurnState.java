@@ -20,4 +20,9 @@ public class EnemyTurnState implements State {
         System.out.println("PLAYER TURN"); //TODO debug
         GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
     }
+
+    @Override
+    public GameModel.StateName getName() {
+        return GameModel.StateName.ENEMY_TURN;
+    }
 }
