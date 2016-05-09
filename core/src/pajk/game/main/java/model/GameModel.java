@@ -117,6 +117,10 @@ public final class GameModel {
         return currentState.getName();
     }
 
+    public UnitMenuState getMenuState(){
+        return unitMenuState;
+    }
+
     /**
      * Sets a new active unit and stores the old one as prevActiveUnit.
      * @param activeUnit The new active unit.

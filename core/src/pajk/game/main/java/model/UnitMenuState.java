@@ -108,4 +108,11 @@ public class UnitMenuState implements State {
     public GameModel.StateName getName() {
         return GameModel.StateName.UNIT_MENU;
     }
+
+    public Map<Integer,String> getMenuMap(){        //TODO make deepcopy
+        return menuMap;
+    }
+    public int getMenuItemSelected(){
+        return menuItemSelected;
+    }
 }
