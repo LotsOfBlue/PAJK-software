@@ -61,9 +61,7 @@ public class BoardView extends GameView{
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
-        // Constructs a new OrthographicCamera, using the given viewport width and height
-        // Height is multiplied by aspect ratio.
-        camera = new OrthographicCamera(w, w * (h / w));
+        camera = new OrthographicCamera(w, h);
 
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
@@ -169,7 +167,7 @@ public class BoardView extends GameView{
      */
     private void drawBoard(){
         Board board = gameModel.getBoard();
-        //Gdx.graphics.setWindowedMode(TILE_WIDTH * board.getBoardWidth(), TILE_WIDTH * board.getBoardHeight());
+        updateCamera(board);
         for(int x = 0; x < board.getBoardWidth(); x++){
             for(int y = 0; y < board.getBoardHeight(); y++){
                 Tile tile = board.getTile(x, y);
@@ -184,7 +182,41 @@ public class BoardView extends GameView{
                 }
             }
         }
+    }
 
-
+    private void updateCamera(Board board){
+        Tile cursor = board.getCursorTile();
+        //UP
+        if (camera.position.y + camera.viewportHeight / 2 < (board.getBoardHeight() - cursor.getY() + 1) * TILE_WIDTH){
+            if (camera.position.y + camera.viewportHeight / 2 + 16 <= board.getBoardHeight() * TILE_WIDTH){
+                camera.translate(0, 16);
+            }else if (camera.position.y + camera.viewportHeight / 2 + 4 <= board.getBoardHeight() * TILE_WIDTH){
+                camera.translate(0, 4);
+            }
+        }
+        //DOWN
+        if (camera.position.y - camera.viewportHeight / 2 > (board.getBoardHeight() - cursor.getY() - 2) * TILE_WIDTH){
+            if (camera.position.y - camera.viewportHeight / 2 - 16 >= 0){
+                camera.translate(0, -16);
+            }else if (camera.position.y - camera.viewportHeight / 2 - 4 >= 0){
+                camera.translate(0, -4);
+            }
+        }
+        //RIGHT
+        if (camera.position.x + camera.viewportWidth / 2 < (cursor.getX() + 2) * TILE_WIDTH){
+            if (camera.position.x + camera.viewportWidth / 2 + 16 <= board.getBoardWidth() * TILE_WIDTH){
+                camera.translate(16, 0);
+            }else if (camera.position.x + camera.viewportWidth / 2 + 4 <= board.getBoardWidth() * TILE_WIDTH){
+                camera.translate(4, 0);
+            }
+        }
+        //LEFT
+        if (camera.position.x - camera.viewportWidth / 2 > (cursor.getX() - 1) * TILE_WIDTH){
+            if (camera.position.x - camera.viewportWidth / 2 - 16 > 0){
+                camera.translate(-16, 0);
+            }else if (camera.position.x - camera.viewportWidth / 2 - 4 >= 0){
+                camera.translate(-4, 0);
+            }
+        }
     }
 }
