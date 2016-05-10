@@ -29,6 +29,7 @@ public class Unit {
     private List<Item> inventory = new ArrayList<>();
     private Weapon weapon = new Weapon(Weapon.WeaponType.PIKE, 1, 1, 10, 5, 20);
     private Allegiance allegiance;
+    private UnitClass unitClass = UnitClass.SWORD;
 
     /**
      * Which entity the unit belongs to.
@@ -36,6 +37,12 @@ public class Unit {
     public enum Allegiance {
         PLAYER,
         AI
+    }
+
+    public enum UnitClass {
+        SWORD,
+        AXE,
+        PIKE
     }
 
     public enum UnitState {
@@ -73,6 +80,7 @@ public class Unit {
     }
 
     //----------------------------------------------Getters
+    public UnitClass getUnitClass(){ return unitClass;}
 
     public int getLevel() {
         return level;
