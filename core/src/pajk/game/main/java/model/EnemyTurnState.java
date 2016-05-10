@@ -14,6 +14,7 @@ public class EnemyTurnState implements State {
     public void activate() {
         GameModel model = GameModel.getInstance();
         System.out.println("ENEMY TURN"); //TODO debug
+        model.newTurn();
 
         //Make all enemy units act
         for (Unit u : model.getUnitList()) {
@@ -24,6 +25,7 @@ public class EnemyTurnState implements State {
 
         //Once all units are finished, the player's turn begins
         System.out.println("PLAYER TURN"); //TODO debug
+        model.newTurn();
         GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
     }
 

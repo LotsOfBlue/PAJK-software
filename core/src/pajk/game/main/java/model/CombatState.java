@@ -26,7 +26,6 @@ public class CombatState implements State {
     private boolean critFromEnemyUnit = false;
 
 
-
     public CombatState(Board board){this.board = board;}
 
     @Override
@@ -41,12 +40,16 @@ public class CombatState implements State {
             }
             flush();
 
-            gameModel.setState(GameModel.StateName.MAIN_STATE);
+            if (gameModel.allUnitsDone()) {
+                gameModel.setState(GameModel.StateName.ENEMY_TURN);
+            }
+            else {
+                gameModel.setState(GameModel.StateName.MAIN_STATE);
+            }
         }
     }
     /*
      * Flush is a cleanup function meant to reset every "case sensitive" variable in combat
-     *
      */
     private void flush(){
         activeUnit = null;
@@ -82,7 +85,6 @@ public class CombatState implements State {
             enemyUnit.takeDamage(firstDamageFromActiveUnit);
         }
 
-
         System.out.println("attacker:" + firstDamageFromActiveUnit);//TODO REMOVE
 
         //If enemy still alive, hit active
@@ -96,7 +98,6 @@ public class CombatState implements State {
                 damageFromEnemyUnit = critMult*calcDamageThisToThat(enemyUnit, activeUnit);
                 activeUnit.takeDamage(damageFromEnemyUnit);
             }
-
 
             System.out.println("defender:" + damageFromEnemyUnit);//TODO REMOVE
 
@@ -113,14 +114,9 @@ public class CombatState implements State {
                         enemyUnit.takeDamage(secondDamageFromActiveUnit);
                     }
 
-
                     System.out.println("attacker:" + secondDamageFromActiveUnit);//TODO REMOVE
-
-
                 }
-
             }
-
         }
 
         calcDone = true; //Signals that graphics can now be presented
