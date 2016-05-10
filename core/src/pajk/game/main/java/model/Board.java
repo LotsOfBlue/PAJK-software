@@ -280,7 +280,7 @@ public class Board {
      * @return The Tile that the unit is standing on,
      * null if the unit can't be found.
      */
-    Tile getPos(Unit unit) {
+    public Tile getPos(Unit unit) {
         for (Tile[] tCol : tileMatrix) {
             for (Tile t : tCol) {
                 if(t.getUnit() == unit) {

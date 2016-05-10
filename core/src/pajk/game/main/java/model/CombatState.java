@@ -32,7 +32,15 @@ public class CombatState implements State {
     @Override
     public void performAction(ActionName action) {
         if(action.equals(ActionName.COMBAT_DONE)){
+            if (enemyUnit.getHealth() < 1) {
+            board.getPos(enemyUnit).setUnit(null);
+        }
+            if (activeUnit.getHealth() < 1) {
+                board.getPos(activeUnit).setUnit(null);
+
+            }
             flush();
+
             gameModel.setState(GameModel.StateName.MAIN_STATE);
         }
     }
@@ -108,19 +116,11 @@ public class CombatState implements State {
 
                     System.out.println("attacker:" + secondDamageFromActiveUnit);//TODO REMOVE
 
-                    //If enemy dead, remove
-                    if (enemyUnit.getHealth() < 0) {
-                        board.getPos(enemyUnit).setUnit(null);
-                    }
+
                 }
-            } else {
-                //If active dead, remove
-                board.getPos(activeUnit).setUnit(null);
+
             }
 
-        } else {
-            //If enemy dead, remove
-            board.getPos(enemyUnit).setUnit(null);
         }
 
         calcDone = true; //Signals that graphics can now be presented
