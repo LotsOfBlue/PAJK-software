@@ -54,31 +54,41 @@ public class MenuView extends GameView{
      * Gets menumap from model and draws background, all menu items, all menu text and a overlay on selected item
      */
     private void drawMenu(){
-            spriteBatch.draw(background, camera.position.x - (camera.viewportWidth/2),
-                    camera.position.y);
-            font.getData().setScale(2, 2);
 
-            Map<Integer,String> menuMap = gameModel.getMenuState().getMenuMap();
-            int selectedItem = gameModel.getMenuState().getMenuItemSelected();
+        font.getData().setScale(2, 2);
 
-            int gap = 40;
-            for(int i = 0; i < menuMap.size(); i++){
-                if(selectedItem == i){
-                    spriteBatch.draw(menuOverlay, camera.position.x - (camera.viewportWidth/2),
-                            camera.position.y +(camera.viewportHeight/2) -(i*gap) -gap);
+        Map<Integer,String> menuMap = gameModel.getMenuState().getMenuMap();
+        int selectedItem = gameModel.getMenuState().getMenuItemSelected();
 
-                }
+        float x = camera.position.x - (camera.viewportWidth/2);
 
-                if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
-                        && menuMap.get(i).equals("Move")){
-                    font.setColor(Color.GRAY);
-                    font.draw(spriteBatch, menuMap.get(i), camera.position.x - (camera.viewportWidth/2),
-                            camera.position.y +(camera.viewportHeight/2) - (i*gap) );
-                } else {
-                    font.setColor(Color.BLACK);
-                    font.draw(spriteBatch, menuMap.get(i), camera.position.x - (camera.viewportWidth / 2),
-                            camera.position.y + (camera.viewportHeight / 2) - (i * gap));
-                }
+        if(!shouldDrawMenuRight()){
+            x = camera.position.x + (camera.viewportHeight/2);
+        }
+
+        spriteBatch.draw(background, x,
+                camera.position.y);
+
+        int gap = 40;
+        for(int i = 0; i < menuMap.size(); i++){
+            if(selectedItem == i){
+                spriteBatch.draw(menuOverlay, x,
+                        camera.position.y +(camera.viewportHeight/2) -(i*gap) -gap);
             }
+            if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
+                    && menuMap.get(i).equals("Move")){
+                font.setColor(Color.GRAY);
+                font.draw(spriteBatch, menuMap.get(i), x,
+                        camera.position.y +(camera.viewportHeight/2) - (i*gap) );
+            } else {
+                font.setColor(Color.BLACK);
+                font.draw(spriteBatch, menuMap.get(i), x,
+                        camera.position.y + (camera.viewportHeight / 2) - (i * gap));
+            }
+        }
+    }
+    private boolean shouldDrawMenuRight(){
+        int tileWidth = 64;
+        return gameModel.getBoard().getCursorTile().getX() * tileWidth > (camera.viewportWidth/2);
     }
 }

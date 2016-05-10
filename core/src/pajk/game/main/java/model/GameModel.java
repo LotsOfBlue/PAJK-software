@@ -65,7 +65,7 @@ public final class GameModel {
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
         Unit myOtherSoldier = new Unit(Unit.Allegiance.HUMAN, 3, Unit.MovementType.WALKING);
         player.addUnit(myOtherSoldier);
-        board.placeUnit(myOtherSoldier, board.getTile(5, 3));
+        board.placeUnit(myOtherSoldier, board.getTile(10, 3));
 
         //Create an enemy
         Unit theBigBad = new Unit(Unit.Allegiance.AI, 5, Unit.MovementType.WALKING);
