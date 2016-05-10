@@ -12,6 +12,34 @@ public class Tile{
     private Unit unit;
     private Overlay overlay = Overlay.NONE;
 
+    private double pthCost = 0;
+    private Tile pthParent = null;
+    private double pthPrio = 0;
+
+    public Tile getPthParent() {
+        return pthParent;
+    }
+
+    public void setPthParent(Tile pthParent) {
+        this.pthParent = pthParent;
+    }
+
+    public double getPthCost() {
+        return pthCost;
+    }
+
+    public void setPthCost(double pthCost) {
+        this.pthCost = pthCost;
+    }
+
+    public double getPthPrio() {
+        return pthPrio;
+    }
+
+    public void setPthPrio(double pthPrio) {
+        this.pthPrio = pthPrio;
+    }
+
     public enum Overlay{
         MOVEMENT, TARGET, NONE
     }

@@ -26,7 +26,6 @@ public class Board {
 
     Board(String fileName) {
         initMatrix(fileName);
-        //initMatrix(x, y);
         cursor = tileMatrix[0][0];
     }
 
@@ -93,7 +92,7 @@ public class Board {
         if (isWithinBoard(x, y)) {
             return tileMatrix[x][y];
         }
-        else return null;
+        return null;
     }
 
     public Tile[][] getTileMatrix(){
