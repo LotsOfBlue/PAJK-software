@@ -64,7 +64,6 @@ public class BoardView extends GameView{
 
 
         this.camera = camera;
-
         this.camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         this.camera.update();
     }
