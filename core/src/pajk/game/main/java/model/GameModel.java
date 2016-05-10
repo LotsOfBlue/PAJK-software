@@ -128,6 +128,20 @@ public final class GameModel {
     }
 
     /**
+     * Check whether all player-controlled units have acted this turn.
+     * @return True if all units under player control have exhausted their available actions
+     */
+    public Boolean allUnitsDone() {
+        Boolean result = true;
+        for (Unit u : unitList) {
+            if (u.getAllegiance().equals(Unit.Allegiance.PLAYER) && !u.getUnitState().equals(Unit.UnitState.ATTACKED)) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Sets a new active unit and stores the old one as prevActiveUnit.
      * @param activeUnit The new active unit.
      */
@@ -148,6 +162,12 @@ public final class GameModel {
 
     public void setTargetUnit(Unit targetUnit) {
         this.targetUnit = targetUnit;
+    }
+
+    public void newTurn() {
+        for (Unit u : unitList) {
+            u.setUnitState(Unit.UnitState.READY);
+        }
     }
     
     //Delegates the keyboard press to the current state handling the logic.

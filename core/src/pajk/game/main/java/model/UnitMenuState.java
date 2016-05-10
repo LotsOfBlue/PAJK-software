@@ -56,7 +56,12 @@ public class UnitMenuState implements State {
                     //Don't do anything else this turn
                     case "Wait":
                         activeUnit.setUnitState(Unit.UnitState.ATTACKED);
-                        model.setState(GameModel.StateName.MAIN_STATE);
+                        if (model.allUnitsDone()) {
+                            model.setState(GameModel.StateName.ENEMY_TURN);
+                        }
+                        else {
+                            model.setState(GameModel.StateName.MAIN_STATE);
+                        }
                         break;
                 }
                 break;
@@ -112,6 +117,7 @@ public class UnitMenuState implements State {
     public Map<Integer,String> getMenuMap(){        //TODO make deepcopy
         return menuMap;
     }
+
     public int getMenuItemSelected(){
         return menuItemSelected;
     }
