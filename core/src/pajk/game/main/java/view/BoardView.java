@@ -4,6 +4,7 @@ package pajk.game.main.java.view;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import pajk.game.PajkGdxGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -64,8 +65,7 @@ public class BoardView extends GameView{
         float h = Gdx.graphics.getHeight();
 
         camera = new OrthographicCamera(w, h);
-
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.position.set(w / 2, gameModel.getBoard().getBoardHeight() * TILE_WIDTH - h / 2, 0);
         camera.update();
     }
 

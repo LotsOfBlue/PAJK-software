@@ -21,6 +21,9 @@ public class PajkGdxGame extends ApplicationAdapter {
 	private BoardView boardView;
 	private CombatView combatView;
 	private SpriteBatch batch;
+
+	private int inputCooldown = 0;
+	private int inputDelay = 8;
 	
 	@Override
 	public void create () {
@@ -48,20 +51,49 @@ public class PajkGdxGame extends ApplicationAdapter {
 	}
 	
 	private void listenToKeys(){
+		if (inputCooldown > -1){
+			inputCooldown--;
+		}
+
 		if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
 			gameController.leftInput();
+			inputCooldown = inputDelay * 2;
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
 			gameController.rightInput();
+			inputCooldown = inputDelay * 2;
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
 			gameController.upInput();
+			inputCooldown = inputDelay * 2;
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
 			gameController.downInput();
+			inputCooldown = inputDelay * 2;
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.Z)){
 			gameController.enterInput();
 		} else if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
 			gameController.backInput();
 		}else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){//TODO REMOVE? alt change to a "skip" button
 			gameController.combatDoneInput();
+		}
+
+		if (inputCooldown == 0){
+			if (Gdx.input.isKeyPressed(Input.Keys.X) && gameModel.getCurrentStateName() == GameModel.StateName.MAIN_STATE){
+				inputDelay = 4;
+			} else {
+				inputDelay = 8;
+			}
+			if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+				gameController.leftInput();
+				inputCooldown = inputDelay;
+			} else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+				gameController.rightInput();
+				inputCooldown = inputDelay;
+			} else if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+				gameController.upInput();
+				inputCooldown = inputDelay;
+			} else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+				gameController.downInput();
+				inputCooldown = inputDelay;
+			}
 		}
 	}
 }
