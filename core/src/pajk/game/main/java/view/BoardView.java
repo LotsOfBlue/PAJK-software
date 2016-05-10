@@ -36,16 +36,16 @@ public class BoardView extends GameView{
     private Texture forestTexture;
     private Texture mountainTexture;
     private Texture waterTexture;
-    private Texture background;
+//    private Texture background; //remove
     private Texture gridTexture;
     private SpriteBatch spriteBatch;
-    private BitmapFont font;        //TODO change to "freetype" instead, use gradle
-    private Texture menuOverlay;
+//    private BitmapFont font;        //TODO change to "freetype" instead, use gradle
+//    private Texture menuOverlay;
     private final int TILE_WIDTH = 64;
 
     private OrthographicCamera camera;
 
-    public BoardView(){
+    public BoardView(OrthographicCamera camera){
         img = new Texture("grass-tile");
         unit = new Texture("unit-sprite");
         cursor = new Texture("cursor.png");
@@ -55,18 +55,18 @@ public class BoardView extends GameView{
         forestTexture = new Texture("forest64.png");
         mountainTexture=new Texture("mountain64.png");
         waterTexture=new Texture("water64.png");
-        background = new Texture("background.png");
+//        background = new Texture("background.png"); //remove
         gridTexture = new Texture("gridOverlay64.png");
-        font = new BitmapFont();
-        menuOverlay = new Texture("menuOverlay.png");
+//        font = new BitmapFont();    //remove
+//        menuOverlay = new Texture("menuOverlay.png");   //remove
         this.gameModel = GameModel.getInstance();
 
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
 
-        camera = new OrthographicCamera(w, h);
-        camera.position.set(w / 2, gameModel.getBoard().getBoardHeight() * TILE_WIDTH - h / 2, 0);
-        camera.update();
+
+        this.camera = camera;
+
+        this.camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        this.camera.update();
     }
 
     private void resize(int width){
@@ -88,37 +88,11 @@ public class BoardView extends GameView{
         spriteBatch.begin();
         drawBoard();
         drawCursor();
-        drawMenu();
+
         spriteBatch.end();
     }
 
-    private void drawMenu(){
-        if(gameModel.getCurrentStateName() == GameModel.StateName.UNIT_MENU) {
-            int x = 2;
-            int y = 5 * 65 + 2;
-            spriteBatch.draw(background, x, y);
-            font.getData().setScale(2, 2);
-            font.draw(spriteBatch, "Move", x+5, PajkGdxGame.HEIGHT - 30);
-            font.draw(spriteBatch, "Attack", x+5, PajkGdxGame.HEIGHT - 70);
-            font.draw(spriteBatch, "Wait", x+5, PajkGdxGame.HEIGHT - 110);
 
-            Map<Integer,String> menuMap = gameModel.getMenuState().getMenuMap();
-            int selectedItem = gameModel.getMenuState().getMenuItemSelected();
-
-            if(selectedItem == 0){
-                spriteBatch.draw(menuOverlay, x+5, PajkGdxGame.HEIGHT - 70);
-            } else if (selectedItem == 1){
-                spriteBatch.draw(menuOverlay, x+5, PajkGdxGame.HEIGHT - 110);
-            } else if (selectedItem == 2){
-                spriteBatch.draw(menuOverlay, x+5, PajkGdxGame.HEIGHT - 150);
-            }
-
-            font.draw(spriteBatch, "Move", x+5, PajkGdxGame.HEIGHT - 30);
-            font.draw(spriteBatch, "Attack", x+5, PajkGdxGame.HEIGHT - 70);
-            font.draw(spriteBatch, "Wait", x+5, PajkGdxGame.HEIGHT - 110);
-
-        }
-    }
 
     private void drawUnit(int x, int y){
         draw(x,y,unit);
@@ -222,4 +196,6 @@ public class BoardView extends GameView{
             }
         }
     }
+
+
 }
