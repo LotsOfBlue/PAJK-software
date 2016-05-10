@@ -6,26 +6,32 @@ import pajk.game.main.java.ActionName;
  * Created by Johan on 2016-04-28.
  */
 public class EnemyTurnState implements State {
+    private GameModel gameModel;
+    private Board board;
+    private PathFinder pathFinder;
 
     @Override
     public void performAction(ActionName action) {}
 
     @Override
     public void activate() {
-        GameModel model = GameModel.getInstance();
+        gameModel = GameModel.getInstance();
+        board = gameModel.getBoard();
+        pathFinder = new PathFinder(board);
         System.out.println("ENEMY TURN"); //TODO debug
-        model.newTurn();
+        gameModel.newTurn();
 
         //Make all enemy units act
-        for (Unit u : model.getUnitList()) {
+        for (Unit u : gameModel.getUnitList()) {
             if (u.getAllegiance().equals(Unit.Allegiance.AI)) {
+                pathFinder.getQuickestPath(board.getTile(1,1), board.getTile(0, 4), u);
                 //TODO enemy unit logic happens here
             }
         }
 
         //Once all units are finished, the player's turn begins
         System.out.println("PLAYER TURN"); //TODO debug
-        model.newTurn();
+        gameModel.newTurn();
         GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
     }
 

@@ -27,6 +27,7 @@ import java.util.Map;
 public class BoardView extends GameView{
 
     private GameModel gameModel;
+    private Board board;
     private Texture img;
     private Texture unit;
     private Texture cursor;
@@ -60,12 +61,13 @@ public class BoardView extends GameView{
 //        font = new BitmapFont();    //remove
 //        menuOverlay = new Texture("menuOverlay.png");   //remove
         this.gameModel = GameModel.getInstance();
+        this.board = gameModel.getBoard();
 
 
 
         this.camera = camera;
 
-        this.camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        this.camera.position.set(camera.viewportWidth / 2f, board.getBoardHeight() * TILE_WIDTH - camera.viewportHeight / 2f, 0);
         this.camera.update();
     }
 
@@ -143,7 +145,7 @@ public class BoardView extends GameView{
      *
      */
     private void drawBoard(){
-        Board board = gameModel.getBoard();
+
         updateCamera(board);
         for(int x = 0; x < board.getBoardWidth(); x++){
             for(int y = 0; y < board.getBoardHeight(); y++){

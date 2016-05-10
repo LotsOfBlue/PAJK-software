@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -93,6 +94,23 @@ public class Board {
             return tileMatrix[x][y];
         }
         return null;
+    }
+
+    public List<Tile> getNeighbors(Tile t){
+        List<Tile> result = new ArrayList<>();
+        if (isWithinBoard(t.getX(), t.getY() - 1)){
+            result.add(getTile(t.getX(), t.getY() - 1));
+        }
+        if (isWithinBoard(t.getX(), t.getY() + 1)){
+            result.add(getTile(t.getX(), t.getY() + 1));
+        }
+        if (isWithinBoard(t.getX() - 1, t.getY())){
+            result.add(getTile(t.getX() - 1, t.getY()));
+        }
+        if (isWithinBoard(t.getX() + 1, t.getY())){
+            result.add(getTile(t.getX() + 1, t.getY()));
+        }
+        return result;
     }
 
     public Tile[][] getTileMatrix(){

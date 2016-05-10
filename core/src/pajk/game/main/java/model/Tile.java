@@ -12,9 +12,10 @@ public class Tile{
     private Unit unit;
     private Overlay overlay = Overlay.NONE;
 
-    private double pthCost = 0;
+    private double pthH;
     private Tile pthParent = null;
-    private double pthPrio = 0;
+    private double pthG;
+    private double pthF;
 
     public Tile getPthParent() {
         return pthParent;
@@ -24,20 +25,28 @@ public class Tile{
         this.pthParent = pthParent;
     }
 
-    public double getPthCost() {
-        return pthCost;
+    public double getPthG() {
+        return pthG;
     }
 
-    public void setPthCost(double pthCost) {
-        this.pthCost = pthCost;
+    public void setPthG(double pthG) {
+        this.pthG = pthG;
     }
 
-    public double getPthPrio() {
-        return pthPrio;
+    public double getPthF() {
+        return pthF;
     }
 
-    public void setPthPrio(double pthPrio) {
-        this.pthPrio = pthPrio;
+    public void setPthF(double pthF) {
+        this.pthF = pthF;
+    }
+
+    public double getPthH() {
+        return pthH;
+    }
+
+    public void setPthH(double pthH) {
+        this.pthH = pthH;
     }
 
     public enum Overlay{
