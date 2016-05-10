@@ -10,16 +10,19 @@ import pajk.game.main.java.model.CombatState;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.view.BoardView;
 import pajk.game.main.java.view.CombatView;
+import pajk.game.main.java.view.MainView;
 
 public class PajkGdxGame extends ApplicationAdapter {
 	public static final int WIDTH = 960;
 	public static final int HEIGHT = 540;
 	public static final String TITLE = "Pajkification";
 
+
+	private MainView mainView;
 	private GameModel gameModel;
 	private Controller gameController;
-	private BoardView boardView;
-	private CombatView combatView;
+//	private BoardView boardView;
+//	private CombatView combatView;
 	private SpriteBatch batch;
 	
 	@Override
@@ -28,22 +31,16 @@ public class PajkGdxGame extends ApplicationAdapter {
 		gameModel = GameModel.getInstance();
 		gameModel.setState(GameModel.StateName.MAIN_STATE);
 		gameController = new Controller(gameModel);
-		boardView = new BoardView();
-		combatView = new CombatView();
+
+		mainView = new MainView();
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor((float)0.46, (float)0.33, (float)0.16, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		boardView.render(batch);
-		if(gameModel.getState().getClass() == CombatState.class){//TODO make this better, move into boardview even?
-			CombatState combatState = (CombatState)gameModel.getState();
-			if (combatState.isCalcDone()){
-				combatView.update(new Float(1.1));
-				combatView.render(batch);
-			}
-		}
+
+		mainView.render(batch);
 		listenToKeys();
 	}
 	
