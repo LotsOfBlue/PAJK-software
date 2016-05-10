@@ -48,38 +48,26 @@ public class MenuView extends GameView{
 
     }
 
+    /**
+     * Gets menumap from model and draws background, all menu items, all menu text and a overlay on selected item
+     */
     private void drawMenu(){
-//        if(gameModel.getCurrentStateName() == GameModel.StateName.UNIT_MENU) {
-
             spriteBatch.draw(background, camera.position.x - (camera.viewportWidth/2),
                     camera.position.y);
             font.getData().setScale(2, 2);
 
-
             Map<Integer,String> menuMap = gameModel.getMenuState().getMenuMap();
             int selectedItem = gameModel.getMenuState().getMenuItemSelected();
 
-            if(selectedItem == 0){
-                spriteBatch.draw(menuOverlay, camera.position.x - (camera.viewportWidth/2),
-                        camera.position.y +(camera.viewportHeight/2) -40 );
-            } else if (selectedItem == 1){
-                spriteBatch.draw(menuOverlay, camera.position.x - (camera.viewportWidth/2),
-                        camera.position.y +(camera.viewportHeight/2) - 80);
-            } else if (selectedItem == 2){
-                spriteBatch.draw(menuOverlay, camera.position.x - (camera.viewportWidth/2),
-                        camera.position.y +(camera.viewportHeight/2) - 120);
+            int gap = 40;
+            for(int i = 0; i < menuMap.size(); i++){
+                if(selectedItem == i){
+                    spriteBatch.draw(menuOverlay, camera.position.x - (camera.viewportWidth/2),
+                            camera.position.y +(camera.viewportHeight/2) -(i*gap) -gap);
+                }
+                font.draw(spriteBatch, menuMap.get(i), camera.position.x - (camera.viewportWidth/2),
+                        camera.position.y +(camera.viewportHeight/2) - (i*gap) );
+
             }
-
-            font.draw(spriteBatch, "Move", camera.position.x - (camera.viewportWidth/2),
-                    camera.position.y +(camera.viewportHeight/2) );
-            font.draw(spriteBatch, "Attack", camera.position.x - (camera.viewportWidth/2),
-                    camera.position.y +(camera.viewportHeight/2) - 40);
-            font.draw(spriteBatch, "Wait", camera.position.x - (camera.viewportWidth/2),
-                    camera.position.y +(camera.viewportHeight/2) - 80);
-
-
-
-
-//        }
     }
 }
