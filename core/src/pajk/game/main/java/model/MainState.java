@@ -33,7 +33,7 @@ public class MainState implements State {
                 Tile cursorTile = board.getCursorTile();
                 if (cursorTile.hasUnit()){
                     Unit currentUnit = cursorTile.getUnit();
-                    if (    currentUnit.getAllegiance() == Unit.Allegiance.HUMAN &&
+                    if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
                             currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
                         model.setActiveUnit(currentUnit);
                         model.setState(GameModel.StateName.UNIT_MENU);

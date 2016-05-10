@@ -12,10 +12,16 @@ public class EnemyTurnState implements State {
 
     @Override
     public void activate() {
+        GameModel model = GameModel.getInstance();
         System.out.println("ENEMY TURN"); //TODO debug
-        for (Unit u : GameModel.getInstance().getComputerPlayer().getUnitList()) {
-            //TODO enemy unit logic happens here
+
+        //Make all enemy units act
+        for (Unit u : model.getUnitList()) {
+            if (u.getAllegiance().equals(Unit.Allegiance.AI)) {
+                //TODO enemy unit logic happens here
+            }
         }
+
         //Once all units are finished, the player's turn begins
         System.out.println("PLAYER TURN"); //TODO debug
         GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);

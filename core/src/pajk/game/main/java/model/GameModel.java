@@ -2,6 +2,9 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by palm on 2016-04-18.
  */
@@ -10,11 +13,10 @@ public final class GameModel {
     private static GameModel ourInstance = null;
 
     private Board board;
-    private Player player;
-    private Player computerPlayer;
     private Unit activeUnit;
     private Unit prevActiveUnit;
     private Unit targetUnit;
+    private List<Unit> unitList = new ArrayList<>();
 
     //States
     private State currentState;
@@ -46,8 +48,6 @@ public final class GameModel {
     private GameModel(){
         //Init game objects.
         board = new Board("map1.txt");
-        player = new Player(false);
-        computerPlayer = new Player(true);
 
         //Initialize states
         unitMenuState = new UnitMenuState(board);
@@ -59,17 +59,18 @@ public final class GameModel {
         combatState = new CombatState(board);
 
         //Place a dummy unit on the board.
-        Unit myLittleSoldier = new Unit(Unit.Allegiance.HUMAN, 4, Unit.MovementType.WALKING);
+        Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING);
         myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.AXE,2,3,1,1,90));
-        player.addUnit(myLittleSoldier);
+        unitList.add(myLittleSoldier);
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
-        Unit myOtherSoldier = new Unit(Unit.Allegiance.HUMAN, 3, Unit.MovementType.WALKING);
-        player.addUnit(myOtherSoldier);
-        board.placeUnit(myOtherSoldier, board.getTile(10, 3));
+
+        Unit myOtherSoldier = new Unit(Unit.Allegiance.PLAYER, 3, Unit.MovementType.WALKING);
+        unitList.add(myOtherSoldier);
+        board.placeUnit(myOtherSoldier, board.getTile(5, 3));
 
         //Create an enemy
         Unit theBigBad = new Unit(Unit.Allegiance.AI, 5, Unit.MovementType.WALKING);
-        computerPlayer.addUnit(theBigBad);
+        unitList.add(theBigBad);
         board.placeUnit(theBigBad, board.getTile(2,2));
     }
 
@@ -115,6 +116,10 @@ public final class GameModel {
         return activeUnit;
     }
 
+    public List<Unit> getUnitList() {
+        return unitList;
+    }
+
     public StateName getCurrentStateName(){
         return currentState.getName();
     }
@@ -144,14 +149,6 @@ public final class GameModel {
 
     public void setTargetUnit(Unit targetUnit) {
         this.targetUnit = targetUnit;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Player getComputerPlayer() {
-        return computerPlayer;
     }
     
     //Delegates the keyboard press to the current state handling the logic.

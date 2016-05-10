@@ -30,8 +30,11 @@ public class Unit {
     private Weapon weapon = new Weapon(Weapon.WeaponType.PIKE, 1, 1, 10, 5, 20);
     private Allegiance allegiance;
 
+    /**
+     * Which entity the unit belongs to.
+     */
     public enum Allegiance {
-        HUMAN,
+        PLAYER,
         AI
     }
 
@@ -47,22 +50,22 @@ public class Unit {
         FLYING
     }
 
-    Unit(           Allegiance allegiance,
-                    /*int level,
-                    int experience,
-                    int health,
-                    int strength,
-                    int skill,
-                    int speed,
-                    int luck,
-                    int defence,
-                    int resistance,
-                    */int movement,/*
-                    int constitution,
-                    int aid,
-                    ConditionType condition,
-                    */MovementType movementType/*,
-                    AffinityType affinity*/) {
+    Unit(   Allegiance allegiance,
+            /*int level,
+            int experience,
+            int health,
+            int strength,
+            int skill,
+            int speed,
+            int luck,
+            int defence,
+            int resistance,
+            */int movement,/*
+            int constitution,
+            int aid,
+            ConditionType condition,
+            */MovementType movementType/*,
+            AffinityType affinity*/) {
         this.allegiance = allegiance;
         this.movement = movement;
         this.movementType = movementType;
@@ -235,6 +238,4 @@ public class Unit {
             //TODO unit death throwing?
         }
     }
-
-
 }
