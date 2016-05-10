@@ -1,12 +1,14 @@
 package pajk.game.main.java.view;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.PajkGdxGame;
 import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.Unit;
 
+import java.awt.*;
 import java.util.Map;
 
 /**
@@ -64,10 +66,19 @@ public class MenuView extends GameView{
                 if(selectedItem == i){
                     spriteBatch.draw(menuOverlay, camera.position.x - (camera.viewportWidth/2),
                             camera.position.y +(camera.viewportHeight/2) -(i*gap) -gap);
-                }
-                font.draw(spriteBatch, menuMap.get(i), camera.position.x - (camera.viewportWidth/2),
-                        camera.position.y +(camera.viewportHeight/2) - (i*gap) );
 
+                }
+
+                if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
+                        && menuMap.get(i).equals("Move")){
+                    font.setColor(Color.GRAY);
+                    font.draw(spriteBatch, menuMap.get(i), camera.position.x - (camera.viewportWidth/2),
+                            camera.position.y +(camera.viewportHeight/2) - (i*gap) );
+                } else {
+                    font.setColor(Color.BLACK);
+                    font.draw(spriteBatch, menuMap.get(i), camera.position.x - (camera.viewportWidth / 2),
+                            camera.position.y + (camera.viewportHeight / 2) - (i * gap));
+                }
             }
     }
 }
