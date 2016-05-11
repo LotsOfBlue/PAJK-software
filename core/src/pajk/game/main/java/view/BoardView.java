@@ -47,8 +47,8 @@ public class BoardView extends GameView{
     private OrthographicCamera camera;
 
     public BoardView(OrthographicCamera camera){
-        img = new Texture("grass-tile");
-        unit = new Texture("unit-sprite");
+//        img = new Texture("grass-tile");
+        unit = new Texture("unit-sprite.png");
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
