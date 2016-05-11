@@ -24,6 +24,8 @@ public class CombatState implements State {
     private int damageFromEnemyUnit = 0;
     private boolean hitFromEnemyUnit = false;
     private boolean critFromEnemyUnit = false;
+    private boolean secondAttackFromActiveUnit = false;
+    private boolean attackFromEnemyUnit = false;
 
 
 
@@ -63,6 +65,8 @@ public class CombatState implements State {
         damageFromEnemyUnit = 0;
         hitFromEnemyUnit = false;
         critFromEnemyUnit = false;
+        secondAttackFromActiveUnit = false;
+        attackFromEnemyUnit = false;
     }
 
     @Override
@@ -89,6 +93,7 @@ public class CombatState implements State {
 
         //If enemy still alive, hit active
         if (enemyUnit.getHealth() > 0) {
+            attackFromEnemyUnit = true;
             if(hitFromEnemyUnit = doesThisHitThat(enemyUnit, activeUnit)){
                 // TODO howto nice boolean fallout
                 int critMult = 1;
@@ -104,6 +109,7 @@ public class CombatState implements State {
             //If active still alive and fast enough, hit enemy again
             if (activeUnit.getHealth() > 0) {
                 if (activeUnit.getSpeed() >= (enemyUnit.getSpeed() + 4)) {
+                    secondAttackFromActiveUnit = true;
                     if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, enemyUnit)){
                         // TODO howto nice boolean fallout
                         int critMult = 1;
@@ -208,6 +214,10 @@ public class CombatState implements State {
     }
     //----------------------------------------------------------------------------
 
+
+    public boolean isAttackFromEnemyUnit() { return attackFromEnemyUnit; }
+
+    public boolean isSecondAttackFromActiveUnit() { return secondAttackFromActiveUnit; }
 
     public Unit getActiveUnit() {
         return activeUnit;

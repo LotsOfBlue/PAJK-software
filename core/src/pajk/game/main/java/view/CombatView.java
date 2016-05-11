@@ -1,11 +1,12 @@
 package pajk.game.main.java.view;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.utils.StringBuilder;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import pajk.game.main.java.model.GameModel;
 
 /**
@@ -34,6 +35,8 @@ public class CombatView extends AbstractGameView {
     private int damageFromEnemyUnit = 0;
     private boolean hitFromEnemyUnit = false;
     private boolean critFromEnemyUnit = false;
+    private boolean secondAttackFromActiveUnit = false;
+    private boolean attackFromEnemyUnit = false;
 
     private enum CombatDrawState{
         ACTIVE_FIRST_HIT,
@@ -52,11 +55,15 @@ public class CombatView extends AbstractGameView {
     private TextureRegion redSwordUnitFrames[];
     private Animation redSwordUnitAnimation;
 
+    private BitmapFont bitmapFont;
+
     public CombatView (){
 
         this.gameModel = GameModel.getInstance();
 
         board = gameModel.getBoard();
+
+        bitmapFont = new BitmapFont();
 
         //Red sword unit
         redSwordUnitAnimation = new Animation(new Float(2) ,new TextureRegion(new Texture("unit-sprite")));
@@ -101,6 +108,8 @@ public class CombatView extends AbstractGameView {
         damageFromEnemyUnit = combatState.getDamageFromEnemyUnit();
         hitFromEnemyUnit = combatState.isHitFromEnemyUnit();
         critFromEnemyUnit = combatState.isCritFromEnemyUnit();
+        secondAttackFromActiveUnit = combatState.isSecondAttackFromActiveUnit();
+        attackFromEnemyUnit = combatState.isAttackFromEnemyUnit();
     }
 
     private void drawCombat(){
@@ -114,27 +123,27 @@ public class CombatView extends AbstractGameView {
 
         switch (combatDrawState) {
             case ACTIVE_FIRST_HIT:
-                drawAttackAnimation(activeUnit, frame);
                 if(animationClock == 30){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
                     animationClock = 0;
                 }
+                drawAttackAnimation(activeUnit, frame);
                 break;
             case ENEMY_HIT:
-                drawAttackAnimation(enemyUnit, frame);
-                if(animationClock == 30){
+                if(animationClock == 30 || !attackFromEnemyUnit){
                     combatDrawState = CombatDrawState.ACTIVE_SECOND_HIT;
                     animationClock = 0;
                 }
+                drawAttackAnimation(enemyUnit, frame);
                 break;
             case ACTIVE_SECOND_HIT:
-                drawAttackAnimation(activeUnit, frame);
-                if(animationClock == 30 || !secondHitFromActiveUnit){
+                if(animationClock == 30 || !secondAttackFromActiveUnit){
                     combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
                     animationClock = 0;
                     done = true;
                     flush();
                 }
+                drawAttackAnimation(activeUnit, frame);
                 break;
         }
 
@@ -144,10 +153,43 @@ public class CombatView extends AbstractGameView {
 
 
     private void drawDamageNumber(Unit unit, float frame){
+        float uPos[] = calcUnitDrawPos(unit);
         if(unit.equals(activeUnit)){
-            
-        }else {
+            if(combatDrawState == CombatDrawState.ACTIVE_FIRST_HIT){
+                if(firstHitFromActiveUnit){
+                    bitmapFont.setColor(Color.FIREBRICK);
+                    if(firstCritFromActiveUnit){
+                        bitmapFont.setColor(Color.ROYAL);
+                    }
+                    draw(uPos[0]+frame,uPos[1]+frame,""+firstDamageFromActiveUnit);
+                }else{
+                    bitmapFont.setColor(Color.SCARLET);
+                    draw(uPos[0]+frame,uPos[1]+frame,"MISS");
+                }
 
+            }else if(secondAttackFromActiveUnit){
+                if(secondHitFromActiveUnit){
+                    bitmapFont.setColor(Color.FIREBRICK);
+                    if(secondCritFromActiveUnit){
+                        bitmapFont.setColor(Color.ROYAL);
+                    }
+                    draw(uPos[0]+frame,uPos[1]+frame,""+secondDamageFromActiveUnit);
+                }else{
+                    bitmapFont.setColor(Color.SCARLET);
+                    draw(uPos[0]+frame,uPos[1]+frame,"MISS");
+                }
+            }
+        }else if(attackFromEnemyUnit){
+            if(hitFromEnemyUnit){
+                bitmapFont.setColor(Color.FIREBRICK);
+                if(critFromEnemyUnit){
+                    bitmapFont.setColor(Color.ROYAL);
+                }
+                draw(uPos[0]+frame,uPos[1]+frame,""+damageFromEnemyUnit);
+            }else{
+                bitmapFont.setColor(Color.SCARLET);
+                draw(uPos[0]+frame,uPos[1]+frame,"MISS");
+            }
         }
     }
 
@@ -156,7 +198,7 @@ public class CombatView extends AbstractGameView {
         Unit.UnitClass unitClass = unit.getUnitClass();
         switch (unitClass){
             case SWORD:
-                if(unit.getAllegiance() == Unit.Allegiance.HUMAN){
+                if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
                     drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
                 }else{
                     drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
@@ -171,16 +213,27 @@ public class CombatView extends AbstractGameView {
 
     }
 
-    private void drawAttackFrame(Unit unit, TextureRegion textureRegion){
+    private float[] calcUnitDrawPos(Unit unit){
+        float uPos[] = new float[2];
         Tile myTile = board.getPos(unit);
-        int xPos = (myTile.getX() ) * TILE_WIDTH;
-        int yPos = (board.getBoardHeight() - myTile.getY() - 1) * TILE_WIDTH;
-        draw( xPos, yPos, textureRegion);
+        uPos[0] = (myTile.getX() ) * TILE_WIDTH;
+        uPos[1] = (board.getBoardHeight() - myTile.getY() - 1) * TILE_WIDTH;
+        return uPos;
+
+    }
+
+    private void drawAttackFrame(Unit unit, TextureRegion textureRegion){
+        float uPos[] = calcUnitDrawPos(unit);
+        draw( uPos[0], uPos[1], textureRegion);
     }
 
 
-    private void draw( int xPos, int yPos, TextureRegion textureRegion){
+    private void draw(float xPos, float yPos, TextureRegion textureRegion){
         spriteBatch.draw(textureRegion,xPos,yPos);
+    }
+
+    private void draw(float xPos, float yPos, String str){
+        bitmapFont.draw(spriteBatch, str, xPos, yPos);
     }
 
     private void flush(){
