@@ -32,11 +32,15 @@ public class Board {
 
     private void initMatrix(String fileName){
         List<String> lines = readMapFile(fileName);
-        int width = Integer.parseInt(lines.get(0));
-        int height = Integer.parseInt(lines.get(1));
+        int width = 0;
+        int height = 0;
+        if (lines != null) {
+            width = Integer.parseInt(lines.get(0));
+            height = Integer.parseInt(lines.get(1));
+        }
         tileMatrix = new Tile[width][height];
         for (int y = 0; y < height; y++){
-            char[] row = lines.get(2 + y).toCharArray();
+            char[] row = lines.get(y + 2).toCharArray();
             for(int x = 0; x < width; x++){
                 Terrain terrain = new Plains();
                 switch (row[x]){
@@ -72,7 +76,7 @@ public class Board {
         }
     }
 
-    /*public void clearOverlays(){
+    public void clearOverlays(){
         for (Tile[] ta :
                 tileMatrix) {
             for (Tile t :
@@ -80,7 +84,7 @@ public class Board {
                 t.setOverlay(Tile.Overlay.NONE);
             }
         }
-    }*/
+    }
 
     /**
      * Get the tile with the given coordinates, if there is one.
@@ -183,7 +187,7 @@ public class Board {
     /**
      * Checks every tile that can be reached from a given tile,
      * with the given movement range, and adds them to a set.
-     * You can move through allied units but not enemy units. You can still not
+     * Units can move through allied units but not enemy units. They can still not
      * stand on the same tile as a friendly unit.
      * @param unit The unit whose movement you want to check.
      * @return A set containing every tile that the unit can reach.
@@ -194,23 +198,35 @@ public class Board {
         return tiles;
     }
 
+    /**
+     * TODO
+     * @param tiles
+     * @param origin
+     * @param previous
+     * @param unit
+     * @param range
+     * @return
+     */
     private Set<Tile> calculateTiles(Set<Tile> tiles, Tile origin, Tile previous, Unit unit, int range){
+        //Add the current tile to the set if it's not occupied
         if (!origin.hasUnit()){
             tiles.add(origin);
         }
+        //When the unit can't move any more, the function is done
         if (range < 1){
             return tiles;
         }
 
+        //Check the tile to the north of origin
         if (isWithinBoard(origin.getX(), origin.getY() - 1)){
             Tile northTile = getTile(origin.getX(), origin.getY() - 1);
             if (    previous != northTile && //Don't walk backwards
                     (!northTile.hasUnit() || (northTile.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) && //Don't walk through enemy units, walk through allied.
-                    range >= northTile.getMovementCost(unit.getMovementType())) { //Make sure he has enough movement left to walk there.
+                    range >= northTile.getMovementCost(unit.getMovementType())) { //Make sure the unit has enough movement left to walk there.
                 tiles.addAll(calculateTiles(tiles, northTile, origin, unit, range - northTile.getMovementCost(unit.getMovementType())));
             }
         }
-        //Repeat for the other directions.
+        //West of origin
         if (isWithinBoard(origin.getX() - 1, origin.getY())){
             Tile westTile = getTile(origin.getX() - 1, origin.getY());
             if (    previous != westTile &&
@@ -219,6 +235,7 @@ public class Board {
                 tiles.addAll(calculateTiles(tiles, westTile, origin, unit, range - westTile.getMovementCost(unit.getMovementType())));
             }
         }
+        //South of origin
         if (isWithinBoard(origin.getX(), origin.getY() + 1)){
             Tile southTile = getTile(origin.getX(), origin.getY() + 1);
             if (    previous != southTile &&
@@ -227,6 +244,7 @@ public class Board {
                 tiles.addAll(calculateTiles(tiles, southTile, origin, unit, range - southTile.getMovementCost(unit.getMovementType())));
             }
         }
+        //East of origin
         if (isWithinBoard(origin.getX() + 1, origin.getY())){
             Tile eastTile = getTile(origin.getX() + 1, origin.getY());
             if (    previous != eastTile &&
@@ -241,7 +259,7 @@ public class Board {
     /**
      * Returns the tiles that are at at least minRange steps away from the center tile but no more than maxRange steps away.
      * Does not take tile movement costs into effect. For movement, see getTilesWithinMoveRange
-     * @param center The tile oyu want to get the surrounding tiles of.
+     * @param center The tile you want to get the surrounding tiles of.
      * @param minRange The minimum movement range to the returned tiles.
      * @param maxRange The maximum movement range to the returned tiles.
      * @return A set containing all eligible tiles.
