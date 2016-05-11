@@ -108,16 +108,6 @@ public class CombatView extends AbstractGameView {
 
         float frame = 0f;
         if (animationClock<30) {
-
-            /*if (animationClock < 7) {
-                frame = 0.00f;
-            } else if (animationClock < 14) {
-                frame = 0.05f;
-            } else if (animationClock < 21) {
-                frame = 0.1f;
-            } else {
-                frame = 0.15f;
-            }*/
             frame = animationClock/100f;
             animationClock++;
         }
