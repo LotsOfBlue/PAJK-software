@@ -143,9 +143,16 @@ public class CombatView extends AbstractGameView {
 
 
 
+    private void drawDamageNumber(Unit unit, float frame){
+        if(unit.equals(activeUnit)){
+            
+        }else {
 
+        }
+    }
 
     private void drawAttackAnimation(Unit unit, float frame){
+        drawDamageNumber(unit, frame);
         Unit.UnitClass unitClass = unit.getUnitClass();
         switch (unitClass){
             case SWORD:
