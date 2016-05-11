@@ -17,6 +17,7 @@ public final class GameModel {
     private Unit prevActiveUnit;
     private Unit targetUnit;
     private List<Unit> unitList = new ArrayList<>();
+    private Tile targetTile;
 
     //States
     private State currentState;
@@ -27,6 +28,9 @@ public final class GameModel {
     private final ChooseTargetState chooseTargetState;
     private final CombatInfoState combatInfoState;
     private final CombatState combatState;
+    private final MoveUnitState moveUnitState;
+
+
 
     public enum StateName{
         MAIN_STATE,
@@ -35,7 +39,8 @@ public final class GameModel {
         MOVE_SELECT,
         COMBAT_INFO,
         CHOOSE_TARGET,
-        COMBAT_STATE
+        COMBAT_STATE,
+        MOVE_UNIT
     }
 
     public static GameModel getInstance(){
@@ -57,6 +62,7 @@ public final class GameModel {
         chooseTargetState = new ChooseTargetState();
         combatInfoState = new CombatInfoState();
         combatState = new CombatState();
+        moveUnitState = new MoveUnitState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING);
@@ -103,6 +109,11 @@ public final class GameModel {
             case COMBAT_STATE:
                 currentState = combatState;
                 currentState.activate();
+                break;
+            case MOVE_UNIT:
+                currentState = moveUnitState;
+                currentState.activate();
+                break;
         }
     }
 
@@ -126,6 +137,14 @@ public final class GameModel {
 
     public UnitMenuState getMenuState(){
         return unitMenuState;
+    }
+
+    public Tile getTargetTile() {
+        return targetTile;
+    }
+
+    public void setTargetTile(Tile targetTile) {
+        this.targetTile = targetTile;
     }
 
     /**

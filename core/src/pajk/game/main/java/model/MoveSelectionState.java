@@ -57,16 +57,12 @@ public class MoveSelectionState extends MoveState{
                         allowedTiles) {
                     ti.setOverlay(Tile.Overlay.NONE);
                 }
-                board.moveUnit(activeUnit, cursorTile);
 
                 activeUnit.setUnitState(Unit.UnitState.MOVED);
-                //Force the previously active unit to finish its turn if it wasn't done
-                Unit prev = model.getPrevActiveUnit();
-                if (prev != null && prev.getUnitState() == Unit.UnitState.MOVED) {
-                    prev.setUnitState(Unit.UnitState.ATTACKED);
-                }
+                model.setTargetTile(t);
+                System.out.println("Test1");
                 //Open the menu again when the unit is finished moving
-                model.setState(GameModel.StateName.UNIT_MENU);
+                model.setState(GameModel.StateName.MOVE_UNIT);
                 break;
             }
         }
