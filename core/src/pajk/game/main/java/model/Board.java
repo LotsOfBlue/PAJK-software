@@ -24,6 +24,7 @@ public class Board {
 
     private Tile cursor;
     private Tile[][] tileMatrix;
+    private Unit unitHolder;
 
     Board(String fileName) {
         initMatrix(fileName);
@@ -115,6 +116,20 @@ public class Board {
             result.add(getTile(t.getX() + 1, t.getY()));
         }
         return result;
+    }
+
+    public void moveAlongPath(List<Tile> path, Unit unit){
+        Tile currentTarget = path.get(path.size() - 1);
+        if (unitHolder != null){
+            placeUnit(unitHolder, getPos(unit));
+        }
+        if (currentTarget.hasUnit()){
+            unitHolder = currentTarget.getUnit();
+        }else{
+            unitHolder = null;
+        }
+        moveUnit(unit, path.get(path.size() - 1));
+        path.remove(path.size() - 1);
     }
 
     public Tile[][] getTileMatrix(){

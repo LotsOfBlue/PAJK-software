@@ -64,6 +64,8 @@ public class PathFinder {
                 break;
             }
 
+            System.out.println(current.getX() + " " + current.getY());
+
             //This tile has been searched, remove it from the open set
             open.remove(current);
             closed.add(current);
@@ -74,12 +76,13 @@ public class PathFinder {
                 //one step to the neighbor
                 double nextGValue;
                 //If the cost to move to the next square is greater than the unit can move even with full amount
-                //of movement points left, then we can't take that path.
-                if (current != null && t.getMovementCost(unit.getMovementType()) <= unit.getMovement()){
-                    nextGValue = current.getPathG() + t.getMovementCost(unit.getMovementType());
+                //of movement points left, then we can't take that path. Also don't path through enemy units.
+                if ((t.hasUnit() && t.getUnit().getAllegiance() != unit.getAllegiance()) || (t.getMovementCost(unit.getMovementType()) > unit.getMovement())){
+                    nextGValue = current.getPathG() + 10000;
                 } else {
-                    nextGValue = 10000;
+                    nextGValue = current.getPathG() + t.getMovementCost(unit.getMovementType());
                 }
+
 
                 //If it's cheaper to move to the neighbor from this tile instead of from the way it was found previously,
                 //remove it from both open and closed so that we can add it to open again further down.
@@ -104,11 +107,11 @@ public class PathFinder {
         //Now we construct a path by backtracking through the tile's parents.
         List<Tile> path = new ArrayList<>();
         Tile current = goal;
-        while (current.getPathParent() != null){
+        while (current != start){
             path.add(current);
             current = current.getPathParent();
         }
-        //The while loop stops before we can add the start node since it has no parent.
+        //Add the last tile not added by the while loop.
         path.add(start);
 
         return path;
