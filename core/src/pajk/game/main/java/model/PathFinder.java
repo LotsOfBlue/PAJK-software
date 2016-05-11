@@ -5,12 +5,7 @@ import java.util.*;
 /**
  * Created by Gustav on 2016-05-10.
  */
-public class PathFinder {
-    private Board board;
-
-    public PathFinder(Board board){
-        this.board = board;
-    }
+public abstract class PathFinder {
 
     /**
      * Returns the distance between two nodes as if all the tiles between them had a cost of 1.
@@ -18,7 +13,7 @@ public class PathFinder {
      * @param goal The other tile
      * @return the distance between two nodes as if all the tiles between them had a cost of 1.
      */
-    private double estimateDistance(Tile start, Tile goal){
+    private static double estimateDistance(Tile start, Tile goal){
         int dx = Math.abs(start.getX() - goal.getX());
         int dy = Math.abs(start.getY() - goal.getY());
         return dx + dy;
@@ -31,7 +26,7 @@ public class PathFinder {
      * @param unit
      * @return
      */
-    public List<Tile> getQuickestPath(Tile start, Tile goal, Unit unit){
+    public static List<Tile> getQuickestPath(Board board, Tile start, Tile goal, Unit unit){
         //A set containing the tiles to be searched.
         Set<Tile> open = new HashSet<>();
         //A set containing the tiles that have been searched.
@@ -113,5 +108,4 @@ public class PathFinder {
 
         return path;
     }
-
 }
