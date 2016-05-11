@@ -238,4 +238,9 @@ public class Unit {
             //TODO unit death throwing?
         }
     }
+
+    @Override
+    public String toString() {
+        return movementType.toString(); //TODO make better or remove
+    }
 }

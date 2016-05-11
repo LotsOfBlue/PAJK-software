@@ -5,6 +5,7 @@ import pajk.game.main.java.ActionName;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.List;
 
 /**
  * Created by Johan on 2016-04-28.
@@ -35,6 +36,8 @@ public class EnemyTurnState implements State {
         for (Unit u : gameModel.getUnitList()) {
             if (u.getAllegiance().equals(Unit.Allegiance.AI)) {
                 unitQueue.add(u);
+                Unit target = findTarget(u);
+                //TODO move to and attack target
             }
         }
 
@@ -42,6 +45,37 @@ public class EnemyTurnState implements State {
         System.out.println("PLAYER TURN"); //TODO debug
         gameModel.newTurn();
         GameModel.getInstance().setState(GameModel.StateName.MAIN_STATE);
+    }
+
+    private Unit findTarget(Unit active) {
+        List<Unit> potentialTargets = new ArrayList<>();
+        Unit target = null;
+
+        //Find all player-controlled units
+        for (Unit u : gameModel.getUnitList()) {
+            if (u.getAllegiance().equals(Unit.Allegiance.PLAYER)) {
+                potentialTargets.add(u);
+            }
+        }
+        System.out.println(potentialTargets.size() + " targets found: " + potentialTargets); //TODO debug
+
+        //Compare the potential targets and store the closest one
+        int distanceToTarget = 1000000;
+        for (Unit u : potentialTargets) {
+            Tile targetTile = board.getPos(u);
+            List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(active), targetTile, active);
+            //Check the path's length
+            int distance = 0;
+            for (Tile t : path) {
+                distance += t.getMovementCost(active.getMovementType());
+            }
+            if (distance < distanceToTarget && distance > 0) {
+                distanceToTarget = distance;
+                target = u;
+            }
+        }
+
+        return target;
     }
 
     @Override
