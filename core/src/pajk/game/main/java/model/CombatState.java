@@ -26,7 +26,6 @@ public class CombatState implements State {
     private boolean critFromEnemyUnit = false;
 
 
-    public CombatState(Board board){this.board = board;}
 
     @Override
     public void performAction(ActionName action) {
@@ -69,6 +68,7 @@ public class CombatState implements State {
     @Override
     public void activate(){
         gameModel = GameModel.getInstance();
+        this.board = GameModel.getInstance().getBoard();
         activeUnit = gameModel.getActiveUnit();
         //Enemy chosen by user
         enemyUnit = board.getCursorTile().getUnit();

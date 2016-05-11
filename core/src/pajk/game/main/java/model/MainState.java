@@ -10,9 +10,7 @@ public class MainState implements State {
     private GameModel model;
     private Board board;
 
-    public MainState(Board board){
-        this.board = board;
-    }
+
 
     @Override
     public void performAction(ActionName action) {
@@ -51,5 +49,6 @@ public class MainState implements State {
     @Override
     public void activate() {
         model = GameModel.getInstance();
+        board = GameModel.getInstance().getBoard();
     }
 }

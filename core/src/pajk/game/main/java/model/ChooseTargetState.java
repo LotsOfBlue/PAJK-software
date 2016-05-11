@@ -7,42 +7,43 @@ import java.util.Set;
 /**
  * Created by Gustav on 2016-04-28.
  */
-public class ChooseTargetState implements State {
+public class ChooseTargetState extends MoveState {
 
     private Unit activeUnit;
     private Board board;
     private GameModel model;
     private Set<Tile> allowedTiles;
 
-    public ChooseTargetState(Board board){
-        this.board = board;
-    }
+//    public ChooseTargetState(){
+//
+//    }
 
-    @Override       //TODO duplicate, make abstract class of chooseTargetState and Move selection state?
-    public void performAction(ActionName action) {
-        switch (action){
-            case UP:
-                board.moveCursor(Board.Direction.NORTH);
-                break;
-            case LEFT:
-                board.moveCursor(Board.Direction.WEST);
-                break;
-            case RIGHT:
-                board.moveCursor(Board.Direction.EAST);
-                break;
-            case DOWN:
-                board.moveCursor(Board.Direction.SOUTH);
-                break;
-            case ENTER:
-                enterAction();
-                break;
-            case BACK:
-                backToMenu();
-                break;
-        }
-    }
+//    @Override       //TODO duplicate, make abstract class of chooseTargetState and Move selection state?
+//    public void performAction(ActionName action) {
+//        switch (action){
+//            case UP:
+//                board.moveCursor(Board.Direction.NORTH);
+//                break;
+//            case LEFT:
+//                board.moveCursor(Board.Direction.WEST);
+//                break;
+//            case RIGHT:
+//                board.moveCursor(Board.Direction.EAST);
+//                break;
+//            case DOWN:
+//                board.moveCursor(Board.Direction.SOUTH);
+//                break;
+//            case ENTER:
+//                enterAction();
+//                break;
+//            case BACK:
+//                backToMenu();
+//                break;
+//        }
+//    }
 
-    private void enterAction(){
+    @Override
+    public void enterAction(){
         Tile cursorTile = board.getCursorTile();
         for (Tile t:
                 allowedTiles) {
@@ -63,7 +64,8 @@ public class ChooseTargetState implements State {
     /**
      * Cancel the attack and return back to the unit menu
      */
-    private void backToMenu() {
+    @Override
+    public void backToMenu() {
         for (Tile t : allowedTiles) {
             t.setOverlay(Tile.Overlay.NONE);
         }
@@ -73,6 +75,7 @@ public class ChooseTargetState implements State {
     @Override
     public void activate() {
         model = GameModel.getInstance();
+        board = GameModel.getInstance().getBoard();
         activeUnit = model.getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
         allowedTiles = board.getTilesAround(centerTile, activeUnit.getWeaponMinRange(), activeUnit.getWeaponMaxRange());

@@ -50,13 +50,13 @@ public final class GameModel {
         board = new Board("map1.txt");
 
         //Initialize states
-        unitMenuState = new UnitMenuState(board);
-        mainState = new MainState(board);
+        unitMenuState = new UnitMenuState();
+        mainState = new MainState();
         enemyTurnState = new EnemyTurnState();
-        moveSelectionState = new MoveSelectionState(board);
-        chooseTargetState = new ChooseTargetState(board);
+        moveSelectionState = new MoveSelectionState();
+        chooseTargetState = new ChooseTargetState();
         combatInfoState = new CombatInfoState();
-        combatState = new CombatState(board);
+        combatState = new CombatState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING);

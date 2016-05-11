@@ -18,8 +18,7 @@ public class UnitMenuState implements State {
     private Tile oldPos;
     private Board board;
 
-    public UnitMenuState(Board board){
-        this.board = board;
+    public UnitMenuState(){
         menuMap.put(0, "Move");
         menuMap.put(1, "Attack");
         menuMap.put(2, "Wait");
@@ -86,6 +85,7 @@ public class UnitMenuState implements State {
     @Override
     public void activate() {
         model = GameModel.getInstance();
+        board = model.getBoard();
         activeUnit = model.getActiveUnit();
         if (activeUnit.getUnitState() == Unit.UnitState.MOVED) {
             menuItemSelected = 1;
