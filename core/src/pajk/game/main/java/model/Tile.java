@@ -12,42 +12,10 @@ public class Tile{
     private Unit unit;
     private Overlay overlay = Overlay.NONE;
 
-    private double pthH;
-    private Tile pthParent = null;
-    private double pthG;
-    private double pthF;
-
-    public Tile getPthParent() {
-        return pthParent;
-    }
-
-    public void setPthParent(Tile pthParent) {
-        this.pthParent = pthParent;
-    }
-
-    public double getPthG() {
-        return pthG;
-    }
-
-    public void setPthG(double pthG) {
-        this.pthG = pthG;
-    }
-
-    public double getPthF() {
-        return pthF;
-    }
-
-    public void setPthF(double pthF) {
-        this.pthF = pthF;
-    }
-
-    public double getPthH() {
-        return pthH;
-    }
-
-    public void setPthH(double pthH) {
-        this.pthH = pthH;
-    }
+    private double pathH;
+    private Tile pathParent = null;
+    private double pathG;
+    private double pathF;
 
     public enum Overlay{
         MOVEMENT, TARGET, NONE
@@ -97,6 +65,38 @@ public class Tile{
 
     public void setOverlay(Overlay overlay) {
         this.overlay = overlay;
+    }
+
+    public Tile getPathParent() {
+        return pathParent;
+    }
+
+    public void setPathParent(Tile pathParent) {
+        this.pathParent = pathParent;
+    }
+
+    public double getPathG() {
+        return pathG;
+    }
+
+    public void setPathG(double pathG) {
+        this.pathG = pathG;
+    }
+
+    public double getPathF() {
+        return pathF;
+    }
+
+    public void setPathF(double pathF) {
+        this.pathF = pathF;
+    }
+
+    public double getPathH() {
+        return pathH;
+    }
+
+    public void setPathH(double pathH) {
+        this.pathH = pathH;
     }
 
     public String toString(){
