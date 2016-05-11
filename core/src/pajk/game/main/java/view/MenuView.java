@@ -89,6 +89,7 @@ public class MenuView extends GameView{
     }
     private boolean shouldDrawMenuRight(){
         int tileWidth = 64;
-        return gameModel.getBoard().getCursorTile().getX() * tileWidth > (camera.viewportWidth/2);
+        int x = gameModel.getBoard().getPos(gameModel.getActiveUnit()).getX();
+        return x * tileWidth > (camera.viewportWidth/2);
     }
 }
