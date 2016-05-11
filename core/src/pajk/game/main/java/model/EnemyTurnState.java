@@ -2,6 +2,8 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
 
+import java.util.List;
+
 /**
  * Created by Johan on 2016-04-28.
  */
@@ -24,7 +26,6 @@ public class EnemyTurnState implements State {
         //Make all enemy units act
         for (Unit u : gameModel.getUnitList()) {
             if (u.getAllegiance().equals(Unit.Allegiance.AI)) {
-                pathFinder.getQuickestPath(board.getTile(1,1), board.getTile(0, 4), u);
                 //TODO enemy unit logic happens here
             }
         }

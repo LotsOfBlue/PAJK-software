@@ -31,7 +31,7 @@ public class PathFinder {
      * @param unit
      * @return
      */
-    public Set<Tile> getQuickestPath(Tile start, Tile goal, Unit unit){
+    public List<Tile> getQuickestPath(Tile start, Tile goal, Unit unit){
         //A set containing the tiles to be searched.
         Set<Tile> open = new HashSet<Tile>();
         //A set containing the tiles that have been searched.
@@ -74,7 +74,15 @@ public class PathFinder {
                     board.getNeighbors(current)) {
                 //Calculate the cost to move to the next tile by adding the cost to move here with the cost to move
                 //one step to the neighbor
-                double nextGValue = current.getPthG() + t.getMovementCost(unit.getMovementType());
+                double nextGValue;
+                //If the cost to move to the next square is greater than the unit can move even with full amount
+                //of movement points left, then we can't take that path.
+                if (t.getMovementCost(unit.getMovementType()) <= unit.getMovement()){
+                    nextGValue = current.getPthG() + t.getMovementCost(unit.getMovementType());
+                } else {
+                    nextGValue = 10000;
+                }
+
 
                 //If it's cheaper to move to the neighbor from this tile instead of from the way it was found previously,
                 //remove it from both open and closed so that we can add it to open again further down.
@@ -83,11 +91,30 @@ public class PathFinder {
                     closed.remove(t);
                 }
 
-                //TODO:Keep implementing stuff
+                //If the neighbor has not yet been searched or been marked for searching, mark it for searching.
+                if (!open.contains(t) && !closed.contains(t)){
+                    //Set the values of the tile.
+                    t.setPthG(nextGValue);
+                    t.setPthH(estimateDistance(t, goal));
+                    //The 1.005 is to make the algorithm prefer tiles closer to the goal, makes for prettier paths.
+                    t.setPthF(t.getPthG() + t.getPthH() * 1.02);
+                    t.setPthParent(current);
+                    open.add(t);
+                }
             }
         }
 
-        return new HashSet<>();
+        //Now we construct a path by backtracking through the tile's parents.
+        List<Tile> path = new ArrayList<>();
+        Tile current = goal;
+        while (current.getPthParent() != null){
+            path.add(current);
+            current = current.getPthParent();
+        }
+        //The while loop stops before we can add the start node since it has no parent.
+        path.add(start);
+
+        return path;
     }
 
 }

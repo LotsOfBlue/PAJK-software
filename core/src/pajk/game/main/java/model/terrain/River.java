@@ -14,7 +14,7 @@ public class River implements Terrain {
             case RIDING:
                 return 8;
             case WALKING:
-                return 5;
+                return 7;
             default:
                 return 100;
         }
