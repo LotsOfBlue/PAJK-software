@@ -25,8 +25,8 @@ public class MenuView extends GameView{
 
     public MenuView(OrthographicCamera camera) {
         font = new BitmapFont();
-        menuOverlay = new Texture("menuOverlay.png");
-        background = new Texture("background.png");
+        menuOverlay = new Texture("menuOverlayShort.png");
+        background = new Texture("menuBackgroundEdges.png");
         this.camera = camera;
     }
 
@@ -67,26 +67,29 @@ public class MenuView extends GameView{
         }
 
         spriteBatch.draw(background, x,
-                camera.position.y);
+                camera.position.y-40);
 
         int gap = 40;
         for(int i = 0; i < menuMap.size(); i++){
             if(selectedItem == i){
                 spriteBatch.draw(menuOverlay, x,
-                        camera.position.y +(camera.viewportHeight/2) -(i*gap) -gap);
+                        camera.position.y +(camera.viewportHeight/2) -(i*gap) -60);
             }
             if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
                     && menuMap.get(i).equals("Move")){
                 font.setColor(Color.GRAY);
-                font.draw(spriteBatch, menuMap.get(i), x,
-                        camera.position.y +(camera.viewportHeight/2) - (i*gap) );
+                font.draw(spriteBatch, menuMap.get(i), x +10,
+                        camera.position.y +(camera.viewportHeight/2) - (i*gap) -30);
             } else {
                 font.setColor(Color.BLACK);
-                font.draw(spriteBatch, menuMap.get(i), x,
-                        camera.position.y + (camera.viewportHeight / 2) - (i * gap));
+                font.draw(spriteBatch, menuMap.get(i), x +10,
+                        camera.position.y + (camera.viewportHeight / 2) - (i * gap) -30);
             }
         }
     }
+
+
+
     private boolean shouldDrawMenuRight(){
         int tileWidth = 64;
         int x = gameModel.getBoard().getPos(gameModel.getActiveUnit()).getX();
