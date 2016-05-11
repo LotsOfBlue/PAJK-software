@@ -72,17 +72,17 @@ public class MenuView extends GameView{
         int gap = 40;
         for(int i = 0; i < menuMap.size(); i++){
             if(selectedItem == i){
-                spriteBatch.draw(menuOverlay, x,
+                spriteBatch.draw(menuOverlay, x+10,
                         camera.position.y +(camera.viewportHeight/2) -(i*gap) -60);
             }
             if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
                     && menuMap.get(i).equals("Move")){
                 font.setColor(Color.GRAY);
-                font.draw(spriteBatch, menuMap.get(i), x +10,
+                font.draw(spriteBatch, menuMap.get(i), x +15,
                         camera.position.y +(camera.viewportHeight/2) - (i*gap) -30);
             } else {
                 font.setColor(Color.BLACK);
-                font.draw(spriteBatch, menuMap.get(i), x +10,
+                font.draw(spriteBatch, menuMap.get(i), x +15,
                         camera.position.y + (camera.viewportHeight / 2) - (i * gap) -30);
             }
         }
