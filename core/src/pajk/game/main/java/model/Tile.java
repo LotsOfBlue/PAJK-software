@@ -39,7 +39,7 @@ public class Tile{
         return y;
     }
 
-    Unit getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 

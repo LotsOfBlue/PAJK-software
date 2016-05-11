@@ -12,10 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.Tile;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.UnitMenuState;
+import pajk.game.main.java.model.*;
 
 import java.util.Map;
 
@@ -28,8 +25,9 @@ public class BoardView extends GameView{
 
     private GameModel gameModel;
     private Board board;
-    private Texture img;
+    private Texture img;  //remove
     private Texture unit;
+    private Texture grayUnit;
     private Texture cursor;
     private Texture overlayMove;
     private Texture overlayAttack;
@@ -47,8 +45,9 @@ public class BoardView extends GameView{
     private OrthographicCamera camera;
 
     public BoardView(OrthographicCamera camera){
-//        img = new Texture("grass-tile");
+        img = new Texture("grass-tile");
         unit = new Texture("unit-sprite.png");
+        grayUnit = new Texture("unitGray.png");
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
@@ -152,7 +151,11 @@ public class BoardView extends GameView{
                 Tile tile = board.getTile(x, y);
                 drawTile(tile);
                 if(board.getTile(x,y).hasUnit()){
-                    drawUnit(x,y);
+                    if(board.getTile(x,y).getUnit().getUnitState() == Unit.UnitState.ATTACKED){
+                        draw(x,y,grayUnit);
+                    } else {
+                        drawUnit(x,y);
+                    }
                 }
                 if(board.getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
                     draw(x,y, overlayMove);
