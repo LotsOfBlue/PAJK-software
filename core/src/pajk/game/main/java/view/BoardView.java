@@ -25,7 +25,6 @@ public class BoardView extends GameView{
 
     private GameModel gameModel;
     private Board board;
-    private Texture img;  //remove
     private Texture unit;
     private Texture grayUnit;
     private Texture cursor;
@@ -35,17 +34,13 @@ public class BoardView extends GameView{
     private Texture forestTexture;
     private Texture mountainTexture;
     private Texture waterTexture;
-//    private Texture background; //remove
     private Texture gridTexture;
     private SpriteBatch spriteBatch;
-//    private BitmapFont font;        //TODO change to "freetype" instead, use gradle
-//    private Texture menuOverlay;
     private final int TILE_WIDTH = 64;
 
     private OrthographicCamera camera;
 
     public BoardView(OrthographicCamera camera){
-        img = new Texture("grass-tile");
         unit = new Texture("unit-sprite.png");
         grayUnit = new Texture("unitGray.png");
         cursor = new Texture("cursor.png");
@@ -55,10 +50,7 @@ public class BoardView extends GameView{
         forestTexture = new Texture("forest64.png");
         mountainTexture=new Texture("mountain64.png");
         waterTexture=new Texture("water64.png");
-//        background = new Texture("background.png"); //remove
         gridTexture = new Texture("gridOverlay64.png");
-//        font = new BitmapFont();    //remove
-//        menuOverlay = new Texture("menuOverlay.png");   //remove
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -100,7 +92,7 @@ public class BoardView extends GameView{
     }
 
     private void drawTile(Tile tile){
-        Texture texture = img;
+        Texture texture = plainsTexture;
         switch (tile.getTerrainType()){
             case "Forest":
                 texture = forestTexture;
