@@ -12,7 +12,6 @@ import java.util.Queue;
 public class EnemyTurnState implements State {
     private GameModel gameModel;
     private Board board;
-    private PathFinder pathFinder;
     private Queue<Unit> unitQueue;
 
     @Override
@@ -28,7 +27,6 @@ public class EnemyTurnState implements State {
     public void activate() {
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
-        pathFinder = new PathFinder(board);
         System.out.println("ENEMY TURN"); //TODO debug
         gameModel.newTurn();
         unitQueue = new LinkedList<>();

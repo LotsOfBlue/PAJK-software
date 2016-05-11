@@ -43,7 +43,6 @@ public class MoveUnitState implements State {
         board = gameModel.getBoard();
         unit = gameModel.getActiveUnit();
         target = gameModel.getTargetTile();
-        PathFinder pathFinder = new PathFinder(board);
-        path = pathFinder.getQuickestPath(board.getPos(unit), target, unit);
+        path = PathFinder.getQuickestPath(board, board.getPos(unit), target, unit);
     }
 }

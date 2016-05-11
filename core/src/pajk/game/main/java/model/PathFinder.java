@@ -5,12 +5,7 @@ import java.util.*;
 /**
  * Created by Gustav on 2016-05-10.
  */
-public class PathFinder {
-    private Board board;
-
-    public PathFinder(Board board){
-        this.board = board;
-    }
+public abstract class PathFinder {
 
     /**
      * Returns the distance between two nodes as if all the tiles between them had a cost of 1.
@@ -18,7 +13,8 @@ public class PathFinder {
      * @param goal The other tile
      * @return the distance between two nodes as if all the tiles between them had a cost of 1.
      */
-    private double getDistance(Tile start, Tile goal){
+
+    private static double estimateDistance(Tile start, Tile goal){
         int dx = Math.abs(start.getX() - goal.getX());
         int dy = Math.abs(start.getY() - goal.getY());
         return dx + dy;
@@ -31,7 +27,7 @@ public class PathFinder {
      * @param unit
      * @return
      */
-    public List<Tile> getQuickestPath(Tile start, Tile goal, Unit unit){
+    public static List<Tile> getQuickestPath(Board board, Tile start, Tile goal, Unit unit){
         //A set containing the tiles to be searched.
         Set<Tile> open = new HashSet<>();
         //A set containing the tiles that have been searched.
@@ -41,7 +37,7 @@ public class PathFinder {
         //G is the cost to move to a tile from the starting tile.
         start.setPathG(0);
         //H is the distance from the node to the goal node, see the getDistance function.
-        start.setPathH(getDistance(start, goal));
+        start.setPathH(estimateDistance(start, goal));
         //F is the combined value of H and G of a tile, and helps us find the best path.
         start.setPathF(start.getPathH());
         open.add(start);
@@ -95,7 +91,7 @@ public class PathFinder {
                 if (!open.contains(t) && !closed.contains(t)){
                     //Set the values of the tile.
                     t.setPathG(nextGValue);
-                    t.setPathH(getDistance(t, goal));
+                    t.setPathH(estimateDistance(t, goal));
                     //The 1.005 is to make the algorithm prefer tiles closer to the goal, makes for prettier paths.
                     t.setPathF(t.getPathG() + t.getPathH() * 1.02);
                     t.setPathParent(current);
@@ -116,5 +112,4 @@ public class PathFinder {
 
         return path;
     }
-
 }
