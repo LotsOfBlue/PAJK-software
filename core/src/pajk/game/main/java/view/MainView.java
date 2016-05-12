@@ -38,9 +38,9 @@ public class MainView {
                 combatView.render(spriteBatch);
             }
         }
-        if(gameModel.getState().getClass() == UnitMenuState.class){
+//        if(gameModel.getState().getClass() == UnitMenuState.class){
             menuView.render(spriteBatch);
-        }
+//        }
     }
 
 }

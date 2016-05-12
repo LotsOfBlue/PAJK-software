@@ -1,27 +1,17 @@
 package pajk.game.main.java.view;
 
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector3;
-import pajk.game.PajkGdxGame;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import pajk.game.main.java.model.*;
-
-import java.util.Map;
 
 
 /**
  * Created by palm on 2016-04-22.
  * Should maybe be divided into smaller classes?
  */
-public class BoardView extends GameView{
+public class BoardView extends AbstractGameView {
 
     private GameModel gameModel;
     private Board board;

@@ -5,17 +5,13 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pajk.game.main.java.model.GameModel;
-
-import javax.swing.*;
 
 /**
  * Created by jonatan on 06/05/2016.
  */
-public class CombatView extends GameView {
+public class CombatView extends AbstractGameView {
     private boolean done = false;
     private final int TILE_WIDTH = 64;
 
