@@ -33,14 +33,7 @@ public class MenuView extends AbstractGameView {
     public void render(SpriteBatch spriteBatch){
         this.spriteBatch = spriteBatch;
 
-//        camera.update();
-//        spriteBatch.setProjectionMatrix(camera.combined);
-
         spriteBatch.begin();
-//        drawBoard();
-//        drawCursor();
-
-        //check
         if(gameModel.getState().getClass() == UnitMenuState.class){
             drawMenu();
         }
@@ -81,7 +74,7 @@ public class MenuView extends AbstractGameView {
 
         spriteBatch.draw(background, x, camera.position.y-40);
 
-
+        //draws menuOverlay and text
         for(int i = 0; i < menuMap.size(); i++){
             if(selectedItem == i){
                 spriteBatch.draw(menuOverlay, x+10,
@@ -99,7 +92,6 @@ public class MenuView extends AbstractGameView {
             }
         }
 
-//        drawTooltip(x,camera.position.y - (camera.viewportHeight / 2) +5);
     }
 
     private void drawTooltip(){
