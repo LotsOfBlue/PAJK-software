@@ -18,7 +18,7 @@ public class PathFinder {
      * @param goal The other tile
      * @return the distance between two nodes as if all the tiles between them had a cost of 1.
      */
-    private double estimateDistance(Tile start, Tile goal){
+    private double getDistance(Tile start, Tile goal){
         int dx = Math.abs(start.getX() - goal.getX());
         int dy = Math.abs(start.getY() - goal.getY());
         return dx + dy;
@@ -40,8 +40,8 @@ public class PathFinder {
         //Initialize the start node.
         //G is the cost to move to a tile from the starting tile.
         start.setPathG(0);
-        //H is the distance from the node to the goal node, see the estimateDistance function.
-        start.setPathH(estimateDistance(start, goal));
+        //H is the distance from the node to the goal node, see the getDistance function.
+        start.setPathH(getDistance(start, goal));
         //F is the combined value of H and G of a tile, and helps us find the best path.
         start.setPathF(start.getPathH());
         open.add(start);
@@ -95,7 +95,7 @@ public class PathFinder {
                 if (!open.contains(t) && !closed.contains(t)){
                     //Set the values of the tile.
                     t.setPathG(nextGValue);
-                    t.setPathH(estimateDistance(t, goal));
+                    t.setPathH(getDistance(t, goal));
                     //The 1.005 is to make the algorithm prefer tiles closer to the goal, makes for prettier paths.
                     t.setPathF(t.getPathG() + t.getPathH() * 1.02);
                     t.setPathParent(current);
