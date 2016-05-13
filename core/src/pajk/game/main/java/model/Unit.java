@@ -14,6 +14,7 @@ public class Unit {
     private int level = 1;
     private int experience = 1;
     private int health = 20;
+    private int maxHealth = 20;
     private int strength = 5;
     private int might = 5;
     private int skill = 5;
@@ -85,6 +86,11 @@ public class Unit {
     }
 
     //----------------------------------------------Getters
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
     public UnitClass getUnitClass(){ return unitClass;}
 
     public String getName() {
