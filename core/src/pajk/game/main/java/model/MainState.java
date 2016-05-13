@@ -45,5 +45,9 @@ public class MainState extends MoveState {
     public void activate() {
         model = GameModel.getInstance();
         board = GameModel.getInstance().getBoard();
+        //If all units are done when this state activates, begin enemy turn
+        if (model.allUnitsDone()) {
+            model.setState(GameModel.StateName.ENEMY_TURN);
+        }
     }
 }

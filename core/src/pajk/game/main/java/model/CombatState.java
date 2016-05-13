@@ -32,9 +32,6 @@ public class CombatState implements State {
     private boolean secondAttackFromActiveUnit = false;
     private boolean attackFromEnemyUnit = false;
 
-
-
-
     /**
      * The CombatState performAction is called when the player (or another part of the program) is ready to move on.
      * For anything to happen a COMBAT_DONE action must be sent as action
@@ -62,9 +59,8 @@ public class CombatState implements State {
         }
     }
 
-    //TODO delete?
     /*
-     * Flush is a cleanup function meant to reset every "case sensitive" variable in combat
+     *  Flush is a cleanup function meant to reset every "case sensitive" variable in combat
      */
     private void flush(){
         activeUnit = null;

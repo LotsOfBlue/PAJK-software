@@ -56,12 +56,7 @@ public class UnitMenuState implements State {
                     //Don't do anything else this turn
                     case "Wait":
                         activeUnit.setUnitState(Unit.UnitState.ATTACKED);
-                        if (model.allUnitsDone()) {
-                            model.setState(GameModel.StateName.ENEMY_TURN);
-                        }
-                        else {
-                            model.setState(GameModel.StateName.MAIN_STATE);
-                        }
+                        model.setState(GameModel.StateName.MAIN_STATE);
                         break;
                     case "Status":
                         model.setState(GameModel.StateName.STATUS_STATE);
