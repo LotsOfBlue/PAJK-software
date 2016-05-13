@@ -65,17 +65,17 @@ public final class GameModel {
         moveUnitState = new MoveUnitState();
 
         //Place a dummy unit on the board.
-        Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING);
+        Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
         myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.AXE,2,3,1,1,90));
         unitList.add(myLittleSoldier);
         board.placeUnit(myLittleSoldier, board.getTile(6,4));
 
-        Unit myOtherSoldier = new Unit(Unit.Allegiance.PLAYER, 3, Unit.MovementType.WALKING);
+        Unit myOtherSoldier = new Unit(Unit.Allegiance.PLAYER, 3, Unit.MovementType.WALKING, Unit.UnitClass.SWORD);
         unitList.add(myOtherSoldier);
         board.placeUnit(myOtherSoldier, board.getTile(5, 3));
 
         //Create an enemy
-        Unit theBigBad = new Unit(Unit.Allegiance.AI, 5, Unit.MovementType.WALKING);
+        Unit theBigBad = new Unit(Unit.Allegiance.AI, 5, Unit.MovementType.WALKING, Unit.UnitClass.SWORD);
         unitList.add(theBigBad);
         board.placeUnit(theBigBad, board.getTile(2,2));
     }

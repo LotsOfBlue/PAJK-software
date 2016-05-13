@@ -14,7 +14,7 @@ public abstract class PathFinder {
      * @return the distance between two nodes as if all the tiles between them had a cost of 1.
      */
 
-    private static double estimateDistance(Tile start, Tile goal){
+    public static double estimateDistance(Tile start, Tile goal){
         int dx = Math.abs(start.getX() - goal.getX());
         int dy = Math.abs(start.getY() - goal.getY());
         return dx + dy;

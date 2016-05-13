@@ -15,8 +15,17 @@ public class BoardView extends AbstractGameView {
 
     private GameModel gameModel;
     private Board board;
+
     private Texture unit;
     private Texture grayUnit;
+
+    private Texture blueSwordUnitSprite;
+    private Texture redSwordUnitSprite;
+    private Texture blueBowUnitSprite;
+    private Texture redBowUnitSprite;
+
+
+
     private Texture cursor;
     private Texture overlayMove;
     private Texture overlayAttack;
@@ -31,8 +40,14 @@ public class BoardView extends AbstractGameView {
     private OrthographicCamera camera;
 
     public BoardView(OrthographicCamera camera){
-        unit = new Texture("unit-sprite.png");
-        grayUnit = new Texture("unitGray.png");
+       /* unit = new Texture("unit-sprite.png");
+        grayUnit = new Texture("unitGray.png");*/
+
+        blueSwordUnitSprite = new Texture("blue-sword-sprite");
+        redSwordUnitSprite = new Texture("red-sword-sprite");
+        blueBowUnitSprite = new Texture("blue-bow-sprite");
+        redBowUnitSprite = new Texture("red-bow-sprite");
+
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
@@ -78,7 +93,40 @@ public class BoardView extends AbstractGameView {
 
 
     private void drawUnit(int x, int y){
-        draw(x,y,unit);
+        Unit myUnit = board.getTile(x,y).getUnit();
+        Unit.UnitClass myUnitClass = myUnit.getUnitClass();
+        Texture myTexture = new Texture("gray-sword-sprite");
+        if(myUnit.getUnitState() == Unit.UnitState.ATTACKED){
+            switch (myUnitClass) {
+                case BOW:
+                    myTexture = new Texture("gray-bow-sprite");
+                    break;
+                case SWORD:
+                    myTexture = new Texture("gray-sword-sprite");
+                    break;
+            }
+        }
+        else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
+            switch (myUnitClass) {
+                case BOW:
+                    myTexture = new Texture("blue-bow-sprite");
+                    break;
+                case SWORD:
+                    myTexture = new Texture("blue-sword-sprite");
+                    break;
+            }
+        }else{
+            switch (myUnitClass) {
+                case BOW:
+                    myTexture = new Texture("red-bow-sprite");
+                    break;
+                case SWORD:
+                    myTexture = new Texture("red-sword-sprite");
+                    break;
+            }
+        }
+
+        draw(x,y,myTexture);
     }
 
     private void drawTile(Tile tile){
@@ -133,11 +181,12 @@ public class BoardView extends AbstractGameView {
                 Tile tile = board.getTile(x, y);
                 drawTile(tile);
                 if(board.getTile(x,y).hasUnit()){
-                    if(board.getTile(x,y).getUnit().getUnitState() == Unit.UnitState.ATTACKED){
+                    drawUnit(x,y);
+                    /*if(board.getTile(x,y).getUnit().getUnitState() == Unit.UnitState.ATTACKED){
                         draw(x,y,grayUnit);
                     } else {
                         drawUnit(x,y);
-                    }
+                    }*/
                 }
                 if(board.getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
                     draw(x,y, overlayMove);

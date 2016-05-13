@@ -93,18 +93,25 @@ public class CombatState implements State {
 
         //If enemy still alive, hit active
         if (enemyUnit.getHealth() > 0) {
-            attackFromEnemyUnit = true;
-            if(hitFromEnemyUnit = doesThisHitThat(enemyUnit, activeUnit)){
-                // TODO howto nice boolean fallout
-                int critMult = 1;
-                if(critFromEnemyUnit = doesThisCritThat(enemyUnit, activeUnit)){
-                    critMult = 2;
+
+            double range = PathFinder.estimateDistance(board.getPos(gameModel.getTargetUnit()), board.getPos(gameModel.getActiveUnit()));
+            double minRange = enemyUnit.getWeaponMinRange();
+            double maxRange = enemyUnit.getWeaponMaxRange();
+            if(range >= minRange && range <= maxRange){
+                attackFromEnemyUnit = true;
+                if(hitFromEnemyUnit = doesThisHitThat(enemyUnit, activeUnit)){
+                    // TODO howto nice boolean fallout
+                    int critMult = 1;
+                    if(critFromEnemyUnit = doesThisCritThat(enemyUnit, activeUnit)){
+                        critMult = 2;
+                    }
+                    damageFromEnemyUnit = critMult*calcDamageThisToThat(enemyUnit, activeUnit);
+                    activeUnit.takeDamage(damageFromEnemyUnit);
                 }
-                damageFromEnemyUnit = critMult*calcDamageThisToThat(enemyUnit, activeUnit);
-                activeUnit.takeDamage(damageFromEnemyUnit);
+
+                System.out.println("defender:" + damageFromEnemyUnit);//TODO REMOVE
             }
 
-            System.out.println("defender:" + damageFromEnemyUnit);//TODO REMOVE
 
 
         }

@@ -77,12 +77,14 @@ public class Unit {
             int aid,
             ConditionType condition,
             */MovementType movementType/*,
-            AffinityType affinity*/) {
+            AffinityType affinity*/,
+            UnitClass unitClass) {
         this.name = NameUtils.getRandomName(allegiance);
         this.allegiance = allegiance;
         this.movement = movement;
         this.movementType = movementType;
         this.unitState = UnitState.READY;
+        this.unitClass = unitClass;
     }
 
     //----------------------------------------------Getters
