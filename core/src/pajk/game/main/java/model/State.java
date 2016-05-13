@@ -25,5 +25,4 @@ public interface State {
      */
     GameModel.StateName getName();
         //TODO make abstract and define performaction with methods for each buttonpress (switch case here instead of in all states)
-
-    }
+}

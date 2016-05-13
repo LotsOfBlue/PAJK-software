@@ -56,7 +56,6 @@ public class CombatState implements State {
 
             }
 
-
             if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
                 gameModel.setState(GameModel.StateName.MAIN_STATE);
             }
