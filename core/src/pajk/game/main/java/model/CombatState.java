@@ -75,7 +75,7 @@ public class CombatState implements State {
         this.board = GameModel.getInstance().getBoard();
         activeUnit = gameModel.getActiveUnit();
         //Enemy chosen by user
-        enemyUnit = board.getCursorTile().getUnit();
+        enemyUnit = gameModel.getTargetUnit();
         //TODO make fight club great again
 
         if (firstHitFromActiveUnit = doesThisHitThat(activeUnit, enemyUnit)) {
@@ -106,22 +106,24 @@ public class CombatState implements State {
 
             System.out.println("defender:" + damageFromEnemyUnit);//TODO REMOVE
 
-            //If active still alive and fast enough, hit enemy again
-            if (activeUnit.getHealth() > 0) {
-                if (activeUnit.getSpeed() >= (enemyUnit.getSpeed() + 4)) {
-                    secondAttackFromActiveUnit = true;
-                    if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, enemyUnit)){
-                        // TODO howto nice boolean fallout
-                        int critMult = 1;
-                        if(secondCritFromActiveUnit = doesThisCritThat(activeUnit, enemyUnit)){
-                            critMult = 2;
-                        }
-                        secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, enemyUnit);
-                        enemyUnit.takeDamage(secondDamageFromActiveUnit);
-                    }
 
-                    System.out.println("attacker:" + secondDamageFromActiveUnit);//TODO REMOVE
+        }
+
+        //If active still alive and fast enough, hit enemy again
+        if (activeUnit.getHealth() > 0) {
+            if (activeUnit.getSpeed() >= (enemyUnit.getSpeed() + 4)) {
+                secondAttackFromActiveUnit = true;
+                if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, enemyUnit)){
+                    // TODO howto nice boolean fallout
+                    int critMult = 1;
+                    if(secondCritFromActiveUnit = doesThisCritThat(activeUnit, enemyUnit)){
+                        critMult = 2;
+                    }
+                    secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, enemyUnit);
+                    enemyUnit.takeDamage(secondDamageFromActiveUnit);
                 }
+
+                System.out.println("attacker:" + secondDamageFromActiveUnit);//TODO REMOVE
             }
         }
 

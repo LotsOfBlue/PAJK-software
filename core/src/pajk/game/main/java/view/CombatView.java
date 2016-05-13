@@ -3,10 +3,8 @@ package pajk.game.main.java.view;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.utils.StringBuilder;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
-
 import pajk.game.main.java.model.GameModel;
 
 /**
@@ -47,13 +45,13 @@ public class CombatView extends AbstractGameView {
     private CombatDrawState combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
 
 
-    Texture tileSprite;
-    Texture enemySprite;
-    Texture activeSprite;
 
-    private Texture redSwordUnitSheet;
-    private TextureRegion redSwordUnitFrames[];
+
+
     private Animation redSwordUnitAnimation;
+    private Animation blueSwordUnitAnimation;
+    private Animation redBowUnitAnimation;
+    private Animation blueBowUnitAnimation;
 
     private BitmapFont bitmapFont;
 
@@ -65,22 +63,43 @@ public class CombatView extends AbstractGameView {
 
         bitmapFont = new BitmapFont();
 
-        //Red sword unit
-        redSwordUnitAnimation = new Animation(new Float(2) ,new TextureRegion(new Texture("unit-sprite")));
-        redSwordUnitSheet = new Texture("unit-sprite-combat");
-        TextureRegion[][] tmp = TextureRegion.split(redSwordUnitSheet, redSwordUnitSheet.getWidth()/4, redSwordUnitSheet.getHeight()/1);
-        redSwordUnitFrames = new TextureRegion[4 * 1];
-        int index = 0;
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 4; j++) {
-                redSwordUnitFrames[index++] = tmp[i][j];
-            }
-        }
-        redSwordUnitAnimation = new Animation(0.05f, redSwordUnitFrames);
-        //end ed sword unit
+
+
+
+        blueSwordUnitAnimation = getAnimationFrom(new Texture("blue-sword-animation"));
+
+        redSwordUnitAnimation = getAnimationFrom(new Texture("red-sword-animation"));
+
+        blueBowUnitAnimation = getAnimationFrom(new Texture("blue-bow-animation"));
+
+        redBowUnitAnimation = getAnimationFrom(new Texture("red-bow-animation"));
+
 
 
     }
+
+    private Animation getAnimationFrom(Texture texture){
+        Texture tempTexture;
+        TextureRegion tempTextureRegion[];
+        TextureRegion tempTextureRegions[][];
+        int width;
+        int height;
+
+        tempTexture = texture;
+        width = tempTexture.getWidth()/(tempTexture.getWidth()/TILE_WIDTH);
+        height = tempTexture.getHeight()/(tempTexture.getHeight()/TILE_WIDTH);
+        tempTextureRegions = TextureRegion.split(tempTexture, width, height);
+        tempTextureRegion = new TextureRegion[width * height];
+        int index = 0;
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 4; j++) {
+                tempTextureRegion[index++] = tempTextureRegions[i][j];
+            }
+        }
+        return new Animation(0.075f, tempTextureRegion);
+    }
+
+
     public void render(SpriteBatch spriteBatch){
 
         this.spriteBatch = spriteBatch;
@@ -126,6 +145,7 @@ public class CombatView extends AbstractGameView {
                 if(animationClock == 30){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
                     animationClock = 0;
+                    break;
                 }
                 drawAttackAnimation(activeUnit, frame);
                 break;
@@ -133,6 +153,7 @@ public class CombatView extends AbstractGameView {
                 if(animationClock == 30 || !attackFromEnemyUnit){
                     combatDrawState = CombatDrawState.ACTIVE_SECOND_HIT;
                     animationClock = 0;
+                    break;
                 }
                 drawAttackAnimation(enemyUnit, frame);
                 break;
@@ -142,6 +163,7 @@ public class CombatView extends AbstractGameView {
                     animationClock = 0;
                     done = true;
                     flush();
+                    break;
                 }
                 drawAttackAnimation(activeUnit, frame);
                 break;
@@ -151,6 +173,34 @@ public class CombatView extends AbstractGameView {
 
 
 
+
+    private void drawAttackAnimation(Unit unit, float frame){
+        drawDamageNumber(unit, frame);
+        Unit.UnitClass unitClass = unit.getUnitClass();
+        switch (unitClass){
+            case SWORD:
+                if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                    drawAttackFrame(unit, blueSwordUnitAnimation.getKeyFrame(frame));
+                }else{
+                    drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
+                }
+
+                break;
+            case AXE:
+                break;
+            case PIKE:
+                break;
+            case BOW:
+                if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                    drawAttackFrame(unit, blueBowUnitAnimation.getKeyFrame(frame));
+                }else{
+                    drawAttackFrame(unit, redBowUnitAnimation.getKeyFrame(frame));
+                }
+                break;
+
+        }
+
+    }
 
     private void drawDamageNumber(Unit unit, float frame){
         float uPos[] = calcUnitDrawPos(unit);
@@ -191,26 +241,6 @@ public class CombatView extends AbstractGameView {
                 draw(uPos[0]+frame,uPos[1]+frame,"MISS");
             }
         }
-    }
-
-    private void drawAttackAnimation(Unit unit, float frame){
-        drawDamageNumber(unit, frame);
-        Unit.UnitClass unitClass = unit.getUnitClass();
-        switch (unitClass){
-            case SWORD:
-                if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
-                    drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
-                }else{
-                    drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
-                }
-
-                break;
-            case AXE:
-                break;
-            case PIKE:
-                break;
-        }
-
     }
 
     private float[] calcUnitDrawPos(Unit unit){
