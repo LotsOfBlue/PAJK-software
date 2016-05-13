@@ -27,8 +27,6 @@ public class CombatState implements State {
     private boolean secondAttackFromActiveUnit = false;
     private boolean attackFromEnemyUnit = false;
 
-
-
     @Override
     public void performAction(ActionName action) {
         if(action.equals(ActionName.COMBAT_DONE)){
@@ -41,16 +39,13 @@ public class CombatState implements State {
             }
             flush();
 
-            if (gameModel.allUnitsDone()) {
-                gameModel.setState(GameModel.StateName.ENEMY_TURN);
-            }
-            else {
-                gameModel.setState(GameModel.StateName.MAIN_STATE);
-            }
+            //Return to the main state when done
+            gameModel.setState(GameModel.StateName.MAIN_STATE);
         }
     }
-    /*
-     * Flush is a cleanup function meant to reset every "case sensitive" variable in combat
+
+    /**
+     *  Flush is a cleanup function meant to reset every "case sensitive" variable in combat
      */
     private void flush(){
         activeUnit = null;

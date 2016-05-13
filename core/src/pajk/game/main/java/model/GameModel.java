@@ -30,8 +30,6 @@ public final class GameModel {
     private final CombatState combatState;
     private final MoveUnitState moveUnitState;
 
-
-
     public enum StateName{
         MAIN_STATE,
         UNIT_MENU,
@@ -117,7 +115,9 @@ public final class GameModel {
         }
     }
 
-    public State getState(){return currentState;}
+    public State getState(){
+        return currentState;
+    }
 
     public Board getBoard(){
         return board;

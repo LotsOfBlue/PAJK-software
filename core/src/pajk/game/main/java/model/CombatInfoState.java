@@ -22,7 +22,7 @@ public class CombatInfoState implements State{
 
     @Override
     public void activate() {
-
+        //TODO display combat preview here
     }
 
     @Override

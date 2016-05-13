@@ -3,10 +3,25 @@ package pajk.game.main.java.model;
 import pajk.game.main.java.ActionName;
 
 /**
- * Created by Gustav on 2016-04-22.
+ * The game is always in one of multiple states, represented by this interface.
+ * Each state handles a different part of game logic and reacts to inputs differently.
+ * @author Gustav Grännsjö
  */
 public interface State {
+    /**
+     * Called when player input is received.
+     * @param action The type of input to handle.
+     */
     void performAction(ActionName action);
-    GameModel.StateName getName();
+
+    /**
+     * Called when the state becomes active. Initializes everything the state needs.
+     */
     void activate();
+
+    /**
+     * Get the name of the current state.
+     * @return This state's name.
+     */
+    GameModel.StateName getName();
 }
