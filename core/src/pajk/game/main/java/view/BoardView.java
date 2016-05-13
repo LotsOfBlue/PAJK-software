@@ -1,9 +1,14 @@
 package pajk.game.main.java.view;
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
+import pajk.game.PajkGdxGame;
 import pajk.game.main.java.model.*;
 
 
@@ -24,6 +29,8 @@ public class BoardView extends AbstractGameView {
     private Texture blueBowUnitSprite;
     private Texture redBowUnitSprite;
 
+    private Texture hpbarRed;
+    private Texture hpbarBlue;
 
 
     private Texture cursor;
@@ -34,6 +41,8 @@ public class BoardView extends AbstractGameView {
     private Texture mountainTexture;
     private Texture waterTexture;
     private Texture gridTexture;
+
+    private ShapeRenderer shapeRenderer;
     private SpriteBatch spriteBatch;
     private final int TILE_WIDTH = 64;
 
@@ -42,6 +51,7 @@ public class BoardView extends AbstractGameView {
     public BoardView(OrthographicCamera camera){
        /* unit = new Texture("unit-sprite.png");
         grayUnit = new Texture("unitGray.png");*/
+        shapeRenderer = new ShapeRenderer();
 
         blueSwordUnitSprite = new Texture("blue-sword-sprite");
         redSwordUnitSprite = new Texture("red-sword-sprite");
@@ -56,6 +66,9 @@ public class BoardView extends AbstractGameView {
         mountainTexture=new Texture("mountain64.png");
         waterTexture=new Texture("water64.png");
         gridTexture = new Texture("gridOverlay64.png");
+
+        hpbarBlue = new Texture("hpbarBlue.png");
+        hpbarRed  = new Texture("hpbarRed.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -83,11 +96,11 @@ public class BoardView extends AbstractGameView {
         camera.update();
         spriteBatch.setProjectionMatrix(camera.combined);
 
-        spriteBatch.begin();
+//        spriteBatch.begin();
         drawBoard();
         drawCursor();
 
-        spriteBatch.end();
+//        spriteBatch.end();
     }
 
 
@@ -125,8 +138,23 @@ public class BoardView extends AbstractGameView {
                     break;
             }
         }
-
         draw(x,y,myTexture);
+
+        drawHealthbar(x,y);
+    }
+
+    private void drawHealthbar(int x, int y){
+        int pixelX = getPixelCoordX(x);
+        int pixelY = getPixelCoordY(y);
+
+        draw(x,y,hpbarRed);
+        double currentHp = 15;
+        double maxhp = 20;
+        int hpPixels = (int)(64 * (currentHp / maxhp));
+        TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
+        spriteBatch.begin();
+        spriteBatch.draw(txtReg,pixelX,pixelY);
+        spriteBatch.end();
     }
 
     private void drawTile(Tile tile){
@@ -164,9 +192,18 @@ public class BoardView extends AbstractGameView {
      * @param texture The tile's texture
      */
     private void draw(int x, int y, Texture texture){
-        int pixelX = x*(TILE_WIDTH);
-        int pixelY = (gameModel.getBoard().getBoardHeight() - 1 - y)*(TILE_WIDTH);
+        spriteBatch.begin();
+        int pixelX = getPixelCoordX(x);
+        int pixelY = getPixelCoordY(y);
         spriteBatch.draw(texture,pixelX,pixelY);
+        spriteBatch.end();
+    }
+
+    private int getPixelCoordX(int boardCoordX){
+        return boardCoordX * TILE_WIDTH;
+    }
+    private int getPixelCoordY(int boardCoordY){
+        return (gameModel.getBoard().getBoardHeight() - 1 - boardCoordY)*(TILE_WIDTH);
     }
 
     /**
