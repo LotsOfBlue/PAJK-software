@@ -10,6 +10,7 @@ import java.util.Random;
  */
 public class Unit {
     //Stats of a unit
+    private String name;
     private int level = 1;
     private int experience = 1;
     private int health = 20;
@@ -30,6 +31,8 @@ public class Unit {
     private Weapon weapon = new Weapon(Weapon.WeaponType.PIKE, 1, 1, 10, 5, 20);
     private Allegiance allegiance;
     private UnitClass unitClass = UnitClass.SWORD;
+
+
 
     /**
      * Which entity the unit belongs to.
@@ -74,6 +77,7 @@ public class Unit {
             ConditionType condition,
             */MovementType movementType/*,
             AffinityType affinity*/) {
+        this.name = NameUtils.getRandomName(allegiance);
         this.allegiance = allegiance;
         this.movement = movement;
         this.movementType = movementType;
@@ -82,6 +86,10 @@ public class Unit {
 
     //----------------------------------------------Getters
     public UnitClass getUnitClass(){ return unitClass;}
+
+    public String getName() {
+        return name;
+    }
 
     public int getLevel() {
         return level;

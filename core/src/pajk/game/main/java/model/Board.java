@@ -32,7 +32,7 @@ public class Board {
     }
 
     private void initMatrix(String fileName){
-        List<String> lines = readMapFile(fileName);
+        List<String> lines = FileReader.readFile(fileName);
         int width = 0;
         int height = 0;
         if (lines != null) {
@@ -60,20 +60,6 @@ public class Board {
                 }
                 tileMatrix[x][y] = new Tile(x,y, terrain);
             }
-        }
-    }
-
-    private List<String> readMapFile(String fileName){
-        try {
-            Path path = Paths.get(fileName);
-            return Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch (InvalidPathException e) {
-            System.out.println("Couldn't load " + fileName);
-            e.printStackTrace();
-            return null;
-        } catch (IOException e){
-            e.printStackTrace();
-            return null;
         }
     }
 

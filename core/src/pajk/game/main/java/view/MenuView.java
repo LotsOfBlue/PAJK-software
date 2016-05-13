@@ -106,11 +106,14 @@ public class MenuView extends AbstractGameView {
         Unit unit = GameModel.getInstance().getBoard().getCursorTile().getUnit();
         String healthText = unit.getHealth() +" hp";
         String lvlText = "Lvl: " +unit.getLevel();
+        String nameText = unit.getName();
 
         font.getData().setScale(2,2);
         font.setColor(Color.BLACK);
-        font.draw(spriteBatch,healthText,x+15,y+120);
-        font.draw(spriteBatch,lvlText,x+15,y+90);
+        font.draw(spriteBatch,healthText,x+15,y+110);
+        font.draw(spriteBatch,lvlText,x+15,y+80);
+        font.getData().setScale(2f - nameText.length()/10, 2f - nameText.length()/10);
+        font.draw(spriteBatch, nameText, x+15, y+140);
 
     }
 
