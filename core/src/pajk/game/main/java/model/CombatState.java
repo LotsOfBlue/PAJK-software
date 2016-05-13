@@ -212,9 +212,13 @@ public class CombatState implements State {
     //----------------------------------------------------------------------------
 
 
-    public boolean isAttackFromEnemyUnit() { return attackFromEnemyUnit; }
+    public boolean isAttackFromEnemyUnit() {
+        return attackFromEnemyUnit;
+    }
 
-    public boolean isSecondAttackFromActiveUnit() { return secondAttackFromActiveUnit; }
+    public boolean isSecondAttackFromActiveUnit() {
+        return secondAttackFromActiveUnit;
+    }
 
     public Unit getActiveUnit() {
         return activeUnit;
@@ -236,19 +240,33 @@ public class CombatState implements State {
         return firstDamageFromActiveUnit;
     }
 
-    public boolean isCalcDone() { return calcDone; }
+    public boolean isCalcDone() {
+        return calcDone;
+    }
 
-    public boolean isCritFromEnemyUnit() { return critFromEnemyUnit; }
+    public boolean isCritFromEnemyUnit() {
+        return critFromEnemyUnit;
+    }
 
-    public boolean isFirstCritFromActiveUnit() { return firstCritFromActiveUnit; }
+    public boolean isFirstCritFromActiveUnit() {
+        return firstCritFromActiveUnit;
+    }
 
-    public boolean isFirstHitFromActiveUnit() { return firstHitFromActiveUnit; }
+    public boolean isFirstHitFromActiveUnit() {
+        return firstHitFromActiveUnit;
+    }
 
-    public boolean isHitFromEnemyUnit() { return hitFromEnemyUnit; }
+    public boolean isHitFromEnemyUnit() {
+        return hitFromEnemyUnit;
+    }
 
-    public boolean isSecondCritFromActiveUnit() { return secondCritFromActiveUnit; }
+    public boolean isSecondCritFromActiveUnit() {
+        return secondCritFromActiveUnit;
+    }
 
-    public boolean isSecondHitFromActiveUnit() { return secondHitFromActiveUnit; }
+    public boolean isSecondHitFromActiveUnit() {
+        return secondHitFromActiveUnit;
+    }
 
     //----------------------------------------------------------------------------
 }

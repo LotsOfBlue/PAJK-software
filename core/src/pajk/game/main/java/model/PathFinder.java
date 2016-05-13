@@ -60,8 +60,6 @@ public abstract class PathFinder {
                 break;
             }
 
-            System.out.println(current.getX() + " " + current.getY());
-
             //This tile has been searched, remove it from the open set
             open.remove(current);
             closed.add(current);
@@ -111,5 +109,13 @@ public abstract class PathFinder {
         path.add(start);
 
         return path;
+    }
+
+    public static int getPathLength(List<Tile> path, Unit active) {
+        int distance = 0;
+        for (Tile t : path) {
+            distance += t.getMovementCost(active.getMovementType());
+        }
+        return distance;
     }
 }
