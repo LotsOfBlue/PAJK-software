@@ -112,7 +112,7 @@ public class MenuView extends AbstractGameView {
         font.setColor(Color.BLACK);
         font.draw(spriteBatch,healthText,x+15,y+110);
         font.draw(spriteBatch,lvlText,x+15,y+80);
-        font.getData().setScale(2f - nameText.length()/10, 2f - nameText.length()/10);
+        font.getData().setScale(2f - nameText.length()/13f, 2f - nameText.length()/13f);
         font.draw(spriteBatch, nameText, x+15, y+140);
 
     }

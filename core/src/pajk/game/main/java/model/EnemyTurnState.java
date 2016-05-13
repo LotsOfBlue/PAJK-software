@@ -8,6 +8,9 @@ import java.util.Queue;
 import java.util.List;
 
 /**
+ * This state is active during the enemy turn. It makes an action for each enemy unit and then returns control back to
+ * the player.
+ *
  * Created by Johan on 2016-04-28.
  */
 public class EnemyTurnState implements State {

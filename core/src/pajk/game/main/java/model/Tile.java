@@ -3,6 +3,10 @@ package pajk.game.main.java.model;
 import pajk.game.main.java.model.terrain.Terrain;
 
 /**
+ * A tile is a place in the world. It is represented by a single square, graphically. Each tile can have a single
+ * unit standing on it and it has a terrain type. The terrain type alters the movement cost of moving to this tile from
+ * an adjacent one.
+ *
  * Created by palm on 2016-04-15.
  */
 public class Tile{
@@ -12,6 +16,7 @@ public class Tile{
     private Unit unit;
     private Overlay overlay = Overlay.NONE;
 
+    //These values are used by the PathFinder class.
     private double pathH;
     private Tile pathParent = null;
     private double pathG;

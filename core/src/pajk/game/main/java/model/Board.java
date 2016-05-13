@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * Represents the world, this class holds all the tiles in the game. This class also manages the moving
+ * of units between tiles and the calculations of movement ranges since it knows the relations between tiles.
+ *
  * Created by palm on 2016-04-15.
  */
 public class Board {
@@ -26,11 +29,26 @@ public class Board {
     private Tile[][] tileMatrix;
     private Unit unitHolder;
 
+    /**
+     * Creates a board from the given map file.
+     * @param fileName The name of the file containing the information needed to create a map.
+     */
     Board(String fileName) {
         initMatrix(fileName);
         cursor = tileMatrix[0][0];
     }
 
+    /**
+     * Fills the board's tile matrix with tiles by reading a map file.
+     * Map files are structured in this way:
+     * Row one contains the width of the map.
+     * Row two contains the height of the map.
+     * Then follows an amount of rows equal to the height of the map.
+     * Each of those rows contain a number of chars equal to the width of the map.
+     * Each of those chars specify what tile type should be present there.
+     * 0 = plains, 1= forest, 2 = mountain, 3=river.
+     * @param fileName The name of the map file to be read from.
+     */
     private void initMatrix(String fileName){
         List<String> lines = FileReader.readFile(fileName);
         int width = 0;
@@ -63,16 +81,6 @@ public class Board {
         }
     }
 
-    public void clearOverlays(){
-        for (Tile[] ta :
-                tileMatrix) {
-            for (Tile t :
-                    ta) {
-                t.setOverlay(Tile.Overlay.NONE);
-            }
-        }
-    }
-
     /**
      * Get the tile with the given coordinates, if there is one.
      * @param x X coordinate
@@ -87,6 +95,11 @@ public class Board {
         return null;
     }
 
+    /**
+     * Returns the four tiles surrounding this tile.
+     * @param t The center tile.
+     * @return The surrounding tiles of t.
+     */
     public List<Tile> getNeighbors(Tile t){
         List<Tile> result = new ArrayList<>();
         if (isWithinBoard(t.getX(), t.getY() - 1)){
@@ -104,6 +117,14 @@ public class Board {
         return result;
     }
 
+    /**
+     * Moves a unit one step along a given path, while also holding on to units it's passing through so that
+     * it can be put down again when he moves away from the square the other unit occupied. One must make
+     * sure that the last step of the path is not already occupied and that you repeatedly call this function until the
+     * path is empty, otherwise you might accidentally permanently remove units you pass through.
+     * @param path The path to move along.
+     * @param unit The unit to move.
+     */
     public void moveAlongPath(List<Tile> path, Unit unit){
         Tile currentTarget = path.get(path.size() - 1);
         if (unitHolder != null){
@@ -116,10 +137,6 @@ public class Board {
         }
         moveUnit(unit, path.get(path.size() - 1));
         path.remove(path.size() - 1);
-    }
-
-    public Tile[][] getTileMatrix(){
-        return tileMatrix;
     }
 
     /**
@@ -170,7 +187,7 @@ public class Board {
     }
 
     /**
-     * Sets the cursor to the given coordinates
+     * Sets the cursor to the given coordinates.
      * @param x X coordinate
      * @param y Y coordinate
      */
@@ -200,7 +217,10 @@ public class Board {
     }
 
     /**
-     * TODO
+     * Recursively checks every tile that can be reached from a given tile,
+     * with the given movement range, and adds them to a set.
+     * Units can move through allied units but not enemy units. They can still not
+     * stand on the same tile as a friendly unit.z
      * @param tiles
      * @param origin
      * @param previous
@@ -218,42 +238,17 @@ public class Board {
             return tiles;
         }
 
-        //Check the tile to the north of origin
-        if (isWithinBoard(origin.getX(), origin.getY() - 1)){
-            Tile northTile = getTile(origin.getX(), origin.getY() - 1);
-            if (    previous != northTile && //Don't walk backwards
-                    (!northTile.hasUnit() || (northTile.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) && //Don't walk through enemy units, walk through allied.
-                    range >= northTile.getMovementCost(unit.getMovementType())) { //Make sure the unit has enough movement left to walk there.
-                tiles.addAll(calculateTiles(tiles, northTile, origin, unit, range - northTile.getMovementCost(unit.getMovementType())));
+        //Check if we can move to the neighbor.
+        List<Tile> neighbors = getNeighbors(origin);
+        for (Tile t :
+                neighbors) {
+            if (    previous != t && //Don't walk backwards
+                    (!t.hasUnit() || (t.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) && //Don't walk through enemy units, walk through allied.
+                    range >= t.getMovementCost(unit.getMovementType())) { //Make sure the unit has enough movement left to walk there.
+                tiles.addAll(calculateTiles(tiles, t, origin, unit, range - t.getMovementCost(unit.getMovementType())));
             }
         }
-        //West of origin
-        if (isWithinBoard(origin.getX() - 1, origin.getY())){
-            Tile westTile = getTile(origin.getX() - 1, origin.getY());
-            if (    previous != westTile &&
-                    (!westTile.hasUnit() || (westTile.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) &&
-                    range >= westTile.getMovementCost(unit.getMovementType())) {
-                tiles.addAll(calculateTiles(tiles, westTile, origin, unit, range - westTile.getMovementCost(unit.getMovementType())));
-            }
-        }
-        //South of origin
-        if (isWithinBoard(origin.getX(), origin.getY() + 1)){
-            Tile southTile = getTile(origin.getX(), origin.getY() + 1);
-            if (    previous != southTile &&
-                    (!southTile.hasUnit() || (southTile.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) &&
-                    range >= southTile.getMovementCost(unit.getMovementType())) {
-                tiles.addAll(calculateTiles(tiles, southTile, origin, unit, range - southTile.getMovementCost(unit.getMovementType())));
-            }
-        }
-        //East of origin
-        if (isWithinBoard(origin.getX() + 1, origin.getY())){
-            Tile eastTile = getTile(origin.getX() + 1, origin.getY());
-            if (    previous != eastTile &&
-                    (!eastTile.hasUnit() || (eastTile.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) &&
-                    range >= eastTile.getMovementCost(unit.getMovementType())) {
-                tiles.addAll(calculateTiles(tiles, eastTile, origin, unit, range - eastTile.getMovementCost(unit.getMovementType())));
-            }
-        }
+
         return tiles;
     }
 
@@ -288,16 +283,6 @@ public class Board {
         return result;
     }
 
-    /**
-     * TODO delete?
-     * @param unit
-     */
-    void moveToCursor(Unit unit) {
-        Tile old = getPos(unit);
-        cursor.setUnit(unit);
-        old.setUnit(null);
-    }
-
     public int getBoardWidth(){
         return tileMatrix.length;
     }
@@ -311,7 +296,7 @@ public class Board {
     }
 
     /**
-     * Checks if there is a tile containing the specified unit.
+     * Checks if there is a tile containing the specified unit. If there is, returns it.
      * @param unit The unit to check for
      * @return The Tile that the unit is standing on,
      * null if the unit can't be found.
@@ -327,6 +312,12 @@ public class Board {
         return null;
     }
 
+    /**
+     * Moves the unit to the selected tile. Removes him from the tile he's currently standing on and then places him on
+     * the new tile.
+     * @param unit The unit to move.
+     * @param dest The tile to move to.
+     */
     void moveUnit(Unit unit, Tile dest) {
         for (Tile[] arr:
              tileMatrix) {
@@ -340,6 +331,10 @@ public class Board {
         dest.setUnit(unit);
     }
 
+    /**
+     * Returns a String representation of the tile matrix. THe cursor is marked as an X, units as U and everything else with O.
+     * @return A string representation of the board's tile matrix.
+     */
     public String toString(){
         String result = "(" + cursor.getX() + ", " + cursor.getY() + ")\n";
         for (int i = 0; i < getBoardHeight(); i++) {

@@ -264,8 +264,4 @@ public class Unit {
         }
     }
 
-    @Override
-    public String toString() {
-        return movementType.toString(); //TODO make better or remove
-    }
 }

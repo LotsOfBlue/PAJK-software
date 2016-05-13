@@ -2,7 +2,7 @@ package pajk.game.main.java.model;
 
 /**
  * Created by jonatan on 20/04/2016.
- * Weapons are special items of a special type, with a minRange, damage and critmultiplier value.
+ * Weapons are special items of a special type, with a minRange, maxrange damage and crit chance value.
  */
 class Weapon extends Item{
     private WeaponType weaponType;

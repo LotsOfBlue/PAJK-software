@@ -3,6 +3,8 @@ package pajk.game.main.java.model;
 import pajk.game.main.java.ActionName;
 
 /**
+ * Abstract state that allows you to move the cursor with the arrow keys.
+ *
  * Created by palm on 2016-05-11.
  */
 public abstract class MoveState implements State{
@@ -30,14 +32,14 @@ public abstract class MoveState implements State{
                 enterAction();
                 break;
             case BACK:
-                backToMenu();
+                backAction();
                 break;
         }
     }
 
 
     public abstract void enterAction();
-    public abstract void backToMenu();
+    public abstract void backAction();
 
 
 }

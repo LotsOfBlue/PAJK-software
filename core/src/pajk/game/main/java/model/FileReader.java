@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
+ * Helper class that lets us convert text files into String lists.
+ *
  * Created by Gustav on 2016-05-13.
  */
 public abstract class FileReader {

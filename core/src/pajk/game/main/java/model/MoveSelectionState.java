@@ -1,10 +1,12 @@
 package pajk.game.main.java.model;
 
-import pajk.game.main.java.ActionName;
 
 import java.util.Set;
 
 /**
+ * This state allows you to select what tile you want to move the active unit to. It paints the allowed tiles blue and
+ * allows you to move the cursor.
+ *
  * Created by Gustav on 2016-04-25.
  */
 public class MoveSelectionState extends MoveState{
@@ -15,32 +17,6 @@ public class MoveSelectionState extends MoveState{
     private Set<Tile> allowedTiles;
 
 
-
-
-//    @Override
-//    public void performAction(ActionName action) {
-//        switch (action){
-//            case UP:
-//                board.moveCursor(Board.Direction.NORTH);
-//                break;
-//            case LEFT:
-//                board.moveCursor(Board.Direction.WEST);
-//                break;
-//            case RIGHT:
-//                board.moveCursor(Board.Direction.EAST);
-//                break;
-//            case DOWN:
-//                board.moveCursor(Board.Direction.SOUTH);
-//                break;
-//            case ENTER:
-//                enterAction();
-//                break;
-//            case BACK:
-//                backToMenu();
-//                break;
-//        }
-//    }
-
     @Override
     public GameModel.StateName getName() {
         return GameModel.StateName.MOVE_SELECT;
@@ -48,20 +24,17 @@ public class MoveSelectionState extends MoveState{
 
     @Override
     public void enterAction(){
+        //If the player selected an allowed tile, proceed to the state for moving units.
         Tile cursorTile = board.getCursorTile();
         for (Tile t:
                 allowedTiles) {
             if (t == cursorTile){
-                System.out.println("Moved the unit.");
                 for (Tile ti:
                         allowedTiles) {
                     ti.setOverlay(Tile.Overlay.NONE);
                 }
-
                 activeUnit.setUnitState(Unit.UnitState.MOVED);
                 model.setTargetTile(t);
-                System.out.println("Test1");
-                //Open the menu again when the unit is finished moving
                 model.setState(GameModel.StateName.MOVE_UNIT);
                 break;
             }
@@ -72,7 +45,7 @@ public class MoveSelectionState extends MoveState{
      * Cancel moving and return back to the unit menu
      */
     @Override
-    public void backToMenu() {
+    public void backAction() {
         for (Tile t : allowedTiles) {
             t.setOverlay(Tile.Overlay.NONE);
         }
@@ -84,7 +57,7 @@ public class MoveSelectionState extends MoveState{
         model = GameModel.getInstance();
         activeUnit = model.getActiveUnit();
         board = GameModel.getInstance().getBoard();
-//        Tile centerTile = board.getPos(activeUnit);
+        //Get the tiles the active unit can move to.
         allowedTiles = board.getTilesWithinMoveRange(activeUnit);
         for (Tile t:
              allowedTiles) {

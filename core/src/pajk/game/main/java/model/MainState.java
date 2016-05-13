@@ -1,44 +1,33 @@
 package pajk.game.main.java.model;
 
-import pajk.game.main.java.ActionName;
 
 /**
+ * This state is active when you start the game. It allows you to move the cursor around the board and select units.
+ *
  * Created by Gustav on 2016-04-22.
  */
-public class MainState implements State {
+public class MainState extends MoveState {
 
     private GameModel model;
     private Board board;
 
-
+    @Override
+    public void enterAction() {
+        //Open the menu for the unit under the cursor of it's an allied unit that has not yet acted this turn.
+        Tile cursorTile = board.getCursorTile();
+        if (cursorTile.hasUnit()){
+            Unit currentUnit = cursorTile.getUnit();
+            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
+                    currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
+                model.setActiveUnit(currentUnit);
+                model.setState(GameModel.StateName.UNIT_MENU);
+            }
+        }
+    }
 
     @Override
-    public void performAction(ActionName action) {
-        switch (action){
-            case UP:
-                board.moveCursor(Board.Direction.NORTH);
-                break;
-            case LEFT:
-                board.moveCursor(Board.Direction.WEST);
-                break;
-            case RIGHT:
-                board.moveCursor(Board.Direction.EAST);
-                break;
-            case DOWN:
-                board.moveCursor(Board.Direction.SOUTH);
-                break;
-            case ENTER:
-                Tile cursorTile = board.getCursorTile();
-                if (cursorTile.hasUnit()){
-                    Unit currentUnit = cursorTile.getUnit();
-                    if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
-                            currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
-                        model.setActiveUnit(currentUnit);
-                        model.setState(GameModel.StateName.UNIT_MENU);
-                    }
-                }
-                break;
-        }
+    public void backAction() {
+
     }
 
     @Override

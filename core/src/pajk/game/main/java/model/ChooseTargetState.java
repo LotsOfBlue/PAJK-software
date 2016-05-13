@@ -1,10 +1,11 @@
 package pajk.game.main.java.model;
 
-import pajk.game.main.java.ActionName;
-
 import java.util.Set;
 
 /**
+ * This state is active when you have selected "Attack" from the unit menu, and here you are supposed to move the cursor
+ * to the enemy you want to attack and then confirm your selection with enter.
+ *
  * Created by Gustav on 2016-04-28.
  */
 public class ChooseTargetState extends MoveState {
@@ -14,36 +15,10 @@ public class ChooseTargetState extends MoveState {
     private GameModel model;
     private Set<Tile> allowedTiles;
 
-//    public ChooseTargetState(){
-//
-//    }
-
-//    @Override       //TODO duplicate, make abstract class of chooseTargetState and Move selection state?
-//    public void performAction(ActionName action) {
-//        switch (action){
-//            case UP:
-//                board.moveCursor(Board.Direction.NORTH);
-//                break;
-//            case LEFT:
-//                board.moveCursor(Board.Direction.WEST);
-//                break;
-//            case RIGHT:
-//                board.moveCursor(Board.Direction.EAST);
-//                break;
-//            case DOWN:
-//                board.moveCursor(Board.Direction.SOUTH);
-//                break;
-//            case ENTER:
-//                enterAction();
-//                break;
-//            case BACK:
-//                backToMenu();
-//                break;
-//        }
-//    }
 
     @Override
     public void enterAction(){
+        //See if the cursor is over a tile you can attack, and if there's an enemy there.
         Tile cursorTile = board.getCursorTile();
         for (Tile t:
                 allowedTiles) {
@@ -62,10 +37,10 @@ public class ChooseTargetState extends MoveState {
     }
 
     /**
-     * Cancel the attack and return back to the unit menu
+     * Cancels the attack and return back to the unit menu.
      */
     @Override
-    public void backToMenu() {
+    public void backAction() {
         for (Tile t : allowedTiles) {
             t.setOverlay(Tile.Overlay.NONE);
         }

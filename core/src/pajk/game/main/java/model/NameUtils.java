@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * This class gives out some random names for our units, mostly for fun.
+ *
  * Created by Gustav on 2016-05-13.
  */
 public abstract class NameUtils {

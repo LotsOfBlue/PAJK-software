@@ -3,15 +3,17 @@ package pajk.game.main.java.model;
 import java.util.*;
 
 /**
+ * This class has some utility functions for pathfinding.
+ *
  * Created by Gustav on 2016-05-10.
  */
 public abstract class PathFinder {
 
     /**
-     * Returns the distance between two nodes as if all the tiles between them had a cost of 1.
+     * Returns the distance between two tiles.
      * @param start One of the tiles
      * @param goal The other tile
-     * @return the distance between two nodes as if all the tiles between them had a cost of 1.
+     * @return the distance between the two tiles start and goal.
      */
 
     public static double estimateDistance(Tile start, Tile goal){
@@ -21,7 +23,7 @@ public abstract class PathFinder {
     }
 
     /**
-     * A function returning the quickest path from tile start to tile goal, using the algorithm A* (or A star).
+     * A function returning the quickest path from tile start to tile goal, using the algorithm "A*", aka "A Star".
      * @param start
      * @param goal
      * @param unit

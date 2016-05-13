@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The main entry point into the game model, this class picks up the input from the controller and
+ * delegates that to the current State to decide how to alter the game data based on the input.
+ * This class also has references to the game board and the list of units.
+ *
  * Created by palm on 2016-04-18.
  */
 public final class GameModel {
@@ -14,7 +18,6 @@ public final class GameModel {
 
     private Board board;
     private Unit activeUnit;
-    private Unit prevActiveUnit;
     private Unit targetUnit;
     private List<Unit> unitList = new ArrayList<>();
     private Tile targetTile;
@@ -80,6 +83,10 @@ public final class GameModel {
         board.placeUnit(theBigBad, board.getTile(2,2));
     }
 
+    /**
+     * Changes the current game state to another state, and also fires off its starting actions.
+     * @param state The name of the state you want to swap to.
+     */
     public void setState(StateName state){
         switch (state){
             case MAIN_STATE:
@@ -148,7 +155,7 @@ public final class GameModel {
     }
 
     /**
-     * Check whether all player-controlled units have acted this turn.
+     * Checks whether all player-controlled units have acted this turn.
      * @return True if all units under player control have exhausted their available actions
      */
     public Boolean allUnitsDone() {
@@ -161,19 +168,10 @@ public final class GameModel {
         return result;
     }
 
-    /**
-     * Sets a new active unit and stores the old one as prevActiveUnit.
-     * @param activeUnit The new active unit.
-     */
     public void setActiveUnit(Unit activeUnit) {
         if (activeUnit != this.activeUnit){
-            this.prevActiveUnit = this.activeUnit;
             this.activeUnit = activeUnit;
         }
-    }
-
-    public Unit getPrevActiveUnit() {
-        return prevActiveUnit;
     }
 
     public Unit getTargetUnit() {
@@ -189,8 +187,11 @@ public final class GameModel {
             u.setUnitState(Unit.UnitState.READY);
         }
     }
-    
-    //Delegates the keyboard press to the current state handling the logic.
+
+    /**
+     * Delegates the keyboard press to the current state handling the logic.
+     * @param action The action to be performed by the current state.
+     */
     public void performAction(ActionName action){
         currentState.performAction(action);
     }
