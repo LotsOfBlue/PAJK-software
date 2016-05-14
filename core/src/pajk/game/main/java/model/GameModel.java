@@ -32,6 +32,7 @@ public final class GameModel {
     private final CombatInfoState combatInfoState;
     private final CombatState combatState;
     private final MoveUnitState moveUnitState;
+    private final StatusState statusState;
 
 
 
@@ -43,7 +44,8 @@ public final class GameModel {
         COMBAT_INFO,
         CHOOSE_TARGET,
         COMBAT_STATE,
-        MOVE_UNIT
+        MOVE_UNIT,
+        STATUS_STATE
     }
 
     public static GameModel getInstance(){
@@ -66,6 +68,7 @@ public final class GameModel {
         combatInfoState = new CombatInfoState();
         combatState = new CombatState();
         moveUnitState = new MoveUnitState();
+        statusState = new StatusState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
@@ -119,6 +122,10 @@ public final class GameModel {
                 break;
             case MOVE_UNIT:
                 currentState = moveUnitState;
+                currentState.activate();
+                break;
+            case STATUS_STATE:
+                currentState = statusState;
                 currentState.activate();
                 break;
         }

@@ -22,6 +22,7 @@ public class UnitMenuState implements State {
         menuMap.put(0, "Move");
         menuMap.put(1, "Attack");
         menuMap.put(2, "Wait");
+        menuMap.put(3, "Status");
     }
 
     @Override
@@ -62,6 +63,8 @@ public class UnitMenuState implements State {
                             model.setState(GameModel.StateName.MAIN_STATE);
                         }
                         break;
+                    case "Status":
+                        model.setState(GameModel.StateName.STATUS_STATE);
                 }
                 break;
             //Close the menu and return to the field

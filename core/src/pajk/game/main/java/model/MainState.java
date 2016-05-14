@@ -17,11 +17,17 @@ public class MainState extends MoveState {
         Tile cursorTile = board.getCursorTile();
         if (cursorTile.hasUnit()){
             Unit currentUnit = cursorTile.getUnit();
-            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
-                    currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
-                model.setActiveUnit(currentUnit);
+            model.setActiveUnit(currentUnit);
+            if(currentUnit.getAllegiance() == Unit.Allegiance.AI){
+                model.setState(GameModel.StateName.STATUS_STATE);
+            } else {
                 model.setState(GameModel.StateName.UNIT_MENU);
             }
+//            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
+//                    currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
+//                model.setActiveUnit(currentUnit);
+//                model.setState(GameModel.StateName.UNIT_MENU);
+//            }
         }
     }
 

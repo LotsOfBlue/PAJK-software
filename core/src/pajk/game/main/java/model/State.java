@@ -18,6 +18,8 @@ public interface State {
 
     GameModel.StateName getName();
 
+    //TODO make abstract and define performaction with methods for each buttonpress (switch case here instead of in all states)
+
     /**
      * Function that does things when the state is set to the active state. Usually used for initializing variables.
      */
