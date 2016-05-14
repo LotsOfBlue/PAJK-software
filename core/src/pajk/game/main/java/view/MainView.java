@@ -15,6 +15,7 @@ public class MainView {
     private BoardView boardView;
     private CombatView combatView;
     private MenuView menuView;
+    private StatusView statusView;
     private GameModel gameModel = GameModel.getInstance();
 //    private OrthographicCamera camera;
 
@@ -25,6 +26,7 @@ public class MainView {
         boardView = new BoardView(camera);
         combatView = new CombatView();
         menuView = new MenuView(camera);
+        statusView = new StatusView(camera);
 
     }
 
@@ -38,9 +40,8 @@ public class MainView {
                 combatView.render(spriteBatch);
             }
         }
-//        if(gameModel.getState().getClass() == UnitMenuState.class){
-            menuView.render(spriteBatch);
-//        }
+        menuView.render(spriteBatch);
+        statusView.render(spriteBatch);
     }
 
 }
