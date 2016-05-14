@@ -140,16 +140,16 @@ public class BoardView extends AbstractGameView {
         }
         draw(x,y,myTexture);
 
-        drawHealthbar(x,y);
+        drawHealthbar(myUnit,x,y);
     }
 
-    private void drawHealthbar(int x, int y){
+    private void drawHealthbar(Unit unit, int x, int y){
         int pixelX = getPixelCoordX(x);
         int pixelY = getPixelCoordY(y);
 
         draw(x,y,hpbarRed);
-        double currentHp = 15;
-        double maxhp = 20;
+        double currentHp = unit.getHealth();
+        double maxhp = unit.getMaxHealth();
         int hpPixels = (int)(64 * (currentHp / maxhp));
         TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
         spriteBatch.begin();
