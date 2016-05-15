@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class StatusView extends AbstractGameView{
 
     private Texture statusBackground;
+    private Texture unitImage;
     private OrthographicCamera camera;
     private GameModel model;
     private BitmapFont font;
@@ -23,6 +24,7 @@ public class StatusView extends AbstractGameView{
 
     public StatusView(OrthographicCamera camera){
         statusBackground = new Texture("statusBackground.png");
+        unitImage = new Texture("shrek.png");
         this.camera = camera;
         font = new BitmapFont();
         model = GameModel.getInstance();
@@ -58,45 +60,52 @@ public class StatusView extends AbstractGameView{
         String skill = "Skill: " +unit.getSpeed();
         String luck = "Luck: " + unit.getLuck();
         String resistance = "Resistance: " +unit.getResistance();
+        String speed = "Speed: "+ unit.getSpeed();
+        String movement = "Movement: " +unit.getMovement();
+        String constitution = "Constitution: " +unit.getConstitution();
+        String aid = "Aid: " +unit.getAid();
+
+
+        font.draw(spriteBatch,name,x+20,y+ camera.viewportHeight - 110);
+
+        spriteBatch.draw(unitImage,x+20,y+ camera.viewportHeight - 100 -50 -130);
+
+        font.draw(spriteBatch,health,x+20,y+ camera.viewportHeight - 100 -50 -150);
+        font.draw(spriteBatch,level,x+20,y+ camera.viewportHeight - 100 -85 -150);
+        font.draw(spriteBatch,exp,x+20,y+ camera.viewportHeight - 100 -120 -150);
+        font.draw(spriteBatch,weapon,x+20,y+ camera.viewportHeight - 100 -155 -150);
+
 
         ArrayList<String> stats = new ArrayList<>();
-        stats.add(name);
-        stats.add(health);
-        stats.add(level);
-        stats.add(defence);
-        stats.add(weapon);
-        stats.add(exp);
+//        stats.add(name);
+//        stats.add(health);
+//        stats.add(level);
+//        stats.add(exp);
+
         stats.add(strength);
-        stats.add(might);
         stats.add(skill);
-        stats.add(luck);
+        stats.add(speed);
+        stats.add(defence);
         stats.add(resistance);
+        stats.add(luck);
+        stats.add(might);
+        stats.add(movement);
+        stats.add(constitution);
+        stats.add(aid);
 
 
-        /*
-        private String name;
-    private int level = 1;
-    private int experience = 1;
-    private int health = 20;
-    private int maxHealth = 20;
-    private int strength = 5;
-    private int might = 5;
-    private int skill = 5;
-    private int speed = 5;
-    private int luck = 5;
-    private int defence = 5;
-    private int resistance = 5;
-    private int movement = 3;
-    private int constitution = 5;
-    private int aid = 5;
-         */
-
-        font.draw(spriteBatch,name,x,y+ camera.viewportHeight - 100);
-        for(int i = 1; i < stats.size(); i++){
-            font.draw(spriteBatch, stats.get(i),x,y + camera.viewportHeight -110 - 30*i);
+        x = 370;
+        for(int i = 0; i < stats.size(); i++){
+            int ydiff = i * 35;
+            if(i == stats.size()/2){
+                x += 200;
+            }
+            if(i>=stats.size()/2){
+                ydiff = 35*(i-stats.size()/2);
+            }
+            font.draw(spriteBatch, stats.get(i),x+20,y + camera.viewportHeight -145 - ydiff-20);
         }
 
-//        font.draw(spriteBatch, unit.getName(),x,y+camera.viewportHeight/2);
 
         spriteBatch.end();
     }

@@ -40,7 +40,7 @@ public class MenuView extends AbstractGameView {
 
         //check
         if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() != EnemyTurnState.class &&
-                gameModel.getState().getClass() != CombatState.class){
+                gameModel.getState().getClass() != CombatState.class && gameModel.getState().getClass() != StatusState.class){
             drawTooltip();
         }
 
@@ -53,7 +53,7 @@ public class MenuView extends AbstractGameView {
     }
 
     /**
-     * Gets Draws background, all menu items, all menu text and a overlay on selected item
+     * Draws background, all menu items, all menu text and a overlay on selected item
      */
     private void drawMenu(){
         int gap = 40;
