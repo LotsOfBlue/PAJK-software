@@ -29,7 +29,7 @@ public class UnitMenuState implements State {
     public void performAction(ActionName action) {
         switch (action){
             case UP:
-                menuItemSelected = (menuItemSelected + 2) % menuMap.size();
+                menuItemSelected = (menuItemSelected + menuMap.size()-1) % menuMap.size();
                 System.out.println(this);
                 break;
             case DOWN:
