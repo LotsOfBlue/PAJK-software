@@ -81,7 +81,9 @@ public class MenuView extends AbstractGameView {
                         camera.position.y +(camera.viewportHeight/2) -(i*gap) -60);
             }
             if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
-                    && menuMap.get(i).equals("Move")){
+                    && menuMap.get(i).equals("Move")
+                    || (gameModel.getActiveUnit().getUnitState() == Unit.UnitState.ATTACKED
+                    && !menuMap.get(i).equals("Status"))){
                 font.setColor(Color.GRAY);
                 font.draw(spriteBatch, menuMap.get(i), x +15,
                         camera.position.y +(camera.viewportHeight/2) - (i*gap) -30);
