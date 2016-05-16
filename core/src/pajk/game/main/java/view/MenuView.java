@@ -106,7 +106,7 @@ public class MenuView extends AbstractGameView {
         spriteBatch.draw(tooltipBackground,x,y);
 
         Unit unit = GameModel.getInstance().getBoard().getCursorTile().getUnit();
-        String healthText = unit.getHealth() +" hp";
+        String healthText = unit.getHealth() +"/"+unit.getMaxHealth() +" hp";
         String lvlText = "Lvl: " +unit.getLevel();
         String nameText = unit.getName();
 
