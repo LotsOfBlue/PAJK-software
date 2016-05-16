@@ -24,7 +24,7 @@ public class MainState extends MoveState {
                 model.setState(GameModel.StateName.UNIT_MENU);
             }
 //            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
-//                    currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
+//                    currentUnit.getUnitState() != Unit.UnitState.DONE) {
 //                model.setActiveUnit(currentUnit);
 //                model.setState(GameModel.StateName.UNIT_MENU);
 //            }

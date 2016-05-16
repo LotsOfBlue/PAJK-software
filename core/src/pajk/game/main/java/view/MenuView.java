@@ -82,7 +82,7 @@ public class MenuView extends AbstractGameView {
             }
             if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
                     && menuMap.get(i).equals("Move")
-                    || (gameModel.getActiveUnit().getUnitState() == Unit.UnitState.ATTACKED
+                    || (gameModel.getActiveUnit().getUnitState() == Unit.UnitState.DONE
                     && !menuMap.get(i).equals("Status"))){
                 font.setColor(Color.GRAY);
                 font.draw(spriteBatch, menuMap.get(i), x +15,

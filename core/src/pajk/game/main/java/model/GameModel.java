@@ -167,7 +167,7 @@ public final class GameModel {
     public Boolean allUnitsDone() {
         Boolean result = true;
         for (Unit u : unitList) {
-            if (u.getAllegiance().equals(Unit.Allegiance.PLAYER) && !u.getUnitState().equals(Unit.UnitState.ATTACKED)) {
+            if (u.getAllegiance().equals(Unit.Allegiance.PLAYER) && !u.getUnitState().equals(Unit.UnitState.DONE)) {
                 result = false;
             }
         }

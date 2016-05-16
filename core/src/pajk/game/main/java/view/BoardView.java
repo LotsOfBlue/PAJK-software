@@ -1,14 +1,11 @@
 package pajk.game.main.java.view;
 
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Matrix4;
-import pajk.game.PajkGdxGame;
 import pajk.game.main.java.model.*;
 
 
@@ -109,7 +106,7 @@ public class BoardView extends AbstractGameView {
         Unit myUnit = board.getTile(x,y).getUnit();
         Unit.UnitClass myUnitClass = myUnit.getUnitClass();
         Texture myTexture = new Texture("gray-sword-sprite");
-        if(myUnit.getUnitState() == Unit.UnitState.ATTACKED){
+        if(myUnit.getUnitState() == Unit.UnitState.DONE){
             switch (myUnitClass) {
                 case BOW:
                     myTexture = new Texture("gray-bow-sprite");
@@ -219,7 +216,7 @@ public class BoardView extends AbstractGameView {
                 drawTile(tile);
                 if(board.getTile(x,y).hasUnit()){
                     drawUnit(x,y);
-                    /*if(board.getTile(x,y).getUnit().getUnitState() == Unit.UnitState.ATTACKED){
+                    /*if(board.getTile(x,y).getUnit().getUnitState() == Unit.UnitState.DONE){
                         draw(x,y,grayUnit);
                     } else {
                         drawUnit(x,y);

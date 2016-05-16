@@ -48,7 +48,7 @@ public class CombatState implements State {
 
             }
 
-            activeUnit.setUnitState(Unit.UnitState.ATTACKED);
+
             if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
                 gameModel.setState(GameModel.StateName.MAIN_STATE);
             }
@@ -143,7 +143,7 @@ public class CombatState implements State {
         }
 
         calcDone = true;
-        activeUnit.setUnitState(Unit.UnitState.ATTACKED);
+        activeUnit.setUnitState(Unit.UnitState.DONE);
     }
 
     /**

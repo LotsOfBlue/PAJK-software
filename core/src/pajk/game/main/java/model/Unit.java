@@ -53,7 +53,7 @@ public class Unit {
     public enum UnitState {
         READY,
         MOVED,
-        ATTACKED
+        DONE
     }
 
     public enum MovementType {
