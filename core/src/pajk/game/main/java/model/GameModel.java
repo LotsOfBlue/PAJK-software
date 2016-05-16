@@ -128,6 +128,11 @@ public final class GameModel {
         currentState.activate();
     }
 
+    public void removeUnit (Unit unit){
+        unitList.remove(unit);
+        board.getPos(unit).setUnit(null);
+    }
+
     public State getState(){
         return currentState;
     }

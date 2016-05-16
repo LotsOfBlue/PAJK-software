@@ -41,10 +41,10 @@ public class CombatState implements State {
     public void performAction(ActionName action) {
         if(action.equals(ActionName.COMBAT_DONE)){
             if (targetUnit.getHealth() < 1) {
-            board.getPos(targetUnit).setUnit(null);
-        }
+                gameModel.removeUnit(targetUnit);
+            }
             if (activeUnit.getHealth() < 1) {
-                board.getPos(activeUnit).setUnit(null);
+                gameModel.removeUnit(activeUnit);
 
             }
 
