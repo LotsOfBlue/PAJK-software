@@ -2,9 +2,7 @@ package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Gustav on 2016-04-22.
@@ -12,33 +10,33 @@ import java.util.Set;
 public class UnitMenuState implements State {
 
     private Unit activeUnit;
-    private Map<Integer, String> menuMap = new HashMap<>();
+    private List<String> menuList = new ArrayList<>();
     private int menuItemSelected = 0;
     private GameModel model;
     private Tile oldPos;
     private Board board;
 
     public UnitMenuState(){
-        menuMap.put(0, "Move");
-        menuMap.put(1, "Attack");
-        menuMap.put(2, "Wait");
-        menuMap.put(3, "Status");
+        menuList.add("Move");
+        menuList.add("Attack");
+        menuList.add("Wait");
+        menuList.add("Status");
     }
 
     @Override
     public void performAction(ActionName action) {
         switch (action){
             case UP:
-                menuItemSelected = (menuItemSelected + menuMap.size()-1) % menuMap.size();
+                menuItemSelected = (menuItemSelected + menuList.size()-1) % menuList.size();
                 System.out.println(this);
                 break;
             case DOWN:
-                menuItemSelected = (menuItemSelected + 1) % menuMap.size();
+                menuItemSelected = (menuItemSelected + 1) % menuList.size();
                 System.out.println(this);
                 break;
             //Selecting a menu item
             case ENTER:
-                switch (menuMap.get(menuItemSelected)){
+                switch (menuList.get(menuItemSelected)){
                     //Prepare to move the unit
                     case "Move":
                         if (activeUnit.getUnitState() == Unit.UnitState.READY) {
@@ -95,14 +93,13 @@ public class UnitMenuState implements State {
     }
 
     public String toString(){
-        Set<Integer> menuThings = menuMap.keySet();
         String result = "";
-        for (Integer i :
-                menuThings) {
-            if (menuItemSelected == i){
+        for (String str :
+                menuList) {
+            if (str.equals(menuList.get(menuItemSelected))){
                 result += ">";
             }
-            result += "[" + menuMap.get(i) + "]\n";
+            result += "[" + str + "]\n";
         }
         return result;
     }
@@ -112,8 +109,8 @@ public class UnitMenuState implements State {
         return GameModel.StateName.UNIT_MENU;
     }
 
-    public Map<Integer,String> getMenuMap(){        //TODO make deepcopy
-        return menuMap;
+    public List<String> getMenuList(){        //TODO make deepcopy
+        return menuList;
     }
 
     public int getMenuItemSelected(){

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.model.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -61,7 +62,7 @@ public class MenuView extends AbstractGameView {
         font.getData().setScale(2, 2);
 
         //Gets what items should be drawn in menu
-        Map<Integer,String> menuMap = gameModel.getMenuState().getMenuMap();
+        List<String> menuMap = gameModel.getMenuState().getMenuList();
         int selectedItem = gameModel.getMenuState().getMenuItemSelected();
 
         //calculates x position
@@ -114,7 +115,7 @@ public class MenuView extends AbstractGameView {
         font.setColor(Color.BLACK);
         font.draw(spriteBatch,healthText,x+15,y+110);
         font.draw(spriteBatch,lvlText,x+15,y+80);
-        font.getData().setScale(2f - nameText.length()/13f, 2f - nameText.length()/13f);
+        font.getData().setScale(2f - nameText.length()/16f);
         font.draw(spriteBatch, nameText, x+15, y+140);
 
     }

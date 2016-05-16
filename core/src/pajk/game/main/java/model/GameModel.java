@@ -24,16 +24,16 @@ public final class GameModel {
 
     //States
     private State currentState;
-    private final MainState mainState;
-    private final UnitMenuState unitMenuState = new UnitMenuState();;
-    private final EnemyTurnState enemyTurnState;
-    private final MoveSelectionState moveSelectionState;
-    private final ChooseTargetState chooseTargetState;
-    private final CombatInfoState combatInfoState;
-    private final CombatState combatState;
-    private final MoveUnitState moveUnitState;
-    private final StatusState statusState;
-    private final EndState endState;
+    private final MainState mainState = new MainState();
+    private final UnitMenuState unitMenuState = new UnitMenuState();
+    private final EnemyTurnState enemyTurnState = new EnemyTurnState();
+    private final MoveSelectionState moveSelectionState = new MoveSelectionState();
+    private final ChooseTargetState chooseTargetState = new ChooseTargetState();
+    private final CombatInfoState combatInfoState = new CombatInfoState();
+    private final CombatState combatState = new CombatState();
+    private final MoveUnitState moveUnitState = new MoveUnitState();
+    private final StatusState statusState = new StatusState();
+    private final EndState endState = new EndState();
 
     public enum StateName{
         MAIN_STATE,
@@ -58,17 +58,6 @@ public final class GameModel {
     private GameModel(){
         //Init game objects.
         board = new Board("map1.txt");
-
-        //Initialize states
-        mainState = new MainState();
-        enemyTurnState = new EnemyTurnState();
-        moveSelectionState = new MoveSelectionState();
-        chooseTargetState = new ChooseTargetState();
-        combatInfoState = new CombatInfoState();
-        combatState = new CombatState();
-        moveUnitState = new MoveUnitState();
-        statusState = new StatusState();
-        endState = new EndState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
