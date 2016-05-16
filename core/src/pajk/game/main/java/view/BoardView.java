@@ -98,7 +98,9 @@ public class BoardView extends AbstractGameView {
 
         spriteBatch.begin();
         drawBoard();
-        drawCursor();
+        if(gameModel.getState().getClass() != CombatState.class) {
+            drawCursor();
+        }
         if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() == MainState.class) {
             drawButtonText();
         }
