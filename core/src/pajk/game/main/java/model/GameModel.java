@@ -25,7 +25,7 @@ public final class GameModel {
     //States
     private State currentState;
     private final MainState mainState;
-    private final UnitMenuState unitMenuState;
+    private final UnitMenuState unitMenuState = new UnitMenuState();;
     private final EnemyTurnState enemyTurnState;
     private final MoveSelectionState moveSelectionState;
     private final ChooseTargetState chooseTargetState;
@@ -58,7 +58,6 @@ public final class GameModel {
         board = new Board("map1.txt");
 
         //Initialize states
-        unitMenuState = new UnitMenuState();
         mainState = new MainState();
         enemyTurnState = new EnemyTurnState();
         moveSelectionState = new MoveSelectionState();
