@@ -34,18 +34,20 @@ public final class GameModel {
     private final MoveUnitState moveUnitState = new MoveUnitState();
     private final StatusState statusState = new StatusState();
     private final EndState endState = new EndState();
+    private final MainMenuState mainMenuState = new MainMenuState();
 
     public enum StateName{
-        MAIN_STATE,
+        MAIN,
         UNIT_MENU,
         ENEMY_TURN,
         MOVE_SELECT,
         COMBAT_INFO,
         CHOOSE_TARGET,
-        COMBAT_STATE,
+        COMBAT,
         MOVE_UNIT,
-        STATUS_STATE,
-        END_STATE
+        STATUS,
+        END,
+        MAIN_MENU
     }
 
     public static GameModel getInstance(){
@@ -56,23 +58,7 @@ public final class GameModel {
     }
 
     private GameModel(){
-        //Init game objects.
-        board = new Board("map1.txt");
 
-        //Place a dummy unit on the board.
-        Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
-        myLittleSoldier.setWeapon(new Weapon(Weapon.WeaponType.AXE,2,3,1,1,90));
-        unitList.add(myLittleSoldier);
-        board.placeUnit(myLittleSoldier, board.getTile(6,4));
-
-        Unit myOtherSoldier = new Unit(Unit.Allegiance.PLAYER, 3, Unit.MovementType.WALKING, Unit.UnitClass.SWORD);
-        unitList.add(myOtherSoldier);
-        board.placeUnit(myOtherSoldier, board.getTile(5, 3));
-
-        //Create an enemy
-        Unit theBigBad = new Unit(Unit.Allegiance.AI, 5, Unit.MovementType.WALKING, Unit.UnitClass.SWORD);
-        unitList.add(theBigBad);
-        board.placeUnit(theBigBad, board.getTile(2,2));
     }
 
     /**
@@ -81,7 +67,7 @@ public final class GameModel {
      */
     public void setState(StateName state){
         switch (state){
-            case MAIN_STATE:
+            case MAIN:
                 currentState = mainState;
                 break;
             case UNIT_MENU:
@@ -99,17 +85,20 @@ public final class GameModel {
             case ENEMY_TURN:
                 currentState = enemyTurnState;
                 break;
-            case COMBAT_STATE:
+            case COMBAT:
                 currentState = combatState;
                 break;
             case MOVE_UNIT:
                 currentState = moveUnitState;
                 break;
-            case STATUS_STATE:
+            case STATUS:
                 currentState = statusState;
                 break;
-            case END_STATE:
+            case END:
                 currentState = endState;
+                break;
+            case MAIN_MENU:
+                currentState = mainMenuState;
                 break;
         }
 

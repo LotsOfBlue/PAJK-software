@@ -29,7 +29,7 @@ public class PajkGdxGame extends ApplicationAdapter {
     public void create () {
         batch = new SpriteBatch();
         gameModel = GameModel.getInstance();
-        gameModel.setState(GameModel.StateName.MAIN_STATE);
+        gameModel.setState(GameModel.StateName.MAIN_MENU);
         gameController = new Controller(gameModel);
 
         mainView = new MainView();
@@ -72,7 +72,7 @@ public class PajkGdxGame extends ApplicationAdapter {
         }
 
         if (inputCooldown == 0){
-            if (Gdx.input.isKeyPressed(Input.Keys.X) && gameModel.getCurrentStateName() == GameModel.StateName.MAIN_STATE){
+            if (Gdx.input.isKeyPressed(Input.Keys.X) && gameModel.getCurrentStateName() == GameModel.StateName.MAIN){
                 inputDelay = 4;
             } else {
                 inputDelay = 8;

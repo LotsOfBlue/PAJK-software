@@ -63,7 +63,7 @@ public class Unit {
     }
 
     Unit(   Allegiance allegiance,
-            /*int level,
+            int level,
             int experience,
             int health,
             int strength,
@@ -72,19 +72,31 @@ public class Unit {
             int luck,
             int defence,
             int resistance,
-            */int movement,/*
+            int movement,
             int constitution,
             int aid,
-            ConditionType condition,
-            */MovementType movementType/*,
-            AffinityType affinity*/,
+            MovementType movementType,
             UnitClass unitClass) {
         this.name = NameUtils.getRandomName(allegiance);
+
         this.allegiance = allegiance;
+        this.level = level;
+        this.experience = experience;
+        this.health = health;
+        this.strength = strength;
+        this.skill = skill;
+        this.speed = speed;
+        this.luck = luck;
+        this.defence = defence;
+        this.resistance = resistance;
         this.movement = movement;
+        this.constitution = constitution;
+        this.aid = aid;
         this.movementType = movementType;
-        this.unitState = UnitState.READY;
         this.unitClass = unitClass;
+
+        this.unitState = UnitState.READY;
+
     }
 
     //----------------------------------------------Getters

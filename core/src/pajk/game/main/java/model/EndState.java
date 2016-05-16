@@ -11,7 +11,7 @@ public class EndState implements State {
 
     @Override
     public StateName getName(){
-        return StateName.END_STATE;
+        return StateName.END;
     }
 
     @Override

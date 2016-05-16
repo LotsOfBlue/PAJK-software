@@ -59,8 +59,7 @@ public class CombatState implements State {
             }
 
             if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
-                gameModel.setState(GameModel.StateName.MAIN_STATE);
-
+                gameModel.setState(GameModel.StateName.MAIN);
             }
             else {
                 gameModel.setState(GameModel.StateName.ENEMY_TURN);
@@ -160,12 +159,12 @@ public class CombatState implements State {
     }
 
     /**
-     * Returns the GameModel.StateName of the state (COMBAT_STATE)
-     * @return name of the state (COMBAT_STATE)
+     * Returns the GameModel.StateName of the state (COMBAT)
+     * @return name of the state (COMBAT)
      */
     @Override
     public GameModel.StateName getName() {
-        return GameModel.StateName.COMBAT_STATE;
+        return GameModel.StateName.COMBAT;
     }
 
     //----------------------------------------------------------------------------

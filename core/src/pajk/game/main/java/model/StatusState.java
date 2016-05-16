@@ -55,7 +55,7 @@ public class StatusState implements State{
 
     private void goBack(){
         if(model.getActiveUnit().getAllegiance() == Unit.Allegiance.AI){
-            model.setState(GameModel.StateName.MAIN_STATE);
+            model.setState(GameModel.StateName.MAIN);
         } else {
             model.setState(GameModel.StateName.UNIT_MENU);
         }

@@ -19,7 +19,7 @@ public class MainState extends MoveState {
             Unit currentUnit = cursorTile.getUnit();
             model.setActiveUnit(currentUnit);
             if(currentUnit.getAllegiance() == Unit.Allegiance.AI){
-                model.setState(GameModel.StateName.STATUS_STATE);
+                model.setState(GameModel.StateName.STATUS);
             } else {
                 model.setState(GameModel.StateName.UNIT_MENU);
             }
@@ -38,7 +38,7 @@ public class MainState extends MoveState {
 
     @Override
     public GameModel.StateName getName() {
-        return GameModel.StateName.MAIN_STATE;
+        return GameModel.StateName.MAIN;
     }
 
     @Override
