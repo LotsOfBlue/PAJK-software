@@ -211,6 +211,8 @@ public class CombatView extends AbstractGameView {
 
     private void drawDamageNumber(Unit unit, float frame){
         float uPos[] = {0f,0f};
+        float scale = animationClock/30f;
+        bitmapFont.getData().setScale(scale);
         String message = "null";
         if(unit.equals(activeUnit)){
             uPos = calcUnitDrawPos(enemyUnit);
