@@ -1,6 +1,8 @@
 package pajk.game.main.java.view;
 
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -96,7 +98,9 @@ public class BoardView extends AbstractGameView {
 //        spriteBatch.begin();
         drawBoard();
         drawCursor();
-
+        if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() == MainState.class) {
+            drawButtonText();
+        }
 //        spriteBatch.end();
     }
 
@@ -229,6 +233,26 @@ public class BoardView extends AbstractGameView {
                 }
             }
         }
+    }
+
+    /*
+    Requires that cursortile is on unit
+     */
+    private void drawButtonText(){
+        spriteBatch.begin();
+        BitmapFont font = new BitmapFont();
+        font.setColor(Color.BLACK);
+        font.getData().setScale((float)1.5,(float)1.5);
+        int x =(int) (camera.position.x - 400);
+        int y =(int) (camera.position.y - camera.viewportHeight/2 +50);
+
+        if(gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI){
+            font.draw(spriteBatch,"(Z) Status",x,y);
+        } else {
+            font.draw(spriteBatch,"(Z) Menu",x,y);
+        }
+
+        spriteBatch.end();
     }
 
     private void updateCamera(Board board){
