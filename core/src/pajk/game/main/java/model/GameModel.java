@@ -33,6 +33,7 @@ public final class GameModel {
     private final CombatState combatState;
     private final MoveUnitState moveUnitState;
     private final StatusState statusState;
+    private final EndState endState;
 
     public enum StateName{
         MAIN_STATE,
@@ -43,7 +44,8 @@ public final class GameModel {
         CHOOSE_TARGET,
         COMBAT_STATE,
         MOVE_UNIT,
-        STATUS_STATE
+        STATUS_STATE,
+        END_STATE
     }
 
     public static GameModel getInstance(){
@@ -67,6 +69,7 @@ public final class GameModel {
         combatState = new CombatState();
         moveUnitState = new MoveUnitState();
         statusState = new StatusState();
+        endState = new EndState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
@@ -92,41 +95,37 @@ public final class GameModel {
         switch (state){
             case MAIN_STATE:
                 currentState = mainState;
-                currentState.activate();
                 break;
             case UNIT_MENU:
                 currentState = unitMenuState;
-                currentState.activate();
                 break;
             case MOVE_SELECT:
                 currentState = moveSelectionState;
-                currentState.activate();
                 break;
             case CHOOSE_TARGET:
                 currentState = chooseTargetState;
-                currentState.activate();
                 break;
             case COMBAT_INFO:
                 currentState = combatInfoState;
-                currentState.activate();
                 break;
             case ENEMY_TURN:
                 currentState = enemyTurnState;
-                currentState.activate();
                 break;
             case COMBAT_STATE:
                 currentState = combatState;
-                currentState.activate();
                 break;
             case MOVE_UNIT:
                 currentState = moveUnitState;
-                currentState.activate();
                 break;
             case STATUS_STATE:
                 currentState = statusState;
-                currentState.activate();
+                break;
+            case END_STATE:
+                currentState = endState;
                 break;
         }
+
+        currentState.activate();
     }
 
     public State getState(){
