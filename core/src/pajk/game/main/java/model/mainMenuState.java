@@ -23,7 +23,7 @@ public class MainMenuState implements State{
 
     @Override
     public void activate() {
-        
+
     }
 
     @Override
