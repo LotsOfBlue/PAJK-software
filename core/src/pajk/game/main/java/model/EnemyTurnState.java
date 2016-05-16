@@ -23,8 +23,49 @@ public class EnemyTurnState implements State {
     private void update(){
         System.out.println(unitQueue.size() + " Unit(s) left: " + unitQueue); //TODO remove
         Unit currentUnit = unitQueue.poll();
+        Tile currentPos = board.getPos(currentUnit);
         Unit target = designateTarget(currentUnit);
-        //TODO go beat up target
+        //If the target was within range, move to and attack it
+        if (findReachableTargets(currentUnit, getAllTargets()).contains(target)) {
+            Set<Tile> moveRange = board.getTilesWithinMoveRange(currentUnit);
+            Set<Tile> attackTiles = getAttackPoints(currentUnit, target);
+            for (Tile t : attackTiles) {
+                if (moveRange.contains(t)) {
+                    List<Tile> path = PathFinder.getQuickestPath(board, currentPos, t, currentUnit);
+                    //Remove the first tile of the path, since that's where the unit is standing
+                    path.remove(path.size()-1);
+                    while (!path.isEmpty()) {
+                        board.moveAlongPath(path, currentUnit);
+                        System.out.println("step");
+                    }
+                    //TODO FIGHT!
+                    break;
+                }
+            }
+        }
+
+        //If not, move towards the closest attack tile
+        else {
+            int shortestDistance = 10000;
+            Tile targetTile = null;
+            List<Tile> path;
+            for (Tile t : getAttackPoints(currentUnit, target)){
+                path = PathFinder.getQuickestPath(board, currentPos, t, currentUnit);
+                int pathLength = PathFinder.getPathLength(path, currentUnit);
+                if (pathLength < shortestDistance) {
+                    shortestDistance = pathLength;
+                    targetTile = t;
+                }
+            }
+            path = PathFinder.getQuickestPath(board, currentPos, targetTile, currentUnit);
+            //Remove the first tile of the path, since that's where the unit is standing
+            path.remove(path.size()-1);
+            //Move as far alon ghte path as possible
+            for (int i = currentUnit.getMovement(); i > 0; i--) {
+                board.moveAlongPath(path, currentUnit);
+                System.out.println("step2");
+            }
+        }
 
         //End the turn if all units have acted
         if (unitQueue.peek() == null) {
@@ -43,9 +84,11 @@ public class EnemyTurnState implements State {
         List<Unit> allTargets = getAllTargets();
         List<Unit> reachableTargets = findReachableTargets(active, allTargets);
         Unit target = null;
+        //If there are targets in range, go for the weakest one
         if (reachableTargets.size() > 0) {
             target = findWeakestTarget(active, reachableTargets);
         }
+        //Otherwise just go for the easiest to reach //TODO go for weakest here too?
         else {
             int distance = 10000;
             //Check the attack tiles of all units on the board
@@ -61,7 +104,7 @@ public class EnemyTurnState implements State {
                 }
             }
         }
-        System.out.println("The optimal target is " + target);
+        System.out.println("The optimal target is " + target); //TODO remove
         return target;
     }
 
