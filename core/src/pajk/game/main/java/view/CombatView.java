@@ -12,7 +12,6 @@ import pajk.game.main.java.model.GameModel;
  * Gets values from CombatState
  */
 public class CombatView extends AbstractGameView {
-    private boolean done = false;
     private final int TILE_WIDTH = 64; //TODO make global tile width?
 
     private SpriteBatch spriteBatch;
@@ -112,13 +111,14 @@ public class CombatView extends AbstractGameView {
         //TODO drawFunc
         drawCombat();
         spriteBatch.end();
-        if(done){ gameModel.performAction(ActionName.COMBAT_DONE); }
+
+
 
     }
 
     public void update(float deltaTime){
         //TODO nothing?
-        done = false;
+
         activeUnit = gameModel.getActiveUnit();
         enemyUnit = gameModel.getTargetUnit();
 
@@ -150,6 +150,7 @@ public class CombatView extends AbstractGameView {
                 if(animationClock == 30){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
                     animationClock = 0;
+                    gameModel.performAction(ActionName.COMBAT_ACTIVE_HIT);
                     break;
                 }
                 drawAttackAnimation(activeUnit, frame);
@@ -158,6 +159,7 @@ public class CombatView extends AbstractGameView {
                 if(animationClock == 30 || !attackFromEnemyUnit){
                     combatDrawState = CombatDrawState.ACTIVE_SECOND_HIT;
                     animationClock = 0;
+                    gameModel.performAction(ActionName.COMBAT_TARGET_HIT);
                     break;
                 }
                 drawAttackAnimation(enemyUnit, frame);
@@ -166,7 +168,7 @@ public class CombatView extends AbstractGameView {
                 if(animationClock == 30 || !secondAttackFromActiveUnit){
                     combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
                     animationClock = 0;
-                    done = true;
+                    gameModel.performAction(ActionName.COMBAT_DONE);
                     flush();
                     break;
                 }

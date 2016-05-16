@@ -39,9 +39,17 @@ public class CombatState implements State {
      */
     @Override
     public void performAction(ActionName action) {
-        if(action.equals(ActionName.COMBAT_DONE)){
+
+        if(action.equals(ActionName.COMBAT_ACTIVE_HIT)) {
+            targetUnit.takeDamage(firstDamageFromActiveUnit);
+        } else if(action.equals(ActionName.COMBAT_TARGET_HIT)){
+            activeUnit.takeDamage(damageFromEnemyUnit);
+
+        } else if(action.equals(ActionName.COMBAT_DONE)){
+            targetUnit.takeDamage(secondDamageFromActiveUnit);
             if (targetUnit.getHealth() < 1) {
                 gameModel.removeUnit(targetUnit);
+
             }
             if (activeUnit.getHealth() < 1) {
                 gameModel.removeUnit(activeUnit);
@@ -57,6 +65,7 @@ public class CombatState implements State {
             }
             flush();
         }
+
     }
 
     /*
@@ -94,6 +103,7 @@ public class CombatState implements State {
         targetUnit = gameModel.getTargetUnit();
 
 
+
         //If the first hit lands
         if (firstHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)) {
 
@@ -102,12 +112,11 @@ public class CombatState implements State {
 
             firstDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
 
-            targetUnit.takeDamage(firstDamageFromActiveUnit);
         }
 
 
         //If enemy still alive, hit active
-        if (targetUnit.getHealth() > 0) {
+        if (targetUnit.getHealth()-firstDamageFromActiveUnit > 0) {
             //Check if can reach
             double range = PathFinder.estimateDistance(board.getPos(gameModel.getTargetUnit()), board.getPos(gameModel.getActiveUnit()));
             double minRange = targetUnit.getWeaponMinRange();
@@ -121,7 +130,7 @@ public class CombatState implements State {
                     //Get crit multiplier & save value
                     int critMult = (critFromEnemyUnit = doesThisCritThat(targetUnit, activeUnit)) ? 2 : 1;
                     damageFromEnemyUnit = critMult*calcDamageThisToThat(targetUnit, activeUnit);
-                    activeUnit.takeDamage(damageFromEnemyUnit);
+
                 }
             }
 
@@ -130,14 +139,14 @@ public class CombatState implements State {
         }
 
         //If active still alive and fast enough, hit enemy again
-        if (activeUnit.getHealth() > 0) {
+        if (activeUnit.getHealth()-damageFromEnemyUnit > 0) {
             if (activeUnit.getSpeed() >= (targetUnit.getSpeed() + 4)) {
                 secondAttackFromActiveUnit = true;
                 //Try to hit
                 if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)){
                     int critMult = (secondCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit)) ? 2 : 1;
                     secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
-                    targetUnit.takeDamage(secondDamageFromActiveUnit);
+
                 }
             }
         }
