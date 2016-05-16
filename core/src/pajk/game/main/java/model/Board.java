@@ -105,17 +105,19 @@ public class Board {
     }
 
     public void moveAlongPath(List<Tile> path, Unit unit){
-        Tile currentTarget = path.get(path.size() - 1);
-        if (unitHolder != null){
-            placeUnit(unitHolder, getPos(unit));
+        if (!path.isEmpty()) {
+            Tile currentTarget = path.get(path.size() - 1);
+            if (unitHolder != null){
+                placeUnit(unitHolder, getPos(unit));
+            }
+            if (currentTarget.hasUnit()){
+                unitHolder = currentTarget.getUnit();
+            }else{
+                unitHolder = null;
+            }
+            moveUnit(unit, path.get(path.size() - 1));
+            path.remove(path.size() - 1);
         }
-        if (currentTarget.hasUnit()){
-            unitHolder = currentTarget.getUnit();
-        }else{
-            unitHolder = null;
-        }
-        moveUnit(unit, path.get(path.size() - 1));
-        path.remove(path.size() - 1);
     }
 
     public Tile[][] getTileMatrix(){
