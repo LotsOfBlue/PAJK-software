@@ -32,8 +32,8 @@ public final class GameModel {
     private final CombatInfoState combatInfoState;
     private final CombatState combatState;
     private final MoveUnitState moveUnitState;
-
-
+    private final StatusState statusState;
+    private final EndState endState;
 
     public enum StateName{
         MAIN_STATE,
@@ -43,7 +43,9 @@ public final class GameModel {
         COMBAT_INFO,
         CHOOSE_TARGET,
         COMBAT_STATE,
-        MOVE_UNIT
+        MOVE_UNIT,
+        STATUS_STATE,
+        END_STATE
     }
 
     public static GameModel getInstance(){
@@ -65,6 +67,8 @@ public final class GameModel {
         combatInfoState = new CombatInfoState();
         combatState = new CombatState();
         moveUnitState = new MoveUnitState();
+        statusState = new StatusState();
+        endState = new EndState();
 
         //Place a dummy unit on the board.
         Unit myLittleSoldier = new Unit(Unit.Allegiance.PLAYER, 4, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
@@ -90,40 +94,47 @@ public final class GameModel {
         switch (state){
             case MAIN_STATE:
                 currentState = mainState;
-                currentState.activate();
                 break;
             case UNIT_MENU:
                 currentState = unitMenuState;
-                currentState.activate();
                 break;
             case MOVE_SELECT:
                 currentState = moveSelectionState;
-                currentState.activate();
                 break;
             case CHOOSE_TARGET:
                 currentState = chooseTargetState;
-                currentState.activate();
                 break;
             case COMBAT_INFO:
                 currentState = combatInfoState;
-                currentState.activate();
                 break;
             case ENEMY_TURN:
                 currentState = enemyTurnState;
-                currentState.activate();
                 break;
             case COMBAT_STATE:
                 currentState = combatState;
-                currentState.activate();
                 break;
             case MOVE_UNIT:
                 currentState = moveUnitState;
-                currentState.activate();
+                break;
+            case STATUS_STATE:
+                currentState = statusState;
+                break;
+            case END_STATE:
+                currentState = endState;
                 break;
         }
+
+        currentState.activate();
     }
 
-    public State getState(){return currentState;}
+    public void removeUnit (Unit unit){
+        unitList.remove(unit);
+        board.getPos(unit).setUnit(null);
+    }
+
+    public State getState(){
+        return currentState;
+    }
 
     public Board getBoard(){
         return board;
@@ -160,7 +171,7 @@ public final class GameModel {
     public Boolean allUnitsDone() {
         Boolean result = true;
         for (Unit u : unitList) {
-            if (u.getAllegiance().equals(Unit.Allegiance.PLAYER) && !u.getUnitState().equals(Unit.UnitState.ATTACKED)) {
+            if (u.getAllegiance().equals(Unit.Allegiance.PLAYER) && !u.getUnitState().equals(Unit.UnitState.DONE)) {
                 result = false;
             }
         }

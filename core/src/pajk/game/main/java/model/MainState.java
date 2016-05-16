@@ -17,11 +17,17 @@ public class MainState extends MoveState {
         Tile cursorTile = board.getCursorTile();
         if (cursorTile.hasUnit()){
             Unit currentUnit = cursorTile.getUnit();
-            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
-                    currentUnit.getUnitState() != Unit.UnitState.ATTACKED) {
-                model.setActiveUnit(currentUnit);
+            model.setActiveUnit(currentUnit);
+            if(currentUnit.getAllegiance() == Unit.Allegiance.AI){
+                model.setState(GameModel.StateName.STATUS_STATE);
+            } else {
                 model.setState(GameModel.StateName.UNIT_MENU);
             }
+//            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
+//                    currentUnit.getUnitState() != Unit.UnitState.DONE) {
+//                model.setActiveUnit(currentUnit);
+//                model.setState(GameModel.StateName.UNIT_MENU);
+//            }
         }
     }
 
@@ -39,5 +45,9 @@ public class MainState extends MoveState {
     public void activate() {
         model = GameModel.getInstance();
         board = GameModel.getInstance().getBoard();
+        //If all units are done when this state activates, begin enemy turn
+        if (model.allUnitsDone()) {
+            model.setState(GameModel.StateName.ENEMY_TURN);
+        }
     }
 }

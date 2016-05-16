@@ -8,11 +8,12 @@ import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 
 /**
- * Created by jonatan on 06/05/2016.
+ * Visual representation of the combat.
+ * Gets values from CombatState
  */
 public class CombatView extends AbstractGameView {
     private boolean done = false;
-    private final int TILE_WIDTH = 64;
+    private final int TILE_WIDTH = 64; //TODO make global tile width?
 
     private SpriteBatch spriteBatch;
     private GameModel gameModel;
@@ -55,6 +56,9 @@ public class CombatView extends AbstractGameView {
 
     private BitmapFont bitmapFont;
 
+    /**
+     * Construktor of CombatView, initializes the class and get all requierd
+     */
     public CombatView (){
 
         this.gameModel = GameModel.getInstance();
@@ -62,6 +66,7 @@ public class CombatView extends AbstractGameView {
         board = gameModel.getBoard();
 
         bitmapFont = new BitmapFont();
+        bitmapFont.getData().setScale(1.5f,1.5f);
 
 
 
@@ -120,7 +125,7 @@ public class CombatView extends AbstractGameView {
         CombatState combatState = (CombatState)gameModel.getState();
         firstDamageFromActiveUnit = combatState.getFirstDamageFromActiveUnit();
         firstHitFromActiveUnit = combatState.isFirstHitFromActiveUnit();
-        firstCritFromActiveUnit = combatState.isSecondCritFromActiveUnit();
+        firstCritFromActiveUnit = combatState.isFirstCritFromActiveUnit();
         secondDamageFromActiveUnit = combatState.getSecondDamageFromActiveUnit();
         secondHitFromActiveUnit = combatState.isSecondHitFromActiveUnit();
         secondCritFromActiveUnit = combatState.isSecondCritFromActiveUnit();
@@ -203,18 +208,21 @@ public class CombatView extends AbstractGameView {
     }
 
     private void drawDamageNumber(Unit unit, float frame){
-        float uPos[] = calcUnitDrawPos(unit);
+        float uPos[] = {0f,0f};
+        String message = "null";
         if(unit.equals(activeUnit)){
+            uPos = calcUnitDrawPos(enemyUnit);
             if(combatDrawState == CombatDrawState.ACTIVE_FIRST_HIT){
+
                 if(firstHitFromActiveUnit){
                     bitmapFont.setColor(Color.FIREBRICK);
                     if(firstCritFromActiveUnit){
                         bitmapFont.setColor(Color.ROYAL);
                     }
-                    draw(uPos[0]+frame,uPos[1]+frame,""+firstDamageFromActiveUnit);
+                    message = ""+firstDamageFromActiveUnit;
                 }else{
                     bitmapFont.setColor(Color.SCARLET);
-                    draw(uPos[0]+frame,uPos[1]+frame,"MISS");
+                    message = "MISS";
                 }
 
             }else if(secondAttackFromActiveUnit){
@@ -223,24 +231,26 @@ public class CombatView extends AbstractGameView {
                     if(secondCritFromActiveUnit){
                         bitmapFont.setColor(Color.ROYAL);
                     }
-                    draw(uPos[0]+frame,uPos[1]+frame,""+secondDamageFromActiveUnit);
+                    message = ""+secondDamageFromActiveUnit;
                 }else{
                     bitmapFont.setColor(Color.SCARLET);
-                    draw(uPos[0]+frame,uPos[1]+frame,"MISS");
+                    message = "MISS";
                 }
             }
         }else if(attackFromEnemyUnit){
+            uPos = calcUnitDrawPos(activeUnit);
             if(hitFromEnemyUnit){
                 bitmapFont.setColor(Color.FIREBRICK);
                 if(critFromEnemyUnit){
                     bitmapFont.setColor(Color.ROYAL);
                 }
-                draw(uPos[0]+frame,uPos[1]+frame,""+damageFromEnemyUnit);
+                message = ""+damageFromEnemyUnit;
             }else{
                 bitmapFont.setColor(Color.SCARLET);
-                draw(uPos[0]+frame,uPos[1]+frame,"MISS");
+                message = "MISS";
             }
         }
+        draw(uPos[0]+TILE_WIDTH/3,uPos[1]+TILE_WIDTH,message);
     }
 
     private float[] calcUnitDrawPos(Unit unit){

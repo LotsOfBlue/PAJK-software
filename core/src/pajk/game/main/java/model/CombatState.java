@@ -5,14 +5,19 @@ import pajk.game.main.java.ActionName;
 import java.util.Random;
 
 //TODO make combat make sense after the refactoring
+
 /**
- * Created by jonatan on 28/04/2016.
+ * Combat state is the part of the game model wich deals with the combat of two units.
+ * Where activeUnit is the unit which initiated combat and targetUnit is the defendant.
+ * These units are delivered by the game model singelton.
+ * Refer to docs for combat turn breakdown.
+ *  needs to perform combat on it's active and target units
  */
 public class CombatState implements State {
 
     private GameModel gameModel;
     private Unit activeUnit;
-    private Unit enemyUnit;
+    private Unit targetUnit;
     private Board board;
     private boolean calcDone = false;
     private int firstDamageFromActiveUnit = 0;
@@ -27,34 +32,39 @@ public class CombatState implements State {
     private boolean secondAttackFromActiveUnit = false;
     private boolean attackFromEnemyUnit = false;
 
-
-
+    /**
+     * The CombatState performAction is called when the player (or another part of the program) is ready to move on.
+     * For anything to happen a COMBAT_DONE action must be sent as action
+     * @param action is the input from user or other parts of the program
+     */
     @Override
     public void performAction(ActionName action) {
         if(action.equals(ActionName.COMBAT_DONE)){
-            if (enemyUnit.getHealth() < 1) {
-            board.getPos(enemyUnit).setUnit(null);
-        }
+            if (targetUnit.getHealth() < 1) {
+                gameModel.removeUnit(targetUnit);
+            }
             if (activeUnit.getHealth() < 1) {
-                board.getPos(activeUnit).setUnit(null);
+                gameModel.removeUnit(activeUnit);
 
             }
-            flush();
 
-            if (gameModel.allUnitsDone()) {
-                gameModel.setState(GameModel.StateName.ENEMY_TURN);
-            }
-            else {
+
+            if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
                 gameModel.setState(GameModel.StateName.MAIN_STATE);
             }
+            else {
+                gameModel.setState(GameModel.StateName.ENEMY_TURN);
+            }
+            flush();
         }
     }
+
     /*
-     * Flush is a cleanup function meant to reset every "case sensitive" variable in combat
+     *  Flush is a cleanup function meant to reset every "case sensitive" variable in combat
      */
     private void flush(){
         activeUnit = null;
-        enemyUnit = null;
+        targetUnit = null;
         calcDone = false;
         firstDamageFromActiveUnit = 0;
         firstHitFromActiveUnit = false;
@@ -69,47 +79,50 @@ public class CombatState implements State {
         attackFromEnemyUnit = false;
     }
 
+    /**
+     * The CombatState activate function should be called when the game model needs to perform
+     * combat on it's activeUnit and targetUnit.
+     */
     @Override
     public void activate(){
-        gameModel = GameModel.getInstance();
-        this.board = GameModel.getInstance().getBoard();
+
+        this.gameModel = GameModel.getInstance();
+        this.board = gameModel.getBoard();
+
         activeUnit = gameModel.getActiveUnit();
         //Enemy chosen by user
-        enemyUnit = gameModel.getTargetUnit();
-        //TODO make fight club great again
+        targetUnit = gameModel.getTargetUnit();
 
-        if (firstHitFromActiveUnit = doesThisHitThat(activeUnit, enemyUnit)) {
-            //Hit enemy
-            // TODO howto nice boolean fallout
-            int critMult = 1;
-            if(firstCritFromActiveUnit = doesThisCritThat(activeUnit, enemyUnit)){
-                critMult = 2;
-            }
-            firstDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, enemyUnit);
-            enemyUnit.takeDamage(firstDamageFromActiveUnit);
+
+        //If the first hit lands
+        if (firstHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)) {
+
+            //Get critmultiplier & save value
+            int critMult = (firstCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit))? 2:1;
+
+            firstDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
+
+            targetUnit.takeDamage(firstDamageFromActiveUnit);
         }
 
-        System.out.println("attacker:" + firstDamageFromActiveUnit);//TODO REMOVE
 
         //If enemy still alive, hit active
-        if (enemyUnit.getHealth() > 0) {
-
+        if (targetUnit.getHealth() > 0) {
+            //Check if can reach
             double range = PathFinder.estimateDistance(board.getPos(gameModel.getTargetUnit()), board.getPos(gameModel.getActiveUnit()));
-            double minRange = enemyUnit.getWeaponMinRange();
-            double maxRange = enemyUnit.getWeaponMaxRange();
+            double minRange = targetUnit.getWeaponMinRange();
+            double maxRange = targetUnit.getWeaponMaxRange();
             if(range >= minRange && range <= maxRange){
+
+                //Try to hit
                 attackFromEnemyUnit = true;
-                if(hitFromEnemyUnit = doesThisHitThat(enemyUnit, activeUnit)){
-                    // TODO howto nice boolean fallout
-                    int critMult = 1;
-                    if(critFromEnemyUnit = doesThisCritThat(enemyUnit, activeUnit)){
-                        critMult = 2;
-                    }
-                    damageFromEnemyUnit = critMult*calcDamageThisToThat(enemyUnit, activeUnit);
+                if(hitFromEnemyUnit = doesThisHitThat(targetUnit, activeUnit)){
+
+                    //Get crit multiplier & save value
+                    int critMult = (critFromEnemyUnit = doesThisCritThat(targetUnit, activeUnit)) ? 2 : 1;
+                    damageFromEnemyUnit = critMult*calcDamageThisToThat(targetUnit, activeUnit);
                     activeUnit.takeDamage(damageFromEnemyUnit);
                 }
-
-                System.out.println("defender:" + damageFromEnemyUnit);//TODO REMOVE
             }
 
 
@@ -118,32 +131,25 @@ public class CombatState implements State {
 
         //If active still alive and fast enough, hit enemy again
         if (activeUnit.getHealth() > 0) {
-            if (activeUnit.getSpeed() >= (enemyUnit.getSpeed() + 4)) {
+            if (activeUnit.getSpeed() >= (targetUnit.getSpeed() + 4)) {
                 secondAttackFromActiveUnit = true;
-                if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, enemyUnit)){
-                    // TODO howto nice boolean fallout
-                    int critMult = 1;
-                    if(secondCritFromActiveUnit = doesThisCritThat(activeUnit, enemyUnit)){
-                        critMult = 2;
-                    }
-                    secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, enemyUnit);
-                    enemyUnit.takeDamage(secondDamageFromActiveUnit);
+                //Try to hit
+                if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)){
+                    int critMult = (secondCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit)) ? 2 : 1;
+                    secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
+                    targetUnit.takeDamage(secondDamageFromActiveUnit);
                 }
-
-                System.out.println("attacker:" + secondDamageFromActiveUnit);//TODO REMOVE
             }
         }
 
-        calcDone = true; //Signals that graphics can now be presented
-        //If the previously active unit wasn't done, force it to finish its turn anyway //TODO understand dis... why prev? should be curr?
-        /*Unit prev = gameModel.getPrevActiveUnit();
-        if (prev != null && prev.getUnitState() == Unit.UnitState.MOVED) {
-            prev.setUnitState(Unit.UnitState.ATTACKED);
-        }*/
-        activeUnit.setUnitState(Unit.UnitState.ATTACKED);
-        //gameModel.setState(GameModel.StateName.MAIN_STATE);
+        calcDone = true;
+        activeUnit.setUnitState(Unit.UnitState.DONE);
     }
 
+    /**
+     * Returns the GameModel.StateName of the state (COMBAT_STATE)
+     * @return name of the state (COMBAT_STATE)
+     */
     @Override
     public GameModel.StateName getName() {
         return GameModel.StateName.COMBAT_STATE;
@@ -151,6 +157,13 @@ public class CombatState implements State {
 
     //----------------------------------------------------------------------------
 
+    /**
+     * Calculates the damage attackerUnit would do to defenderUnit with a normal attack (crit and miss exluded).
+     * Takes attacker weaponDamage, might or strength, weaponAdvantage & defender resistance or defence into consideration.
+     * @param attackerUnit the unit performin the attack.
+     * @param defenderUnit the unit being attacked.
+     * @return the damage that attacker will deal (if attack hit)
+     */
     public int calcDamageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         int damage;
         if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
@@ -169,6 +182,9 @@ public class CombatState implements State {
         return damage;
     }
 
+    /*
+     * Determines if attackerUnit criticaly hits defenderUnit (with rng)
+     */
     private boolean doesThisCritThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
         return ((attackerUnit.getWeaponCritChance()
@@ -177,6 +193,9 @@ public class CombatState implements State {
                 > random.nextInt(100));
     }
 
+    /*
+     * Determines if attackerUnit hits defenderUnit (with rng)
+     */
     private boolean doesThisHitThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
         return ((attackerUnit.getWeaponAccuracy()
@@ -188,8 +207,12 @@ public class CombatState implements State {
                 + board.getPos(defenderUnit).getEvasion()));
     }
 
+    /*
+     * Determines how much extra damage attackerUnit does to defenderUnit due to weapon types
+     */
     private int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
-
+        //TODO make part of weapon classes instead
+        //asdk for active unit weapon bonus vs defender weapon
         int bonusVal = 0;
         if (attackerUnit.getWeaponType() == Weapon.WeaponType.AXE) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
@@ -227,14 +250,6 @@ public class CombatState implements State {
     public boolean isAttackFromEnemyUnit() { return attackFromEnemyUnit; }
 
     public boolean isSecondAttackFromActiveUnit() { return secondAttackFromActiveUnit; }
-
-    public Unit getActiveUnit() {
-        return activeUnit;
-    }
-
-    public Unit getEnemyUnit() {
-        return enemyUnit;
-    }
 
     public int getDamageFromEnemyUnit() {
         return damageFromEnemyUnit;

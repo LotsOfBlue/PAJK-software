@@ -22,13 +22,14 @@ public class UnitMenuState implements State {
         menuMap.put(0, "Move");
         menuMap.put(1, "Attack");
         menuMap.put(2, "Wait");
+        menuMap.put(3, "Status");
     }
 
     @Override
     public void performAction(ActionName action) {
         switch (action){
             case UP:
-                menuItemSelected = (menuItemSelected + 2) % menuMap.size();
+                menuItemSelected = (menuItemSelected + menuMap.size()-1) % menuMap.size();
                 System.out.println(this);
                 break;
             case DOWN:
@@ -54,7 +55,8 @@ public class UnitMenuState implements State {
                         break;
                     //Don't do anything else this turn
                     case "Wait":
-                        activeUnit.setUnitState(Unit.UnitState.ATTACKED);
+
+                        activeUnit.setUnitState(Unit.UnitState.DONE);
                         if (model.allUnitsDone()) {
                             model.setState(GameModel.StateName.ENEMY_TURN);
                         }
@@ -62,6 +64,8 @@ public class UnitMenuState implements State {
                             model.setState(GameModel.StateName.MAIN_STATE);
                         }
                         break;
+                    case "Status":
+                        model.setState(GameModel.StateName.STATUS_STATE);
                 }
                 break;
             //Close the menu and return to the field

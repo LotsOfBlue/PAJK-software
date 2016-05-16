@@ -40,7 +40,7 @@ public class MenuView extends AbstractGameView {
 
         //check
         if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() != EnemyTurnState.class &&
-                gameModel.getState().getClass() != CombatState.class){
+                gameModel.getState().getClass() != CombatState.class && gameModel.getState().getClass() != StatusState.class){
             drawTooltip();
         }
 
@@ -53,7 +53,7 @@ public class MenuView extends AbstractGameView {
     }
 
     /**
-     * Gets Draws background, all menu items, all menu text and a overlay on selected item
+     * Draws background, all menu items, all menu text and a overlay on selected item
      */
     private void drawMenu(){
         int gap = 40;
@@ -81,7 +81,9 @@ public class MenuView extends AbstractGameView {
                         camera.position.y +(camera.viewportHeight/2) -(i*gap) -60);
             }
             if(gameModel.getActiveUnit().getUnitState() == Unit.UnitState.MOVED
-                    && menuMap.get(i).equals("Move")){
+                    && menuMap.get(i).equals("Move")
+                    || (gameModel.getActiveUnit().getUnitState() == Unit.UnitState.DONE
+                    && !menuMap.get(i).equals("Status"))){
                 font.setColor(Color.GRAY);
                 font.draw(spriteBatch, menuMap.get(i), x +15,
                         camera.position.y +(camera.viewportHeight/2) - (i*gap) -30);
