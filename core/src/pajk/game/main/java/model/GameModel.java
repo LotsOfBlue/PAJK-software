@@ -124,11 +124,14 @@ public final class GameModel {
     public boolean isGameOver(){
         if(getNumberOfUnits(Unit.Allegiance.AI) < 1){
             winner = Unit.Allegiance.PLAYER;
+            System.out.println("I returned PLAYER as winner");
             return true;
         }else if(getNumberOfUnits(Unit.Allegiance.PLAYER) < 1){
             winner = Unit.Allegiance.AI;
+            System.out.println("I returned AI as winner");
             return true;
         }else{
+            System.out.println("I returned no winner");
             return false;
         }
 
@@ -140,6 +143,11 @@ public final class GameModel {
             if(u.getAllegiance() == allegiance){
                 myInt++;
             }
+        }
+        if (allegiance == Unit.Allegiance.AI){
+            System.out.println("I counted "+myInt+" AI units");
+        }else{
+            System.out.println("I counted "+myInt+" PLAYER units");
         }
         return myInt;
     }

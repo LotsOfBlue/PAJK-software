@@ -50,7 +50,7 @@ public class MainState extends MoveState {
             model.setState(GameModel.StateName.END);
         }
         //If all units are done when this state activates, begin enemy turn
-        if (model.allUnitsDone()) {
+        else if(model.allUnitsDone()) {
             model.setState(GameModel.StateName.ENEMY_TURN);
         }
     }
