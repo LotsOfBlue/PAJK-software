@@ -21,25 +21,25 @@ public class EnemyTurnState implements State {
     }
 
     private void update(){
-        System.out.println(unitQueue.size() + " Unit(s) left: " + unitQueue); //TODO remove
-        Unit currentUnit = unitQueue.poll();
-        Tile currentPos = board.getPos(currentUnit);
-        Unit target = designateTarget(currentUnit);
-
-        //If the target was within range, move to and attack it
-        if (findReachableTargets(currentUnit, getAllTargets()).contains(target)) {
-            moveToAttack(currentUnit, target, currentPos);
-        }
-        //If not, move towards the closest attack tile
-        else {
-            moveTowards(currentUnit, target, currentPos);
-        }
-
         //End the turn if all units have acted
         if (unitQueue.peek() == null) {
             gameModel.newTurn();
             System.out.println("--PLAYER TURN--"); //TODO debug
             gameModel.setState(GameModel.StateName.MAIN_STATE);
+        } else {
+            System.out.println(unitQueue.size() + " Unit(s) left: " + unitQueue); //TODO remove
+            Unit currentUnit = unitQueue.poll();
+            Tile currentPos = board.getPos(currentUnit);
+            Unit target = designateTarget(currentUnit);
+
+            //If the target was within range, move to and attack it
+            if (findReachableTargets(currentUnit, getAllTargets()).contains(target)) {
+                moveToAttack(currentUnit, target, currentPos);
+            }
+            //If not, move towards the closest attack tile
+            else {
+                moveTowards(currentUnit, target, currentPos);
+            }
         }
     }
 
