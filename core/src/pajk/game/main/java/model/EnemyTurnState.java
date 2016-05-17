@@ -86,7 +86,7 @@ public class EnemyTurnState implements State {
                 //Fight the target unit
                 gameModel.setActiveUnit(active);
                 gameModel.setTargetUnit(target);
-                gameModel.setState(GameModel.StateName.COMBAT_STATE);
+                gameModel.setState(GameModel.StateName.COMBAT);
                 break;
             }
         }
@@ -262,7 +262,7 @@ public class EnemyTurnState implements State {
         if(done) {
             gameModel.newTurn();
             System.out.println("--PLAYER TURN--"); //TODO debug
-            gameModel.setState(GameModel.StateName.MAIN_STATE);
+            gameModel.setState(GameModel.StateName.MAIN);
         }
     }
 
