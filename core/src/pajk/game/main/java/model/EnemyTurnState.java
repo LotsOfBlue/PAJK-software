@@ -13,34 +13,32 @@ import java.util.*;
 public class EnemyTurnState implements State {
     private GameModel gameModel;
     private Board board;
-    private Queue<Unit> unitQueue;
+    private List<Unit> unitList;
 
     @Override
     public void performAction(ActionName action) {
-        update();
+
     }
 
-    private void update(){
+    private void update(Unit unit){
         //End the turn if all units have acted
-        if (unitQueue.peek() == null) {
-            gameModel.newTurn();
-            System.out.println("--PLAYER TURN--"); //TODO debug
-            gameModel.setState(GameModel.StateName.MAIN_STATE);
-        } else {
-            System.out.println(unitQueue.size() + " Unit(s) left: " + unitQueue); //TODO remove
-            Unit currentUnit = unitQueue.poll();
-            Tile currentPos = board.getPos(currentUnit);
-            Unit target = designateTarget(currentUnit);
+        /*if (unitList.peek() == null) {
 
-            //If the target was within range, move to and attack it
-            if (findReachableTargets(currentUnit, getAllTargets()).contains(target)) {
-                moveToAttack(currentUnit, target, currentPos);
-            }
-            //If not, move towards the closest attack tile
-            else {
-                moveTowards(currentUnit, target, currentPos);
-            }
+        } else {
+            System.out.println(unitList.size() + " Unit(s) left: " + unitList); //TODO remove*/
+       // Unit currentUnit = unitList.poll();
+        Tile currentPos = board.getPos(unit);
+        Unit target = designateTarget(unit);
+
+        //If the target was within range, move to and attack it
+        if (findReachableTargets(unit, getAllTargets()).contains(target)) {
+            moveToAttack(unit, target, currentPos);
         }
+        //If not, move towards the closest attack tile
+        else {
+            moveTowards(unit, target, currentPos);
+            }
+        //}
     }
 
     /**
@@ -260,14 +258,20 @@ public class EnemyTurnState implements State {
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
         System.out.println("--ENEMY TURN--"); //TODO debug
-        gameModel.newTurn();
-        unitQueue = new LinkedList<>();
-
+        //gameModel.newTurn();
+        unitList = gameModel.getUnitList();
+        boolean done = true;
         //Add all the units to the queue to act.
-        for (Unit u : gameModel.getUnitList()) {
-            if (u.getAllegiance().equals(Unit.Allegiance.AI)) {
-                unitQueue.add(u);
+        for (Unit u : unitList) {
+            if ( (u.getAllegiance().equals(Unit.Allegiance.AI)) && (u.getUnitState()!= Unit.UnitState.DONE) ) {
+                done = false;
+                update(u);
             }
+        }
+        if(done) {
+            gameModel.newTurn();
+            System.out.println("--PLAYER TURN--"); //TODO debug
+            gameModel.setState(GameModel.StateName.MAIN_STATE);
         }
     }
 

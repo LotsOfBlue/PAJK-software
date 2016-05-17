@@ -232,32 +232,33 @@ public class CombatState implements State {
     private int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         //TODO make part of weapon classes instead
         //asdk for active unit weapon bonus vs defender weapon
+        int bonus = 2;
         int bonusVal = 0;
         if (attackerUnit.getWeaponType() == Weapon.WeaponType.AXE) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.SWORD){
-                bonusVal = -10;
+                bonusVal = -bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.SWORD) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.AXE){
-                bonusVal = -10;
+                bonusVal = -bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.SWORD) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.AXE) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE){
-                bonusVal = -10;
+                bonusVal = -bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOW) {
             if (defenderUnit.getMovementType() == Unit.MovementType.FLYING) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }
         }
 
