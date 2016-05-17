@@ -57,15 +57,17 @@ public class CombatState implements State {
                 gameModel.removeUnit(activeUnit);
 
             }
+            Unit myUnit = activeUnit;
+            flush();
 
-            if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
+            if (myUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
                 gameModel.setState(GameModel.StateName.MAIN);
+
             }
             else {
                 gameModel.setState(GameModel.StateName.ENEMY_TURN);
 
             }
-            flush();
         }
 
     }

@@ -62,6 +62,8 @@ public class EnemyTurnState implements State {
             board.moveAlongPath(path, active);
             System.out.println("step2");
         }
+        active.setUnitState(Unit.UnitState.DONE);
+        activate();
     }
 
     /**

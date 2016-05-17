@@ -90,8 +90,10 @@ public class Board {
      */
     public Tile getTile(int x, int y) {
         if (isWithinBoard(x, y)) {
+            //System.out.println("board gief tile");
             return tileMatrix[x][y];
         }
+        System.out.println("board gief null");
         return null;
     }
 

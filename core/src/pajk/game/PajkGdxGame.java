@@ -65,8 +65,6 @@ public class PajkGdxGame extends ApplicationAdapter {
             gameController.enterInput();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
             gameController.backInput();
-        }else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){//TODO REMOVE? alt change to a "skip" button
-            gameController.combatDoneInput();
         }else{
             gameController.noInput();
         }

@@ -47,7 +47,7 @@ public class MainState extends MoveState {
         board = GameModel.getInstance().getBoard();
         //If all enemies or allies dead, win/lose game
         if(model.isGameOver()){
-            model.setState(GameModel.StateName.END_STATE);
+            model.setState(GameModel.StateName.END);
         }
         //If all units are done when this state activates, begin enemy turn
         if (model.allUnitsDone()) {

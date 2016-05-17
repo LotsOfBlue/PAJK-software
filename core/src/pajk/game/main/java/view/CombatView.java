@@ -60,9 +60,7 @@ public class CombatView extends AbstractGameView {
      */
     public CombatView (){
 
-        this.gameModel = GameModel.getInstance();
 
-        board = gameModel.getBoard();
 
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(1.5f,1.5f);
@@ -121,6 +119,8 @@ public class CombatView extends AbstractGameView {
     public void update(float deltaTime){
         //TODO nothing?
 
+        gameModel = GameModel.getInstance();
+        board = gameModel.getBoard();
         activeUnit = gameModel.getActiveUnit();
         enemyUnit = gameModel.getTargetUnit();
 

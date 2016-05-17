@@ -122,10 +122,10 @@ public final class GameModel {
     }
 
     public boolean isGameOver(){
-        if(getNumberOfUnits(Unit.Allegiance.AI) > 1){
+        if(getNumberOfUnits(Unit.Allegiance.AI) < 1){
             winner = Unit.Allegiance.PLAYER;
             return true;
-        }else if(getNumberOfUnits(Unit.Allegiance.PLAYER) > 1){
+        }else if(getNumberOfUnits(Unit.Allegiance.PLAYER) < 1){
             winner = Unit.Allegiance.AI;
             return true;
         }else{
@@ -223,6 +223,7 @@ public final class GameModel {
      * @param action The action to be performed by the current state.
      */
     public void performAction(ActionName action){
+
         currentState.performAction(action);
     }
 }
