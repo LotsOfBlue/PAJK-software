@@ -42,7 +42,7 @@ public class StatusView extends AbstractGameView{
         model = GameModel.getInstance();
         unit = GameModel.getInstance().getActiveUnit();
         spriteBatch.begin();
-        int x = 70;
+        int x = (int)(camera.position.x - camera.viewportWidth/2)+70;
         int y = (int)(camera.position.y - (camera.viewportHeight/2)) + 50;
         spriteBatch.draw(statusBackground,x,y);
 
@@ -93,8 +93,7 @@ public class StatusView extends AbstractGameView{
         stats.add(constitution);
         stats.add(aid);
 
-
-        x = 370;
+        x+=300;
         for(int i = 0; i < stats.size(); i++){
             int ydiff = i * 35;
             if(i == stats.size()/2){
