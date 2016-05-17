@@ -19,7 +19,7 @@ public class CombatView extends AbstractGameView {
     private Board board;
 
     private int animationClock = 0;
-
+    private boolean isUpdated = false;
 
     private Unit activeUnit;
     private Unit enemyUnit;
@@ -104,22 +104,25 @@ public class CombatView extends AbstractGameView {
 
 
     public void render(SpriteBatch spriteBatch){
+        gameModel = GameModel.getInstance();
+        if(gameModel.getState().getClass() == CombatState.class){
+            CombatState combatState = (CombatState)gameModel.getState();
+            if (combatState.isCalcDone()){
+                updateVariables();
+                this.spriteBatch = spriteBatch;
+                spriteBatch.begin();
+                drawCombat();
+                spriteBatch.end();
+            }
+        }
 
-//        System.out.println("drawing combat");//TODO remove
-        this.spriteBatch = spriteBatch;
-        spriteBatch.begin();
-        //TODO drawFunc
-        drawCombat();
-        spriteBatch.end();
 
 
 
     }
 
-    public void update(float deltaTime){
-        //TODO nothing?
-
-        gameModel = GameModel.getInstance();
+    private void updateVariables(){
+        isUpdated = true;
         board = gameModel.getBoard();
         activeUnit = gameModel.getActiveUnit();
         enemyUnit = gameModel.getTargetUnit();
@@ -136,6 +139,12 @@ public class CombatView extends AbstractGameView {
         critFromEnemyUnit = combatState.isCritFromEnemyUnit();
         secondAttackFromActiveUnit = combatState.isSecondAttackFromActiveUnit();
         attackFromEnemyUnit = combatState.isAttackFromEnemyUnit();
+    }
+
+    public void update(float deltaTime){
+        //TODO nothing?
+
+
     }
 
     private void drawCombat(){
@@ -283,7 +292,7 @@ public class CombatView extends AbstractGameView {
     }
 
     private void flush(){
-
+        isUpdated = false;
 
     }
 }

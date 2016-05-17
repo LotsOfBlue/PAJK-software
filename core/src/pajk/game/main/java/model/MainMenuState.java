@@ -31,6 +31,7 @@ public class MainMenuState implements State{
                 break;
             case ENTER:
                 Board board = scenarioList.get(menuItemSelected).makeBoard();
+                gameModel.resetNumberOfTurns();
                 gameModel.setBoard(board);
                 gameModel.setUnitList(scenarioList.get(menuItemSelected).makeUnitList(board));
                 gameModel.setState(GameModel.StateName.MAIN);

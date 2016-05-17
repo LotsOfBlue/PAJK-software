@@ -14,6 +14,8 @@ import java.util.List;
  */
 public final class GameModel {
 
+    int numberOfTurns = 1;
+
     private static GameModel ourInstance = null;
 
     private Board board;
@@ -137,7 +139,7 @@ public final class GameModel {
 
     }
 
-    private int getNumberOfUnits (Unit.Allegiance allegiance){
+    public int getNumberOfUnits (Unit.Allegiance allegiance){
         int myInt = 0;
         for(Unit u : unitList){
             if(u.getAllegiance() == allegiance){
@@ -203,6 +205,9 @@ public final class GameModel {
                 result = false;
             }
         }
+        if(result){
+            numberOfTurns++;
+        }
         return result;
     }
 
@@ -234,4 +239,13 @@ public final class GameModel {
 
         currentState.performAction(action);
     }
+
+    /**
+     * Resets the saved stats of the model, such as number of turns, units nad
+     */
+    public void resetNumberOfTurns(){
+        numberOfTurns = 1;
+    }
+
+    public int getNumberOfTurns(){ return numberOfTurns; }
 }
