@@ -264,4 +264,8 @@ public class Unit {
         }
     }
 
+    @Override
+    public String toString() {
+        return name + ": " + movementType; //TODO make better or remove
+    }
 }

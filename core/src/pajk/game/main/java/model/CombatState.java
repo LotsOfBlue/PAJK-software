@@ -39,24 +39,36 @@ public class CombatState implements State {
      */
     @Override
     public void performAction(ActionName action) {
-        if(action.equals(ActionName.COMBAT_DONE)){
+
+        if(action.equals(ActionName.COMBAT_ACTIVE_HIT)) {
+            targetUnit.takeDamage(firstDamageFromActiveUnit);
+
+        } else if(action.equals(ActionName.COMBAT_TARGET_HIT)){
+            activeUnit.takeDamage(damageFromEnemyUnit);
+
+        } else if(action.equals(ActionName.COMBAT_DONE)){
+            targetUnit.takeDamage(secondDamageFromActiveUnit);
+
             if (targetUnit.getHealth() < 1) {
                 gameModel.removeUnit(targetUnit);
+
             }
             if (activeUnit.getHealth() < 1) {
                 gameModel.removeUnit(activeUnit);
 
             }
 
-
             if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
                 gameModel.setState(GameModel.StateName.MAIN_STATE);
+
             }
             else {
                 gameModel.setState(GameModel.StateName.ENEMY_TURN);
+
             }
             flush();
         }
+
     }
 
     /*
@@ -94,6 +106,7 @@ public class CombatState implements State {
         targetUnit = gameModel.getTargetUnit();
 
 
+
         //If the first hit lands
         if (firstHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)) {
 
@@ -102,12 +115,11 @@ public class CombatState implements State {
 
             firstDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
 
-            targetUnit.takeDamage(firstDamageFromActiveUnit);
         }
 
 
         //If enemy still alive, hit active
-        if (targetUnit.getHealth() > 0) {
+        if (targetUnit.getHealth()-firstDamageFromActiveUnit > 0) {
             //Check if can reach
             double range = PathFinder.estimateDistance(board.getPos(gameModel.getTargetUnit()), board.getPos(gameModel.getActiveUnit()));
             double minRange = targetUnit.getWeaponMinRange();
@@ -121,7 +133,7 @@ public class CombatState implements State {
                     //Get crit multiplier & save value
                     int critMult = (critFromEnemyUnit = doesThisCritThat(targetUnit, activeUnit)) ? 2 : 1;
                     damageFromEnemyUnit = critMult*calcDamageThisToThat(targetUnit, activeUnit);
-                    activeUnit.takeDamage(damageFromEnemyUnit);
+
                 }
             }
 
@@ -130,20 +142,21 @@ public class CombatState implements State {
         }
 
         //If active still alive and fast enough, hit enemy again
-        if (activeUnit.getHealth() > 0) {
+        if (activeUnit.getHealth()-damageFromEnemyUnit > 0) {
             if (activeUnit.getSpeed() >= (targetUnit.getSpeed() + 4)) {
                 secondAttackFromActiveUnit = true;
                 //Try to hit
                 if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)){
                     int critMult = (secondCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit)) ? 2 : 1;
                     secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
-                    targetUnit.takeDamage(secondDamageFromActiveUnit);
+
                 }
             }
         }
 
         calcDone = true;
         activeUnit.setUnitState(Unit.UnitState.DONE);
+
     }
 
     /**
@@ -213,32 +226,33 @@ public class CombatState implements State {
     private int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         //TODO make part of weapon classes instead
         //asdk for active unit weapon bonus vs defender weapon
+        int bonus = 2;
         int bonusVal = 0;
         if (attackerUnit.getWeaponType() == Weapon.WeaponType.AXE) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.SWORD){
-                bonusVal = -10;
+                bonusVal = -bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.SWORD) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.AXE){
-                bonusVal = -10;
+                bonusVal = -bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.SWORD) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.AXE) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE){
-                bonusVal = -10;
+                bonusVal = -bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
             if (defenderUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }
         } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOW) {
             if (defenderUnit.getMovementType() == Unit.MovementType.FLYING) {
-                bonusVal = 10;
+                bonusVal = bonus;
             }
         }
 
@@ -247,9 +261,13 @@ public class CombatState implements State {
     //----------------------------------------------------------------------------
 
 
-    public boolean isAttackFromEnemyUnit() { return attackFromEnemyUnit; }
+    public boolean isAttackFromEnemyUnit() {
+        return attackFromEnemyUnit;
+    }
 
-    public boolean isSecondAttackFromActiveUnit() { return secondAttackFromActiveUnit; }
+    public boolean isSecondAttackFromActiveUnit() {
+        return secondAttackFromActiveUnit;
+    }
 
     public int getDamageFromEnemyUnit() {
         return damageFromEnemyUnit;
@@ -263,19 +281,33 @@ public class CombatState implements State {
         return firstDamageFromActiveUnit;
     }
 
-    public boolean isCalcDone() { return calcDone; }
+    public boolean isCalcDone() {
+        return calcDone;
+    }
 
-    public boolean isCritFromEnemyUnit() { return critFromEnemyUnit; }
+    public boolean isCritFromEnemyUnit() {
+        return critFromEnemyUnit;
+    }
 
-    public boolean isFirstCritFromActiveUnit() { return firstCritFromActiveUnit; }
+    public boolean isFirstCritFromActiveUnit() {
+        return firstCritFromActiveUnit;
+    }
 
-    public boolean isFirstHitFromActiveUnit() { return firstHitFromActiveUnit; }
+    public boolean isFirstHitFromActiveUnit() {
+        return firstHitFromActiveUnit;
+    }
 
-    public boolean isHitFromEnemyUnit() { return hitFromEnemyUnit; }
+    public boolean isHitFromEnemyUnit() {
+        return hitFromEnemyUnit;
+    }
 
-    public boolean isSecondCritFromActiveUnit() { return secondCritFromActiveUnit; }
+    public boolean isSecondCritFromActiveUnit() {
+        return secondCritFromActiveUnit;
+    }
 
-    public boolean isSecondHitFromActiveUnit() { return secondHitFromActiveUnit; }
+    public boolean isSecondHitFromActiveUnit() {
+        return secondHitFromActiveUnit;
+    }
 
     //----------------------------------------------------------------------------
 }

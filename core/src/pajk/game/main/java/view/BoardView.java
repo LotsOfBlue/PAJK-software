@@ -1,6 +1,8 @@
 package pajk.game.main.java.view;
 
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -88,16 +90,21 @@ public class BoardView extends AbstractGameView {
 
     @Override
     public void render(SpriteBatch spriteBatch) {
+
         this.spriteBatch = spriteBatch;
 
         camera.update();
         spriteBatch.setProjectionMatrix(camera.combined);
 
-//        spriteBatch.begin();
+        spriteBatch.begin();
         drawBoard();
-        drawCursor();
-
-//        spriteBatch.end();
+        if(gameModel.getState().getClass() != CombatState.class) {
+            drawCursor();
+        }
+        if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() == MainState.class) {
+            drawButtonText();
+        }
+        spriteBatch.end();
     }
 
 
@@ -137,21 +144,23 @@ public class BoardView extends AbstractGameView {
         }
         draw(x,y,myTexture);
 
-        drawHealthbar(myUnit,x,y);
+        drawHealthbar(myUnit, x, y);
+
     }
 
     private void drawHealthbar(Unit unit, int x, int y){
-        int pixelX = getPixelCoordX(x);
-        int pixelY = getPixelCoordY(y);
 
-        draw(x,y,hpbarRed);
-        double currentHp = unit.getHealth();
-        double maxhp = unit.getMaxHealth();
-        int hpPixels = (int)(64 * (currentHp / maxhp));
-        TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
-        spriteBatch.begin();
-        spriteBatch.draw(txtReg,pixelX,pixelY);
-        spriteBatch.end();
+
+            int pixelX = getPixelCoordX(x);
+            int pixelY = getPixelCoordY(y);
+
+            draw(x, y, hpbarRed);
+            double currentHp = unit.getHealth();
+            double maxhp = unit.getMaxHealth();
+            int hpPixels = (int) (64 * (currentHp / maxhp));
+            TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
+
+            spriteBatch.draw(txtReg, pixelX, pixelY);
     }
 
     private void drawTile(Tile tile){
@@ -189,11 +198,11 @@ public class BoardView extends AbstractGameView {
      * @param texture The tile's texture
      */
     private void draw(int x, int y, Texture texture){
-        spriteBatch.begin();
+//        spriteBatch.begin();
         int pixelX = getPixelCoordX(x);
         int pixelY = getPixelCoordY(y);
         spriteBatch.draw(texture,pixelX,pixelY);
-        spriteBatch.end();
+//        spriteBatch.end();
     }
 
     private int getPixelCoordX(int boardCoordX){
@@ -229,6 +238,26 @@ public class BoardView extends AbstractGameView {
                 }
             }
         }
+    }
+
+    /*
+    Requires that cursortile is on unit
+     */
+    private void drawButtonText(){
+//        spriteBatch.begin();
+        BitmapFont font = new BitmapFont();
+        font.setColor(Color.BLACK);
+        font.getData().setScale((float)1.5,(float)1.5);
+        int x =(int) (camera.position.x - 400);
+        int y =(int) (camera.position.y - camera.viewportHeight/2 +50);
+
+        if(gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI){
+            font.draw(spriteBatch,"(Z) Status",x,y);
+        } else {
+            font.draw(spriteBatch,"(Z) Menu",x,y);
+        }
+
+//        spriteBatch.end();
     }
 
     private void updateCamera(Board board){
