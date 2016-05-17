@@ -79,10 +79,6 @@ public class BoardView extends AbstractGameView {
         this.camera.update();
     }
 
-    private void resize(int width){
-
-    }
-
     @Override
     public void update(float deltaTime) {
 
@@ -222,19 +218,16 @@ public class BoardView extends AbstractGameView {
         for(int x = 0; x < board.getBoardWidth(); x++){
             for(int y = 0; y < board.getBoardHeight(); y++){
                 Tile tile = board.getTile(x, y);
-                drawTile(tile);
-                if(board.getTile(x,y).hasUnit()){
-                    drawUnit(x,y);
-                    /*if(board.getTile(x,y).getUnit().getUnitState() == Unit.UnitState.DONE){
-                        draw(x,y,grayUnit);
-                    } else {
+                if (isWithinCamera(tile)) { // Only draw the tiles that can be seen.
+                    drawTile(tile);
+                    if(board.getTile(x,y).hasUnit()){
                         drawUnit(x,y);
-                    }*/
-                }
-                if(board.getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
-                    draw(x,y, overlayMove);
-                } else if(board.getTile(x,y).getOverlay() == Tile.Overlay.TARGET){
-                    draw(x,y, overlayAttack);
+                    }
+                    if(board.getTile(x,y).getOverlay() == Tile.Overlay.MOVEMENT){
+                        draw(x,y, overlayMove);
+                    } else if(board.getTile(x,y).getOverlay() == Tile.Overlay.TARGET){
+                        draw(x,y, overlayAttack);
+                    }
                 }
             }
         }
@@ -243,21 +236,33 @@ public class BoardView extends AbstractGameView {
     /*
     Requires that cursortile is on unit
      */
-    private void drawButtonText(){
+    private void drawButtonText() {
 //        spriteBatch.begin();
         BitmapFont font = new BitmapFont();
         font.setColor(Color.BLACK);
-        font.getData().setScale((float)1.5,(float)1.5);
-        int x =(int) (camera.position.x - 400);
-        int y =(int) (camera.position.y - camera.viewportHeight/2 +50);
+        font.getData().setScale((float) 1.5, (float) 1.5);
+        int x = (int) (camera.position.x - 400);
+        int y = (int) (camera.position.y - camera.viewportHeight / 2 + 50);
 
-        if(gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI){
-            font.draw(spriteBatch,"(Z) Status",x,y);
+        if (gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI) {
+            font.draw(spriteBatch, "(Z) Status", x, y);
         } else {
-            font.draw(spriteBatch,"(Z) Menu",x,y);
+            font.draw(spriteBatch, "(Z) Menu", x, y);
         }
 
 //        spriteBatch.end();
+    }
+    private boolean isWithinCamera(Tile tile){
+        boolean verdict = true;
+        int x = tile.getX();
+        int y = tile.getY();
+        if (camera.position.y + camera.viewportHeight / 2 < (board.getBoardHeight() - y - 1) * TILE_WIDTH ||
+                camera.position.y - camera.viewportHeight / 2 > (board.getBoardHeight() - y + 1) * TILE_WIDTH ||
+                camera.position.x + camera.viewportWidth / 2 < (x + 0) * TILE_WIDTH ||
+                camera.position.x - camera.viewportWidth / 2 > (x + 1) * TILE_WIDTH){
+            verdict = false;
+        }
+        return verdict;
     }
 
     private void updateCamera(Board board){
@@ -296,5 +301,6 @@ public class BoardView extends AbstractGameView {
         }
     }
 
+    public Board getBoard(){return board;}
 
 }

@@ -82,6 +82,7 @@ public class Unit {
         this.allegiance = allegiance;
         this.level = level;
         this.experience = experience;
+        this.maxHealth = health;
         this.health = health;
         this.strength = strength;
         this.skill = skill;

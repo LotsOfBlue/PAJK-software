@@ -12,17 +12,18 @@ import pajk.game.main.java.model.UnitMenuState;
  */
 public class MainView {
 
-    private BoardView boardView;
+    private BoardView boardView = null;
     private CombatView combatView;
     private MenuView menuView;
     private StatusView statusView;
     private GameModel gameModel = GameModel.getInstance();
+    private OrthographicCamera camera;
 //    private OrthographicCamera camera;
 
     public MainView(){
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        OrthographicCamera camera = new OrthographicCamera(w, h);
+        camera = new OrthographicCamera(w, h);
         boardView = new BoardView(camera);
         combatView = new CombatView();
         menuView = new MenuView(camera);
@@ -31,17 +32,25 @@ public class MainView {
     }
 
     public void render(SpriteBatch spriteBatch){
-        boardView.render(spriteBatch);
-
-        if(gameModel.getState().getClass() == CombatState.class){   //TODO make this better, move into boardview even?
-            CombatState combatState = (CombatState)gameModel.getState();
-            if (combatState.isCalcDone()){
-                combatView.update(new Float(1.1));
-                combatView.render(spriteBatch);
+        if (gameModel.getState().getName() != GameModel.StateName.MAIN_MENU) {
+            if (boardView.getBoard() != gameModel.getBoard()){
+                boardView = new BoardView(camera);
             }
+
+            boardView.render(spriteBatch);
+
+            if(gameModel.getState().getClass() == CombatState.class){   //TODO make this better, move into boardview even?
+                CombatState combatState = (CombatState)gameModel.getState();
+                if (combatState.isCalcDone()){
+                    combatView.update(new Float(1.1));
+                    combatView.render(spriteBatch);
+                }
+            }
+            menuView.render(spriteBatch);
+            statusView.render(spriteBatch);
+        } else {
+            //TODO: Draw the main menu.
         }
-        menuView.render(spriteBatch);
-        statusView.render(spriteBatch);
     }
 
 }

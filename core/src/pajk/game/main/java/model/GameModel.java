@@ -58,7 +58,7 @@ public final class GameModel {
     }
 
     private GameModel(){
-
+        board = new Board("plains.txt");
     }
 
     /**
@@ -118,12 +118,20 @@ public final class GameModel {
         return board;
     }
 
+    public void setBoard(Board board){
+        this.board = board;
+    }
+
     public Unit getActiveUnit() {
         return activeUnit;
     }
 
     public List<Unit> getUnitList() {
         return unitList;
+    }
+
+    public void setUnitList(List<Unit> unitList){
+        this.unitList = unitList;
     }
 
     public StateName getCurrentStateName(){
