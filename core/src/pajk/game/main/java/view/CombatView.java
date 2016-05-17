@@ -101,6 +101,7 @@ public class CombatView extends AbstractGameView {
             }
         }
         return new Animation(0.075f, tempTextureRegion);
+
     }
 
 

@@ -22,6 +22,8 @@ public final class GameModel {
     private List<Unit> unitList = new ArrayList<>();
     private Tile targetTile;
 
+    private Unit.Allegiance winner;
+
     //States
     private State currentState;
     private final MainState mainState = new MainState();
@@ -105,9 +107,41 @@ public final class GameModel {
         currentState.activate();
     }
 
+    public Unit.Allegiance getWinner() { return winner; }
+
+    //public void setWinner(Unit.Allegiance winner) { this.winner = winner;}
+
     public void removeUnit (Unit unit){
         unitList.remove(unit);
         board.getPos(unit).setUnit(null);
+        if(activeUnit == unit){//TODO is needed or not?
+            activeUnit = null;
+        }else if(targetUnit == unit){
+            targetUnit = null;
+        }
+    }
+
+    public boolean isGameOver(){
+        if(getNumberOfUnits(Unit.Allegiance.AI) > 1){
+            winner = Unit.Allegiance.PLAYER;
+            return true;
+        }else if(getNumberOfUnits(Unit.Allegiance.PLAYER) > 1){
+            winner = Unit.Allegiance.AI;
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    private int getNumberOfUnits (Unit.Allegiance allegiance){
+        int myInt = 0;
+        for(Unit u : unitList){
+            if(u.getAllegiance() == allegiance){
+                myInt++;
+            }
+        }
+        return myInt;
     }
 
     public State getState(){
