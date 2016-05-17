@@ -106,6 +106,7 @@ public class CombatView extends AbstractGameView {
 
     public void render(SpriteBatch spriteBatch){
 
+//        System.out.println("drawing combat");//TODO remove
         this.spriteBatch = spriteBatch;
         spriteBatch.begin();
         //TODO drawFunc

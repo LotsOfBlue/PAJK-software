@@ -98,6 +98,8 @@ public class EnemyTurnState implements State {
                 break;
             }
         }
+
+        System.out.println("stop breaking");//TODO remove
     }
 
     /**
