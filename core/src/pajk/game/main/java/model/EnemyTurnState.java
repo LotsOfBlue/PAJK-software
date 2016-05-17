@@ -21,12 +21,7 @@ public class EnemyTurnState implements State {
     }
 
     private void update(Unit unit){
-        //End the turn if all units have acted
-        /*if (unitList.peek() == null) {
 
-        } else {
-            System.out.println(unitList.size() + " Unit(s) left: " + unitList); //TODO remove*/
-       // Unit currentUnit = unitList.poll();
         Tile currentPos = board.getPos(unit);
         Unit target = designateTarget(unit);
 
@@ -37,8 +32,7 @@ public class EnemyTurnState implements State {
         //If not, move towards the closest attack tile
         else {
             moveTowards(unit, target, currentPos);
-            }
-        //}
+        }
     }
 
     /**
@@ -96,8 +90,6 @@ public class EnemyTurnState implements State {
                 break;
             }
         }
-
-        System.out.println("stop breaking");//TODO remove
     }
 
     /**
@@ -129,7 +121,6 @@ public class EnemyTurnState implements State {
                 }
             }
         }
-        System.out.println("The optimal target is " + target); //TODO remove
         return target;
     }
 

@@ -42,15 +42,12 @@ public class CombatState implements State {
 
         if(action.equals(ActionName.COMBAT_ACTIVE_HIT)) {
             targetUnit.takeDamage(firstDamageFromActiveUnit);
-            System.out.println("First hit");//TODO remove
 
         } else if(action.equals(ActionName.COMBAT_TARGET_HIT)){
             activeUnit.takeDamage(damageFromEnemyUnit);
-            System.out.println("Second hit");//TODO remove
 
         } else if(action.equals(ActionName.COMBAT_DONE)){
             targetUnit.takeDamage(secondDamageFromActiveUnit);
-            System.out.println("Third hit");//TODO remove
 
             if (targetUnit.getHealth() < 1) {
                 gameModel.removeUnit(targetUnit);
@@ -64,12 +61,10 @@ public class CombatState implements State {
             if (activeUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
                 gameModel.setState(GameModel.StateName.MAIN_STATE);
 
-                System.out.println("Switch to player");//TODO remoce
             }
             else {
                 gameModel.setState(GameModel.StateName.ENEMY_TURN);
 
-                System.out.println("Switch to AI");//TODO remove
             }
             flush();
         }
@@ -162,7 +157,6 @@ public class CombatState implements State {
         calcDone = true;
         activeUnit.setUnitState(Unit.UnitState.DONE);
 
-        System.out.println("Calc done"); //TODO remove
     }
 
     /**
