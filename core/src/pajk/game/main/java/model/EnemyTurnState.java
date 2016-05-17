@@ -22,46 +22,14 @@ public class EnemyTurnState implements State {
         Unit currentUnit = unitQueue.poll();
         Tile currentPos = board.getPos(currentUnit);
         Unit target = designateTarget(currentUnit);
+
         //If the target was within range, move to and attack it
         if (findReachableTargets(currentUnit, getAllTargets()).contains(target)) {
-            Set<Tile> moveRange = board.getTilesWithinMoveRange(currentUnit);
-            Set<Tile> attackTiles = getAttackPoints(currentUnit, target);
-            for (Tile t : attackTiles) {
-                if (moveRange.contains(t)) {
-                    List<Tile> path = PathFinder.getQuickestPath(board, currentPos, t, currentUnit);
-                    //Remove the first tile of the path, since that's where the unit is standing
-                    path.remove(path.size()-1);
-                    while (!path.isEmpty()) {
-                        board.moveAlongPath(path, currentUnit);
-                        System.out.println("step");
-                    }
-                    //TODO FIGHT!
-                    break;
-                }
-            }
+            moveToAttack(currentUnit, target, currentPos);
         }
-
         //If not, move towards the closest attack tile
         else {
-            int shortestDistance = 10000;
-            Tile targetTile = null;
-            List<Tile> path;
-            for (Tile t : getAttackPoints(currentUnit, target)){
-                path = PathFinder.getQuickestPath(board, currentPos, t, currentUnit);
-                int pathLength = PathFinder.getPathLength(path, currentUnit);
-                if (pathLength < shortestDistance) {
-                    shortestDistance = pathLength;
-                    targetTile = t;
-                }
-            }
-            path = PathFinder.getQuickestPath(board, currentPos, targetTile, currentUnit);
-            //Remove the first tile of the path, since that's where the unit is standing
-            path.remove(path.size()-1);
-            //Move as far alon ghte path as possible
-            for (int i = currentUnit.getMovement(); i > 0; i--) {
-                board.moveAlongPath(path, currentUnit);
-                System.out.println("step2");
-            }
+            moveTowards(currentUnit, target, currentPos);
         }
 
         //End the turn if all units have acted
@@ -69,6 +37,63 @@ public class EnemyTurnState implements State {
             gameModel.newTurn();
             System.out.println("--PLAYER TURN--"); //TODO debug
             gameModel.setState(GameModel.StateName.MAIN_STATE);
+        }
+    }
+
+    /**
+     * Makes the given active unit move towards a tile from which it can
+     * attack the designated target, as far as its move range allows.
+     * @param active The unit that will move.
+     * @param target The unit which will be moved towards.
+     * @param currentPos The active unit's position before moving.
+     */
+    private void moveTowards(Unit active, Unit target, Tile currentPos) {
+        int shortestDistance = 10000;
+        Tile targetTile = null;
+        List<Tile> path;
+        for (Tile t : getAttackPoints(active, target)){
+            path = PathFinder.getQuickestPath(board, currentPos, t, active);
+            int pathLength = PathFinder.getPathLength(path, active);
+            if (pathLength < shortestDistance) {
+                shortestDistance = pathLength;
+                targetTile = t;
+            }
+        }
+        path = PathFinder.getQuickestPath(board, currentPos, targetTile, active);
+        //Remove the first tile of the path, since that's where the unit is standing
+        path.remove(path.size()-1);
+        //Move as far along the path as possible
+        for (int i = active.getMovement(); i > 0; i--) {
+            board.moveAlongPath(path, active);
+            System.out.println("step2");
+        }
+    }
+
+    /**
+     * Makes the given active unit move towards a tile from which it can
+     * attack the designated target, and then attacks from that tile.
+     * @param active The unit that will move.
+     * @param target The unit that will be attacked.
+     * @param currentPos The active unit's position before moving.
+     */
+    private void moveToAttack(Unit active, Unit target, Tile currentPos) {
+        Set<Tile> moveRange = board.getTilesWithinMoveRange(active);
+        Set<Tile> attackTiles = getAttackPoints(active, target);
+        for (Tile t : attackTiles) {
+            if (moveRange.contains(t)) {
+                List<Tile> path = PathFinder.getQuickestPath(board, currentPos, t, active);
+                //Remove the first tile of the path, since that's where the unit is standing
+                path.remove(path.size()-1);
+                while (!path.isEmpty()) {
+                    board.moveAlongPath(path, active);
+                    System.out.println("step");
+                }
+                //Fight the target unit
+                gameModel.setActiveUnit(active);
+                gameModel.setTargetUnit(target);
+                gameModel.setState(GameModel.StateName.COMBAT_STATE);
+                break;
+            }
         }
     }
 
