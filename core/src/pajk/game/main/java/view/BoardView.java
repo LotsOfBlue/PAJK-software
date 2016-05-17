@@ -242,6 +242,11 @@ public class BoardView extends AbstractGameView {
         font.setColor(Color.BLACK);
         font.getData().setScale((float) 1.5, (float) 1.5);
         int x = (int) (camera.position.x - 400);
+
+        if(shouldDrawButtonTextRight()){
+            x = (int) (camera.position.x-200);
+        }
+
         int y = (int) (camera.position.y - camera.viewportHeight / 2 + 50);
 
         if (gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI) {
@@ -299,6 +304,12 @@ public class BoardView extends AbstractGameView {
                 camera.translate(-4, 0);
             }
         }
+    }
+
+    private boolean shouldDrawButtonTextRight(){
+        int tileWidth = 64;
+        int x = gameModel.getBoard().getCursorTile().getX();
+        return x * tileWidth > (camera.viewportWidth/2);
     }
 
     public Board getBoard(){return board;}

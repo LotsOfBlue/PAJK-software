@@ -99,7 +99,7 @@ public class MenuView extends AbstractGameView {
 
     private void drawTooltip(){
 
-        float x = camera.position.x - (camera.viewportWidth/2);
+        float x = camera.position.x - (camera.viewportWidth/2) +40;
         if(!shouldDrawTooltipRight()){
             x = camera.position.x + (camera.viewportHeight/2);
         }
