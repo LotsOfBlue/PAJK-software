@@ -2,6 +2,7 @@ package pajk.game.main.java.model.scenarios;
 
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.Unit;
+import pajk.game.main.java.model.items.IronSword;
 import pajk.game.main.java.model.utils.FileReader;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class Scenario {
                     parseMovement(rows.get(i * 17 + 15)),
                     parseClass(rows.get(i * 17 + 16)));
             board.moveUnit(unit, board.getTile(Integer.parseInt(rows.get(i * 17)), Integer.parseInt(rows.get(i * 17 + 1))));
+            unit.setWeapon(new IronSword());
             result.add(unit);
         }
         return result;

@@ -7,8 +7,8 @@ import pajk.game.main.java.model.items.Item;
  * Weapons are special items of a special type, with a minRange, maxrange damage and crit chance value.
  */
 public abstract class Weapon extends Item {
-    private int minRange, maxRange, damage, critChance, accuracy;
-    private String name;
+    protected int minRange, maxRange, damage, critChance, accuracy;
+    protected String name;
 
     public abstract int getAdvantageModifier(Weapon weapon);
 

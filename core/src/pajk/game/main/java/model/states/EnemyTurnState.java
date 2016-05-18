@@ -47,6 +47,7 @@ public class EnemyTurnState extends State {
         for (Tile t : getAttackPoints(active, target)){
             path = PathFinder.getQuickestPath(board, currentPos, t, active);
             int pathLength = PathFinder.getPathLength(path, active);
+            System.out.println(pathLength);
             if (pathLength < shortestDistance) {
                 shortestDistance = pathLength;
                 targetTile = t;
