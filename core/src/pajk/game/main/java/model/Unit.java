@@ -1,5 +1,6 @@
 package pajk.game.main.java.model;
 
+import pajk.game.main.java.model.items.IronPike;
 import pajk.game.main.java.model.items.Item;
 import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.utils.NameGenerator;
@@ -33,7 +34,7 @@ public class Unit {
     private UnitState unitState;
     private MovementType movementType;
     private List<Item> inventory = new ArrayList<>();
-    private Weapon weapon = new Weapon(Weapon.WeaponType.PIKE, 1, 1, 10, 5, 20);
+    private Weapon weapon = new IronPike();
     private Allegiance allegiance;
     private UnitClass unitClass = UnitClass.SWORD;
 
@@ -179,12 +180,6 @@ public class Unit {
     public List<Item> getInventory() {
         return inventory;
     }
-
-
-    public Weapon.WeaponType getWeaponType() {
-        return weapon.getWeaponType();
-    }
-
 
     public int getWeaponDamage() {
         return weapon.getDamage();

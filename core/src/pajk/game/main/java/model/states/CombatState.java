@@ -2,6 +2,7 @@ package pajk.game.main.java.model.states;
 
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.items.Tome;
 import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.utils.PathFinder;
 
@@ -186,9 +187,9 @@ public class CombatState extends State {
      */
     public static int calcDamageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         int damage;
-        if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
+        if (attackerUnit.getWeapon() instanceof Tome) {
             damage = attackerUnit.getWeaponDamage()
-                    + attackerUnit.getMight()
+                    + attackerUnit.getStrength()
                     + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
                     - defenderUnit.getResistance();
         } else {
@@ -233,35 +234,7 @@ public class CombatState extends State {
     public static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         //TODO make part of weapon classes instead
         //asdk for active unit weapon bonus vs defender weapon
-        int bonus = 2;
-        int bonusVal = 0;
-        if (attackerUnit.getWeaponType() == Weapon.WeaponType.AXE) {
-            if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
-                bonusVal = bonus;
-            }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.SWORD){
-                bonusVal = -bonus;
-            }
-        } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.PIKE) {
-            if (defenderUnit.getWeaponType() == Weapon.WeaponType.SWORD) {
-                bonusVal = bonus;
-            }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.AXE){
-                bonusVal = -bonus;
-            }
-        } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.SWORD) {
-            if (defenderUnit.getWeaponType() == Weapon.WeaponType.AXE) {
-                bonusVal = bonus;
-            }else if (defenderUnit.getWeaponType() == Weapon.WeaponType.PIKE){
-                bonusVal = -bonus;
-            }
-        } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
-            if (defenderUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
-                bonusVal = bonus;
-            }
-        } else if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOW) {
-            if (defenderUnit.getMovementType() == Unit.MovementType.FLYING) {
-                bonusVal = bonus;
-            }
-        }
+        int bonusVal = attackerUnit.getWeapon().getAdvantageModifier(defenderUnit.getWeapon());
 
         return bonusVal;
     }

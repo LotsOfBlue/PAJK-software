@@ -61,7 +61,7 @@ public class StatusView extends AbstractGameView{
         String health = "Health: "+unit.getHealth() + "/" + unit.getMaxHealth();
         String level = "Level: " +unit.getLevel();
         String defence = "Defence: " +unit.getDefence();
-        String weapon = "Weapon: " +unit.getWeapon().getWeaponType();
+        String weapon = "Weapon: " +unit.getWeapon().getName();
         String exp = "Experience: " +unit.getExperience();
         String strength = "Strength: " +unit.getStrength();
         String might = "Might: " +unit.getMight();
