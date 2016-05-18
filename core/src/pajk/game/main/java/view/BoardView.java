@@ -47,9 +47,13 @@ public class BoardView extends AbstractGameView {
 
     private OrthographicCamera camera;
 
+    /**
+     * Creates a BoardView
+     * Draw the board with all tiles units and overlay.
+     * Also updates the camera.
+     * @param camera the camera where the board should be drawn.
+     */
     public BoardView(OrthographicCamera camera){
-       /* unit = new Texture("unit-sprite.png");
-        grayUnit = new Texture("unitGray.png");*/
         shapeRenderer = new ShapeRenderer();
 
         blueSwordUnitSprite = new Texture("blue-sword-sprite");
@@ -144,9 +148,13 @@ public class BoardView extends AbstractGameView {
 
     }
 
+    /**
+     * Draws healthbar over unit and scales it with the unit's health.
+     * @param unit the unit which healthbar will be drawn
+     * @param x the x boardcoordinate where the unit's healthbar should be drawn
+     * @param y the y boardcoordinate where the unit's healthbar shoudl be drawn
+     */
     private void drawHealthbar(Unit unit, int x, int y){
-
-
             int pixelX = getPixelCoordX(x);
             int pixelY = getPixelCoordY(y);
 
@@ -159,6 +167,11 @@ public class BoardView extends AbstractGameView {
             spriteBatch.draw(txtReg, pixelX, pixelY);
     }
 
+
+    /**
+     * Checks what terrain the tile has and draws it.
+     * @param tile the tile to be drawn.
+     */
     private void drawTile(Tile tile){
         Texture texture = plainsTexture;
         switch (tile.getTerrainType()){
@@ -194,13 +207,16 @@ public class BoardView extends AbstractGameView {
      * @param texture The tile's texture
      */
     private void draw(int x, int y, Texture texture){
-//        spriteBatch.begin();
         int pixelX = getPixelCoordX(x);
         int pixelY = getPixelCoordY(y);
         spriteBatch.draw(texture,pixelX,pixelY);
-//        spriteBatch.end();
     }
 
+    /**
+     * Returns the where in pixels something is if given the board coordinates
+     * @param boardCoordX the coordinates in board matrix
+     * @return the pixel coordinates of where on the screen the board should be represented.
+     */
     private int getPixelCoordX(int boardCoordX){
         return boardCoordX * TILE_WIDTH;
     }
@@ -233,11 +249,11 @@ public class BoardView extends AbstractGameView {
         }
     }
 
-    /*
-    Requires that cursortile is on unit
+    /**
+     * Requires that cursor tile is on unit. Draws info text on button of screen that describes what will happen
+     * if you press a button.
      */
     private void drawButtonText() {
-//        spriteBatch.begin();
         BitmapFont font = new BitmapFont();
         font.setColor(Color.BLACK);
         font.getData().setScale((float) 1.5, (float) 1.5);
@@ -255,8 +271,9 @@ public class BoardView extends AbstractGameView {
             font.draw(spriteBatch, "(Z) Menu", x, y);
         }
 
-//        spriteBatch.end();
     }
+
+
     private boolean isWithinCamera(Tile tile){
         boolean verdict = true;
         int x = tile.getX();
