@@ -3,35 +3,27 @@ package pajk.game.main.java.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pajk.game.main.java.model.CombatState;
-import pajk.game.main.java.model.EndState;
 import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.UnitMenuState;
 
 /**
  * Created by palm on 2016-05-10.
  */
 public class MainView {
 
-    private BoardView boardView = null;
+    private BoardView boardView;
     private CombatView combatView;
-    private MenuView menuView;
+    private UnitMenuView menuView;
     private StatusView statusView;
     private EndView endView;
     private CombatInfoView combatInfoView;
     private GameModel gameModel = GameModel.getInstance();
     private OrthographicCamera camera;
-//    private OrthographicCamera camera;
 
+    /**
+     * Creates the MainView
+     * MainView creates all other views and draws them. The seperate View classes decides if it should be drawn or not.
+     */
     public MainView(){
-        /*float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
-        camera = new OrthographicCamera(w, h);
-        boardView = new BoardView(camera);
-        combatView = new CombatView();
-        menuView = new MenuView(camera);
-        statusView = new StatusView(camera);
-        endView = new EndView(camera);*/
         makeNewViews();
 
 
@@ -59,7 +51,7 @@ public class MainView {
         camera = new OrthographicCamera(w, h);
         boardView = new BoardView(camera);
         combatView = new CombatView();
-        menuView = new MenuView(camera);
+        menuView = new UnitMenuView(camera);
         statusView = new StatusView(camera);
         endView = new EndView(camera);
         combatInfoView = new CombatInfoView(camera);

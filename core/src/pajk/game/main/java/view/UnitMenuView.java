@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * Created by palm on 2016-04-22.
  */
-public class MenuView extends AbstractGameView {
+public class UnitMenuView extends AbstractGameView {
 
     private BitmapFont font;        //TODO change to "freetype" instead, use gradle
     private Texture menuOverlay;
@@ -22,7 +22,12 @@ public class MenuView extends AbstractGameView {
     private SpriteBatch spriteBatch;
     private OrthographicCamera camera;
 
-    public MenuView(OrthographicCamera camera) {
+    /**
+     * Creates a UnitMenuView.
+     * Draws the menu if in UnitMenuState. Displays options depending on menuList in UnitMenuState
+     * @param camera
+     */
+    public UnitMenuView(OrthographicCamera camera) {
         font = new BitmapFont();
         menuOverlay = new Texture("menuOverlayShort.png");
         background = new Texture("menuBackgroundEdges.png");
@@ -54,7 +59,8 @@ public class MenuView extends AbstractGameView {
     }
 
     /**
-     * Draws background, all menu items, all menu text and a overlay on selected item
+     * Draws background, all menu items, all menu text and a overlay on selected item.
+     * Draws text gray if item cannot be selected. 
      */
     private void drawMenu(){
         int gap = 40;
@@ -99,8 +105,8 @@ public class MenuView extends AbstractGameView {
 
     private void drawTooltip(){
 
-        float x = camera.position.x - (camera.viewportWidth/2);
-        if(!shouldDrawTooltipRight()){
+        float x = camera.position.x - (camera.viewportWidth/2) +40;
+        if(shouldDrawTooltipRight()){
             x = camera.position.x + (camera.viewportHeight/2);
         }
         float y = camera.position.y - (camera.viewportHeight/2) +10;
@@ -123,7 +129,8 @@ public class MenuView extends AbstractGameView {
     private boolean shouldDrawTooltipRight(){
         int tileWidth = 64;
         int x = gameModel.getBoard().getCursorTile().getX();
-        return x * tileWidth > (camera.viewportWidth/2);
+
+        return x * tileWidth < camera.position.x;
     }
 
     private boolean shouldDrawMenuRight(){
