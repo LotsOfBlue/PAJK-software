@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Gustav on 2016-05-16.
  */
-public class MainMenuState implements State{
+public class MainMenuState extends State{
     private List<Scenario> scenarioList = new ArrayList<>();
     private int menuItemSelected = 0;
     private GameModel gameModel;
@@ -21,22 +21,31 @@ public class MainMenuState implements State{
     }
 
     @Override
-    public void performAction(ActionName action) {
-        switch (action){
-            case UP: case LEFT:
-                menuItemSelected = (menuItemSelected + scenarioList.size()-1) % scenarioList.size();
-                break;
-            case DOWN: case RIGHT:
-                menuItemSelected = (menuItemSelected + 1) % scenarioList.size();
-                break;
-            case ENTER:
-                Board board = scenarioList.get(menuItemSelected).makeBoard();
-                gameModel.resetNumberOfTurns();
-                gameModel.setBoard(board);
-                gameModel.setUnitList(scenarioList.get(menuItemSelected).makeUnitList(board));
-                gameModel.setState(GameModel.StateName.MAIN);
-        }
+    void upAction(){
+        menuItemSelected = (menuItemSelected + scenarioList.size()-1) % scenarioList.size();
     }
+    @Override
+    void downAction(){
+        menuItemSelected = (menuItemSelected + 1) % scenarioList.size();
+    }
+    @Override
+    void leftAction(){
+        upAction();
+    }
+    @Override
+    void rightAction(){
+        downAction();
+    }
+    @Override
+    void enterAction(){
+        Board board = scenarioList.get(menuItemSelected).makeBoard();
+        gameModel.resetNumberOfTurns();
+        gameModel.setBoard(board);
+        gameModel.setUnitList(scenarioList.get(menuItemSelected).makeUnitList(board));
+        gameModel.setState(GameModel.StateName.MAIN);
+    }
+
+
 
     @Override
     public void activate() {

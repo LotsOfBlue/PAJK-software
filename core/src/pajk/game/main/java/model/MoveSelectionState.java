@@ -22,7 +22,7 @@ public class MoveSelectionState extends MoveState{
         return GameModel.StateName.MOVE_SELECT;
     }
 
-    @Override
+
     public void enterAction(){
         //If the player selected an allowed tile, proceed to the state for moving units.
         Tile cursorTile = board.getCursorTile();

@@ -13,7 +13,7 @@ import java.util.Random;
  * Refer to docs for combat turn breakdown.
  *  needs to perform combat on it's active and target units
  */
-public class CombatState implements State {
+public class CombatState extends State {
 
     private GameModel gameModel;
     private Unit activeUnit;
@@ -71,6 +71,9 @@ public class CombatState implements State {
         }
 
     }
+
+
+
 
     /*
      *  Flush is a cleanup function meant to reset every "case sensitive" variable in combat
