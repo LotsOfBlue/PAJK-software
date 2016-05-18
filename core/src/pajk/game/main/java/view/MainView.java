@@ -3,10 +3,7 @@ package pajk.game.main.java.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pajk.game.main.java.model.CombatState;
-import pajk.game.main.java.model.EndState;
 import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.UnitMenuState;
 
 /**
  * Created by palm on 2016-05-10.
@@ -15,7 +12,7 @@ public class MainView {
 
     private BoardView boardView = null;
     private CombatView combatView;
-    private MenuView menuView;
+    private UnitMenuView menuView;
     private StatusView statusView;
     private EndView endView;
     private GameModel gameModel = GameModel.getInstance();
@@ -28,7 +25,7 @@ public class MainView {
         camera = new OrthographicCamera(w, h);
         boardView = new BoardView(camera);
         combatView = new CombatView();
-        menuView = new MenuView(camera);
+        menuView = new UnitMenuView(camera);
         statusView = new StatusView(camera);
         endView = new EndView(camera);*/
         makeNewViews();
@@ -57,7 +54,7 @@ public class MainView {
         camera = new OrthographicCamera(w, h);
         boardView = new BoardView(camera);
         combatView = new CombatView();
-        menuView = new MenuView(camera);
+        menuView = new UnitMenuView(camera);
         statusView = new StatusView(camera);
         endView = new EndView(camera);
     }
