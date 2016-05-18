@@ -7,39 +7,30 @@ import pajk.game.main.java.ActionName;
  *
  * Created by palm on 2016-05-11.
  */
-public abstract class MoveState implements State{
-    private Board board;
+public abstract class MoveState extends State{
+
 
 
 
     @Override
-    public void performAction(ActionName action) {
-        board = GameModel.getInstance().getBoard();
-        switch (action){
-            case UP:
-                board.moveCursor(Board.Direction.NORTH);
-                break;
-            case LEFT:
-                board.moveCursor(Board.Direction.WEST);
-                break;
-            case RIGHT:
-                board.moveCursor(Board.Direction.EAST);
-                break;
-            case DOWN:
-                board.moveCursor(Board.Direction.SOUTH);
-                break;
-            case ENTER:
-                enterAction();
-                break;
-            case BACK:
-                backAction();
-                break;
-        }
+    void upAction(){
+        GameModel.getInstance().getBoard().moveCursor(Board.Direction.NORTH);
+    }
+    @Override
+    void downAction(){
+        GameModel.getInstance().getBoard().moveCursor(Board.Direction.SOUTH);
+    }
+    @Override
+    void leftAction(){
+        GameModel.getInstance().getBoard().moveCursor(Board.Direction.WEST);
+    }
+    @Override
+    void rightAction(){
+        GameModel.getInstance().getBoard().moveCursor(Board.Direction.EAST);
     }
 
 
-    public abstract void enterAction();
-    public abstract void backAction();
+
 
 
 }

@@ -5,55 +5,38 @@ import pajk.game.main.java.ActionName;
 /**
  * Created by palm on 2016-05-14.
  */
-public class StatusState implements State{
+public class StatusState extends State{
     GameModel model;
 
-    @Override
-    public void performAction(ActionName action) {
-        switch(action) {
-            case UP:
-                upAction();
-                break;
-            case DOWN:
-                downAction();
-                break;
-            case LEFT:
-                leftAction();
-                break;
-            case RIGHT:
-                rightAction();
-                break;
-            case ENTER:
-                enterAction();
-                break;
-            case BACK:
-                goBack();
-                System.out.println("Closed status screen."); //TODO debug
-                break;
-        }
-    }
 
-    private void enterAction(){
+
+    @Override
+    void enterAction(){
         //no action in this state
     }
 
-    private void upAction(){
+    @Override
+    void upAction(){
         //show statusscreen for other ally unit?
     }
 
-    private void downAction(){
+    @Override
+    void downAction(){
         //show statusscreen for other allyl unit?
     }
 
-    private void leftAction(){
+    @Override
+    void leftAction(){
         //possibly show more information if it does not fit in screen
     }
 
-    private void rightAction(){
+    @Override
+    void rightAction(){
         //possibly show more information if it does not fit in screen
     }
 
-    private void goBack(){
+    @Override
+    void backAction(){
         if(model.getActiveUnit().getAllegiance() == Unit.Allegiance.AI){
             model.setState(GameModel.StateName.MAIN);
         } else {

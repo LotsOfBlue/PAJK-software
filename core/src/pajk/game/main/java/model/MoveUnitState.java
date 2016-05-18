@@ -10,7 +10,7 @@ import java.util.List;
  *
  * Created by Gustav on 2016-05-11.
  */
-public class MoveUnitState implements State {
+public class MoveUnitState extends State {
     private GameModel gameModel;
     private Board board;
     private Unit unit;

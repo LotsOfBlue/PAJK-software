@@ -9,7 +9,7 @@ import pajk.game.main.java.ActionName;
  *
  * Created by Johan on 2016-04-25.
  */
-public class CombatInfoState implements State{
+public class CombatInfoState extends State{
     private GameModel gameModel;
     private Board board;
 
@@ -17,17 +17,12 @@ public class CombatInfoState implements State{
 
     private int activeDmg, targetDmg, activeHitChance, targetHitChance;
 
-    @Override
-    public void performAction(ActionName action) {
-        switch (action) {
-            case ENTER:
-                GameModel.getInstance().setState(GameModel.StateName.COMBAT);
-                break;
 
-            case BACK:
-                GameModel.getInstance().setState(GameModel.StateName.CHOOSE_TARGET);
-                break;
-        }
+    void enterAction(){
+        GameModel.getInstance().setState(GameModel.StateName.COMBAT);
+    }
+    void backAction(){
+        GameModel.getInstance().setState(GameModel.StateName.CHOOSE_TARGET);
     }
 
     @Override

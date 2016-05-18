@@ -6,7 +6,7 @@ import pajk.game.main.java.model.GameModel.StateName;
 /**
  * Created by jonatan on 16/05/2016.
  */
-public class EndState implements State {
+public class EndState extends State {
     private int score = 1, turns = 1, units = 1, base=100;
 
     GameModel gameModel;
@@ -29,11 +29,10 @@ public class EndState implements State {
     }
 
     @Override
-    public void performAction (ActionName actionName){
-        if (actionName.equals(ActionName.ENTER)){
-            gameModel.setState(StateName.MAIN_MENU);
-        }
+    void enterAction(){
+        gameModel.setState(StateName.MAIN_MENU);
     }
+
 
     public int getGameScore(Unit.Allegiance player){
         return base*units/turns;//TODO more advanced calcs?

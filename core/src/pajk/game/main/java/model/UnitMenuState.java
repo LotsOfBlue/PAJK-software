@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by Gustav on 2016-04-22.
  */
-public class UnitMenuState implements State {
+public class UnitMenuState extends State {
 
     private Unit activeUnit;
     private List<String> menuList = new ArrayList<>();
@@ -23,57 +23,62 @@ public class UnitMenuState implements State {
         menuList.add("Status");
     }
 
+
+
     @Override
-    public void performAction(ActionName action) {
-        switch (action){
-            case UP:
-                menuItemSelected = (menuItemSelected + menuList.size()-1) % menuList.size();
-                System.out.println(this);
-                break;
-            case DOWN:
-                menuItemSelected = (menuItemSelected + 1) % menuList.size();
-                System.out.println(this);
-                break;
-            //Selecting a menu item
-            case ENTER:
-                switch (menuList.get(menuItemSelected)){
-                    //Prepare to move the unit
-                    case "Move":
-                        if (activeUnit.getUnitState() == Unit.UnitState.READY) {
-                            oldPos = board.getPos(activeUnit);
-                            model.setState(GameModel.StateName.MOVE_SELECT);
-                        }
-                        break;
-                    //Prepare to attack with the unit
-                    case "Attack":
-                        if (activeUnit.getUnitState() == Unit.UnitState.READY ||
-                                activeUnit.getUnitState() == Unit.UnitState.MOVED) {
-                            model.setState(GameModel.StateName.CHOOSE_TARGET);
-                        }
-                        break;
-                    //Don't do anything else this turn
-                    case "Wait":
-                        activeUnit.setUnitState(Unit.UnitState.DONE);
-                        if (model.allUnitsDone()) {
-                            model.setState(GameModel.StateName.ENEMY_TURN);
-                        }
-                        else {
-                            model.setState(GameModel.StateName.MAIN);
-                        }
-                        break;
-                    case "Status":
-                        model.setState(GameModel.StateName.STATUS);
+    void upAction(){
+        menuItemSelected = (menuItemSelected + menuList.size()-1) % menuList.size();
+    }
+
+    @Override
+    void downAction(){
+        menuItemSelected = (menuItemSelected + 1) % menuList.size();
+    }
+
+    @Override
+    void leftAction(){
+
+    }
+
+    @Override
+    void rightAction(){
+
+    }
+
+    @Override
+    void enterAction(){
+        switch (menuList.get(menuItemSelected)) {
+            //Prepare to move the unit
+            case "Move":
+                if (activeUnit.getUnitState() == Unit.UnitState.READY) {
+                    oldPos = board.getPos(activeUnit);
+                    model.setState(GameModel.StateName.MOVE_SELECT);
                 }
                 break;
-            //Close the menu and return to the field
-            case BACK:
-                goBack();
-                System.out.println("Closed menu."); //TODO debug
+            //Prepare to attack with the unit
+            case "Attack":
+                if (activeUnit.getUnitState() == Unit.UnitState.READY ||
+                        activeUnit.getUnitState() == Unit.UnitState.MOVED) {
+                    model.setState(GameModel.StateName.CHOOSE_TARGET);
+                }
+                break;
+            //Don't do anything else this turn
+            case "Wait":
+                activeUnit.setUnitState(Unit.UnitState.DONE);
+                if (model.allUnitsDone()) {
+                    model.setState(GameModel.StateName.ENEMY_TURN);
+                } else {
+                    model.setState(GameModel.StateName.MAIN);
+                }
+                break;
+            case "Status":
+                model.setState(GameModel.StateName.STATUS);
                 break;
         }
     }
 
-    private void goBack(){
+    @Override
+    void backAction(){
         if (activeUnit.getUnitState() == Unit.UnitState.MOVED){
             activeUnit.setUnitState(Unit.UnitState.READY);
             board.moveUnit(activeUnit, oldPos);

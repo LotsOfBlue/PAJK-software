@@ -10,15 +10,12 @@ import java.util.*;
  *
  * Created by Johan on 2016-04-28.
  */
-public class EnemyTurnState implements State {
+public class EnemyTurnState extends State {
     private GameModel gameModel;
     private Board board;
     private List<Unit> unitList;
 
-    @Override
-    public void performAction(ActionName action) {
 
-    }
 
     private void update(Unit unit){
 
