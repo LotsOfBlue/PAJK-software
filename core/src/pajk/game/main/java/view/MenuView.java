@@ -100,7 +100,7 @@ public class MenuView extends AbstractGameView {
     private void drawTooltip(){
 
         float x = camera.position.x - (camera.viewportWidth/2) +40;
-        if(!shouldDrawTooltipRight()){
+        if(shouldDrawTooltipRight()){
             x = camera.position.x + (camera.viewportHeight/2);
         }
         float y = camera.position.y - (camera.viewportHeight/2) +10;
@@ -123,7 +123,8 @@ public class MenuView extends AbstractGameView {
     private boolean shouldDrawTooltipRight(){
         int tileWidth = 64;
         int x = gameModel.getBoard().getCursorTile().getX();
-        return x * tileWidth > (camera.viewportWidth/2);
+
+        return x * tileWidth < camera.position.x;
     }
 
     private boolean shouldDrawMenuRight(){
