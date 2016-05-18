@@ -22,6 +22,13 @@ public class StatusView extends AbstractGameView{
     private BitmapFont font;
     private Unit unit;
 
+    /**
+     * Creates a StatusView.
+     * Draws the status screen of the unit selected. Prints following info about unit:
+     * Name, health, level, defence, Weapon, Experience, Strength, Might, Skill, Luck, Resistance,
+     * Speed, Movement, Constitution and Aid.
+     * @param camera where the status will be drawn.
+     */
     public StatusView(OrthographicCamera camera){
         statusBackground = new Texture("statusBackground.png");
         unitImage = new Texture("shrek.png");
@@ -37,6 +44,7 @@ public class StatusView extends AbstractGameView{
         }
     }
 
+
     private void drawStatusScreen(SpriteBatch spriteBatch){
 
         model = GameModel.getInstance();
@@ -48,7 +56,7 @@ public class StatusView extends AbstractGameView{
 
         font.getData().setScale(2,2);
 
-
+        //Creates strings with info from active unit
         String name = unit.getName();
         String health = "Health: "+unit.getHealth() + "/" + unit.getMaxHealth();
         String level = "Level: " +unit.getLevel();
@@ -66,10 +74,9 @@ public class StatusView extends AbstractGameView{
         String aid = "Aid: " +unit.getAid();
 
 
+        //Draws name, image, hp, level, exp and weapon to the left
         font.draw(spriteBatch,name,x+20,y+ camera.viewportHeight - 110);
-
         spriteBatch.draw(unitImage,x+20,y+ camera.viewportHeight - 100 -50 -130);
-
         font.draw(spriteBatch,health,x+20,y+ camera.viewportHeight - 100 -50 -150);
         font.draw(spriteBatch,level,x+20,y+ camera.viewportHeight - 100 -85 -150);
         font.draw(spriteBatch,exp,x+20,y+ camera.viewportHeight - 100 -120 -150);
@@ -77,10 +84,6 @@ public class StatusView extends AbstractGameView{
 
 
         ArrayList<String> stats = new ArrayList<>();
-//        stats.add(name);
-//        stats.add(health);
-//        stats.add(level);
-//        stats.add(exp);
 
         stats.add(strength);
         stats.add(skill);
@@ -93,6 +96,7 @@ public class StatusView extends AbstractGameView{
         stats.add(constitution);
         stats.add(aid);
 
+        //draws stats on two columns, splitting it halfways
         x+=300;
         for(int i = 0; i < stats.size(); i++){
             int ydiff = i * 35;
