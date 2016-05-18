@@ -1,8 +1,20 @@
 package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.states.*;
 import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.states.State;
+import pajk.game.main.java.model.states.MainMenuState;
+import pajk.game.main.java.model.states.MainState;
+import pajk.game.main.java.model.states.StatusState;
+import pajk.game.main.java.model.states.EndState;
+import pajk.game.main.java.model.states.ChooseTargetState;
+import pajk.game.main.java.model.states.CombatInfoState;
+import pajk.game.main.java.model.states.CombatState;
+import pajk.game.main.java.model.states.EnemyTurnState;
+import pajk.game.main.java.model.states.MoveSelectionState;
+import pajk.game.main.java.model.states.UnitMenuState;
+import pajk.game.main.java.model.states.MoveUnitState;
+
 
 import java.util.ArrayList;
 import java.util.List;
