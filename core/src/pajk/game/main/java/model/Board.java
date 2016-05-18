@@ -190,7 +190,7 @@ public class Board {
      * @param x X coordinate
      * @param y Y coordinate
      */
-    void setCursor(int x, int y) {
+    public void setCursor(int x, int y) {
         cursor = tileMatrix[x][y];
     }
 
