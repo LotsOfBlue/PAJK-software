@@ -3,6 +3,7 @@ package pajk.game.main.java.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pajk.game.main.java.model.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;

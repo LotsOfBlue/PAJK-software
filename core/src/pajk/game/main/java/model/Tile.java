@@ -1,10 +1,11 @@
 package pajk.game.main.java.model;
 
-import pajk.game.main.java.model.terrain.Terrain;
+import pajk.game.main.java.model.terrains.Terrain;
+import pajk.game.main.java.model.units.Unit;
 
 /**
  * A tile is a place in the world. It is represented by a single square, graphically. Each tile can have a single
- * unit standing on it and it has a terrain type. The terrain type alters the movement cost of moving to this tile from
+ * unit standing on it and it has a terrains type. The terrains type alters the movement cost of moving to this tile from
  * an adjacent one.
  *
  * Created by palm on 2016-04-15.
@@ -48,11 +49,11 @@ public class Tile{
         return unit;
     }
 
-    void setUnit(Unit unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
-    int getMovementCost(Unit.MovementType movType) {
+    public int getMovementCost(Unit.MovementType movType) {
         return terrain.getMovementCost(movType);
     }
 
@@ -60,7 +61,7 @@ public class Tile{
         return terrain.getType();
     }
 
-    int getEvasion() {
+    public int getEvasion() {
         return terrain.getEvasion();
     }
 

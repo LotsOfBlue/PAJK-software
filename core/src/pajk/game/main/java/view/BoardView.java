@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.states.CombatState;
+import pajk.game.main.java.model.states.MainState;
+import pajk.game.main.java.model.units.Unit;
 
 
 /**
@@ -169,7 +172,7 @@ public class BoardView extends AbstractGameView {
 
 
     /**
-     * Checks what terrain the tile has and draws it.
+     * Checks what terrains the tile has and draws it.
      * @param tile the tile to be drawn.
      */
     private void drawTile(Tile tile){

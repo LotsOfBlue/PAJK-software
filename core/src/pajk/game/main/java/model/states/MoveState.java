@@ -1,13 +1,16 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
 
 import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.Board;
+import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.states.State;
 
 /**
  * Abstract state that allows you to move the cursor with the arrow keys.
  *
  * Created by palm on 2016-05-11.
  */
-public abstract class MoveState implements State{
+public abstract class MoveState implements State {
     private Board board;
 
 

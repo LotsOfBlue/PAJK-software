@@ -1,4 +1,8 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.units;
+
+import pajk.game.main.java.model.utils.NameUtils;
+import pajk.game.main.java.model.items.Item;
+import pajk.game.main.java.model.items.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +66,7 @@ public class Unit {
         FLYING
     }
 
-    Unit(   Allegiance allegiance,
+    public Unit(   Allegiance allegiance,
             int level,
             int experience,
             int health,

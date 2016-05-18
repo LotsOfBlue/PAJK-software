@@ -1,4 +1,4 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.utils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,9 +1,9 @@
-package pajk.game.main.java.model.terrain;
+package pajk.game.main.java.model.terrains;
 
-import pajk.game.main.java.model.Unit;
+import pajk.game.main.java.model.units.Unit;
 
 /**
- * Represents a type of terrain with its specific parameters.
+ * Represents a type of terrains with its specific parameters.
  * @author Johan Blomberg
  */
 public interface Terrain {
@@ -12,7 +12,7 @@ public interface Terrain {
      * Determine the movement cost of the tile
      * based on the type of unit crossing it.
      * @param movType The movement type of the unit.
-     * @return The movement cost of this terrain type.
+     * @return The movement cost of this terrains type.
      */
     int getMovementCost(Unit.MovementType movType);
 
@@ -25,7 +25,7 @@ public interface Terrain {
     int getEvasion();
 
     /**
-     * @return The terrain type's name.
+     * @return The terrains type's name.
      */
     String getType();
 }

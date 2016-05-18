@@ -1,4 +1,7 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
+
+import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.units.Unit;
 
 import java.util.Set;
 

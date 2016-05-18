@@ -1,5 +1,8 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
 
+
+import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.units.Unit;
 
 /**
  * This state is active when you start the game. It allows you to move the cursor around the board and select units.

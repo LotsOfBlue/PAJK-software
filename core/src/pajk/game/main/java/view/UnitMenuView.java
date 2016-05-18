@@ -5,9 +5,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.states.CombatState;
+import pajk.game.main.java.model.states.EnemyTurnState;
+import pajk.game.main.java.model.states.StatusState;
+import pajk.game.main.java.model.states.UnitMenuState;
+import pajk.game.main.java.model.units.Unit;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by palm on 2016-04-22.
