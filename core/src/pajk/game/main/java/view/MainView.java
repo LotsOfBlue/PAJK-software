@@ -18,6 +18,7 @@ public class MainView {
     private MenuView menuView;
     private StatusView statusView;
     private EndView endView;
+    private CombatInfoView combatInfoView;
     private GameModel gameModel = GameModel.getInstance();
     private OrthographicCamera camera;
 //    private OrthographicCamera camera;
@@ -46,6 +47,7 @@ public class MainView {
             menuView.render(spriteBatch);
             statusView.render(spriteBatch);
             endView.render(spriteBatch);
+            combatInfoView.render(spriteBatch);
         } else {
             //TODO: Draw the main menu.
         }
@@ -60,5 +62,6 @@ public class MainView {
         menuView = new MenuView(camera);
         statusView = new StatusView(camera);
         endView = new EndView(camera);
+        combatInfoView = new CombatInfoView(camera);
     }
 }

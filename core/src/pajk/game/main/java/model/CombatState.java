@@ -178,7 +178,7 @@ public class CombatState implements State {
      * @param defenderUnit the unit being attacked.
      * @return the damage that attacker will deal (if attack hit)
      */
-    public int calcDamageThisToThat(Unit attackerUnit, Unit defenderUnit) {
+    public static int calcDamageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         int damage;
         if (attackerUnit.getWeaponType() == Weapon.WeaponType.BOOK) {
             damage = attackerUnit.getWeaponDamage()
@@ -224,7 +224,7 @@ public class CombatState implements State {
     /*
      * Determines how much extra damage attackerUnit does to defenderUnit due to weapon types
      */
-    private int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
+    public static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         //TODO make part of weapon classes instead
         //asdk for active unit weapon bonus vs defender weapon
         int bonus = 2;

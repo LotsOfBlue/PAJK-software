@@ -24,7 +24,7 @@ public class PajkGdxGame extends ApplicationAdapter {
 
     private int inputCooldown = 0;
     private int inputDelay = 8;
-    
+
     @Override
     public void create () {
         batch = new SpriteBatch();
