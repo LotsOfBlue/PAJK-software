@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.states.CombatState;
 
 /**
  * Visual representation of the combat.

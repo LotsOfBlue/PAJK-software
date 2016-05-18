@@ -1,10 +1,12 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.items;
+
+import pajk.game.main.java.model.items.Item;
 
 /**
  * Created by jonatan on 20/04/2016.
  * Weapons are special items of a special type, with a minRange, maxrange damage and crit chance value.
  */
-public class Weapon extends Item{
+public class Weapon extends Item {
     private WeaponType weaponType;
     private int minRange, maxRange, damage, critChance, accuracy;
 
@@ -17,7 +19,7 @@ public class Weapon extends Item{
         BOOK
     }
 
-    Weapon(WeaponType weaponType, int minRange, int maxRange, int damage, int critChance, int accuracy){
+    public Weapon(WeaponType weaponType, int minRange, int maxRange, int damage, int critChance, int accuracy){
         this.weaponType = weaponType;
         this.critChance = critChance;
         this.damage = damage;

@@ -1,5 +1,11 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
 
+
+import pajk.game.main.java.model.Board;
+import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.Tile;
+import pajk.game.main.java.model.Unit;
+import pajk.game.main.java.model.states.MoveState;
 
 import java.util.Set;
 
@@ -9,7 +15,7 @@ import java.util.Set;
  *
  * Created by Gustav on 2016-04-25.
  */
-public class MoveSelectionState extends MoveState{
+public class MoveSelectionState extends MoveState {
 
     private Unit activeUnit;
     private Board board;

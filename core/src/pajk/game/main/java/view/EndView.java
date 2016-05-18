@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.model.*;
-
-import java.util.ArrayList;
+import pajk.game.main.java.model.states.EndState;
+import pajk.game.main.java.model.states.State;
 
 /**
  * Created by jonatan on 17/05/2016.

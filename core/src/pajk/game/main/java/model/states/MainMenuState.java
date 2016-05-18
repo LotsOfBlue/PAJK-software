@@ -1,6 +1,8 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
 
-import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.Board;
+import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.scenarios.Scenario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * Created by Gustav on 2016-05-16.
  */
-public class MainMenuState extends State{
+public class MainMenuState extends State {
     private List<Scenario> scenarioList = new ArrayList<>();
     private int menuItemSelected = 0;
     private GameModel gameModel;

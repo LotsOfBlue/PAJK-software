@@ -1,11 +1,13 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
 
-import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.Unit;
+import pajk.game.main.java.model.states.State;
 
 /**
  * Created by palm on 2016-05-14.
  */
-public class StatusState extends State{
+public class StatusState extends State {
     GameModel model;
 
 

@@ -48,11 +48,11 @@ public class Tile{
         return unit;
     }
 
-    void setUnit(Unit unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 
-    int getMovementCost(Unit.MovementType movType) {
+    public int getMovementCost(Unit.MovementType movType) {
         return terrain.getMovementCost(movType);
     }
 
@@ -60,7 +60,7 @@ public class Tile{
         return terrain.getType();
     }
 
-    int getEvasion() {
+    public int getEvasion() {
         return terrain.getEvasion();
     }
 

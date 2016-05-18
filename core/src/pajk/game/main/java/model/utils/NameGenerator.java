@@ -1,4 +1,6 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.utils;
+
+import pajk.game.main.java.model.Unit;
 
 import java.util.List;
 import java.util.Random;
@@ -8,7 +10,7 @@ import java.util.Random;
  *
  * Created by Gustav on 2016-05-13.
  */
-public abstract class NameUtils {
+public abstract class NameGenerator {
     public static String getRandomName(Unit.Allegiance allegiance){
         List<String> nameList;
         if (allegiance == Unit.Allegiance.PLAYER){

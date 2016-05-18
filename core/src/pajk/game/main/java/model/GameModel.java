@@ -1,6 +1,7 @@
 package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.states.*;
 
 import java.util.ArrayList;
 import java.util.List;

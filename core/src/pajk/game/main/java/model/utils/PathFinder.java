@@ -1,4 +1,8 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.utils;
+
+import pajk.game.main.java.model.Board;
+import pajk.game.main.java.model.Tile;
+import pajk.game.main.java.model.Unit;
 
 import java.util.*;
 

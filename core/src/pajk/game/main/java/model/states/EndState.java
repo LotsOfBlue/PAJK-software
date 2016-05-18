@@ -1,7 +1,9 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.states;
 
-import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.GameModel.StateName;
+import pajk.game.main.java.model.Unit;
+import pajk.game.main.java.model.states.State;
 
 /**
  * Created by jonatan on 16/05/2016.

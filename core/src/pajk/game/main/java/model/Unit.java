@@ -1,5 +1,9 @@
 package pajk.game.main.java.model;
 
+import pajk.game.main.java.model.items.Item;
+import pajk.game.main.java.model.items.Weapon;
+import pajk.game.main.java.model.utils.NameGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -62,7 +66,7 @@ public class Unit {
         FLYING
     }
 
-    Unit(   Allegiance allegiance,
+    public Unit(   Allegiance allegiance,
             int level,
             int experience,
             int health,
@@ -77,7 +81,7 @@ public class Unit {
             int aid,
             MovementType movementType,
             UnitClass unitClass) {
-        this.name = NameUtils.getRandomName(allegiance);
+        this.name = NameGenerator.getRandomName(allegiance);
 
         this.allegiance = allegiance;
         this.level = level;
