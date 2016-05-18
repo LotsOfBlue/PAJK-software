@@ -1,13 +1,11 @@
-package pajk.game.main.java.model.states;
+package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.units.Unit;
 
 /**
  * Created by palm on 2016-05-14.
  */
-public class StatusState implements State {
+public class StatusState implements State{
     GameModel model;
 
     @Override

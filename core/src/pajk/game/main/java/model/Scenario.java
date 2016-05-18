@@ -1,8 +1,4 @@
-package pajk.game.main.java.model.scenarios;
-
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.utils.FileReader;
-import pajk.game.main.java.model.units.Unit;
+package pajk.game.main.java.model;
 
 import java.util.ArrayList;
 import java.util.List;

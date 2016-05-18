@@ -1,8 +1,6 @@
-package pajk.game.main.java.model.states;
+package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.units.Unit;
 
 /**
  * A state showing how much damage the units will deal to each other if you commence the attack, and also their chance
@@ -11,7 +9,7 @@ import pajk.game.main.java.model.units.Unit;
  *
  * Created by Johan on 2016-04-25.
  */
-public class CombatInfoState implements State {
+public class CombatInfoState implements State{
     private GameModel gameModel;
     private Board board;
 

@@ -1,7 +1,4 @@
-package pajk.game.main.java.model.utils;
-
-import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.utils.FileReader;
+package pajk.game.main.java.model;
 
 import java.util.List;
 import java.util.Random;

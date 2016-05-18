@@ -1,8 +1,6 @@
 package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.states.*;
-import pajk.game.main.java.model.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public final class GameModel {
 
     private Unit.Allegiance winner;
 
-    //states
+    //States
     private State currentState;
     private final MainState mainState = new MainState();
     private final UnitMenuState unitMenuState = new UnitMenuState();

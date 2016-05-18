@@ -1,9 +1,13 @@
 package pajk.game.main.java.model;
 
-import pajk.game.main.java.model.terrains.*;
-import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.utils.FileReader;
+import pajk.game.main.java.model.terrain.*;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +21,7 @@ import java.util.Set;
  */
 public class Board {
 
-    public enum Direction{
+    enum Direction{
         NORTH, WEST, EAST, SOUTH
     }
 
@@ -29,7 +33,7 @@ public class Board {
      * Creates a board from the given map file.
      * @param fileName The name of the file containing the information needed to create a map.
      */
-    public Board(String fileName) {
+    Board(String fileName) {
         initMatrix(fileName);
         cursor = tileMatrix[0][0];
     }
@@ -155,7 +159,7 @@ public class Board {
      * @param dir The direction to move in.
      *            Available values are NORTH, SOUTH, EAST and WEST.
      */
-    public void moveCursor(Direction dir){
+    void moveCursor(Direction dir){
         switch (dir){
             case NORTH:
                 moveCursor(0, -1);
@@ -318,7 +322,7 @@ public class Board {
      * @param unit The unit to move.
      * @param dest The tile to move to.
      */
-    public void moveUnit(Unit unit, Tile dest) {
+    void moveUnit(Unit unit, Tile dest) {
         for (Tile[] arr:
              tileMatrix) {
             for (Tile t:

@@ -1,20 +1,20 @@
-package pajk.game.main.java.model.terrains;
+package pajk.game.main.java.model.terrain;
 
-import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.Unit;
 
 /**
  * Created by Johan on 2016-04-28.
  */
-public class Forest implements Terrain {
+public class River implements Terrain {
     @Override
     public int getMovementCost(Unit.MovementType movType) {
         switch (movType){
             case FLYING:
                 return 1;
             case RIDING:
-                return 3;
+                return 8;
             case WALKING:
-                return 2;
+                return 7;
             default:
                 return 100;
         }
@@ -22,11 +22,11 @@ public class Forest implements Terrain {
 
     @Override
     public int getEvasion() {
-        return 5;
+        return 20;
     }
 
     @Override
     public String getType() {
-        return "Forest";
+        return "River";
     }
 }
