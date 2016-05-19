@@ -1,0 +1,15 @@
+Name: The name of your unit.
+Health: The unit's hitpoints. Reach 0 and you are dead.
+Level: The unit's level. 
+Defence: Reduces damage from physical attacks.
+Weapon: The unit's weapon.
+Experience: The unit's experience points. After 100 points the unit will level up. 
+Strength: Increases physical damage dealt. 
+Might: The unit's weapon's strength.
+Skill:  Increases a unit's hit percentage and critical rate.
+Luck: Makes it more likely to crit and makes enemy units less likely to crit you.
+Resistance: Defence against magic.
+Speed: Affects avoid. If you have 4 more than your target, you'll strike twice.
+Movement: How far you can move.
+Constitution: How big a unit is. Affect how much you can carry.
+Aid: The maximum constitution a unit can have for this unit to be able to rescue it. 

@@ -14,6 +14,7 @@ public abstract class State {
      * @param action The type of input to handle.
      */
     public void performAction(ActionName action){
+
             switch(action) {
                 case UP:
                     upAction();
@@ -36,7 +37,6 @@ public abstract class State {
             }
 
     }
-
      void upAction(){}
      void downAction(){}
      void leftAction(){}
