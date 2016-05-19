@@ -10,9 +10,6 @@ import pajk.game.main.java.model.GameModel;
  */
 public abstract class MoveState extends State {
 
-
-
-
     @Override
     void upAction(){
         GameModel.getInstance().getBoard().moveCursor(Board.Direction.NORTH);
@@ -29,9 +26,4 @@ public abstract class MoveState extends State {
     void rightAction(){
         GameModel.getInstance().getBoard().moveCursor(Board.Direction.EAST);
     }
-
-
-
-
-
 }

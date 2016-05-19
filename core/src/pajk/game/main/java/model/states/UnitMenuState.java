@@ -26,8 +26,6 @@ public class UnitMenuState extends State {
         menuList.add("Status");
     }
 
-
-
     @Override
     void upAction(){
         menuItemSelected = (menuItemSelected + menuList.size()-1) % menuList.size();

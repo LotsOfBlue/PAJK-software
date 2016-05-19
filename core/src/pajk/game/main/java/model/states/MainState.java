@@ -59,6 +59,4 @@ public class MainState extends MoveState {
             model.setState(GameModel.StateName.ENEMY_TURN);
         }
     }
-
-
 }

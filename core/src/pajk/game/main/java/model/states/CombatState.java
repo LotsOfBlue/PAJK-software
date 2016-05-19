@@ -12,9 +12,9 @@ import java.util.Random;
 //TODO make combat make sense after the refactoring
 
 /**
- * Combat state is the part of the game model wich deals with the combat of two units.
+ * Combat state is the part of the game model which deals with the combat of two units.
  * Where activeUnit is the unit which initiated combat and targetUnit is the defendant.
- * These units are delivered by the game model singelton.
+ * These units are delivered by the game model singleton.
  * Refer to docs for combat turn breakdown.
  *  needs to perform combat on it's active and target units
  */
@@ -71,14 +71,9 @@ public class CombatState extends State {
             }
             else {
                 gameModel.setState(GameModel.StateName.ENEMY_TURN);
-
             }
         }
-
     }
-
-
-
 
     /*
      *  Flush is a cleanup function meant to reset every "case sensitive" variable in combat
@@ -182,7 +177,7 @@ public class CombatState extends State {
     /**
      * Calculates the damage attackerUnit would do to defenderUnit with a normal attack (crit and miss exluded).
      * Takes attacker weaponDamage, might or strength, weaponAdvantage & defender resistance or defence into consideration.
-     * @param attackerUnit the unit performin the attack.
+     * @param attackerUnit the unit performing the attack.
      * @param defenderUnit the unit being attacked.
      * @return the damage that attacker will deal (if attack hit)
      */

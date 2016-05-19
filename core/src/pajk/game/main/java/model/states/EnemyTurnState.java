@@ -44,7 +44,7 @@ public class EnemyTurnState extends State {
             unitList = gameModel.getUnitList();
             //If there are no units left, the player's turn begins
             if (unitQueue.peek() == null) {
-                System.out.println("--PLAYER TURN--"); //TODO remove
+                System.out.println("--PLAYER TURN--"); //TODO make graphical
                 gameModel.newTurn();
                 gameModel.setState(GameModel.StateName.MAIN);
                 return;
@@ -263,7 +263,7 @@ public class EnemyTurnState extends State {
 
     @Override
     public void activate() {
-        System.out.println("--ENEMY TURN--"); //TODO debug
+        System.out.println("--ENEMY TURN--"); //TODO make graphical
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
         unitList = gameModel.getUnitList();
@@ -280,6 +280,7 @@ public class EnemyTurnState extends State {
             stepsLeft = activeUnit.getMovement();
             moveRange = board.getTilesWithinMoveRange(activeUnit);
         } else {
+            System.out.println("--PLAYER TURN--"); //TODO make graphical
             gameModel.setState(GameModel.StateName.MAIN);
         }
 
