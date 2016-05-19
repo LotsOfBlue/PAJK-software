@@ -118,10 +118,11 @@ public class StatusView extends AbstractGameView{
 
         if(state.isInInfoState()){
             font.draw(spriteBatch,"(X) Back",x,y);
-            font.draw(spriteBatch,"(UP/DOWN) Switch",x+150,y);
+            font.draw(spriteBatch,"(UP/DOWN) Switch Stat",x+150,y);
         } else {
             font.draw(spriteBatch,"(Z) Show Information",x,y);
             font.draw(spriteBatch,"(X) Back",x+300,y);
+            font.draw(spriteBatch,"(UP/DOWN) Switch Unit",x+500,y);
             //TODO add upp/down action
         }
 

@@ -18,6 +18,7 @@ public class StatusState extends State {
     private int selectedInfoItemNr;
     private Unit statusUnit;
     private List<String> statLines;
+    private int unitIndex;
 
 
     @Override
@@ -36,8 +37,11 @@ public class StatusState extends State {
         if(isInInfoState){
             selectedInfoItemNr = (selectedInfoItemNr + statusList.size() -1) % statusList.size();
         } else {
-            List<Unit> unitList = model.getUnitList();
-            statusUnit = unitList.get(1);
+
+            unitIndex = (unitIndex + model.getUnitList().size() -1) % model.getUnitList().size();
+
+//            List<Unit> unitList = model.getUnitList();
+//            statusUnit = unitList.get(1);
             setUpStatList();
         }
     }
@@ -49,9 +53,13 @@ public class StatusState extends State {
         if(isInInfoState){
             selectedInfoItemNr = (selectedInfoItemNr + 1) % statusList.size();
         } else {
-            List<Unit> unitList = model.getUnitList();
-            statusUnit = unitList.get(0);
+
+            unitIndex = (unitIndex + 1) % model.getUnitList().size();
             setUpStatList();
+
+//            List<Unit> unitList = model.getUnitList();
+//            statusUnit = unitList.get(0);
+//            setUpStatList();
         }
     }
 
@@ -85,6 +93,8 @@ public class StatusState extends State {
     }
 
     private void setUpStatList(){
+
+        statusUnit = model.getUnitList().get(unitIndex);
 
         String name = statusUnit.getName();
         String health = "Health: "+statusUnit.getHealth() + "/" + statusUnit.getMaxHealth();
@@ -144,77 +154,22 @@ public class StatusState extends State {
 
         }
 
+
+
+
+
+
     }
 
     @Override
     public void activate() {
         model = GameModel.getInstance();
-        statusUnit = model.getActiveUnit();
-        //Creates strings with info from active unit
-//        String name = statusUnit.getName();
-//        String health = "Health: "+statusUnit.getHealth() + "/" + statusUnit.getMaxHealth();
-//        String level = "Level: " +statusUnit.getLevel();
-//        String defence = "Defence: " +statusUnit.getDefence();
-//        String weapon = "Weapon: " +statusUnit.getWeapon().getName();
-//        String exp = "Experience: " +statusUnit.getExperience();
-//        String strength = "Strength: " +statusUnit.getStrength();
-//        String might = "Might: " +statusUnit.getMight();
-//        String skill = "Skill: " +statusUnit.getSpeed();
-//        String luck = "Luck: " + statusUnit.getLuck();
-//        String resistance = "Resistance: " +statusUnit.getResistance();
-//        String speed = "Speed: "+ statusUnit.getSpeed();
-//        String movement = "Movement: " +statusUnit.getMovement();
-////        String constitution = "Constitution: " +unit.getConstitution();
-////        String aid = "Aid: " +unit.getAid();
-//
+        List<Unit> unitList = model.getUnitList();
+        unitIndex = unitList.indexOf(model.getActiveUnit());
+
         isInInfoState = false;
         selectedInfoItemNr = 0;
         setUpStatList();
-//
-//        statusList = new ArrayList<>();
-//        statusList.add(name);
-//        statusList.add(health);
-//        statusList.add(level);
-//        statusList.add(defence);
-//        statusList.add(weapon);
-//        statusList.add(exp);
-//        statusList.add(strength);
-//        statusList.add(might);
-//        statusList.add(skill);
-//        statusList.add(luck);
-//        statusList.add(resistance);
-//        statusList.add(speed);
-//        statusList.add(movement);
-////        statusList.add(constitution);
-////        statusList.add(aid);
-//
-//        statLines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
-//        for(int i = 0; i < statLines.size(); i++){
-//            if(statLines.get(i).length() > 29 && statLines.get(i).substring(29).contains(" ") && statLines.get(i).length() < 65){
-//                String tmp1 = statLines.get(i);
-//
-//                int spaceIndex = tmp1.indexOf(" ",tmp1.length()/2);
-//                String tmp2 = tmp1.substring(0,spaceIndex)+"\n"+tmp1.substring(spaceIndex+1);
-//
-//                statLines.remove(i);
-//                statLines.add(i,tmp2);
-//
-//            } else if (statLines.get(i).length() >= 65){
-//                String tmp1 = statLines.get(i);
-//
-//                int spaceIndex1 = tmp1.indexOf(" ",tmp1.length()/3);
-//                int spaceIndex2 = tmp1.indexOf(" ",2*tmp1.length()/3);
-//
-//                String tmp2 = tmp1.substring(0,spaceIndex1)+"\n"+tmp1.substring(spaceIndex1+1,spaceIndex2) + "\n" +
-//                        tmp1.substring(spaceIndex2+1);
-//                statLines.remove(i);
-//                statLines.add(i,tmp2);
-//
-//
-//            }
-//
-//        }
-
 
 
     }
