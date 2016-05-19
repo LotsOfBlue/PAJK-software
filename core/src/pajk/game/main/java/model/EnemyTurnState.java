@@ -5,10 +5,11 @@ import pajk.game.main.java.ActionName;
 import java.util.*;
 
 /**
- * This state is active during the enemy turn. It makes an action for each enemy unit and then returns control back to
- * the player.
+ * This state is active during the enemy turn.
+ * It performs the appropriate action(s) for each enemy unit and
+ * then returns control back to the player.
  *
- * Created by Johan on 2016-04-28.
+ * @author Johan
  */
 public class EnemyTurnState implements State {
     private GameModel gameModel;
@@ -16,6 +17,7 @@ public class EnemyTurnState implements State {
     private Queue<Unit> unitQueue;
     private Unit activeUnit;
     private int stepsLeft;
+    private Set<Tile> moveRange;
     private Unit target;
     private List<Tile> path;
 
@@ -28,6 +30,7 @@ public class EnemyTurnState implements State {
 
     private void update(){
 
+        //Switch to the next unit if the current one is done
         if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)) {
             //Reset the target
             target = null;
@@ -37,46 +40,59 @@ public class EnemyTurnState implements State {
                 gameModel.newTurn();
                 gameModel.setState(GameModel.StateName.MAIN);
                 return;
+            } else {
+                activeUnit = unitQueue.poll();
+                stepsLeft = activeUnit.getMovement();
+                moveRange = board.getTilesWithinMoveRange(activeUnit);
             }
-            activeUnit = unitQueue.poll();
-            stepsLeft = activeUnit.getMovement();
         }
 
+        //Get the unit's position for this update frame
         Tile currentPos = board.getPos(activeUnit);
 
+        //Set a new target and path if needed
         if (target == null) {
             target = designateTarget(activeUnit);
             path = getPathTo(activeUnit, target);
-            trimPath(path);
+            trimPath(path, currentPos);
         }
 
-        System.out.println(path); //TODO remove
+        //If there is no path, the unit doesn't need to move
+        if (path.isEmpty()) {
+            activeUnit.setUnitState(Unit.UnitState.MOVED);
+        }
 
-        if (path.get(0).equals(currentPos)) {
-            //Fight the target unit
-            gameModel.setActiveUnit(activeUnit);
-            gameModel.setTargetUnit(target);
-            gameModel.setState(GameModel.StateName.COMBAT);
+        //If the unit is finished moving...
+        if (activeUnit.getUnitState().equals(Unit.UnitState.MOVED)){
+            //Fight with target if able
+            if (getAttackPoints(activeUnit, target).contains(currentPos)) {
+                gameModel.setActiveUnit(activeUnit);
+                gameModel.setTargetUnit(target);
+                gameModel.setState(GameModel.StateName.COMBAT);
+            }
+
             activeUnit.setUnitState(Unit.UnitState.DONE);
-        } else {
+        }
+        //If not done moving, keep doing so
+        else {
             moveTowards(path, activeUnit, currentPos);
-        }
-        if (path.isEmpty() || stepsLeft == 0) {
-            activeUnit.setUnitState(Unit.UnitState.DONE);
+            if (stepsLeft == 0 || path.isEmpty()) {
+                activeUnit.setUnitState(Unit.UnitState.MOVED);
+            }
         }
     }
 
     /**
-     * Removes all unreachable tile in the path, as well as the
+     * Remove all unreachable tiles in the path, as well as the
      * tile the unit is currently standing on.
      * @param path The path to trim.
      */
-    private void trimPath(List<Tile> path) {
-        if (path.contains(board.getPos(activeUnit))) {
-            path.remove(board.getPos(activeUnit));
-        }
-        for (int i = path.size(); i >= 0; i--) {
-            if (!board.getTilesWithinMoveRange(activeUnit).contains(path.get(0))) {
+    private void trimPath(List<Tile> path, Tile currentPos) {
+        path.remove(currentPos);
+
+        //Starting from the farthest tile, remove tiles until only reachable remains
+        while (path.size() > activeUnit.getMovement()) {
+            if (!moveRange.contains(path.get(0))) {
                 path.remove(0);
             }
         }
@@ -111,8 +127,9 @@ public class EnemyTurnState implements State {
         Tile end = path.get(0);
 
         if (cooldown <= 0) {
-            //Move as far along the path as possible
+            //Set cursor to direct player's attention
             board.setCursor(end.getX(), end.getY());
+            //Move as far along the path as possible
             board.moveAlongPath(path, active);
             stepsLeft--;
             cooldown = 8;
@@ -216,7 +233,6 @@ public class EnemyTurnState implements State {
      */
     private List<Unit> findReachableTargets(Unit active, List<Unit> targets) {
         List<Unit> result = new ArrayList<>();
-        Set<Tile> moveRange = board.getTilesWithinMoveRange(active);
         for (Unit u : targets) {
             Set <Tile> attackPoints = getAttackPoints(active, u);
             for (Tile t : attackPoints) {
@@ -323,6 +339,7 @@ public class EnemyTurnState implements State {
         //Prepare the first active unit
         activeUnit = unitQueue.poll();
         stepsLeft = activeUnit.getMovement();
+        moveRange = board.getTilesWithinMoveRange(activeUnit);
     }
 
     @Override
