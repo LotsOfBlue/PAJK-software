@@ -200,8 +200,12 @@ public class CombatState extends State {
                     - defenderUnit.getDefence();
         }
 
-
-        return damage;
+        //The lower bound of damage is 0
+        if (damage < 0) {
+            return 0;
+        } else {
+            return damage;
+        }
     }
 
     /*
