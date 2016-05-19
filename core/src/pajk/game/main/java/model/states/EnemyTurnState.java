@@ -19,6 +19,7 @@ public class EnemyTurnState extends State {
     private GameModel gameModel;
     private Board board;
     private Queue<Unit> unitQueue;
+    private List<Unit> unitList;
 
     private Unit activeUnit;
     private int stepsLeft;
@@ -40,6 +41,7 @@ public class EnemyTurnState extends State {
         if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)) {
             //Reset the target
             target = null;
+            unitList = gameModel.getUnitList();
             //If there are no units left, the player's turn begins
             if (unitQueue.peek() == null) {
                 System.out.println("--PLAYER TURN--"); //TODO remove
@@ -223,7 +225,7 @@ public class EnemyTurnState extends State {
     private List<Unit> getAllTargets() {
         List<Unit> result = new ArrayList<>();
 
-        for (Unit u : gameModel.getUnitList()) {
+        for (Unit u : unitList) {
             if (u.getAllegiance().equals(Unit.Allegiance.PLAYER)) {
                 result.add(u);
             }
@@ -264,7 +266,7 @@ public class EnemyTurnState extends State {
         System.out.println("--ENEMY TURN--"); //TODO debug
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
-        List<Unit> unitList = gameModel.getUnitList();
+        unitList = gameModel.getUnitList();
         unitQueue = new LinkedList<>();
         //Add all AI units to the queue
         for (Unit u : unitList) {
