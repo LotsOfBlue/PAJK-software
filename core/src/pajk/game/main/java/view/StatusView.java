@@ -1,5 +1,6 @@
 package pajk.game.main.java.view;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -47,6 +48,7 @@ public class StatusView extends AbstractGameView{
             if(state.isInInfoState()) {
                 drawInfoText(spriteBatch);
             }
+            drawButtonText(spriteBatch);
             spriteBatch.end();
 
         }
@@ -105,6 +107,25 @@ public class StatusView extends AbstractGameView{
         int x = (int)(camera.position.x - camera.viewportWidth/2)+85;
         int y = (int)(camera.position.y - (camera.viewportHeight/2)) + 30;
         font.draw(spritebatch,state.getActiveInfoItemText(),x+320,y+150);
+    }
+
+    private void drawButtonText(SpriteBatch spriteBatch) {
+        BitmapFont font = new BitmapFont();
+        font.setColor(Color.BLACK);
+        font.getData().setScale((float) 1.5, (float) 1.5);
+        int x = (int) (camera.position.x - 400);
+        int y = (int) (camera.position.y - camera.viewportHeight / 2 + 50);
+
+        if(state.isInInfoState()){
+            font.draw(spriteBatch,"(X) Back",x,y);
+            font.draw(spriteBatch,"(UP/DOWN) Switch",x+150,y);
+        } else {
+            font.draw(spriteBatch,"(Z) Show Information",x,y);
+            font.draw(spriteBatch,"(X) Back",x+300,y);
+            //TODO add upp/down action
+        }
+
+
     }
 
     private void drawOverlay(SpriteBatch spriteBatch, int x, int y){

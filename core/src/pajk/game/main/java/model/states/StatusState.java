@@ -120,17 +120,13 @@ public class StatusState extends State {
     }
     public String getActiveInfoItemText(){
 
-        List<String> lines = FileReader.readFile("statusInfo.txt");
-//        int i = 0;
+        List<String> lines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
         for(int i = 0; i < lines.size(); i++){
             if(lines.get(i).length() > 29 && lines.get(i).substring(29).contains(" ") && lines.get(i).length() < 65){
                 String tmp1 = lines.get(i);
 
                 int spaceIndex = tmp1.indexOf(" ",tmp1.length()/2);
-                System.out.println(spaceIndex);
                 String tmp2 = tmp1.substring(0,spaceIndex)+"\n"+tmp1.substring(spaceIndex+1);
-
-
 
                 lines.remove(i);
                 lines.add(i,tmp2);
