@@ -1,6 +1,7 @@
 package pajk.game.main.java.model;
 
 import pajk.game.main.java.model.terrain.*;
+import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.utils.FileReader;
 
 import java.util.ArrayList;

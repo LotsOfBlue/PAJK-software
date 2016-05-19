@@ -9,6 +9,7 @@ import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.EnemyTurnState;
 import pajk.game.main.java.model.states.StatusState;
 import pajk.game.main.java.model.states.UnitMenuState;
+import pajk.game.main.java.model.units.Unit;
 
 import java.util.List;
 

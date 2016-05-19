@@ -1,6 +1,7 @@
 package pajk.game.main.java.model;
 
 import pajk.game.main.java.model.terrain.Terrain;
+import pajk.game.main.java.model.units.Unit;
 
 /**
  * A tile is a place in the world. It is represented by a single square, graphically. Each tile can have a single

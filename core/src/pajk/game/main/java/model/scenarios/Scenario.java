@@ -1,7 +1,7 @@
 package pajk.game.main.java.model.scenarios;
 
 import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.Unit;
+import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.items.IronSword;
 import pajk.game.main.java.model.utils.FileReader;
 

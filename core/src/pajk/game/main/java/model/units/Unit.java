@@ -1,4 +1,4 @@
-package pajk.game.main.java.model;
+package pajk.game.main.java.model.units;
 
 import pajk.game.main.java.model.items.IronPike;
 import pajk.game.main.java.model.items.Item;
@@ -13,30 +13,30 @@ import java.util.Random;
  * Created by palm on 2016-04-15.
  * The unit class is the representation of a character on the game board, it has stats & stuff
  */
-public class Unit {
+public abstract class Unit {
     //Stats of a unit
-    private String name;
-    private int level = 1;
-    private int experience = 1;
-    private int health = 20;
-    private int maxHealth = 20;
-    private int strength = 5;
-    private int might = 5;
-    private int skill = 5;
-    private int speed = 5;
-    private int luck = 5;
-    private int defence = 5;
-    private int resistance = 5;
-    private int movement = 3;
-    private int constitution = 5;
-    private int aid = 5;
+    protected String name;
+    protected int level = 1;
+    protected int experience = 1;
+    protected int health = 20;
+    protected int maxHealth = 20;
+    protected int maxHealthGrowth;
+    protected int strength = 5;
+    protected int might = 5;
+    protected int skill = 5;
+    protected int speed = 5;
+    protected int luck = 5;
+    protected int defence = 5;
+    protected int resistance = 5;
+    protected int movement = 3;
+    protected int constitution = 5;
+    protected int aid = 5;
 
     private UnitState unitState;
-    private MovementType movementType;
+    protected MovementType movementType;
     private List<Item> inventory = new ArrayList<>();
     private Weapon weapon = new IronPike();
     private Allegiance allegiance;
-    private UnitClass unitClass = UnitClass.SWORD;
 
 
 
@@ -46,14 +46,6 @@ public class Unit {
     public enum Allegiance {
         PLAYER,
         AI
-    }
-
-    public enum UnitClass {
-        SWORD,
-        AXE,
-        PIKE,
-        BOW,
-        BOOK
     }
 
     public enum UnitState {
@@ -68,39 +60,9 @@ public class Unit {
         FLYING
     }
 
-    public Unit(   Allegiance allegiance,
-            int level,
-            int experience,
-            int health,
-            int strength,
-            int skill,
-            int speed,
-            int luck,
-            int defence,
-            int resistance,
-            int movement,
-            int constitution,
-            int aid,
-            MovementType movementType,
-            UnitClass unitClass) {
+    public Unit(Allegiance allegiance) {
         this.name = NameGenerator.getRandomName(allegiance);
-
         this.allegiance = allegiance;
-        this.level = level;
-        this.experience = experience;
-        this.maxHealth = health;
-        this.health = health;
-        this.strength = strength;
-        this.skill = skill;
-        this.speed = speed;
-        this.luck = luck;
-        this.defence = defence;
-        this.resistance = resistance;
-        this.movement = movement;
-        this.constitution = constitution;
-        this.aid = aid;
-        this.movementType = movementType;
-        this.unitClass = unitClass;
 
         this.unitState = UnitState.READY;
 
@@ -112,7 +74,7 @@ public class Unit {
         return maxHealth;
     }
 
-    public UnitClass getUnitClass(){ return unitClass;}
+    public String getUnitClassName(){ return unitClass;}
 
     public String getName() {
         return name;

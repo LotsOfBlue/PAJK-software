@@ -4,8 +4,7 @@ package pajk.game.main.java.model.states;
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.Tile;
-import pajk.game.main.java.model.Unit;
-import pajk.game.main.java.model.states.MoveState;
+import pajk.game.main.java.model.units.Unit;
 
 import java.util.Set;
 

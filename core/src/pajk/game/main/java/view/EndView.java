@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.EndState;
 import pajk.game.main.java.model.states.State;
+import pajk.game.main.java.model.units.Unit;
 
 /**
  * Created by jonatan on 17/05/2016.
