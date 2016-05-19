@@ -52,7 +52,8 @@ public class Unit {
         SWORD,
         AXE,
         PIKE,
-        BOW
+        BOW,
+        BOOK
     }
 
     public enum UnitState {
