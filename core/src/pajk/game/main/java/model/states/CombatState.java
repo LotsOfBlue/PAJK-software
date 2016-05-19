@@ -3,6 +3,7 @@ package pajk.game.main.java.model.states;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.items.Tome;
+import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.utils.PathFinder;
 
@@ -130,8 +131,8 @@ public class CombatState extends State {
         if (targetUnit.getHealth()-firstDamageFromActiveUnit > 0) {
             //Check if can reach
             double range = PathFinder.estimateDistance(board.getPos(gameModel.getTargetUnit()), board.getPos(gameModel.getActiveUnit()));
-            double minRange = targetUnit.getWeaponMinRange();
-            double maxRange = targetUnit.getWeaponMaxRange();
+            double minRange = targetUnit.getWeapon().getMinRange();
+            double maxRange = targetUnit.getWeapon().getMaxRange();
             if(range >= minRange && range <= maxRange){
 
                 //Try to hit
@@ -188,12 +189,12 @@ public class CombatState extends State {
     public static int calcDamageThisToThat(Unit attackerUnit, Unit defenderUnit) {
         int damage;
         if (attackerUnit.getWeapon() instanceof Tome) {
-            damage = attackerUnit.getWeaponDamage()
+            damage = attackerUnit.getWeapon().getDamage()
                     + attackerUnit.getStrength()
                     + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
                     - defenderUnit.getResistance();
         } else {
-            damage = attackerUnit.getWeaponDamage()
+            damage = attackerUnit.getWeapon().getDamage()
                     + attackerUnit.getStrength()
                     + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
                     - defenderUnit.getDefence();
@@ -208,7 +209,7 @@ public class CombatState extends State {
      */
     private boolean doesThisCritThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
-        return ((attackerUnit.getWeaponCritChance()
+        return ((attackerUnit.getWeapon().getCritChance()
                 + attackerUnit.getSkill()
                 - defenderUnit.getLuck())
                 > random.nextInt(100));
@@ -219,7 +220,7 @@ public class CombatState extends State {
      */
     private boolean doesThisHitThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
-        return ((attackerUnit.getWeaponAccuracy()
+        return ((attackerUnit.getWeapon().getAccuracy()
                 + attackerUnit.getSkill()
                 + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
                 - defenderUnit.getSpeed())

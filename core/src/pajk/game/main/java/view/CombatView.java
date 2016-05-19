@@ -7,6 +7,8 @@ import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatState;
+import pajk.game.main.java.model.units.Archer;
+import pajk.game.main.java.model.units.Swordsman;
 import pajk.game.main.java.model.units.Unit;
 
 /**
@@ -196,28 +198,19 @@ public class CombatView extends AbstractGameView {
 
     private void drawAttackAnimation(Unit unit, float frame){
         drawDamageNumber(unit, frame);
-        Unit.UnitClass unitClass = unit.getUnitClass();
-        switch (unitClass){
-            case SWORD:
-                if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
-                    drawAttackFrame(unit, blueSwordUnitAnimation.getKeyFrame(frame));
-                }else{
-                    drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
-                }
 
-                break;
-            case AXE:
-                break;
-            case PIKE:
-                break;
-            case BOW:
-                if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
-                    drawAttackFrame(unit, blueBowUnitAnimation.getKeyFrame(frame));
-                }else{
-                    drawAttackFrame(unit, redBowUnitAnimation.getKeyFrame(frame));
-                }
-                break;
-
+        if (unit instanceof Archer){
+            if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                drawAttackFrame(unit, blueBowUnitAnimation.getKeyFrame(frame));
+            }else{
+                drawAttackFrame(unit, redBowUnitAnimation.getKeyFrame(frame));
+            }
+        } else if (unit instanceof Swordsman){
+            if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                drawAttackFrame(unit, blueSwordUnitAnimation.getKeyFrame(frame));
+            }else{
+                drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
+            }
         }
 
     }

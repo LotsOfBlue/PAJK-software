@@ -1,6 +1,7 @@
 package pajk.game.main.java.model.states;
 
 import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
 
 import java.util.Set;
@@ -56,7 +57,8 @@ public class ChooseTargetState extends MoveState {
         board = GameModel.getInstance().getBoard();
         activeUnit = model.getActiveUnit();
         Tile centerTile = board.getPos(activeUnit);
-        allowedTiles = board.getTilesAround(centerTile, activeUnit.getWeaponMinRange(), activeUnit.getWeaponMaxRange());
+        Weapon weapon = activeUnit.getWeapon();
+        allowedTiles = board.getTilesAround(centerTile, weapon.getMinRange(), weapon.getMaxRange());
         for (Tile t:
                 allowedTiles) {
             t.setOverlay(Tile.Overlay.TARGET);

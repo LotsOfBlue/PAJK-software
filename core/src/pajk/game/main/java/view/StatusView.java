@@ -64,14 +64,14 @@ public class StatusView extends AbstractGameView{
         String weapon = "Weapon: " +unit.getWeapon().getName();
         String exp = "Experience: " +unit.getExperience();
         String strength = "Strength: " +unit.getStrength();
-        String might = "Might: " +unit.getMight();
+        //String might = "Might: " +unit.getMight();
         String skill = "Skill: " +unit.getSpeed();
         String luck = "Luck: " + unit.getLuck();
         String resistance = "Resistance: " +unit.getResistance();
         String speed = "Speed: "+ unit.getSpeed();
         String movement = "Movement: " +unit.getMovement();
-        String constitution = "Constitution: " +unit.getConstitution();
-        String aid = "Aid: " +unit.getAid();
+        //String constitution = "Constitution: " +unit.getConstitution();
+        //String aid = "Aid: " +unit.getAid();
 
 
         //Draws name, image, hp, level, exp and weapon to the left
@@ -91,10 +91,10 @@ public class StatusView extends AbstractGameView{
         stats.add(defence);
         stats.add(resistance);
         stats.add(luck);
-        stats.add(might);
+        //stats.add(might);
         stats.add(movement);
-        stats.add(constitution);
-        stats.add(aid);
+        //stats.add(constitution);
+        //stats.add(aid);
 
         //draws stats on two columns, splitting it halfways
         x+=300;

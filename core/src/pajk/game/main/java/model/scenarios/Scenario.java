@@ -1,6 +1,12 @@
 package pajk.game.main.java.model.scenarios;
 
 import pajk.game.main.java.model.Board;
+import pajk.game.main.java.model.items.HuntingBow;
+import pajk.game.main.java.model.items.IronPike;
+import pajk.game.main.java.model.items.Weapon;
+import pajk.game.main.java.model.units.Archer;
+import pajk.game.main.java.model.units.Pikeman;
+import pajk.game.main.java.model.units.Swordsman;
 import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.items.IronSword;
 import pajk.game.main.java.model.utils.FileReader;
@@ -17,6 +23,7 @@ public class Scenario {
     private String unitFileName;
     private String name;
     private String description;
+    private final int ROWS_PER_UNIT = 6;
 
     public Scenario(String mapName, String unitFileName, String scenarioName, String scenarioDescription){
         this.mapName = mapName;
@@ -32,25 +39,11 @@ public class Scenario {
     public List<Unit> makeUnitList(Board board){
         ArrayList<Unit> result = new ArrayList<>();
         List<String> rows = FileReader.readFile(unitFileName);
-        for (int i = 0; i < rows.size() / 17; i++) {
-            Unit unit = new Unit(
-                    parseAllegiance(rows.get(i * 17 + 2)),
-                    Integer.parseInt(rows.get(i * 17 + 3)),
-                    Integer.parseInt(rows.get(i * 17 + 4)),
-                    Integer.parseInt(rows.get(i * 17 + 5)),
-                    Integer.parseInt(rows.get(i * 17 + 6)),
-                    Integer.parseInt(rows.get(i * 17 + 7)),
-                    Integer.parseInt(rows.get(i * 17 + 8)),
-                    Integer.parseInt(rows.get(i * 17 + 9)),
-                    Integer.parseInt(rows.get(i * 17 + 10)),
-                    Integer.parseInt(rows.get(i * 17 + 11)),
-                    Integer.parseInt(rows.get(i * 17 + 12)),
-                    Integer.parseInt(rows.get(i * 17 + 13)),
-                    Integer.parseInt(rows.get(i * 17 + 14)),
-                    parseMovement(rows.get(i * 17 + 15)),
-                    parseClass(rows.get(i * 17 + 16)));
-            board.moveUnit(unit, board.getTile(Integer.parseInt(rows.get(i * 17)), Integer.parseInt(rows.get(i * 17 + 1))));
-            unit.setWeapon(new IronSword());
+        for (int i = 0; i < rows.size() / ROWS_PER_UNIT; i++) {
+            int offset = i * ROWS_PER_UNIT;
+            Unit unit = createUnit(parseAllegiance(rows.get(offset)), rows.get(offset + 3), Integer.parseInt(rows.get(offset + 4)));
+            board.moveUnit(unit, board.getTile(Integer.parseInt(rows.get(offset + 1)), Integer.parseInt(rows.get(offset + 2))));
+            unit.setWeapon(parseWeapon(rows.get(offset + 5)));
             result.add(unit);
         }
         return result;
@@ -67,29 +60,27 @@ public class Scenario {
         }
     }
 
-    private Unit.MovementType parseMovement(String str){
-        switch (str){
-            case "WALKING":
-                return Unit.MovementType.WALKING;
-            case "RIDING":
-                return Unit.MovementType.RIDING;
-            case "FLYING":
-                return Unit.MovementType.FLYING;
+    private Unit createUnit(Unit.Allegiance allegiance, String profession, int level){
+        switch (profession){
+            case "Archer":
+                return new Archer(allegiance, level);
+            case "Swordsman":
+                return new Swordsman(allegiance, level);
+            case "Pikeman":
+                return new Pikeman(allegiance, level);
             default:
                 return null;
         }
     }
 
-    private Unit.UnitClass parseClass(String str){
+    private Weapon parseWeapon(String str){
         switch (str){
-            case "SWORD":
-                return Unit.UnitClass.SWORD;
-            case "AXE":
-                return Unit.UnitClass.AXE;
-            case "PIKE":
-                return Unit.UnitClass.PIKE;
-            case "BOW":
-                return Unit.UnitClass.BOW;
+            case "IronSword":
+                return new IronSword();
+            case "HuntingBow":
+                return new HuntingBow();
+            case "IronPike":
+                return new IronPike();
             default:
                 return null;
         }
@@ -105,9 +96,5 @@ public class Scenario {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

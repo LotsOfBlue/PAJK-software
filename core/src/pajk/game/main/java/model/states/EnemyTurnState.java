@@ -2,6 +2,7 @@ package pajk.game.main.java.model.states;
 
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
+import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.utils.PathFinder;
 
@@ -205,10 +206,12 @@ public class EnemyTurnState extends State {
      * given the stats of the active unit.
      */
     private Set<Tile> getAttackPoints(Unit target) {
-        Set<Tile> attackPoints = board.getTilesAround(
+        Set<Tile> attackPoints = null;
+        Weapon weapon = activeUnit.getWeapon();
+        attackPoints = board.getTilesAround(
                 board.getPos(target),
-                activeUnit.getWeaponMinRange(),
-                activeUnit.getWeaponMaxRange());
+                weapon.getMinRange(),
+                weapon.getMaxRange());
 
         return attackPoints;
     }

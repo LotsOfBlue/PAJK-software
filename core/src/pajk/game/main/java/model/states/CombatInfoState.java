@@ -48,7 +48,7 @@ public class CombatInfoState extends State {
     }
 
     private int getHitChance(Unit attackerUnit, Unit defenderUnit){
-        return (attackerUnit.getWeaponAccuracy()
+        return (attackerUnit.getWeapon().getAccuracy()
                 + attackerUnit.getSkill()
                 + CombatState.getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
                 - targetUnit.getSpeed())

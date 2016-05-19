@@ -16,21 +16,25 @@ import java.util.Random;
 public abstract class Unit {
     //Stats of a unit
     protected String name;
+    protected String profession;
     protected int level = 1;
     protected int experience = 1;
     protected int health = 20;
     protected int maxHealth = 20;
     protected int maxHealthGrowth;
     protected int strength = 5;
-    protected int might = 5;
+    protected int strengthGrowth;
     protected int skill = 5;
+    protected int skillGrowth;
     protected int speed = 5;
+    protected int speedGrowth;
     protected int luck = 5;
+    protected int luckGrowth;
     protected int defence = 5;
+    protected int defenceGrowth;
     protected int resistance = 5;
+    protected int resistanceGrowth;
     protected int movement = 3;
-    protected int constitution = 5;
-    protected int aid = 5;
 
     private UnitState unitState;
     protected MovementType movementType;
@@ -60,12 +64,10 @@ public abstract class Unit {
         FLYING
     }
 
-    public Unit(Allegiance allegiance) {
+    public Unit(Allegiance allegiance, int level) {
         this.name = NameGenerator.getRandomName(allegiance);
         this.allegiance = allegiance;
-
         this.unitState = UnitState.READY;
-
     }
 
     //----------------------------------------------Getters
@@ -74,7 +76,6 @@ public abstract class Unit {
         return maxHealth;
     }
 
-    public String getUnitClassName(){ return unitClass;}
 
     public String getName() {
         return name;
@@ -125,13 +126,8 @@ public abstract class Unit {
     }
 
 
-    public int getConstitution() {
-        return constitution;
-    }
-
-
-    public int getAid() {
-        return aid;
+    public String getProfession(){
+        return profession;
     }
 
 
@@ -142,20 +138,6 @@ public abstract class Unit {
 
     public List<Item> getInventory() {
         return inventory;
-    }
-
-    public int getWeaponDamage() {
-        return weapon.getDamage();
-    }
-
-
-    public int getWeaponMinRange() {
-        return weapon.getMinRange();
-    }
-
-
-    public int getWeaponMaxRange() {
-        return weapon.getMaxRange();
     }
 
 
@@ -171,21 +153,6 @@ public abstract class Unit {
 
     public int getHealth() {
         return health;
-    }
-
-
-    public int getWeaponAccuracy() {
-        return weapon.getAccuracy();
-    }
-
-
-    public int getWeaponCritChance() {
-        return weapon.getCritChance();
-    }
-
-
-    public int getMight() {
-        return might;
     }
 
 
@@ -220,7 +187,7 @@ public abstract class Unit {
      */
     public void addExperience(int experience) {
         this.experience += experience;
-        while (this.experience > (level - 1) * 100) {
+        while (this.experience >= level * 100) {
             levelUp();
         }
     }
@@ -228,19 +195,35 @@ public abstract class Unit {
     private void levelUp() {
         level++;
         Random random = new Random();
-        int stats = random.nextInt(10);
-        //TODO lvl up throwing?
+        if (random.nextInt(100) < maxHealthGrowth){
+            maxHealth++;
+        }
+        if (random.nextInt(100) < strengthGrowth){
+            strength++;
+        }
+        if (random.nextInt(100) < skillGrowth){
+            skill++;
+        }
+        if (random.nextInt(100) < speedGrowth){
+            speed++;
+        }
+        if (random.nextInt(100) < luckGrowth){
+            luck++;
+        }
+        if (random.nextInt(100) < defenceGrowth){
+            defence++;
+        }
+        if (random.nextInt(100) < resistanceGrowth){
+            resistance++;
+        }
     }
 
     public void takeDamage(int damage) {
         health -= damage;
-        if (health > 0) {
-            //TODO unit death throwing?
-        }
     }
 
     @Override
     public String toString() {
-        return name + ": " + movementType; //TODO make better or remove
+        return name + ": " + profession;
     }
 }

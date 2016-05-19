@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.MainState;
+import pajk.game.main.java.model.units.Archer;
+import pajk.game.main.java.model.units.Swordsman;
 import pajk.game.main.java.model.units.Unit;
 
 
@@ -114,35 +116,25 @@ public class BoardView extends AbstractGameView {
 
     private void drawUnit(int x, int y){
         Unit myUnit = board.getTile(x,y).getUnit();
-        Unit.UnitClass myUnitClass = myUnit.getUnitClass();
         Texture myTexture = new Texture("gray-sword-sprite");
-        if(myUnit.getUnitState() == Unit.UnitState.DONE){
-            switch (myUnitClass) {
-                case BOW:
-                    myTexture = new Texture("gray-bow-sprite");
-                    break;
-                case SWORD:
-                    myTexture = new Texture("gray-sword-sprite");
-                    break;
+
+        if (myUnit instanceof Swordsman){
+            if(myUnit.getUnitState() == Unit.UnitState.DONE){
+                myTexture = new Texture("gray-sword-sprite");
             }
-        }
-        else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-            switch (myUnitClass) {
-                case BOW:
-                    myTexture = new Texture("blue-bow-sprite");
-                    break;
-                case SWORD:
-                    myTexture = new Texture("blue-sword-sprite");
-                    break;
+            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
+                myTexture = new Texture("blue-sword-sprite");
+            } else{
+                myTexture = new Texture("red-sword-sprite");
             }
-        }else{
-            switch (myUnitClass) {
-                case BOW:
-                    myTexture = new Texture("red-bow-sprite");
-                    break;
-                case SWORD:
-                    myTexture = new Texture("red-sword-sprite");
-                    break;
+        } else if (myUnit instanceof Archer){
+            if(myUnit.getUnitState() == Unit.UnitState.DONE){
+                myTexture = new Texture("gray-bow-sprite");
+            }
+            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
+                myTexture = new Texture("blue-bow-sprite");
+            } else{
+                myTexture = new Texture("red-bow-sprite");
             }
         }
         draw(x,y,myTexture);

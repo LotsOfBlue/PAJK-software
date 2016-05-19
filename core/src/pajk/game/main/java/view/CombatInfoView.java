@@ -57,39 +57,10 @@ public class CombatInfoView extends AbstractGameView{
     }
 
     private Texture getTextureFor(Unit unit){
-        switch (unit.getUnitClass()){
-            case AXE:
-                if(unit.getAllegiance() == Allegiance.PLAYER){
-                    return new Texture("shrek-blue.png");//TODO get real images
-                }else {
-                    return new Texture("shrek-red.png");
-                }
-            case SWORD:
-                if(unit.getAllegiance() == Allegiance.PLAYER){
-                    return new Texture("shrek-blue.png");//TODO get real images
-                }else {
-                    return new Texture("shrek-red.png");
-                }
-            case PIKE:
-                if(unit.getAllegiance() == Allegiance.PLAYER){
-                    return new Texture("shrek-blue.png");//TODO get real images
-                }else {
-                    return new Texture("shrek-red.png");
-                }
-            case BOW:
-                if(unit.getAllegiance() == Allegiance.PLAYER){
-                    return new Texture("shrek-blue.png");//TODO get real images
-                }else {
-                    return new Texture("shrek-red.png");
-                }
-            case BOOK:
-                if(unit.getAllegiance() == Allegiance.PLAYER){
-                    return new Texture("shrek-blue.png");//TODO get real images
-                }else {
-                    return new Texture("shrek-red.png");
-                }
-
+        if (unit.getAllegiance().equals(Allegiance.PLAYER)){
+            return new Texture("shrek-red.png");
+        } else {
+            return new Texture("shrek-blue.png");
         }
-        return new Texture("shrek.png");//TODO get real images
     }
 }
