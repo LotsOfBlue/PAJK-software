@@ -42,11 +42,41 @@ public class CombatInfoView extends AbstractGameView{
         activeUnitImage = getTextureFor(activeUnit);
         Unit targetUnit = combatInfoState.getTargetUnit();
         targetUnitImage = getTextureFor(targetUnit);
+        /*activeDmg = combatInfoState.getActiveDmg();
+        targetDmg = combatInfoState.getTargetDmg();
+        activeCritChance = combatInfoState.getActiveCritChance();
+        targetCritChance = combatInfoState.getTargetCritChance();
+        activeHitChance = combatInfoState.getActiveHitChance();
+        targetHitChance = combatInfoState.getTargetHitChance();
+        activeCurentHP = activeUnit.getHealth();
+        targetCurrentHP = targetUnit.getHealth();
+        activeMaxHP = activeUnit.getMaxHealth();
+        targetMaxHP = targetUnit.getMaxHealth();*/
         int x = (int)(camera.position.x - (statusBackground.getWidth()/2));
         int y = (int)(camera.position.y - (statusBackground.getHeight()/2));
         spriteBatch.begin();
         spriteBatch.draw(statusBackground,x,y);
-        spriteBatch.draw(activeUnitImage,x + (statusBackground.getWidth()/8), y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
+        spriteBatch.draw(activeUnitImage,x + (statusBackground.getWidth()/8), y + 6 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
+        font.draw(spriteBatch,
+                activeUnit.getHealth() + " --> " +
+                        (activeUnit.getHealth() - combatInfoState.getTargetDmg())
+                        + "/" + activeUnit.getMaxHealth() + " HP"
+                        + "\n\n" + combatInfoState.getActiveDmg() + " DMG"
+                        + "\n\n" + combatInfoState.getActiveHitChance() + "/100 HIT CHANCE"
+                        + "\n\n" + combatInfoState.getActiveCritChance() + "/100 CRIT CHANCE"
+                        + "\n\n" + activeUnit.getSpeed() + " SPEED"
+                , x + (statusBackground.getWidth()/8)
+                , y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
+        font.draw(spriteBatch,
+                targetUnit.getHealth() + " --> " +
+                        (targetUnit.getHealth() - combatInfoState.getActiveDmg())
+                        + "/" + targetUnit.getMaxHealth() + " HP"
+                        + "\n\n" + combatInfoState.getTargetDmg() + " DMG"
+                        + "\n\n" + combatInfoState.getTargetHitChance() + "/100 HIT CHANCE"
+                        + "\n\n" + combatInfoState.getTargetCritChance() + "/100 CRIT CHANCE"
+                        + "\n\n" + targetUnit.getSpeed() + " SPEED"
+                , x + 7 * (statusBackground.getWidth()/8) - targetUnitImage.getWidth()
+                , y + 7 * (statusBackground.getHeight()/8));
         spriteBatch.draw(targetUnitImage,x + 7 * (statusBackground.getWidth()/8) - targetUnitImage.getWidth(), y + (statusBackground.getHeight()/8));
         spriteBatch.end();
     }

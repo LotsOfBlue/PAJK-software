@@ -17,7 +17,7 @@ public class CombatInfoState extends State {
 
     private Unit activeUnit, targetUnit;
 
-    private int activeDmg, targetDmg, activeHitChance, targetHitChance;
+    private int activeDmg, targetDmg, activeHitChance, targetHitChance, activeCritChance, targetCritChance;
 
 
     void enterAction(){
@@ -40,6 +40,8 @@ public class CombatInfoState extends State {
         targetDmg = CombatState.calcDamageThisToThat(targetUnit, activeUnit);
         activeHitChance = getHitChance(activeUnit, targetUnit);
         targetHitChance = getHitChance(targetUnit, activeUnit);
+        activeCritChance = getCritChance(activeUnit, targetUnit);
+        targetCritChance = getCritChance(targetUnit, activeUnit);
     }
 
     @Override
@@ -51,8 +53,15 @@ public class CombatInfoState extends State {
         return (attackerUnit.getWeapon().getAccuracy()
                 + attackerUnit.getSkill()
                 + CombatState.getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
-                - targetUnit.getSpeed())
-                - board.getPos(targetUnit).getEvasion();
+                - defenderUnit.getSpeed())
+                - board.getPos(defenderUnit).getEvasion();
+    }
+
+    private int getCritChance(Unit attackerUnit, Unit defenderUnit){
+        return(attackerUnit.getWeapon().getCritChance()
+                + attackerUnit.getSkill()
+                + attackerUnit.getLuck()
+                - defenderUnit.getLuck());
     }
 
     public int getActiveDmg() {
@@ -70,6 +79,10 @@ public class CombatInfoState extends State {
     public int getTargetHitChance() {
         return targetHitChance;
     }
+
+    public int getActiveCritChance() { return activeCritChance; }
+
+    public int getTargetCritChance() { return targetCritChance; }
 
     public Unit getActiveUnit() {
         return activeUnit;
