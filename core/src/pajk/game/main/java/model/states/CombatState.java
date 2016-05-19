@@ -211,6 +211,7 @@ public class CombatState extends State {
         Random random = new Random();
         return ((attackerUnit.getWeapon().getCritChance()
                 + attackerUnit.getSkill()
+                + attackerUnit.getLuck()
                 - defenderUnit.getLuck())
                 > random.nextInt(100));
     }

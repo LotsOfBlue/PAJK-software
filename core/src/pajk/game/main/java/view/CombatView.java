@@ -7,9 +7,7 @@ import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.units.Archer;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.units.*;
 
 /**
  * Visual representation of the combat.
@@ -56,6 +54,10 @@ public class CombatView extends AbstractGameView {
     private Animation blueSwordUnitAnimation;
     private Animation redBowUnitAnimation;
     private Animation blueBowUnitAnimation;
+    private Animation redAxeUnitAnimation;
+    private Animation blueAxeUnitAnimation;
+    private Animation redPikeUnitAnimation;
+    private Animation bluePikeUnitAnimation;
 
     private BitmapFont bitmapFont;
 
@@ -79,6 +81,14 @@ public class CombatView extends AbstractGameView {
         blueBowUnitAnimation = getAnimationFrom(new Texture("blue-bow-animation"));
 
         redBowUnitAnimation = getAnimationFrom(new Texture("red-bow-animation"));
+
+        blueAxeUnitAnimation = getAnimationFrom(new Texture("blue-axe-animation"));
+
+        redAxeUnitAnimation = getAnimationFrom(new Texture("red-axe-animation"));
+
+        bluePikeUnitAnimation = getAnimationFrom(new Texture("blue-pike-animation"));
+
+        redPikeUnitAnimation = getAnimationFrom(new Texture("red-pike-animation"));
 
 
 
@@ -210,6 +220,18 @@ public class CombatView extends AbstractGameView {
                 drawAttackFrame(unit, blueSwordUnitAnimation.getKeyFrame(frame));
             }else{
                 drawAttackFrame(unit, redSwordUnitAnimation.getKeyFrame(frame));
+            }
+        } else  if (unit instanceof Axeman){
+            if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                drawAttackFrame(unit, blueAxeUnitAnimation.getKeyFrame(frame));
+            }else{
+                drawAttackFrame(unit, redAxeUnitAnimation.getKeyFrame(frame));
+            }
+        } else if (unit instanceof Pikeman){
+            if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                drawAttackFrame(unit, bluePikeUnitAnimation.getKeyFrame(frame));
+            }else{
+                drawAttackFrame(unit, redPikeUnitAnimation.getKeyFrame(frame));
             }
         }
 

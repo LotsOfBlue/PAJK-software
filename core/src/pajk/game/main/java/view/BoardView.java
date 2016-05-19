@@ -11,9 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.MainState;
-import pajk.game.main.java.model.units.Archer;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.units.*;
 
 
 /**
@@ -25,13 +23,22 @@ public class BoardView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-    private Texture unit;
-    private Texture grayUnit;
 
+    private Texture graySwordUnitSprite;
     private Texture blueSwordUnitSprite;
     private Texture redSwordUnitSprite;
+
+    private Texture grayBowUnitSprite;
     private Texture blueBowUnitSprite;
     private Texture redBowUnitSprite;
+
+    private Texture grayAxeUnitSprite;
+    private Texture blueAxeUnitSprite;
+    private Texture redAxeUnitSprite;
+
+    private Texture grayPikeUnitSprite;
+    private Texture bluePikeUnitSprite;
+    private Texture redPikeUnitSprite;
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
@@ -61,10 +68,21 @@ public class BoardView extends AbstractGameView {
     public BoardView(OrthographicCamera camera){
         shapeRenderer = new ShapeRenderer();
 
+        graySwordUnitSprite = new Texture("gray-sword-sprite");
         blueSwordUnitSprite = new Texture("blue-sword-sprite");
         redSwordUnitSprite = new Texture("red-sword-sprite");
+
+        grayBowUnitSprite = new Texture("gray-bow-sprite");
         blueBowUnitSprite = new Texture("blue-bow-sprite");
         redBowUnitSprite = new Texture("red-bow-sprite");
+
+        grayAxeUnitSprite = new Texture("gray-axe-sprite");
+        blueAxeUnitSprite = new Texture("blue-axe-sprite");
+        redAxeUnitSprite = new Texture("red-axe-sprite");
+
+        grayPikeUnitSprite = new Texture("gray-pike-sprite");
+        bluePikeUnitSprite = new Texture("blue-pike-sprite");
+        redPikeUnitSprite = new Texture("red-pike-sprite");
 
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
@@ -116,25 +134,46 @@ public class BoardView extends AbstractGameView {
 
     private void drawUnit(int x, int y){
         Unit myUnit = board.getTile(x,y).getUnit();
-        Texture myTexture = new Texture("gray-sword-sprite");
+        Texture myTexture = graySwordUnitSprite;
 
         if (myUnit instanceof Swordsman){
             if(myUnit.getUnitState() == Unit.UnitState.DONE){
-                myTexture = new Texture("gray-sword-sprite");
+                myTexture = graySwordUnitSprite;
             }
             else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-                myTexture = new Texture("blue-sword-sprite");
+                myTexture = blueSwordUnitSprite;
             } else{
-                myTexture = new Texture("red-sword-sprite");
+                myTexture = redSwordUnitSprite;
             }
         } else if (myUnit instanceof Archer){
             if(myUnit.getUnitState() == Unit.UnitState.DONE){
-                myTexture = new Texture("gray-bow-sprite");
+                myTexture = grayBowUnitSprite;
             }
             else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-                myTexture = new Texture("blue-bow-sprite");
+                myTexture = blueBowUnitSprite;
             } else{
-                myTexture = new Texture("red-bow-sprite");
+                myTexture = redBowUnitSprite;
+
+            }
+        } else if (myUnit instanceof Pikeman){
+            if(myUnit.getUnitState() == Unit.UnitState.DONE){
+                myTexture = grayPikeUnitSprite;
+            }
+            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
+                myTexture = bluePikeUnitSprite;
+            } else{
+                myTexture = redPikeUnitSprite;
+
+            }
+        } else if (myUnit instanceof Axeman){
+            if(myUnit.getUnitState() == Unit.UnitState.DONE){
+                myTexture = grayAxeUnitSprite;
+            }
+            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
+                myTexture = blueAxeUnitSprite;
+            } else{
+                myTexture = redAxeUnitSprite;
+
             }
         }
         draw(x,y,myTexture);
