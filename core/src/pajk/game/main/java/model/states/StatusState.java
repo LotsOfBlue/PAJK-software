@@ -17,7 +17,7 @@ public class StatusState extends State {
     private List<String> statusList;
     private int selectedInfoItemNr;
 
-
+    private List<String> statLines;
 
 
     @Override
@@ -117,36 +117,38 @@ public class StatusState extends State {
 //        statusList.add(constitution);
 //        statusList.add(aid);
 
-    }
-    public String getActiveInfoItemText(){
-
-        List<String> lines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
-        for(int i = 0; i < lines.size(); i++){
-            if(lines.get(i).length() > 29 && lines.get(i).substring(29).contains(" ") && lines.get(i).length() < 65){
-                String tmp1 = lines.get(i);
+        statLines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
+        for(int i = 0; i < statLines.size(); i++){
+            if(statLines.get(i).length() > 29 && statLines.get(i).substring(29).contains(" ") && statLines.get(i).length() < 65){
+                String tmp1 = statLines.get(i);
 
                 int spaceIndex = tmp1.indexOf(" ",tmp1.length()/2);
                 String tmp2 = tmp1.substring(0,spaceIndex)+"\n"+tmp1.substring(spaceIndex+1);
 
-                lines.remove(i);
-                lines.add(i,tmp2);
+                statLines.remove(i);
+                statLines.add(i,tmp2);
 
-            } else if (lines.get(i).length() >= 65){
-                String tmp1 = lines.get(i);
+            } else if (statLines.get(i).length() >= 65){
+                String tmp1 = statLines.get(i);
 
                 int spaceIndex1 = tmp1.indexOf(" ",tmp1.length()/3);
                 int spaceIndex2 = tmp1.indexOf(" ",2*tmp1.length()/3);
 
                 String tmp2 = tmp1.substring(0,spaceIndex1)+"\n"+tmp1.substring(spaceIndex1+1,spaceIndex2) + "\n" +
                         tmp1.substring(spaceIndex2+1);
-                lines.remove(i);
-                lines.add(i,tmp2);
+                statLines.remove(i);
+                statLines.add(i,tmp2);
 
 
             }
 
         }
-        return lines.get(selectedInfoItemNr);
+
+
+
+    }
+    public String getActiveInfoItemText(){
+        return statLines.get(selectedInfoItemNr);
 
     }
     public String getInfoItem(int i){
