@@ -103,7 +103,7 @@ public class StatusState extends State {
         String weapon = "Weapon: " +statusUnit.getWeapon().getName();
         String exp = "Experience: " +statusUnit.getExperience();
         String strength = "Strength: " +statusUnit.getStrength();
-        String might = "Might: " +statusUnit.getMight();
+//        String might = "Might: " +statusUnit.getMight();
         String skill = "Skill: " +statusUnit.getSpeed();
         String luck = "Luck: " + statusUnit.getLuck();
         String resistance = "Resistance: " +statusUnit.getResistance();
@@ -118,7 +118,7 @@ public class StatusState extends State {
         statusList.add(weapon);
         statusList.add(exp);
         statusList.add(strength);
-        statusList.add(might);
+//        statusList.add(might);
         statusList.add(skill);
         statusList.add(luck);
         statusList.add(resistance);

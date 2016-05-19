@@ -4,8 +4,7 @@ Level: The unit's level.
 Defence: Reduces damage from physical attacks.
 Weapon: The unit's weapon.
 Experience: The unit's experience points. After 100 points the unit will level up. 
-Strength: Increases physical damage dealt. 
-Might: The unit's weapon's strength.
+Strength: Increases physical damage dealt.
 Skill:  Increases a unit's hit percentage and critical rate.
 Luck: Makes it more likely to crit and makes enemy units less likely to crit you.
 Resistance: Defence against magic.
