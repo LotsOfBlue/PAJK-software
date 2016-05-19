@@ -276,8 +276,13 @@ public class EnemyTurnState extends State {
         }
         //Prepare the first active unit
         activeUnit = unitQueue.poll();
-        stepsLeft = activeUnit.getMovement();
-        moveRange = board.getTilesWithinMoveRange(activeUnit);
+        if( activeUnit != null){
+            stepsLeft = activeUnit.getMovement();
+            moveRange = board.getTilesWithinMoveRange(activeUnit);
+        } else {
+            gameModel.setState(GameModel.StateName.MAIN);
+        }
+
     }
 
     @Override
