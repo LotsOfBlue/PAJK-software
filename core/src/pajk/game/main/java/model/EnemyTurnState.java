@@ -15,9 +15,11 @@ public class EnemyTurnState implements State {
     private GameModel gameModel;
     private Board board;
     private Queue<Unit> unitQueue;
+
     private Unit activeUnit;
     private int stepsLeft;
     private Set<Tile> moveRange;
+
     private Unit target;
     private List<Tile> path;
 
@@ -52,8 +54,8 @@ public class EnemyTurnState implements State {
 
         //Set a new target and path if needed
         if (target == null) {
-            target = designateTarget(activeUnit);
-            path = getPathTo(activeUnit, target);
+            target = designateTarget();
+            path = getPathTo(target);
             trimPath(path, currentPos);
         }
 
@@ -65,7 +67,7 @@ public class EnemyTurnState implements State {
         //If the unit is finished moving...
         if (activeUnit.getUnitState().equals(Unit.UnitState.MOVED)){
             //Fight with target if able
-            if (getAttackPoints(activeUnit, target).contains(currentPos)) {
+            if (getAttackPoints(target).contains(currentPos)) {
                 gameModel.setActiveUnit(activeUnit);
                 gameModel.setTargetUnit(target);
                 gameModel.setState(GameModel.StateName.COMBAT);
@@ -75,7 +77,7 @@ public class EnemyTurnState implements State {
         }
         //If not done moving, keep doing so
         else {
-            moveTowards(path, activeUnit, currentPos);
+            moveTowards(path);
             if (stepsLeft == 0 || path.isEmpty()) {
                 activeUnit.setUnitState(Unit.UnitState.MOVED);
             }
@@ -99,17 +101,16 @@ public class EnemyTurnState implements State {
     }
 
     /**
-     * Gets the shortest path to the given target Unit.
-     * @param active The Unit which will move.
+     * Gets the shortest path from the active unit to the given target Unit.
      * @param target The Unit to move towards.
      * @return The quickest path to one of the target's attack tiles.
      */
-    private List<Tile> getPathTo(Unit active, Unit target) {
+    private List<Tile> getPathTo(Unit target) {
         List<Tile> result = null;
-        Set<Tile> attackPoints = getAttackPoints(active, target);
+        Set<Tile> attackPoints = getAttackPoints(target);
         for (Tile t : attackPoints) {
-            List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(active), t, active);
-            if (result == null || PathFinder.getPathLength(path, active) < PathFinder.getPathLength(result, active)) {
+            List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(activeUnit), t, activeUnit);
+            if (result == null || PathFinder.getPathLength(path, activeUnit) < PathFinder.getPathLength(result, activeUnit)) {
                 result = path;
             }
         }
@@ -120,102 +121,53 @@ public class EnemyTurnState implements State {
     /**
      * Makes the given active unit move towards a tile from which it can
      * attack the designated target, as far as its move range allows.
-     * @param active The unit that will move.
-     * @param currentPos The active unit's position before moving.
      */
-    private void moveTowards(List<Tile> path, Unit active, Tile currentPos) {
+    private void moveTowards(List<Tile> path) {
         Tile end = path.get(0);
 
         if (cooldown <= 0) {
             //Set cursor to direct player's attention
             board.setCursor(end.getX(), end.getY());
             //Move as far along the path as possible
-            board.moveAlongPath(path, active);
+            board.moveAlongPath(path, activeUnit);
             stepsLeft--;
             cooldown = 8;
-            System.out.println("step2"); //TODO remove
         } else {
             cooldown--;
         }
     }
 
     /**
-     * Makes the given active unit move towards a tile from which it can
-     * attack the designated target, and then attacks from that tile.
-     * @param active The unit that will move.
-     * @param target The unit that will be attacked.
-     * @param currentPos The active unit's position before moving.
-     */
-    private void moveToAttack(Unit active, Unit target, Tile currentPos) {
-        Set<Tile> moveRange = board.getTilesWithinMoveRange(active);
-        Set<Tile> attackTiles = getAttackPoints(active, target);
-        List<Tile> shortestPath = null;
-        for (Tile t : attackTiles) {
-            if (moveRange.contains(t)) {
-                List<Tile> path = PathFinder.getQuickestPath(board, currentPos, t, active);
-                //Set cursor on the target unit to direct player's attention
-                board.setCursor(t.getX(), t.getY());
-                //Remove the first tile of the path, since that's where the unit is standing
-                path.remove(path.size()-1);
-                if (shortestPath == null || PathFinder.getPathLength(path, active) < PathFinder.getPathLength(shortestPath, active)) {
-                    shortestPath = path;
-                }
-            }
-        }
-
-        while (!shortestPath.isEmpty()) {
-            board.moveAlongPath(shortestPath, active);
-            System.out.println("step");
-        }
-        //Fight the target unit
-        gameModel.setActiveUnit(active);
-        gameModel.setTargetUnit(target);
-        gameModel.setState(GameModel.StateName.COMBAT);
-    }
-
-    /**
      * Find the most optimal target for the current unit.
-     * @param active The currently active computer-controlled unit.
+     * If there are more than one target in range, the weakest one of them is selected.
+     * Otherwise, the closest unit is chosen.
      * @return The most optimal target.
      */
-    private Unit designateTarget(Unit active) {
+    private Unit designateTarget() {
         List<Unit> allTargets = getAllTargets();
-        List<Unit> reachableTargets = findReachableTargets(active, allTargets);
-        Unit target = null;
+        List<Unit> reachableTargets = findReachableTargets(allTargets);
+        Unit target;
         //If there are targets in range, go for the weakest one
         if (reachableTargets.size() > 0) {
-            target = findWeakestTarget(active, reachableTargets);
+            target = findWeakestTarget(reachableTargets);
         }
         //Otherwise just go for the easiest to reach
         else {
-            int distance = 10000;
-            //Check the attack tiles of all units on the board
-            for (Unit u : allTargets) {
-                Set<Tile> attackTiles = getAttackPoints(active, u);
-                for (Tile t : attackTiles) {
-                    List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(active), t, active);
-                    int pathLength = PathFinder.getPathLength(path, active);
-                    if (pathLength < distance) {
-                        distance = pathLength;
-                        target = u;
-                    }
-                }
-            }
+            target = findClosest(allTargets);
         }
         return target;
     }
 
     /**
      * Find the target that the given unit will deal the most damage to.
-     * @param active The attacking unit.
      * @param targets The pool of targets to choose from.
      * @return The Unit that the active unit will deal the most damage to.
      */
-    private Unit findWeakestTarget (Unit active, List<Unit> targets) {
+    private Unit findWeakestTarget (List<Unit> targets) {
         int highestDmg = 0;
         Unit target = null;
         for (Unit u : targets) {
-            int dmg = CombatState.calcDamageThisToThat(active, u);
+            int dmg = CombatState.calcDamageThisToThat(activeUnit, u);
             //TODO consider evasion
             if (dmg >= highestDmg) {
                 highestDmg = dmg;
@@ -227,14 +179,13 @@ public class EnemyTurnState implements State {
 
     /**
      * Find all targets that can be attacked from within the active unit's movement range.
-     * @param active The attacking unit.
      * @param targets The pool of targets to check.
      * @return A List of all units that can be attacked by the active unit.
      */
-    private List<Unit> findReachableTargets(Unit active, List<Unit> targets) {
+    private List<Unit> findReachableTargets(List<Unit> targets) {
         List<Unit> result = new ArrayList<>();
         for (Unit u : targets) {
-            Set <Tile> attackPoints = getAttackPoints(active, u);
+            Set <Tile> attackPoints = getAttackPoints(u);
             for (Tile t : attackPoints) {
                 if (moveRange.contains(t) && !result.contains(u)) {
                     result.add(u);
@@ -246,17 +197,15 @@ public class EnemyTurnState implements State {
 
     /**
      * Find all tiles that the active unit can hit the target unit from.
-     * @param active The unit that will attack.
      * @param target The unit to get tiles around.
      * @return A Set containing all tiles that the target can be attacked from,
      * given the stats of the active unit.
      */
-    private Set<Tile> getAttackPoints(Unit active, Unit target) {
-        Set<Tile> attackPoints = null;
-        attackPoints = board.getTilesAround(
+    private Set<Tile> getAttackPoints(Unit target) {
+        Set<Tile> attackPoints = board.getTilesAround(
                 board.getPos(target),
-                active.getWeaponMinRange(),
-                active.getWeaponMaxRange());
+                activeUnit.getWeaponMinRange(),
+                activeUnit.getWeaponMaxRange());
 
         return attackPoints;
     }
@@ -279,47 +228,28 @@ public class EnemyTurnState implements State {
     }
 
     /**
-     * Get targets that are within movement range of the given unit.
-     * @param center The Unit whose movement to check.
-     * @return A List of enemies within the movement range of the unit.
-     */
-    private List<Unit> getTargetsWithinRange(Unit center) {
-        List<Unit> result = new ArrayList<>();
-        for (Tile t : board.getTilesWithinMoveRange(center)) {
-            Unit u = t.getUnit();
-            if (u != null && u.getAllegiance().equals(Unit.Allegiance.PLAYER)) {
-                result.add(u);
-            }
-        }
-
-        System.out.println("Within movement range: " + result);
-        return result;
-    }
-
-    /**
-     * Find the unit that is easiest to move to for the currently active unit.
-     * @param active The active unit.
+     * Find the unit whose attack tiles are easiest
+     * to move to for the currently active unit.
      * @param targets The units to choose from.
      * @return The unit among the targets that requires the least "effort" to move towards.
      */
-    private Unit findClosest(Unit active, List<Unit> targets) {
+    private Unit findClosest(List<Unit> targets) {
         Unit closest = null;
-        int distanceToTarget = 1000000;
+        int distance = 0;
 
-        //Compare the targets and store the closest one
+        //Check the attack tiles of all units on the board
         for (Unit u : targets) {
-            //Get the shortest path to the target
-            Tile targetTile = board.getPos(u);
-            List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(active), targetTile, active);
-
-            //If the path is shorter than the previously stored one, store it instead
-            int dist = PathFinder.getPathLength(path, active);
-            if (dist < distanceToTarget && dist > 0) {
-                distanceToTarget = dist;
-                closest = u;
+            Set<Tile> attackTiles = getAttackPoints(u);
+            for (Tile t : attackTiles) {
+                List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(activeUnit), t, activeUnit);
+                int pathLength = PathFinder.getPathLength(path, activeUnit);
+                //Compare the paths and store the shortest one
+                if (pathLength < distance || closest == null) {
+                    distance = pathLength;
+                    closest = u;
+                }
             }
         }
-        System.out.println("Closest enemy is " + closest);
         return closest;
     }
 
