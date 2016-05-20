@@ -40,8 +40,6 @@ public class StatusState extends State {
 
             unitIndex = (unitIndex + model.getUnitList().size() -1) % model.getUnitList().size();
 
-//            List<Unit> unitList = model.getUnitList();
-//            statusUnit = unitList.get(1);
             setUpStatList();
         }
     }
@@ -56,10 +54,6 @@ public class StatusState extends State {
 
             unitIndex = (unitIndex + 1) % model.getUnitList().size();
             setUpStatList();
-
-//            List<Unit> unitList = model.getUnitList();
-//            statusUnit = unitList.get(0);
-//            setUpStatList();
         }
     }
 
@@ -92,6 +86,10 @@ public class StatusState extends State {
         return GameModel.StateName.UNIT_MENU;
     }
 
+    /**
+     * Sets up list with all the status texts. Gets info about each stat from "statusInfo.txt" and info
+     * about each weapon from "item.getDescription"
+     */
     private void setUpStatList(){
 
         statusUnit = model.getUnitList().get(unitIndex);
@@ -103,7 +101,6 @@ public class StatusState extends State {
         String weapon = "Weapon: " +statusUnit.getWeapon().getName();
         String exp = "Experience: " +statusUnit.getExperience();
         String strength = "Strength: " +statusUnit.getStrength();
-//        String might = "Might: " +statusUnit.getMight();
         String skill = "Skill: " +statusUnit.getSpeed();
         String luck = "Luck: " + statusUnit.getLuck();
         String resistance = "Resistance: " +statusUnit.getResistance();
@@ -118,54 +115,36 @@ public class StatusState extends State {
         statusList.add(weapon);
         statusList.add(exp);
         statusList.add(strength);
-//        statusList.add(might);
         statusList.add(skill);
         statusList.add(luck);
         statusList.add(resistance);
         statusList.add(speed);
         statusList.add(movement);
-//        statusList.add(constitution);
-//        statusList.add(aid);
 
         statLines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
         for(int i = 0; i < statLines.size(); i++){
             String tmp1 = statLines.get(i);
             String tmp2 = tmp1;
-            if(i==4){
+            if(i==4){   //row 4 is weapon row
                 tmp1 = statusUnit.getWeapon().getDescription();
             }
 
             if(tmp1.length() > 29 && tmp1.substring(29).contains(" ") && tmp1.length() < 65){
-//                tmp1 = statLines.get(i);
-
                 int spaceIndex = tmp1.indexOf(" ",tmp1.length()/2);
                 tmp2 = tmp1.substring(0,spaceIndex)+"\n"+tmp1.substring(spaceIndex+1);
 
-
-
             } else if (tmp1.length() >= 65){
-//                tmp1 = statLines.get(i);
-
                 int spaceIndex1 = tmp1.indexOf(" ",tmp1.length()/3);
                 int spaceIndex2 = tmp1.indexOf(" ",2*tmp1.length()/3);
-
                 tmp2 = tmp1.substring(0,spaceIndex1)+"\n"+tmp1.substring(spaceIndex1+1,spaceIndex2) + "\n" +
                         tmp1.substring(spaceIndex2+1);
 
-
-
             }
-
 
             statLines.remove(i);
             statLines.add(i,tmp2);
 
         }
-
-
-
-
-
 
     }
 
