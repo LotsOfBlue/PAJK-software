@@ -14,7 +14,7 @@ PLAYER
 3
 1
 Swordsman
-8
+15
 IronSword
 AI
 7

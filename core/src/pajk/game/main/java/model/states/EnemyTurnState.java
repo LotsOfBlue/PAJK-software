@@ -18,7 +18,7 @@ import java.util.*;
 public class EnemyTurnState extends State {
     private GameModel gameModel;
     private Board board;
-    private Queue<Unit> unitQueue;
+    private List<Unit> aiList;
     private List<Unit> unitList;
 
     private Unit activeUnit;
@@ -37,22 +37,16 @@ public class EnemyTurnState extends State {
 
     private void update(){
 
-        //Switch to the next unit if the current one is done
-        if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)) {
-            //Reset the target
-            target = null;
-            unitList = gameModel.getUnitList();
-            //If there are no units left, the player's turn begins
-            if (unitQueue.peek() == null) {
-                System.out.println("--PLAYER TURN--"); //TODO make graphical
-                gameModel.newTurn();
-                gameModel.setState(GameModel.StateName.MAIN);
-                return;
-            } else {
-                activeUnit = unitQueue.poll();
-                stepsLeft = activeUnit.getMovement();
-                moveRange = board.getTilesWithinMoveRange(activeUnit);
-            }
+        //If the current unit is done, get a new one.
+        if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)){
+            setNewActiveUnit();
+        }
+
+        if (activeUnit == null){
+            System.out.println("--PLAYER TURN--TEST"); //TODO make graphical
+            gameModel.newTurn();
+            gameModel.setState(GameModel.StateName.MAIN);
+            return;
         }
 
         //Get the unit's position for this update frame
@@ -73,18 +67,18 @@ public class EnemyTurnState extends State {
         //If the unit is finished moving...
         if (activeUnit.getUnitState().equals(Unit.UnitState.MOVED)){
             //Fight with target if able
+            activeUnit.setUnitState(Unit.UnitState.DONE);
             if (getAttackPoints(target).contains(currentPos)) {
                 gameModel.setActiveUnit(activeUnit);
                 gameModel.setTargetUnit(target);
                 gameModel.setState(GameModel.StateName.COMBAT);
             }
-
-            activeUnit.setUnitState(Unit.UnitState.DONE);
         }
         //If not done moving, keep doing so
         else {
             moveTowards(path);
             if (stepsLeft == 0 || path.isEmpty()) {
+                System.out.println("Test1");
                 activeUnit.setUnitState(Unit.UnitState.MOVED);
             }
         }
@@ -267,23 +261,37 @@ public class EnemyTurnState extends State {
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
         unitList = gameModel.getUnitList();
-        unitQueue = new LinkedList<>();
+        aiList = new ArrayList<>();
         //Add all AI units to the queue
         for (Unit u : unitList) {
             if (u.getAllegiance().equals(Unit.Allegiance.AI)) {
-                unitQueue.add(u);
+                aiList.add(u);
             }
         }
-        //Prepare the first active unit
-        activeUnit = unitQueue.poll();
-        if( activeUnit != null){
-            stepsLeft = activeUnit.getMovement();
-            moveRange = board.getTilesWithinMoveRange(activeUnit);
-        } else {
-            System.out.println("--PLAYER TURN--"); //TODO make graphical
-            gameModel.setState(GameModel.StateName.MAIN);
-        }
 
+        //Prepare the first active unit
+        setNewActiveUnit();
+
+        if (activeUnit == null) {
+            System.out.println("--PLAYER TURN--"); //TODO make graphical
+            gameModel.newTurn();
+            gameModel.setState(GameModel.StateName.MAIN);
+            return;
+        }
+    }
+
+    private void setNewActiveUnit(){
+        for (Unit u:
+             aiList) {
+            if (!u.getUnitState().equals(Unit.UnitState.DONE)){
+                activeUnit = u;
+                stepsLeft = u.getMovement();
+                moveRange = board.getTilesWithinMoveRange(u);
+                target = null;
+                return;
+            }
+        }
+        activeUnit = null;
     }
 
     @Override
