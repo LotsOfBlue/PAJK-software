@@ -26,7 +26,7 @@ public class StatusStateTest {
         gameModel = GameModel.getInstance();
         List<Unit> unitList = new ArrayList<>();
         Unit swordsman = new Swordsman(Unit.Allegiance.PLAYER,5);
-        Unit axesman = new Axeman(Unit.Allegiance.PLAYER,5);
+        Unit axesman = new Axeman(Unit.Allegiance.PLAYER,4);
         unitList.add(swordsman);
         unitList.add(axesman);
         gameModel.setActiveUnit(axesman);
@@ -67,9 +67,9 @@ public class StatusStateTest {
 
     @Test
     public void downAction() throws Exception {
-        String text1 = state.getInfoItem(3);
+        String text1 = state.getInfoItem(2);
         state.downAction();
-        String text2 = state.getInfoItem(3);
+        String text2 = state.getInfoItem(2);
         assertNotEquals(text1,text2);
 
         state.enterAction();
