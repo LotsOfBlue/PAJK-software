@@ -45,7 +45,6 @@ public class UnitMenuStateTest {
 
     @Test
     public void upAction() throws Exception {
-        int itemSelectedBefore = state.getMenuItemSelected();
         state.upAction();
         int itemSelectedAfter = state.getMenuItemSelected();
         assertTrue(itemSelectedAfter == state.getMenuList().size()-1);
@@ -70,7 +69,8 @@ public class UnitMenuStateTest {
 
     @Test
     public void backAction() throws Exception {
-
+        state.backAction();
+        assertNotEquals(gameModel.getState(),state);
     }
 
 }
