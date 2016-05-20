@@ -31,9 +31,9 @@ public class StatusView extends AbstractGameView{
      * @param camera where the status will be drawn.
      */
     public StatusView(OrthographicCamera camera){
-        statusBackground = new Texture("statusBackground.png");
-        unitImage = new Texture("shrek.png");
-        selector = new Texture("statusInfoSelector.png");
+        statusBackground = new Texture("Menus/statusBackground.png");
+        unitImage = new Texture("Menus/shrek.png");
+        selector = new Texture("Menus/statusInfoSelector.png");
         this.camera = camera;
         font = new BitmapFont();
         model = GameModel.getInstance();

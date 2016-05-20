@@ -21,7 +21,7 @@ public class EndView extends AbstractGameView{
 
     public EndView(OrthographicCamera camera){
         model = GameModel.getInstance();
-        statusBackground = new Texture("statusBackground.png");
+        statusBackground = new Texture("Menus/statusBackground.png");
         this.camera = camera;
         font = new BitmapFont();
     }

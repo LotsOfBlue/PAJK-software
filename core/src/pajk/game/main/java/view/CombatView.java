@@ -78,21 +78,21 @@ public class CombatView extends AbstractGameView {
 
 
 
-        blueSwordUnitAnimation = getAnimationFrom(new Texture("blue-sword-animation"));
+        blueSwordUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/blue-sword-animation"));
 
-        redSwordUnitAnimation = getAnimationFrom(new Texture("red-sword-animation"));
+        redSwordUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/red-sword-animation"));
 
-        blueBowUnitAnimation = getAnimationFrom(new Texture("blue-bow-animation"));
+        blueBowUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/blue-bow-animation"));
 
-        redBowUnitAnimation = getAnimationFrom(new Texture("red-bow-animation"));
+        redBowUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/red-bow-animation"));
 
-        blueAxeUnitAnimation = getAnimationFrom(new Texture("blue-axe-animation"));
+        blueAxeUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/blue-axe-animation"));
 
-        redAxeUnitAnimation = getAnimationFrom(new Texture("red-axe-animation"));
+        redAxeUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/red-axe-animation"));
 
-        bluePikeUnitAnimation = getAnimationFrom(new Texture("blue-pike-animation"));
+        bluePikeUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/blue-pike-animation"));
 
-        redPikeUnitAnimation = getAnimationFrom(new Texture("red-pike-animation"));
+        redPikeUnitAnimation = getAnimationFrom(new Texture("Sprites/Units/red-pike-animation"));
 
 
 

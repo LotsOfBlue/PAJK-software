@@ -48,8 +48,6 @@ public class MainMenuState extends State {
         gameModel.setState(GameModel.StateName.MAIN);
     }
 
-
-
     @Override
     public void activate() {
         gameModel = GameModel.getInstance();

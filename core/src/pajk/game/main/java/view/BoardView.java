@@ -29,7 +29,6 @@ public class BoardView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-
     private Texture graySwordUnitSprite;
     private Texture blueSwordUnitSprite;
     private Texture redSwordUnitSprite;
@@ -48,7 +47,6 @@ public class BoardView extends AbstractGameView {
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
-
 
     private Texture cursor;
     private Texture overlayMove;
@@ -74,33 +72,33 @@ public class BoardView extends AbstractGameView {
     public BoardView(OrthographicCamera camera){
         shapeRenderer = new ShapeRenderer();
 
-        graySwordUnitSprite = new Texture("gray-sword-sprite");
-        blueSwordUnitSprite = new Texture("blue-sword-sprite");
-        redSwordUnitSprite = new Texture("red-sword-sprite");
+        graySwordUnitSprite = new Texture("Sprites/Units/gray-sword-sprite");
+        blueSwordUnitSprite = new Texture("Sprites/Units/blue-sword-sprite");
+        redSwordUnitSprite = new Texture("Sprites/Units/red-sword-sprite");
 
-        grayBowUnitSprite = new Texture("gray-bow-sprite");
-        blueBowUnitSprite = new Texture("blue-bow-sprite");
-        redBowUnitSprite = new Texture("red-bow-sprite");
+        grayBowUnitSprite = new Texture("Sprites/Units/gray-bow-sprite");
+        blueBowUnitSprite = new Texture("Sprites/Units/blue-bow-sprite");
+        redBowUnitSprite = new Texture("Sprites/Units/red-bow-sprite");
 
-        grayAxeUnitSprite = new Texture("gray-axe-sprite");
-        blueAxeUnitSprite = new Texture("blue-axe-sprite");
-        redAxeUnitSprite = new Texture("red-axe-sprite");
+        grayAxeUnitSprite = new Texture("Sprites/Units/gray-axe-sprite");
+        blueAxeUnitSprite = new Texture("Sprites/Units/blue-axe-sprite");
+        redAxeUnitSprite = new Texture("Sprites/Units/red-axe-sprite");
 
-        grayPikeUnitSprite = new Texture("gray-pike-sprite");
-        bluePikeUnitSprite = new Texture("blue-pike-sprite");
-        redPikeUnitSprite = new Texture("red-pike-sprite");
+        grayPikeUnitSprite = new Texture("Sprites/Units/gray-pike-sprite");
+        bluePikeUnitSprite = new Texture("Sprites/Units/blue-pike-sprite");
+        redPikeUnitSprite = new Texture("Sprites/Units/red-pike-sprite");
 
-        cursor = new Texture("cursor.png");
-        overlayMove = new Texture("overlayBlue.png");
-        overlayAttack = new Texture("overlayRed.png");
-        plainsTexture = new Texture("grass64.png");
-        forestTexture = new Texture("forest64.png");
-        mountainTexture=new Texture("mountain64.png");
-        waterTexture=new Texture("water64.png");
-        gridTexture = new Texture("gridOverlay64.png");
+        cursor = new Texture("Sprites/Tiles/cursor.png");
+        overlayMove = new Texture("Sprites/Tiles/overlayBlue.png");
+        overlayAttack = new Texture("Sprites/Tiles/overlayRed.png");
+        plainsTexture = new Texture("Sprites/Tiles/grass64.png");
+        forestTexture = new Texture("Sprites/Tiles/forest64.png");
+        mountainTexture=new Texture("Sprites/Tiles/mountain64.png");
+        waterTexture=new Texture("Sprites/Tiles/water64.png");
+        gridTexture = new Texture("Sprites/Tiles/gridOverlay64.png");
 
-        hpbarBlue = new Texture("hpbarBlue.png");
-        hpbarRed  = new Texture("hpbarRed.png");
+        hpbarBlue = new Texture("Sprites/Units/hpbarBlue.png");
+        hpbarRed  = new Texture("Sprites/Units/hpbarRed.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 

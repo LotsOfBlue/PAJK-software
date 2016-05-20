@@ -23,7 +23,7 @@ public class CombatInfoView extends AbstractGameView{
     private Unit unit;
 
     public CombatInfoView(OrthographicCamera camera){
-        statusBackground = new Texture("statusBackground.png");
+        statusBackground = new Texture("Menus/statusBackground.png");
         this.camera = camera;
         font = new BitmapFont();
         model = GameModel.getInstance();

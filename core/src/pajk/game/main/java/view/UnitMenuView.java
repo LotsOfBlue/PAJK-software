@@ -33,9 +33,9 @@ public class UnitMenuView extends AbstractGameView {
      */
     public UnitMenuView(OrthographicCamera camera) {
         font = new BitmapFont();
-        menuOverlay = new Texture("menuOverlayShort.png");
-        background = new Texture("menuBackgroundEdges.png");
-        tooltipBackground = new Texture("tooltipBackground.png");
+        menuOverlay = new Texture("Menus/menuOverlayShort.png");
+        background = new Texture("Menus/menuBackgroundEdges.png");
+        tooltipBackground = new Texture("Menus/tooltipBackground.png");
         this.camera = camera;
     }
 
