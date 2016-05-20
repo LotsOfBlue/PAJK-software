@@ -51,6 +51,6 @@ public class ViewHandler {
         statusView = new StatusView(camera);
         endView = new EndView(camera);
         combatInfoView = new CombatInfoView(camera);
-        mainMenuView = new MainMenuView();
+        mainMenuView = new MainMenuView(camera);
     }
 }

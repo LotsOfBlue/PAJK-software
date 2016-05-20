@@ -14,6 +14,7 @@ public class MainMenuState extends State {
     private List<Scenario> scenarioList = new ArrayList<>();
     private int menuItemSelected = 0;
     private GameModel gameModel;
+    private Boolean showTitle;
 
     public MainMenuState(){
         scenarioList.add(new Scenario(
@@ -28,34 +29,58 @@ public class MainMenuState extends State {
                 "Command a large amount of soldiers in a battle with an opposing Duke's forces. (Map Size 30×20"));
     }
 
+    public Boolean getTitle() {
+        return showTitle;
+    }
+
     @Override
     void upAction(){
         menuItemSelected = (menuItemSelected + scenarioList.size()-1) % scenarioList.size();
     }
+
     @Override
     void downAction(){
         menuItemSelected = (menuItemSelected + 1) % scenarioList.size();
     }
+
     @Override
     void leftAction(){
         upAction();
     }
+
     @Override
     void rightAction(){
         downAction();
     }
+
     @Override
     void enterAction(){
-        System.out.println(scenarioList.get(menuItemSelected).getName());
-        Board board = scenarioList.get(menuItemSelected).makeBoard();
-        gameModel.resetNumberOfTurns();
-        gameModel.setBoard(board);
-        gameModel.setUnitList(scenarioList.get(menuItemSelected).makeUnitList(board));
-        gameModel.setState(GameModel.StateName.MAIN);
+        if (!showTitle) {
+            System.out.println(scenarioList.get(menuItemSelected).getName());
+            Board board = scenarioList.get(menuItemSelected).makeBoard();
+            gameModel.resetNumberOfTurns();
+            gameModel.setBoard(board);
+            gameModel.setUnitList(scenarioList.get(menuItemSelected).makeUnitList(board));
+            gameModel.setState(GameModel.StateName.MAIN);
+        } else {
+            showTitle = false;
+        }
+    }
+
+    @Override
+    void backAction() {
+        if (!showTitle) {
+            showTitle = true;
+        }
+    }
+
+    public List<Scenario> getScenarioList() {
+        return scenarioList;
     }
 
     @Override
     public void activate() {
+        showTitle = true;
         gameModel = GameModel.getInstance();
     }
 
