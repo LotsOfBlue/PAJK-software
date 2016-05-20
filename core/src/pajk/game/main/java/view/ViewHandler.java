@@ -8,7 +8,7 @@ import pajk.game.main.java.model.GameModel;
 /**
  * Created by palm on 2016-05-10.
  */
-public class MainView {
+public class ViewHandler {
 
     private BoardView boardView;
     private CombatView combatView;
@@ -16,31 +16,29 @@ public class MainView {
     private StatusView statusView;
     private EndView endView;
     private CombatInfoView combatInfoView;
+    private MainMenuView mainMenuView;
     private GameModel gameModel = GameModel.getInstance();
     private OrthographicCamera camera;
 
     /**
-     * Creates the MainView
-     * MainView creates all other views and draws them. The seperate View classes decides if it should be drawn or not.
+     * Creates the ViewHandler
+     * ViewHandler creates all other views and draws them. The separate View classes decides if it should be drawn or not.
      */
-    public MainView(){
+    public ViewHandler(){
         makeNewViews();
     }
 
     public void render(SpriteBatch spriteBatch){
-        if (gameModel.getState().getName() != GameModel.StateName.MAIN_MENU) {
-            if (boardView.getBoard() != gameModel.getBoard()){
-                makeNewViews();
-            }
-            boardView.render(spriteBatch);
-            combatView.render(spriteBatch);
-            menuView.render(spriteBatch);
-            statusView.render(spriteBatch);
-            endView.render(spriteBatch);
-            combatInfoView.render(spriteBatch);
-        } else {
-            //TODO: Draw the main menu.
+        if (boardView.getBoard() != gameModel.getBoard()){
+            makeNewViews();
         }
+        mainMenuView.render(spriteBatch);
+        boardView.render(spriteBatch);
+        combatView.render(spriteBatch);
+        menuView.render(spriteBatch);
+        statusView.render(spriteBatch);
+        endView.render(spriteBatch);
+        combatInfoView.render(spriteBatch);
     }
 
     private void makeNewViews(){
@@ -53,5 +51,6 @@ public class MainView {
         statusView = new StatusView(camera);
         endView = new EndView(camera);
         combatInfoView = new CombatInfoView(camera);
+        mainMenuView = new MainMenuView();
     }
 }

@@ -31,7 +31,7 @@ public class CombatInfoView extends AbstractGameView{
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        if(model.getState().getClass() == CombatInfoState.class){
+        if(model.getState() instanceof CombatInfoState){
             drawInfoScreen(spriteBatch);
         }
     }

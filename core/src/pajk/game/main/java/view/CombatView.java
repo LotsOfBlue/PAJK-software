@@ -97,7 +97,7 @@ public class CombatView extends AbstractGameView {
     public void render(SpriteBatch spriteBatch){
         this.spriteBatch = spriteBatch;
         gameModel = GameModel.getInstance();
-        if(gameModel.getState().getClass() == CombatState.class){
+        if(gameModel.getState() instanceof CombatState){
             CombatState combatState = (CombatState)gameModel.getState();
             if (combatState.isCalcDone()){
                 if(!isUpdated){
@@ -108,10 +108,6 @@ public class CombatView extends AbstractGameView {
                 spriteBatch.end();
             }
         }
-
-
-
-
     }
 
     private void updateVariables(){
@@ -139,8 +135,6 @@ public class CombatView extends AbstractGameView {
 
     public void update(float deltaTime){
         //TODO nothing?
-
-
     }
 
     private void drawCombat(){

@@ -1,21 +1,16 @@
 package pajk.game.main.java.view;
 
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.states.MainState;
+import pajk.game.main.java.model.states.*;
 import pajk.game.main.java.model.units.Unit;
 
 import java.util.*;
-
 
 /**
  * Created by palm on 2016-04-22.
@@ -55,7 +50,8 @@ public class BoardView extends AbstractGameView {
     private Texture overlayAttack;
     private Texture gridTexture;
 
-    private ShapeRenderer shapeRenderer;
+    private Texture tooltipBackground;
+
     private SpriteBatch spriteBatch;
     private final int TILE_WIDTH = 64;
 
@@ -69,19 +65,18 @@ public class BoardView extends AbstractGameView {
      */
     public BoardView(OrthographicCamera camera){
         font = new BitmapFont();
-        shapeRenderer = new ShapeRenderer();
 
         cursor = new Texture("Sprites/Tiles/cursor.png");
         overlayMove = new Texture("Sprites/Tiles/overlayBlue.png");
         overlayAttack = new Texture("Sprites/Tiles/overlayRed.png");
         gridTexture = new Texture("Sprites/Tiles/gridOverlay64.png");
 
+        tooltipBackground = new Texture("Menus/tooltipBackground.png");
+
         hpbarBlue = new Texture("Sprites/Units/hpbarBlue.png");
         hpbarRed  = new Texture("Sprites/Units/hpbarRed.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
-
-
 
         this.camera = camera;
 
@@ -97,23 +92,33 @@ public class BoardView extends AbstractGameView {
     @Override
     public void render(SpriteBatch spriteBatch) {
 
-        this.spriteBatch = spriteBatch;
+        //Always draw the board, except when the main menu is open
+        if (!(gameModel.getState() instanceof MainMenuState)) {
+            this.spriteBatch = spriteBatch;
 
-        camera.update();
-        spriteBatch.setProjectionMatrix(camera.combined);
+            camera.update();
+            spriteBatch.setProjectionMatrix(camera.combined);
 
-        spriteBatch.begin();
-        drawBoard();
-        if(gameModel.getState().getClass() != CombatState.class) {
-            drawCursor();
+            spriteBatch.begin();
+            drawBoard();
+            if(gameModel.getState().getClass() != CombatState.class) {
+                drawCursor();
+            }
+            if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() == MainState.class) {
+                drawButtonText();
+            }
+
+            //Don't always draw unit tooltips
+            if(     gameModel.getBoard().getCursorTile().hasUnit() &&
+                    !(gameModel.getState() instanceof EnemyTurnState) &&
+                    !(gameModel.getState() instanceof CombatState) &&
+                    !(gameModel.getState() instanceof StatusState) &&
+                    !(gameModel.getState() instanceof EndState)){
+                drawTooltip();
+            }
+            spriteBatch.end();
         }
-        if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() == MainState.class) {
-            drawButtonText();
-        }
-        spriteBatch.end();
     }
-
-
 
     private void drawUnit(int x, int y){
         Unit myUnit = board.getTile(x,y).getUnit();
@@ -133,7 +138,6 @@ public class BoardView extends AbstractGameView {
         if (!(gameModel.getCurrentStateName().equals(GameModel.StateName.COMBAT)) || (gameModel.getActiveUnit() != myUnit && gameModel.getTargetUnit() != myUnit)){
             draw(x,y,unitTextureMap.get(str));
         }
-
 
         drawHealthbar(myUnit, x, y);
     }
@@ -162,7 +166,6 @@ public class BoardView extends AbstractGameView {
 
         spriteBatch.draw(txtReg, pixelX, pixelY);
     }
-
 
     /**
      * Checks what terrain the tile has and draws it.
@@ -204,6 +207,35 @@ public class BoardView extends AbstractGameView {
     }
     private int getPixelCoordY(int boardCoordY){
         return (gameModel.getBoard().getBoardHeight() - 1 - boardCoordY)*(TILE_WIDTH);
+    }
+
+    private void drawTooltip(){
+
+        float x = camera.position.x - (camera.viewportWidth/2) +40;
+        if(shouldDrawTooltipRight()){
+            x = camera.position.x + (camera.viewportHeight/2);
+        }
+        float y = camera.position.y - (camera.viewportHeight/2) +10;
+        spriteBatch.draw(tooltipBackground,x,y);
+
+        Unit unit = GameModel.getInstance().getBoard().getCursorTile().getUnit();
+        String healthText = unit.getHealth() +"/"+unit.getMaxHealth() +" hp";
+        String lvlText = "Lvl: " +unit.getLevel();
+        String nameText = unit.getName();
+
+        font.getData().setScale(2,2);
+        font.setColor(Color.BLACK);
+        font.draw(spriteBatch,healthText,x+15,y+110);
+        font.draw(spriteBatch,lvlText,x+15,y+80);
+        font.getData().setScale(2f - nameText.length()/16f);
+        font.draw(spriteBatch, nameText, x+15, y+140);
+    }
+
+    private boolean shouldDrawTooltipRight(){
+        int tileWidth = 64;
+        int x = gameModel.getBoard().getCursorTile().getX();
+
+        return x * tileWidth < camera.position.x;
     }
 
     /**
@@ -252,7 +284,6 @@ public class BoardView extends AbstractGameView {
             font.draw(spriteBatch, "(Z) Menu", x, y);
         }
     }
-
 
     private boolean isWithinCamera(Tile tile){
         boolean verdict = true;
@@ -314,5 +345,4 @@ public class BoardView extends AbstractGameView {
     public void setBoard(Board board){
         this.board = board;
     }
-
 }
