@@ -14,9 +14,9 @@ public abstract class NameGenerator {
     public static String getRandomName(Unit.Allegiance allegiance){
         List<String> nameList;
         if (allegiance == Unit.Allegiance.PLAYER){
-            nameList = FileReader.readFile("goodGuys.txt");
+            nameList = FileReader.readFile("Scenarios/goodGuys.txt");
         }else{
-            nameList = FileReader.readFile("badGuys.txt");
+            nameList = FileReader.readFile("Scenarios/badGuys.txt");
         }
         Random rand = new Random();
         return nameList.get(rand.nextInt(nameList.size()));

@@ -12,11 +12,11 @@ public class FlyingAxeman extends Axeman {
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "Sprites/Units/Blue/blue-axe-flying-animation.png";
             textureFilePath = "Sprites/Units/Blue/blue-axe-flying-sprite.png";
-            portraitFilePath = "Menus/shrek-blue.png";
+            portraitFilePath = "Sprites/Units/shrek-blue.png";
         } else {
             animationFilePath = "Sprites/Units/Red/red-axe-flying-animation.png";
             textureFilePath = "Sprites/Units/Red/red-axe-flying-sprite.png";
-            portraitFilePath = "Menus/shrek-red.png";
+            portraitFilePath = "Sprites/Units/shrek-red.png";
         }
     }
 }

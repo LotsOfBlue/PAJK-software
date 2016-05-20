@@ -33,11 +33,11 @@ public class Archer extends Unit {
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "Sprites/Units/Blue/blue-bow-animation.png";
             textureFilePath = "Sprites/Units/Blue/blue-bow-sprite.png";
-            portraitFilePath = "Menus/shrek-blue.png";
+            portraitFilePath = "Sprites/Units/shrek-blue.png";
         } else {
             animationFilePath = "Sprites/Units/Red/red-bow-animation.png";
             textureFilePath = "Sprites/Units/Red/red-bow-sprite.png";
-            portraitFilePath = "Menus/shrek-red.png";
+            portraitFilePath = "Sprites/Units/shrek-red.png";
         }
     }
 }

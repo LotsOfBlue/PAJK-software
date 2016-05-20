@@ -33,11 +33,11 @@ public class Mage extends Unit {
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "Sprites/Units/Blue/blue-tome-animation.png";
             textureFilePath = "Sprites/Units/Blue/blue-tome-sprite.png";
-            portraitFilePath = "Menus/shrek-blue.png";
+            portraitFilePath = "Sprites/Units/shrek-blue.png";
         } else {
             animationFilePath = "Sprites/Units/Red/red-tome-animation.png";
             textureFilePath = "Sprites/Units/Red/red-tome-sprite.png";
-            portraitFilePath = "Menus/shrek-red.png";
+            portraitFilePath = "Sprites/Units/shrek-red.png";
         }
     }
 }

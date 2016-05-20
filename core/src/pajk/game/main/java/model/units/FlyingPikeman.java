@@ -12,11 +12,11 @@ public class FlyingPikeman extends Pikeman {
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "Sprites/Units/Blue/blue-pike-flying-animation.png";
             textureFilePath = "Sprites/Units/Blue/blue-pike-flying-sprite.png";
-            portraitFilePath = "Menus/shrek-blue.png";
+            portraitFilePath = "Sprites/Units/shrek-blue.png";
         } else {
             animationFilePath = "Sprites/Units/Red/red-pike-flying-animation.png";
             textureFilePath = "Sprites/Units/Red/red-pike-flying-sprite.png";
-            portraitFilePath = "Menus/shrek-red.png";
+            portraitFilePath = "Sprites/Units/shrek-red.png";
         }
     }
 }

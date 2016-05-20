@@ -12,11 +12,11 @@ public class FlyingSwordsman extends Swordsman {
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "Sprites/Units/Blue/blue-sword-flying-animation.png";
             textureFilePath = "Sprites/Units/Blue/blue-sword-flying-sprite.png";
-            portraitFilePath = "Menus/shrek-blue.png";
+            portraitFilePath = "Sprites/Units/shrek-blue.png";
         } else {
             animationFilePath = "Sprites/Units/Red/red-sword-flying-animation.png";
             textureFilePath = "Sprites/Units/Red/red-sword-flying-sprite.png";
-            portraitFilePath = "Menus/shrek-red.png";
+            portraitFilePath = "Sprites/Units/shrek-red.png";
         }
     }
 }
