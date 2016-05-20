@@ -57,10 +57,7 @@ public class EndView extends AbstractGameView{
             font.draw(spriteBatch,"Your score was "+endState.getScore(),x+20,y+ statusBackground.getHeight() - 180);
             font.draw(spriteBatch,"More useless stats coming soon!",x+20,y+ statusBackground.getHeight() - 220);
         }
-
-
         spriteBatch.end();
-
     }
 
     @Override

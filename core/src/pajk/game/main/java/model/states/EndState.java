@@ -26,14 +26,12 @@ public class EndState extends State {
         units = gameModel.getNumberOfUnits(winner);
         turns = gameModel.getNumberOfTurns();
         score = getGameScore(winner);
-
     }
 
     @Override
     void enterAction(){
         gameModel.setState(StateName.MAIN_MENU);
     }
-
 
     public int getGameScore(Unit.Allegiance player){
         return base*units/turns;//TODO more advanced calcs?
