@@ -11,7 +11,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.MainState;
-import pajk.game.main.java.model.units.*;
+//import pajk.game.main.java.model.units.*;
+import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.units.Archer;
+import pajk.game.main.java.model.units.Swordsman;
+import pajk.game.main.java.model.units.Pikeman;
+import pajk.game.main.java.model.units.Axeman;
+
 
 
 /**

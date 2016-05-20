@@ -7,7 +7,11 @@ import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.units.*;
+import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.units.Archer;
+import pajk.game.main.java.model.units.Axeman;
+import pajk.game.main.java.model.units.Pikeman;
+import pajk.game.main.java.model.units.Swordsman;
 
 /**
  * Visual representation of the combat.
