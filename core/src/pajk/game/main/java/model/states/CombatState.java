@@ -5,6 +5,7 @@ import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.items.Tome;
 import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.utils.CombatCalculator;
 import pajk.game.main.java.model.utils.PathFinder;
 
 import java.util.Random;
@@ -117,7 +118,7 @@ public class CombatState extends State {
             //Get critmultiplier & save value
             int critMult = (firstCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit))? 2:1;
 
-            firstDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
+            firstDamageFromActiveUnit = critMult*CombatCalculator.calcDamageThisToThat(activeUnit, targetUnit);
 
         }
 
@@ -136,7 +137,7 @@ public class CombatState extends State {
 
                     //Get crit multiplier & save value
                     int critMult = (critFromEnemyUnit = doesThisCritThat(targetUnit, activeUnit)) ? 2 : 1;
-                    damageFromEnemyUnit = critMult*calcDamageThisToThat(targetUnit, activeUnit);
+                    damageFromEnemyUnit = critMult*CombatCalculator.calcDamageThisToThat(targetUnit, activeUnit);
 
                 }
             }
@@ -152,7 +153,7 @@ public class CombatState extends State {
                 //Try to hit
                 if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)){
                     int critMult = (secondCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit)) ? 2 : 1;
-                    secondDamageFromActiveUnit = critMult*calcDamageThisToThat(activeUnit, targetUnit);
+                    secondDamageFromActiveUnit = critMult*CombatCalculator.calcDamageThisToThat(activeUnit, targetUnit);
 
                 }
             }
@@ -175,41 +176,14 @@ public class CombatState extends State {
     //----------------------------------------------------------------------------
 
     //TODO refactor to util combat logic?
-    /**
-     * Calculates the damage attackerUnit would do to defenderUnit with a normal attack (crit and miss exluded).
-     * Takes attacker weaponDamage, might or strength, weaponAdvantage & defender resistance or defence into consideration.
-     * @param attackerUnit the unit performing the attack.
-     * @param defenderUnit the unit being attacked.
-     * @return the damage that attacker will deal (if attack hit)
-     */
-    public static int calcDamageThisToThat(Unit attackerUnit, Unit defenderUnit) {
-        int damage;
-        if (attackerUnit.getWeapon() instanceof Tome) {
-            damage = attackerUnit.getWeapon().getDamage()
-                    + attackerUnit.getStrength()
-                    + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
-                    - defenderUnit.getResistance();
-        } else {
-            damage = attackerUnit.getWeapon().getDamage()
-                    + attackerUnit.getStrength()
-                    + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
-                    - defenderUnit.getDefence();
-        }
 
-        //The lower bound of damage is 0
-        if (damage < 0) {
-            return 0;
-        } else {
-            return damage;
-        }
-    }
 
     /*
      * Determines if attackerUnit criticaly hits defenderUnit (with rng)
      */
     private boolean doesThisCritThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
-        return getCritChance(attackerUnit, defenderUnit)
+        return CombatCalculator.getCritChance(attackerUnit, defenderUnit)
                 > random.nextInt(100);
     }
 
@@ -218,48 +192,13 @@ public class CombatState extends State {
      */
     private boolean doesThisHitThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
-        return getHitChance(attackerUnit,defenderUnit, board)
+        return CombatCalculator.getHitChance(attackerUnit,defenderUnit, board)
                 > random.nextInt(100);//TODO change to correct value instead of test
     }
 
-    //TODO refactor to util combat logic?
-    /*
-     * Determines how much extra damage attackerUnit does to defenderUnit due to weapon types
-     */
-    public static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
-        //TODO make part of weapon classes instead?
-        //asdk for active unit weapon bonus vs defender weapon
-        int bonusVal = attackerUnit.getWeapon().getAdvantageModifier(defenderUnit.getWeapon());
 
-        return bonusVal;
-    }
 
-    //TODO refactor to util combat logic?
-    public static int getHitChance(Unit attackerUnit, Unit defenderUnit, Board board){
-        int chance = (attackerUnit.getWeapon().getAccuracy()
-                + attackerUnit.getSkill()
-                + CombatState.getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
-                - defenderUnit.getSpeed()
-                - board.getPos(defenderUnit).getEvasion());
-        if(chance < 0){
-            return 0;
-        } else {
-            return chance;
-        }
-    }
 
-    //TODO refactor to util combat logic?
-    public static int getCritChance(Unit attackerUnit, Unit defenderUnit){
-        int chance = (attackerUnit.getWeapon().getCritChance()
-                + attackerUnit.getSkill()
-                + attackerUnit.getLuck()
-                - defenderUnit.getLuck());
-        if(chance < 0){
-            return 0;
-        } else {
-            return chance;
-        }
-    }
     //----------------------------------------------------------------------------
 
 

@@ -3,6 +3,7 @@ package pajk.game.main.java.model.states;
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.utils.CombatCalculator;
 
 /**
  * A state showing how much damage the units will deal to each other if you commence the attack, and also their chance
@@ -36,12 +37,12 @@ public class CombatInfoState extends State {
         activeUnit = gameModel.getActiveUnit();
         targetUnit = gameModel.getTargetUnit();
 
-        activeDmg = CombatState.calcDamageThisToThat(activeUnit, targetUnit);
-        targetDmg = CombatState.calcDamageThisToThat(targetUnit, activeUnit);
-        activeHitChance = CombatState.getHitChance(activeUnit, targetUnit, board);
-        targetHitChance = CombatState.getHitChance(targetUnit, activeUnit, board);
-        activeCritChance = CombatState.getCritChance(activeUnit, targetUnit);
-        targetCritChance = CombatState.getCritChance(targetUnit, activeUnit);
+        activeDmg = CombatCalculator.calcDamageThisToThat(activeUnit, targetUnit);
+        targetDmg = CombatCalculator.calcDamageThisToThat(targetUnit, activeUnit);
+        activeHitChance = CombatCalculator.getHitChance(activeUnit, targetUnit, board);
+        targetHitChance = CombatCalculator.getHitChance(targetUnit, activeUnit, board);
+        activeCritChance = CombatCalculator.getCritChance(activeUnit, targetUnit);
+        targetCritChance = CombatCalculator.getCritChance(targetUnit, activeUnit);
     }
 
     @Override

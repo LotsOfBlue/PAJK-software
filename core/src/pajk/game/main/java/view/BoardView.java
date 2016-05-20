@@ -12,12 +12,7 @@ import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.MainState;
 //import pajk.game.main.java.model.units.*;
-import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.units.Archer;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Pikeman;
-import pajk.game.main.java.model.units.Axeman;
-
+import pajk.game.main.java.model.units.*;
 
 
 /**
@@ -45,6 +40,10 @@ public class BoardView extends AbstractGameView {
     private Texture grayPikeUnitSprite;
     private Texture bluePikeUnitSprite;
     private Texture redPikeUnitSprite;
+
+    private Texture grayMageUnitSprite;
+    private Texture blueMageUnitSprite;
+    private Texture redMageUnitSprite;
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
@@ -89,6 +88,10 @@ public class BoardView extends AbstractGameView {
         grayPikeUnitSprite = new Texture("gray-pike-sprite");
         bluePikeUnitSprite = new Texture("blue-pike-sprite");
         redPikeUnitSprite = new Texture("red-pike-sprite");
+
+        grayMageUnitSprite = new Texture("gray-tome-sprite.png");
+        blueMageUnitSprite = new Texture("blue-tome-sprite.png");
+        redMageUnitSprite = new Texture("red-tome-sprite.png");
 
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
@@ -179,6 +182,15 @@ public class BoardView extends AbstractGameView {
                 myTexture = blueAxeUnitSprite;
             } else{
                 myTexture = redAxeUnitSprite;
+
+            }
+        } else if (myUnit instanceof Mage) {
+            if (myUnit.getUnitState() == Unit.UnitState.DONE) {
+                myTexture = grayMageUnitSprite;
+            } else if (myUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
+                myTexture = blueMageUnitSprite;
+            } else {
+                myTexture = redMageUnitSprite;
 
             }
         }

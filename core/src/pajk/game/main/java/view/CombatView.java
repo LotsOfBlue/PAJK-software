@@ -7,11 +7,7 @@ import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.units.Archer;
-import pajk.game.main.java.model.units.Axeman;
-import pajk.game.main.java.model.units.Pikeman;
-import pajk.game.main.java.model.units.Swordsman;
+import pajk.game.main.java.model.units.*;
 
 /**
  * Visual representation of the combat.
@@ -56,12 +52,18 @@ public class CombatView extends AbstractGameView {
 
     private Animation redSwordUnitAnimation;
     private Animation blueSwordUnitAnimation;
+
     private Animation redBowUnitAnimation;
     private Animation blueBowUnitAnimation;
+
     private Animation redAxeUnitAnimation;
     private Animation blueAxeUnitAnimation;
+
     private Animation redPikeUnitAnimation;
     private Animation bluePikeUnitAnimation;
+
+    private Animation redMageUnitAnimation;
+    private Animation blueMageUnitAnimation;
 
     private BitmapFont bitmapFont;
 
@@ -79,20 +81,19 @@ public class CombatView extends AbstractGameView {
 
 
         blueSwordUnitAnimation = getAnimationFrom(new Texture("blue-sword-animation"));
-
         redSwordUnitAnimation = getAnimationFrom(new Texture("red-sword-animation"));
 
         blueBowUnitAnimation = getAnimationFrom(new Texture("blue-bow-animation"));
-
         redBowUnitAnimation = getAnimationFrom(new Texture("red-bow-animation"));
 
         blueAxeUnitAnimation = getAnimationFrom(new Texture("blue-axe-animation"));
-
         redAxeUnitAnimation = getAnimationFrom(new Texture("red-axe-animation"));
 
         bluePikeUnitAnimation = getAnimationFrom(new Texture("blue-pike-animation"));
-
         redPikeUnitAnimation = getAnimationFrom(new Texture("red-pike-animation"));
+
+        blueMageUnitAnimation = getAnimationFrom(new Texture("blue-tome-animation.png"));
+        redMageUnitAnimation = getAnimationFrom(new Texture("red-tome-animation.png"));
 
 
 
@@ -236,6 +237,12 @@ public class CombatView extends AbstractGameView {
                 drawAttackFrame(unit, bluePikeUnitAnimation.getKeyFrame(frame));
             }else{
                 drawAttackFrame(unit, redPikeUnitAnimation.getKeyFrame(frame));
+            }
+        } else if (unit instanceof Mage){
+            if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+                drawAttackFrame(unit, blueMageUnitAnimation.getKeyFrame(frame));
+            }else{
+                drawAttackFrame(unit, redMageUnitAnimation.getKeyFrame(frame));
             }
         }
 

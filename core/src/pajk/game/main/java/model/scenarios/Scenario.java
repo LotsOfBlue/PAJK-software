@@ -1,14 +1,8 @@
 package pajk.game.main.java.model.scenarios;
 
 import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.items.HuntingBow;
-import pajk.game.main.java.model.items.IronPike;
-import pajk.game.main.java.model.items.Weapon;
-import pajk.game.main.java.model.units.Archer;
-import pajk.game.main.java.model.units.Pikeman;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.items.IronSword;
+import pajk.game.main.java.model.items.*;
+import pajk.game.main.java.model.units.*;
 import pajk.game.main.java.model.utils.FileReader;
 
 import java.util.ArrayList;
@@ -68,6 +62,10 @@ public class Scenario {
                 return new Swordsman(allegiance, level);
             case "Pikeman":
                 return new Pikeman(allegiance, level);
+            case "Axeman":
+                return new Axeman(allegiance, level);
+            case "Mage":
+                return new Mage(allegiance, level);
             default:
                 return null;
         }
@@ -81,6 +79,10 @@ public class Scenario {
                 return new HuntingBow();
             case "IronPike":
                 return new IronPike();
+            case "IronAxe":
+                return new IronAxe();
+            case "ArcaneBolt":
+                return new ArcaneBolt();
             default:
                 return null;
         }

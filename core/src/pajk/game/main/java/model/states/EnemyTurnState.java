@@ -4,6 +4,7 @@ import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
+import pajk.game.main.java.model.utils.CombatCalculator;
 import pajk.game.main.java.model.utils.PathFinder;
 
 import java.util.*;
@@ -167,7 +168,7 @@ public class EnemyTurnState extends State {
         int highestDmg = 0;
         Unit target = null;
         for (Unit u : targets) {
-            int dmg = CombatState.calcDamageThisToThat(activeUnit, u);
+            int dmg = CombatCalculator.calcDamageThisToThat(activeUnit, u);
             //TODO consider evasion
             if (dmg >= highestDmg) {
                 highestDmg = dmg;

@@ -61,9 +61,10 @@ public class CombatInfoView extends AbstractGameView{
                 "\n" + activeUnit.getHealth() + " --> " + (activeUnit.getHealth() - combatInfoState.getTargetDmg())
                         + "/" + activeUnit.getMaxHealth() + " HP"
                         + "\n\n" + combatInfoState.getActiveDmg() + " DMG"
-                        + "\n\n" + combatInfoState.getActiveHitChance() + "/100 HIT CHANCE"
-                        + "\n\n" + combatInfoState.getActiveCritChance() + "/100 CRIT CHANCE"
+                        + "\n\n" + combatInfoState.getActiveHitChance() + "% HIT CHANCE"
+                        + "\n\n" + combatInfoState.getActiveCritChance() + "% CRIT CHANCE"
                         + "\n\n" + activeUnit.getSpeed() + " SPEED"
+                        + "\n\n" + activeUnit.getWeapon().getName()
                 , x + (statusBackground.getWidth()/8)
                 ,  y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
         font.draw(spriteBatch,
@@ -71,9 +72,10 @@ public class CombatInfoView extends AbstractGameView{
                         (targetUnit.getHealth() - combatInfoState.getActiveDmg())
                         + "/" + targetUnit.getMaxHealth() + " HP"
                         + "\n\n" + combatInfoState.getTargetDmg() + " DMG"
-                        + "\n\n" + combatInfoState.getTargetHitChance() + "/100 HIT CHANCE"
-                        + "\n\n" + combatInfoState.getTargetCritChance() + "/100 CRIT CHANCE"
+                        + "\n\n" + combatInfoState.getTargetHitChance() + "% HIT CHANCE"
+                        + "\n\n" + combatInfoState.getTargetCritChance() + "% CRIT CHANCE"
                         + "\n\n" + targetUnit.getSpeed() + " SPEED"
+                        + "\n\n" + targetUnit.getWeapon().getName()
                 , x + 7 * (statusBackground.getWidth()/8) - targetUnitImage.getWidth()
                 , y + 7 * (statusBackground.getHeight()/8));
         spriteBatch.draw(targetUnitImage,x + 7 * (statusBackground.getWidth()/8) - targetUnitImage.getWidth(), y + (statusBackground.getHeight()/8));
@@ -87,9 +89,9 @@ public class CombatInfoView extends AbstractGameView{
 
     private Texture getTextureFor(Unit unit){
         if (unit.getAllegiance().equals(Allegiance.PLAYER)){
-            return new Texture("shrek-red.png");
-        } else {
             return new Texture("shrek-blue.png");
+        } else {
+            return new Texture("shrek-red.png");
         }
     }
 }
