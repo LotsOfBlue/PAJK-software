@@ -12,4 +12,9 @@ public class ArcaneBolt extends Tome {
         critChance = 1;
         accuracy = 90;
     }
+
+    @Override
+    public String getDescription() {
+        return "A powerful bolt of arcane magic that will hurt your enemies.";
+    }
 }

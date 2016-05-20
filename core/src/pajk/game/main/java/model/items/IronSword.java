@@ -12,4 +12,9 @@ public class IronSword extends Sword {
         critChance = 1;
         accuracy = 90;
     }
+
+    @Override
+    public String getDescription() {
+        return "Sword made of iron. Is stronger in the afternoon.";
+    }
 }

@@ -12,4 +12,9 @@ public class IronAxe extends Axe{
         critChance = 1;
         accuracy = 75;
     }
+
+    @Override
+    public String getDescription() {
+        return "Axe made of iron. Hits hard when it eventually hits.";
+    }
 }

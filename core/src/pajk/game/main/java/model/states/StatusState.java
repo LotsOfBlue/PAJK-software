@@ -129,28 +129,36 @@ public class StatusState extends State {
 
         statLines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
         for(int i = 0; i < statLines.size(); i++){
-            if(statLines.get(i).length() > 29 && statLines.get(i).substring(29).contains(" ") && statLines.get(i).length() < 65){
-                String tmp1 = statLines.get(i);
+            String tmp1 = statLines.get(i);
+            String tmp2 = tmp1;
+            if(i==4){
+                tmp1 = statusUnit.getWeapon().getDescription();
+            }
+
+            if(tmp1.length() > 29 && tmp1.substring(29).contains(" ") && tmp1.length() < 65){
+//                tmp1 = statLines.get(i);
 
                 int spaceIndex = tmp1.indexOf(" ",tmp1.length()/2);
-                String tmp2 = tmp1.substring(0,spaceIndex)+"\n"+tmp1.substring(spaceIndex+1);
+                tmp2 = tmp1.substring(0,spaceIndex)+"\n"+tmp1.substring(spaceIndex+1);
 
-                statLines.remove(i);
-                statLines.add(i,tmp2);
 
-            } else if (statLines.get(i).length() >= 65){
-                String tmp1 = statLines.get(i);
+
+            } else if (tmp1.length() >= 65){
+//                tmp1 = statLines.get(i);
 
                 int spaceIndex1 = tmp1.indexOf(" ",tmp1.length()/3);
                 int spaceIndex2 = tmp1.indexOf(" ",2*tmp1.length()/3);
 
-                String tmp2 = tmp1.substring(0,spaceIndex1)+"\n"+tmp1.substring(spaceIndex1+1,spaceIndex2) + "\n" +
+                tmp2 = tmp1.substring(0,spaceIndex1)+"\n"+tmp1.substring(spaceIndex1+1,spaceIndex2) + "\n" +
                         tmp1.substring(spaceIndex2+1);
-                statLines.remove(i);
-                statLines.add(i,tmp2);
+
 
 
             }
+
+
+            statLines.remove(i);
+            statLines.add(i,tmp2);
 
         }
 

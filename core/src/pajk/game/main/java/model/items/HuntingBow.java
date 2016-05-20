@@ -12,4 +12,9 @@ public class HuntingBow extends Bow {
         critChance = 1;
         accuracy = 80;
     }
+
+    @Override
+    public String getDescription() {
+        return "Used to be used for hunting birds. Might hit if you are lucky.";
+    }
 }

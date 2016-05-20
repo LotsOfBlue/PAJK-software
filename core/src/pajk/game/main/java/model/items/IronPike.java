@@ -12,4 +12,9 @@ public class IronPike extends Pike{
         critChance = 1;
         accuracy = 80;
     }
+
+    @Override
+    public String getDescription() {
+        return "Pike made of iron. Has a pointy edge.";
+    }
 }
