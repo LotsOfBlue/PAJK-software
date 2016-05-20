@@ -174,6 +174,7 @@ public class CombatState extends State {
 
     //----------------------------------------------------------------------------
 
+    //TODO refactor to util combat logic?
     /**
      * Calculates the damage attackerUnit would do to defenderUnit with a normal attack (crit and miss exluded).
      * Takes attacker weaponDamage, might or strength, weaponAdvantage & defender resistance or defence into consideration.
@@ -208,11 +209,8 @@ public class CombatState extends State {
      */
     private boolean doesThisCritThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
-        return ((attackerUnit.getWeapon().getCritChance()
-                + attackerUnit.getSkill()
-                + attackerUnit.getLuck()
-                - defenderUnit.getLuck())
-                > random.nextInt(100));
+        return getCritChance(attackerUnit, defenderUnit)
+                > random.nextInt(100);
     }
 
     /*
@@ -220,24 +218,47 @@ public class CombatState extends State {
      */
     private boolean doesThisHitThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
-        return ((attackerUnit.getWeapon().getAccuracy()
-                + attackerUnit.getSkill()
-                + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
-                - defenderUnit.getSpeed())
-                >
-                (random.nextInt(10)//TODO change to correct value instead of test
-                + board.getPos(defenderUnit).getEvasion()));
+        return getHitChance(attackerUnit,defenderUnit, board)
+                > random.nextInt(100);//TODO change to correct value instead of test
     }
 
+    //TODO refactor to util combat logic?
     /*
      * Determines how much extra damage attackerUnit does to defenderUnit due to weapon types
      */
     public static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
-        //TODO make part of weapon classes instead
+        //TODO make part of weapon classes instead?
         //asdk for active unit weapon bonus vs defender weapon
         int bonusVal = attackerUnit.getWeapon().getAdvantageModifier(defenderUnit.getWeapon());
 
         return bonusVal;
+    }
+
+    //TODO refactor to util combat logic?
+    public static int getHitChance(Unit attackerUnit, Unit defenderUnit, Board board){
+        int chance = (attackerUnit.getWeapon().getAccuracy()
+                + attackerUnit.getSkill()
+                + CombatState.getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
+                - defenderUnit.getSpeed()
+                - board.getPos(defenderUnit).getEvasion());
+        if(chance < 0){
+            return 0;
+        } else {
+            return chance;
+        }
+    }
+
+    //TODO refactor to util combat logic?
+    public static int getCritChance(Unit attackerUnit, Unit defenderUnit){
+        int chance = (attackerUnit.getWeapon().getCritChance()
+                + attackerUnit.getSkill()
+                + attackerUnit.getLuck()
+                - defenderUnit.getLuck());
+        if(chance < 0){
+            return 0;
+        } else {
+            return chance;
+        }
     }
     //----------------------------------------------------------------------------
 

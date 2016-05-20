@@ -56,17 +56,16 @@ public class CombatInfoView extends AbstractGameView{
         int y = (int)(camera.position.y - (statusBackground.getHeight()/2));
         spriteBatch.begin();
         spriteBatch.draw(statusBackground,x,y);
-        spriteBatch.draw(activeUnitImage,x + (statusBackground.getWidth()/8), y + 6 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
+        spriteBatch.draw(activeUnitImage,x + (statusBackground.getWidth()/8), y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
         font.draw(spriteBatch,
-                activeUnit.getHealth() + " --> " +
-                        (activeUnit.getHealth() - combatInfoState.getTargetDmg())
+                "\n" + activeUnit.getHealth() + " --> " + (activeUnit.getHealth() - combatInfoState.getTargetDmg())
                         + "/" + activeUnit.getMaxHealth() + " HP"
                         + "\n\n" + combatInfoState.getActiveDmg() + " DMG"
                         + "\n\n" + combatInfoState.getActiveHitChance() + "/100 HIT CHANCE"
                         + "\n\n" + combatInfoState.getActiveCritChance() + "/100 CRIT CHANCE"
                         + "\n\n" + activeUnit.getSpeed() + " SPEED"
                 , x + (statusBackground.getWidth()/8)
-                , y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
+                ,  y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
         font.draw(spriteBatch,
                 targetUnit.getHealth() + " --> " +
                         (targetUnit.getHealth() - combatInfoState.getActiveDmg())

@@ -38,10 +38,10 @@ public class CombatInfoState extends State {
 
         activeDmg = CombatState.calcDamageThisToThat(activeUnit, targetUnit);
         targetDmg = CombatState.calcDamageThisToThat(targetUnit, activeUnit);
-        activeHitChance = getHitChance(activeUnit, targetUnit);
-        targetHitChance = getHitChance(targetUnit, activeUnit);
-        activeCritChance = getCritChance(activeUnit, targetUnit);
-        targetCritChance = getCritChance(targetUnit, activeUnit);
+        activeHitChance = CombatState.getHitChance(activeUnit, targetUnit, board);
+        targetHitChance = CombatState.getHitChance(targetUnit, activeUnit, board);
+        activeCritChance = CombatState.getCritChance(activeUnit, targetUnit);
+        targetCritChance = CombatState.getCritChance(targetUnit, activeUnit);
     }
 
     @Override
@@ -49,20 +49,7 @@ public class CombatInfoState extends State {
         return GameModel.StateName.COMBAT_INFO;
     }
 
-    private int getHitChance(Unit attackerUnit, Unit defenderUnit){
-        return (attackerUnit.getWeapon().getAccuracy()
-                + attackerUnit.getSkill()
-                + CombatState.getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
-                - defenderUnit.getSpeed())
-                - board.getPos(defenderUnit).getEvasion();
-    }
 
-    private int getCritChance(Unit attackerUnit, Unit defenderUnit){
-        return(attackerUnit.getWeapon().getCritChance()
-                + attackerUnit.getSkill()
-                + attackerUnit.getLuck()
-                - defenderUnit.getLuck());
-    }
 
     public int getActiveDmg() {
         return activeDmg;
