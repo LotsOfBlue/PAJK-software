@@ -3,6 +3,7 @@ package pajk.game.main.java.model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pajk.game.main.java.model.units.Swordsman;
 import pajk.game.main.java.model.units.Unit;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class BoardTest {
     public void setUp() throws Exception {
         //should test with other maps.
         testBoard = new Board("map1.txt");
-        testUnit = new Unit(Unit.Allegiance.PLAYER, 2, Unit.MovementType.WALKING, Unit.UnitClass.BOW);
+        testUnit = new Swordsman(Unit.Allegiance.PLAYER, 5);
     }
 
     @After
@@ -100,7 +101,7 @@ public class BoardTest {
     public void getTilesWithinMoveRange() throws Exception {
         testBoard.placeUnit(testUnit,testBoard.getTile(0,0));
         Set<Tile> tileSet = testBoard.getTilesWithinMoveRange(testUnit);
-        assertTrue(tileSet.size() == 4);
+        assertTrue(tileSet.size() == 16);
 
     }
 
