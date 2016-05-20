@@ -88,9 +88,9 @@ public class CombatInfoView extends AbstractGameView{
 
     private Texture getTextureFor(Unit unit){
         if (unit.getAllegiance().equals(Allegiance.PLAYER)){
-            return new Texture("shrek-red.png");
+            return new Texture("Sprites/Units/shrek-red.png");
         } else {
-            return new Texture("shrek-blue.png");
+            return new Texture("Sprites/Units/shrek-blue.png");
         }
     }
 }
