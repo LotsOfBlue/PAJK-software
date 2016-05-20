@@ -8,15 +8,15 @@ public class FlyingPikeman extends Pikeman {
         super(allegiance, level);
         movementType = MovementType.FLYING;
         profession = "Flying Pikeman";
-        grayTextureFilePath = "gray-pike-flying-sprite.png";
+        grayTextureFilePath = "Sprites/Units/Gray/gray-pike-flying-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-pike-flying-animation.png";
-            textureFilePath = "blue-pike-flying-sprite.png";
-            portraitFilePath = "shrek-blue.png";
+            animationFilePath = "Sprites/Units/Blue/blue-pike-flying-animation.png";
+            textureFilePath = "Sprites/Units/Blue/blue-pike-flying-sprite.png";
+            portraitFilePath = "Menus/shrek-blue.png";
         } else {
-            animationFilePath = "red-pike-flying-animation.png";
-            textureFilePath = "red-pike-flying-sprite.png";
-            portraitFilePath = "shrek-red.png";
+            animationFilePath = "Sprites/Units/Red/red-pike-flying-animation.png";
+            textureFilePath = "Sprites/Units/Red/red-pike-flying-sprite.png";
+            portraitFilePath = "Menus/shrek-red.png";
         }
     }
 }

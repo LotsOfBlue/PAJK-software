@@ -27,15 +27,15 @@ public class Swordsman extends Unit {
 
         addExperience((level - 1) * 100);
         health = maxHealth;
-        grayTextureFilePath = "gray-sword-sprite.png";
+        grayTextureFilePath = "Sprites/Units/Gray/gray-sword-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-sword-animation.png";
-            textureFilePath = "blue-sword-sprite.png";
-            portraitFilePath = "shrek-blue.png";
+            animationFilePath = "Sprites/Units/Blue/blue-sword-animation.png";
+            textureFilePath = "Sprites/Units/Blue/blue-sword-sprite.png";
+            portraitFilePath = "Menus/shrek-blue.png";
         } else {
-            animationFilePath = "red-sword-animation.png";
-            textureFilePath = "red-sword-sprite.png";
-            portraitFilePath = "shrek-red.png";
+            animationFilePath = "Sprites/Units/Red/red-sword-animation.png";
+            textureFilePath = "Sprites/Units/Red/red-sword-sprite.png";
+            portraitFilePath = "Menus/shrek-red.png";
         }
     }
 }

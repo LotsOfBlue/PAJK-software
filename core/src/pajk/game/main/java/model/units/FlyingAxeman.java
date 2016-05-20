@@ -8,15 +8,15 @@ public class FlyingAxeman extends Axeman {
         super(allegiance, level);
         movementType = MovementType.FLYING;
         profession = "Flying Axeman";
-        grayTextureFilePath = "gray-axe-flying-sprite.png";
+        grayTextureFilePath = "Sprites/Units/Gray/gray-axe-flying-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-axe-flying-animation.png";
-            textureFilePath = "blue-axe-flying-sprite.png";
-            portraitFilePath = "shrek-blue.png";
+            animationFilePath = "Sprites/Units/Blue/blue-axe-flying-animation.png";
+            textureFilePath = "Sprites/Units/Blue/blue-axe-flying-sprite.png";
+            portraitFilePath = "Menus/shrek-blue.png";
         } else {
-            animationFilePath = "red-axe-flying-animation.png";
-            textureFilePath = "red-axe-flying-sprite.png";
-            portraitFilePath = "shrek-red.png";
+            animationFilePath = "Sprites/Units/Red/red-axe-flying-animation.png";
+            textureFilePath = "Sprites/Units/Red/red-axe-flying-sprite.png";
+            portraitFilePath = "Menus/shrek-red.png";
         }
     }
 }

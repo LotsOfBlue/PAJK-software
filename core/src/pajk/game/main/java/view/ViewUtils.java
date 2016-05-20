@@ -8,10 +8,10 @@ import pajk.game.main.java.model.Tile;
  */
 public class ViewUtils {
 
-    private static Texture plainsTexture = new Texture("grass64.png");
-    private static Texture forestTexture = new Texture("forest64.png");
-    private static Texture mountainTexture = new Texture("mountain64.png");
-    private static Texture waterTexture = new Texture("water64.png");
+    private static Texture plainsTexture = new Texture("Sprites/Tiles/grass64.png");
+    private static Texture forestTexture = new Texture("Sprites/Tiles/forest64.png");
+    private static Texture mountainTexture = new Texture("Sprites/Tiles/mountain64.png");
+    private static Texture waterTexture = new Texture("Sprites/Tiles/water64.png");
 
 
     public static Texture getTileTexture(Tile tile){

@@ -67,8 +67,8 @@ public class CombatView extends AbstractGameView {
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(2f,2f);
 
-        gridTexture = new Texture("gridOverlay64.png");
-        hpBar = new Texture("hpbarBlue.png");
+        gridTexture = new Texture("Sprites/Tiles/gridOverlay64.png");
+        hpBar = new Texture("Sprites/Units/hpbarBlue.png");
 
     }
 

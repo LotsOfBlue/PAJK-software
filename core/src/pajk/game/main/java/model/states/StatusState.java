@@ -21,7 +21,6 @@ public class StatusState extends State {
     private List<String> statLines;
     private int unitIndex;
 
-
     @Override
     void enterAction(){
         //no action in this state
@@ -122,7 +121,7 @@ public class StatusState extends State {
         statusList.add(resistance);
         statusList.add(movement);
 
-        statLines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
+        statLines = FileReader.readFile("Menus/statusInfo.txt"); //statusInfo.txt needs to match the units stats
         for(int i = 0; i < statLines.size(); i++){
             String tmp1 = statLines.get(i);
             String tmp2 = tmp1;
@@ -149,7 +148,6 @@ public class StatusState extends State {
             statLines.add(i,wepStatsText + tmp2);
 
         }
-
     }
 
     @Override
@@ -166,7 +164,6 @@ public class StatusState extends State {
     }
     public String getActiveInfoItemText(){
         return statLines.get(selectedInfoItemNr);
-
     }
     public String getInfoItem(int i){
         return statusList.get(i);

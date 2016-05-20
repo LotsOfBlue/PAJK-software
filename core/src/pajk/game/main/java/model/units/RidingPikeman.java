@@ -8,15 +8,15 @@ public class RidingPikeman extends Pikeman{
         super(allegiance, level);
         profession = "Riding Pikeman";
         movementType = MovementType.RIDING;
-        grayTextureFilePath = "gray-pike-riding-sprite.png";
+        grayTextureFilePath = "Sprites/Units/Gray/gray-pike-riding-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-pike-riding-animation.png";
-            textureFilePath = "blue-pike-riding-sprite.png";
-            portraitFilePath = "shrek-blue.png";
+            animationFilePath = "Sprites/Units/Blue/blue-pike-riding-animation.png";
+            textureFilePath = "Sprites/Units/Blue/blue-pike-riding-sprite.png";
+            portraitFilePath = "Menus/shrek-blue.png";
         } else {
-            animationFilePath = "red-pike-riding-animation.png";
-            textureFilePath = "red-pike-riding-sprite.png";
-            portraitFilePath = "shrek-red.png";
+            animationFilePath = "Sprites/Units/Red/red-pike-riding-animation.png";
+            textureFilePath = "Sprites/Units/Red/red-pike-riding-sprite.png";
+            portraitFilePath = "Menus/shrek-red.png";
         }
     }
 }

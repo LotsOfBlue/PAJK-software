@@ -8,15 +8,15 @@ public class RidingSwordsman extends Swordsman {
         super(allegiance, level);
         profession = "Riding Swordsman";
         movementType = MovementType.RIDING;
-        grayTextureFilePath = "gray-sword-riding-sprite.png";
+        grayTextureFilePath = "Sprites/Units/Gray/gray-sword-riding-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-sword-riding-animation.png";
-            textureFilePath = "blue-sword-riding-sprite.png";
-            portraitFilePath = "shrek-blue.png";
+            animationFilePath = "Sprites/Units/Blue/blue-sword-riding-animation.png";
+            textureFilePath = "Sprites/Units/Blue/blue-sword-riding-sprite.png";
+            portraitFilePath = "Menus/shrek-blue.png";
         } else {
-            animationFilePath = "red-sword-riding-animation.png";
-            textureFilePath = "red-sword-riding-sprite.png";
-            portraitFilePath = "shrek-red.png";
+            animationFilePath = "Sprites/Units/Red/red-sword-riding-animation.png";
+            textureFilePath = "Sprites/Units/Red/red-sword-riding-sprite.png";
+            portraitFilePath = "Menus/shrek-red.png";
         }
     }
 }

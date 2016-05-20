@@ -28,6 +28,22 @@ public class BoardView extends AbstractGameView {
 
     private HashMap<String, Texture> unitTextureMap = new HashMap<>();
 
+    private Texture graySwordUnitSprite;
+    private Texture blueSwordUnitSprite;
+    private Texture redSwordUnitSprite;
+
+    private Texture grayBowUnitSprite;
+    private Texture blueBowUnitSprite;
+    private Texture redBowUnitSprite;
+
+    private Texture grayAxeUnitSprite;
+    private Texture blueAxeUnitSprite;
+    private Texture redAxeUnitSprite;
+
+    private Texture grayPikeUnitSprite;
+    private Texture bluePikeUnitSprite;
+    private Texture redPikeUnitSprite;
+
     private Texture hpbarRed;
     private Texture hpbarBlue;
     private Texture hpbarContainer;
@@ -55,15 +71,13 @@ public class BoardView extends AbstractGameView {
         font = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
 
-        cursor = new Texture("cursor.png");
-        overlayMove = new Texture("overlayBlue.png");
-        overlayAttack = new Texture("overlayRed.png");
+        cursor = new Texture("Sprites/Tiles/cursor.png");
+        overlayMove = new Texture("Sprites/Tiles/overlayBlue.png");
+        overlayAttack = new Texture("Sprites/Tiles/overlayRed.png");
+        gridTexture = new Texture("Sprites/Tiles/gridOverlay64.png");
 
-        gridTexture = new Texture("gridOverlay64.png");
-
-        hpbarBlue = new Texture("hpbarBlue.png");
-        hpbarRed  = new Texture("hpbarRed.png");
-        hpbarContainer = new Texture("hpContainer.png");
+        hpbarBlue = new Texture("Sprites/Units/hpbarBlue.png");
+        hpbarRed  = new Texture("Sprites/Units/hpbarRed.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -134,7 +148,7 @@ public class BoardView extends AbstractGameView {
         int pixelX = getPixelCoordX(x);
         int pixelY = getPixelCoordY(y);
 
-        draw(x,y,hpbarContainer);
+        //draw(x,y,hpbarContainer);
 //        draw(x, y, hpbarRed);
         double currentHp = unit.getHealth();
         double maxhp = unit.getMaxHealth();
