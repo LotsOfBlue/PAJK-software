@@ -7,15 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.controller.Controller;
 import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.view.MainView;
+import pajk.game.main.java.view.ViewHandler;
 
 public class PajkGdxGame extends ApplicationAdapter {
     public static final int WIDTH = 960;
     public static final int HEIGHT = 540;
     public static final String TITLE = "Pajkification";
 
-
-    private MainView mainView;
+    private ViewHandler viewHandler;
     private GameModel gameModel;
     private Controller gameController;
 //    private BoardView boardView;
@@ -32,7 +31,7 @@ public class PajkGdxGame extends ApplicationAdapter {
         gameModel.setState(GameModel.StateName.MAIN_MENU);
         gameController = new Controller(gameModel);
 
-        mainView = new MainView();
+        viewHandler = new ViewHandler();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class PajkGdxGame extends ApplicationAdapter {
         Gdx.gl.glClearColor((float)0.46, (float)0.33, (float)0.16, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        mainView.render(batch);
+        viewHandler.render(batch);
         listenToKeys();
     }
     

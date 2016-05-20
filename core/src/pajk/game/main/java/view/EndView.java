@@ -28,7 +28,7 @@ public class EndView extends AbstractGameView{
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        if(model.getState().getClass() == EndState.class){
+        if(model.getState() instanceof EndState){
             drawEndScreen(spriteBatch);
         }
     }

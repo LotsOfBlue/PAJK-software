@@ -16,10 +16,16 @@ public class MainMenuState extends State {
     private GameModel gameModel;
 
     public MainMenuState(){
-        scenarioList.add(new Scenario("Scenarios/scen1map.txt", "Scenarios/scen1units.txt", "Ambushed on the Forest Road", "Command a small troop of soldiers" +
-                " when they battle with a band of highway robbers. (Map Size 15×9)"));
-        scenarioList.add(new Scenario("Scenarios/scen2map.txt", "Scenarios/scen2units.txt", "Clash of Dukes", "Command a large amount of soldiers " +
-                "in a battle with an opposing Duke's forces. (Map Size 30×20"));
+        scenarioList.add(new Scenario(
+                "Scenarios/scen1map.txt",
+                "Scenarios/scen1units.txt",
+                "Ambushed on the Forest Road",
+                "Command a small troop of soldiers when they battle with a band of highway robbers. (Map Size 15×9)"));
+
+        scenarioList.add(new Scenario("Scenarios/scen2map.txt",
+                "Scenarios/scen2units.txt",
+                "Clash of Dukes",
+                "Command a large amount of soldiers in a battle with an opposing Duke's forces. (Map Size 30×20"));
     }
 
     @Override

@@ -42,7 +42,7 @@ public class StatusView extends AbstractGameView{
 
     @Override
     public void render(SpriteBatch spriteBatch) {
-        if(model.getState().getClass() == StatusState.class){
+        if(model.getState() instanceof StatusState){
             spriteBatch.begin();
             drawStatusScreen(spriteBatch);
             if(state.isInInfoState()) {
@@ -50,10 +50,8 @@ public class StatusView extends AbstractGameView{
             }
             drawButtonText(spriteBatch);
             spriteBatch.end();
-
         }
     }
-
 
     private void drawStatusScreen(SpriteBatch spriteBatch){
         state = (StatusState)model.getState();
@@ -65,7 +63,6 @@ public class StatusView extends AbstractGameView{
         spriteBatch.draw(statusBackground,x-15,y+30);
 
         font.getData().setScale(2,2);
-
 
         //draws name
         font.draw(spriteBatch,state.getInfoItem(0),x+20,y+ camera.viewportHeight - 110);
@@ -100,7 +97,6 @@ public class StatusView extends AbstractGameView{
             }
         }
 
-
     }
 
     private void drawInfoText(SpriteBatch spritebatch){
@@ -126,7 +122,6 @@ public class StatusView extends AbstractGameView{
             //TODO add upp/down action
         }
 
-
     }
 
     private void drawOverlay(SpriteBatch spriteBatch, int x, int y){
@@ -134,7 +129,6 @@ public class StatusView extends AbstractGameView{
         if(state.isInInfoState()){
             spriteBatch.draw(selector,x-30,y-35);
         }
-
     }
 
     @Override
