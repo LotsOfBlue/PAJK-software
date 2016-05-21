@@ -17,6 +17,10 @@ public abstract class Unit {
     //Stats of a unit
     protected String name;
     protected String profession;
+    protected String textureFilePath;
+    protected String grayTextureFilePath;
+    protected String animationFilePath;
+    protected String portraitFilePath;
     protected int level = 1;
     protected int experience = 1;
     protected int health = 20;
@@ -159,6 +163,14 @@ public abstract class Unit {
     public Weapon getWeapon() {
         return weapon;
     }
+
+    public String getTextureFilePath(){ return  textureFilePath; }
+
+    public String getAnimationFilePath(){ return  animationFilePath; }
+
+    public String getGrayTextureFilePath(){ return grayTextureFilePath; }
+
+    public String getPortraitFilePath(){ return portraitFilePath; }
 
 
     //--------------------------------------------------Setters

@@ -27,5 +27,15 @@ public class Mage extends Unit {
 
         addExperience((level - 1) * 100);
         health = maxHealth;
+        grayTextureFilePath = "gray-tome-sprite.png";
+        if(allegiance == Allegiance.PLAYER){
+            animationFilePath = "blue-tome-sprite.png";
+            textureFilePath = "blue-tome-animation.png";
+            portraitFilePath = "shrek-blue.png";
+        } else {
+            animationFilePath = "red-tome-sprite.png";
+            textureFilePath = "red-tome-animation.png";
+            portraitFilePath = "shrek-red.png";
+        }
     }
 }
