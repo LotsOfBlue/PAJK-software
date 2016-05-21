@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import pajk.game.PajkGdxGame;
@@ -23,6 +24,8 @@ public class MainMenuView extends AbstractGameView{
     private Texture scenSelect;
     private OrthographicCamera camera;
     private BitmapFont font;
+    //Used for centering scenario name properly
+    private GlyphLayout layout;
 
     public MainMenuView(OrthographicCamera camera) {
         model = GameModel.getInstance();
@@ -31,6 +34,7 @@ public class MainMenuView extends AbstractGameView{
         this.camera = camera;
         font = new BitmapFont();
         font.setColor(Color.BLACK);
+        layout = new GlyphLayout();
     }
 
     @Override
@@ -71,7 +75,8 @@ public class MainMenuView extends AbstractGameView{
                 }
                 //Scenario name
                 font.getData().setScale(2);
-                font.draw(spriteBatch, scenario.getName(), 400, 500);
+                layout.setText(font, scenario.getName());
+                font.draw(spriteBatch, layout, 600 - (layout.width / 2), 500);
                 //Scenario description
                 font.getData().setScale(1.8f);
                 font.draw(
@@ -79,7 +84,7 @@ public class MainMenuView extends AbstractGameView{
                         scenario.getDescription(),
                         320,
                         200,
-                        550,
+                        580,
                         Align.left,
                         true);
 
@@ -87,7 +92,7 @@ public class MainMenuView extends AbstractGameView{
                 String path = scenario.getScreenshotPath();
                 if (path != null) {
                     Texture screenshot = new Texture(path);
-                    spriteBatch.draw(screenshot, 300, 600);
+                    spriteBatch.draw(screenshot, 400, 400);
                 }
             }
             spriteBatch.end();
