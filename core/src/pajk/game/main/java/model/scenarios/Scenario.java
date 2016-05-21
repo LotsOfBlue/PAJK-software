@@ -5,6 +5,7 @@ import pajk.game.main.java.model.items.*;
 import pajk.game.main.java.model.units.*;
 import pajk.game.main.java.model.utils.FileReader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public abstract class Scenario {
     protected String mapName;
     protected String name;
     protected String description;
+    protected String screenshotPath;
 
     public Board makeBoard(){
         return new Board(mapName);
@@ -29,5 +31,9 @@ public abstract class Scenario {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getScreenshotPath() {
+        return screenshotPath;
     }
 }

@@ -50,7 +50,7 @@ public class MainMenuState extends State {
     @Override
     void enterAction(){
         if (!showTitle) {
-            System.out.println(scenarioList.get(menuItemSelected).getName());
+            System.out.println(scenarioList.get(menuItemSelected).getName()); //TODO remove
             Board board = scenarioList.get(menuItemSelected).makeBoard();
             gameModel.resetNumberOfTurns();
             gameModel.setBoard(board);
@@ -70,6 +70,10 @@ public class MainMenuState extends State {
 
     public List<Scenario> getScenarioList() {
         return scenarioList;
+    }
+
+    public int getMenuItemSelected() {
+        return menuItemSelected;
     }
 
     @Override
