@@ -187,11 +187,23 @@ public class CombatView extends AbstractGameView {
     private void drawAttackAnimation(Unit unit, float frame){
         drawTile(board.getPos(unit));
         drawDamageNumber(unit, frame);
-
+        TextureRegion textureRegion;
         if(unit  == activeUnit){
-            drawAttackFrame(unit, activeUnitAnimation.getKeyFrame(frame));
+            textureRegion = activeUnitAnimation.getKeyFrame(frame);
+            if((calcDrawPos(activeUnit)[0] < calcDrawPos(targetUnit)[0]) && (!textureRegion.isFlipX())){
+                textureRegion.flip(true, false);
+            } else if(textureRegion.isFlipX()){
+                textureRegion.flip(false, false);
+            }
+            drawAttackFrame(unit, textureRegion);
         }else{
-            drawAttackFrame(unit, targetUnitAnimation.getKeyFrame(frame));
+            textureRegion = targetUnitAnimation.getKeyFrame(frame);
+            if((calcDrawPos(targetUnit)[0] < calcDrawPos(activeUnit)[0]) && (!textureRegion.isFlipX())){
+                textureRegion.flip(true, false);
+            } else if(textureRegion.isFlipX()){
+                textureRegion.flip(false, false);
+            }
+            drawAttackFrame(unit, textureRegion);
         }
 
     }
