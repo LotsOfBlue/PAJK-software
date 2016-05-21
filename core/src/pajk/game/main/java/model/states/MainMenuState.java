@@ -23,10 +23,6 @@ public class MainMenuState extends State {
         scenarioList.add(new MountainScenario());
     }
 
-    public Boolean getTitle() {
-        return showTitle;
-    }
-
     @Override
     void upAction(){
         menuItemSelected = (menuItemSelected + scenarioList.size()-1) % scenarioList.size();
@@ -74,6 +70,10 @@ public class MainMenuState extends State {
 
     public int getMenuItemSelected() {
         return menuItemSelected;
+    }
+
+    public Boolean getShowTitle() {
+        return showTitle;
     }
 
     @Override
