@@ -29,12 +29,12 @@ public class Archer extends Unit {
         health = maxHealth;
         grayTextureFilePath = "gray-bow-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-bow-sprite.png";
-            textureFilePath = "blue-bow-animation.png";
+            animationFilePath = "blue-bow-animation.png";
+            textureFilePath = "blue-bow-sprite.png";
             portraitFilePath = "shrek-blue.png";
         } else {
-            animationFilePath = "red-bow-sprite.png";
-            textureFilePath = "red-bow-animation.png";
+            animationFilePath = "red-bow-animation.png";
+            textureFilePath = "red-bow-sprite.png";
             portraitFilePath = "shrek-red.png";
         }
     }

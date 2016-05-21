@@ -20,7 +20,7 @@ public class CombatInfoView extends AbstractGameView{
     private OrthographicCamera camera;
     private GameModel model;
     private BitmapFont font;
-    private Unit unit;
+    private Unit activeUnit, targetUnit;
 
     public CombatInfoView(OrthographicCamera camera){
         statusBackground = new Texture("statusBackground.png");
@@ -38,20 +38,15 @@ public class CombatInfoView extends AbstractGameView{
 
     private void drawInfoScreen(SpriteBatch spriteBatch){
         CombatInfoState combatInfoState = (CombatInfoState)model.getState();
-        Unit activeUnit = combatInfoState.getActiveUnit();
-        activeUnitImage = getTextureFor(activeUnit);
-        Unit targetUnit = combatInfoState.getTargetUnit();
-        targetUnitImage = getTextureFor(targetUnit);
-        /*activeDmg = combatInfoState.getActiveDmg();
-        targetDmg = combatInfoState.getTargetDmg();
-        activeCritChance = combatInfoState.getActiveCritChance();
-        targetCritChance = combatInfoState.getTargetCritChance();
-        activeHitChance = combatInfoState.getActiveHitChance();
-        targetHitChance = combatInfoState.getTargetHitChance();
-        activeCurentHP = activeUnit.getHealth();
-        targetCurrentHP = targetUnit.getHealth();
-        activeMaxHP = activeUnit.getMaxHealth();
-        targetMaxHP = targetUnit.getMaxHealth();*/
+
+        if(activeUnit != combatInfoState.getActiveUnit()){
+            activeUnit = combatInfoState.getActiveUnit();
+            activeUnitImage = new Texture(activeUnit.getPortraitFilePath());
+        }
+        if(targetUnit != combatInfoState.getTargetUnit()){
+            targetUnit = combatInfoState.getTargetUnit();
+            targetUnitImage = new Texture(targetUnit.getPortraitFilePath());
+        }
         int x = (int)(camera.position.x - (statusBackground.getWidth()/2));
         int y = (int)(camera.position.y - (statusBackground.getHeight()/2));
         spriteBatch.begin();
@@ -87,11 +82,4 @@ public class CombatInfoView extends AbstractGameView{
 
     }
 
-    private Texture getTextureFor(Unit unit){
-        if (unit.getAllegiance().equals(Allegiance.PLAYER)){
-            return new Texture("shrek-blue.png");
-        } else {
-            return new Texture("shrek-red.png");
-        }
-    }
 }

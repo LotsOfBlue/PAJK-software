@@ -9,12 +9,12 @@ public class FlyingSwordsman extends Swordsman {
         movementType = MovementType.FLYING;
         grayTextureFilePath = "gray-sword-flying-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-sword-flying-sprite.png";
-            textureFilePath = "blue-sword-flying-animation.png";
+            animationFilePath = "blue-sword-flying-animation.png";
+            textureFilePath = "blue-sword-flying-sprite.png";
             portraitFilePath = "shrek-blue.png";
         } else {
-            animationFilePath = "red-sword-flying-sprite.png";
-            textureFilePath = "red-sword-flying-animation.png";
+            animationFilePath = "red-sword-flying-animation.png";
+            textureFilePath = "red-sword-flying-sprite.png";
             portraitFilePath = "shrek-red.png";
         }
     }

@@ -24,8 +24,7 @@ public class BoardView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-
-    private Texture graySwordUnitSprite;
+    /*private Texture graySwordUnitSprite;
     private Texture blueSwordUnitSprite;
     private Texture redSwordUnitSprite;
 
@@ -43,7 +42,9 @@ public class BoardView extends AbstractGameView {
 
     private Texture grayMageUnitSprite;
     private Texture blueMageUnitSprite;
-    private Texture redMageUnitSprite;
+    private Texture redMageUnitSprite;*/
+
+    private Texture unitSprite;
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
@@ -52,10 +53,6 @@ public class BoardView extends AbstractGameView {
     private Texture cursor;
     private Texture overlayMove;
     private Texture overlayAttack;
-    private Texture plainsTexture;
-    private Texture forestTexture;
-    private Texture mountainTexture;
-    private Texture waterTexture;
     private Texture gridTexture;
 
     private ShapeRenderer shapeRenderer;
@@ -73,7 +70,7 @@ public class BoardView extends AbstractGameView {
     public BoardView(OrthographicCamera camera){
         shapeRenderer = new ShapeRenderer();
 
-        graySwordUnitSprite = new Texture("gray-sword-sprite");
+        /*graySwordUnitSprite = new Texture("gray-sword-sprite");
         blueSwordUnitSprite = new Texture("blue-sword-sprite");
         redSwordUnitSprite = new Texture("red-sword-sprite");
 
@@ -91,15 +88,12 @@ public class BoardView extends AbstractGameView {
 
         grayMageUnitSprite = new Texture("gray-tome-sprite.png");
         blueMageUnitSprite = new Texture("blue-tome-sprite.png");
-        redMageUnitSprite = new Texture("red-tome-sprite.png");
+        redMageUnitSprite = new Texture("red-tome-sprite.png");*/
 
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
-        plainsTexture = new Texture("grass64.png");
-        forestTexture = new Texture("forest64.png");
-        mountainTexture=new Texture("mountain64.png");
-        waterTexture=new Texture("water64.png");
+
         gridTexture = new Texture("gridOverlay64.png");
 
         hpbarBlue = new Texture("hpbarBlue.png");
@@ -143,58 +137,13 @@ public class BoardView extends AbstractGameView {
 
     private void drawUnit(int x, int y){
         Unit myUnit = board.getTile(x,y).getUnit();
-        Texture myTexture = graySwordUnitSprite;
-
-        if (myUnit instanceof Swordsman){
-            if(myUnit.getUnitState() == Unit.UnitState.DONE){
-                myTexture = graySwordUnitSprite;
-            }
-            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-                myTexture = blueSwordUnitSprite;
-            } else{
-                myTexture = redSwordUnitSprite;
-            }
-        } else if (myUnit instanceof Archer){
-            if(myUnit.getUnitState() == Unit.UnitState.DONE){
-                myTexture = grayBowUnitSprite;
-            }
-            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-                myTexture = blueBowUnitSprite;
-            } else{
-                myTexture = redBowUnitSprite;
-
-            }
-        } else if (myUnit instanceof Pikeman){
-            if(myUnit.getUnitState() == Unit.UnitState.DONE){
-                myTexture = grayPikeUnitSprite;
-            }
-            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-                myTexture = bluePikeUnitSprite;
-            } else{
-                myTexture = redPikeUnitSprite;
-
-            }
-        } else if (myUnit instanceof Axeman){
-            if(myUnit.getUnitState() == Unit.UnitState.DONE){
-                myTexture = grayAxeUnitSprite;
-            }
-            else if(myUnit.getAllegiance() == Unit.Allegiance.PLAYER){
-                myTexture = blueAxeUnitSprite;
-            } else{
-                myTexture = redAxeUnitSprite;
-
-            }
-        } else if (myUnit instanceof Mage) {
-            if (myUnit.getUnitState() == Unit.UnitState.DONE) {
-                myTexture = grayMageUnitSprite;
-            } else if (myUnit.getAllegiance() == Unit.Allegiance.PLAYER) {
-                myTexture = blueMageUnitSprite;
-            } else {
-                myTexture = redMageUnitSprite;
-
-            }
+        if(myUnit.getUnitState() == Unit.UnitState.DONE){
+            unitSprite = new Texture(myUnit.getGrayTextureFilePath());
+        } else {
+            unitSprite = new Texture(myUnit.getTextureFilePath());
         }
-        draw(x,y,myTexture);
+
+        draw(x,y,unitSprite);
 
         drawHealthbar(myUnit, x, y);
 
@@ -225,21 +174,7 @@ public class BoardView extends AbstractGameView {
      * @param tile the tile to be drawn.
      */
     private void drawTile(Tile tile){
-        Texture texture = plainsTexture;
-        switch (tile.getTerrainType()){
-            case "Forest":
-                texture = forestTexture;
-                break;
-            case "Plains":
-                texture = plainsTexture;
-                break;
-            case "Mountain":
-                texture = mountainTexture;
-                break;
-            case "River":
-                texture = waterTexture;
-                break;
-        }
+        Texture texture = ViewUtils.getTileTexture(tile);
         draw(tile.getX(),tile.getY(),texture);
         draw(tile.getX(),tile.getY(),gridTexture);
 
