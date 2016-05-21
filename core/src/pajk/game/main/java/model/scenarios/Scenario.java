@@ -11,6 +11,7 @@ import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.items.IronSword;
 import pajk.game.main.java.model.utils.FileReader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,17 +20,19 @@ import java.util.List;
  */
 public class Scenario {
 
-    private String mapName;
-    private String unitFileName;
+    private final String mapName;
+    private final String unitFileName;
     private String name;
-    private String description;
+    private final String description;
+    private final String screenshotPath;
     private final int ROWS_PER_UNIT = 6;
 
-    public Scenario(String mapName, String unitFileName, String scenarioName, String scenarioDescription){
+    public Scenario(String mapName, String unitFileName, String name, String description, String screenshotPath){
         this.mapName = mapName;
         this.unitFileName = unitFileName;
-        this.name = scenarioName;
-        this.description = scenarioDescription;
+        this.name = name;
+        this.description = description;
+        this.screenshotPath = screenshotPath;
     }
 
     public Board makeBoard(){
@@ -90,11 +93,16 @@ public class Scenario {
         return name;
     }
 
+    //TODO remove this?
     public void setName(String name) {
         this.name = name;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getScreenshotPath() {
+        return screenshotPath;
     }
 }

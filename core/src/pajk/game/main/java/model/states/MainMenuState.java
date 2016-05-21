@@ -21,12 +21,15 @@ public class MainMenuState extends State {
                 "Scenarios/scen1map.txt",
                 "Scenarios/scen1units.txt",
                 "Ambushed on the Forest Road",
-                "Command a small troop of soldiers when they battle with a band of highway robbers. (Map Size 15×9)"));
+                "Command a small troop of soldiers when they battle with a band of highway robbers. (Map Size 15×9)",
+                null));
 
-        scenarioList.add(new Scenario("Scenarios/scen2map.txt",
+        scenarioList.add(new Scenario(
+                "Scenarios/scen2map.txt",
                 "Scenarios/scen2units.txt",
                 "Clash of Dukes",
-                "Command a large amount of soldiers in a battle with an opposing Duke's forces. (Map Size 30×20"));
+                "Command a large amount of soldiers in a battle with an opposing Duke's forces. (Map Size 30×20",
+                null));
     }
 
     public Boolean getTitle() {
@@ -56,7 +59,7 @@ public class MainMenuState extends State {
     @Override
     void enterAction(){
         if (!showTitle) {
-            System.out.println(scenarioList.get(menuItemSelected).getName());
+            System.out.println(scenarioList.get(menuItemSelected).getName()); //TODO remove
             Board board = scenarioList.get(menuItemSelected).makeBoard();
             gameModel.resetNumberOfTurns();
             gameModel.setBoard(board);
@@ -76,6 +79,10 @@ public class MainMenuState extends State {
 
     public List<Scenario> getScenarioList() {
         return scenarioList;
+    }
+
+    public int getMenuItemSelected() {
+        return menuItemSelected;
     }
 
     @Override

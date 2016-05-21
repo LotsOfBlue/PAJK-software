@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Align;
 import pajk.game.PajkGdxGame;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.scenarios.Scenario;
@@ -19,16 +20,17 @@ public class MainMenuView extends AbstractGameView{
 
     private GameModel model;
     private Texture titleTex;
+    private Texture scenSelect;
     private OrthographicCamera camera;
     private BitmapFont font;
 
     public MainMenuView(OrthographicCamera camera) {
         model = GameModel.getInstance();
-        titleTex = new Texture("Menus/PAJK titlescreen.png");
+        titleTex = new Texture("Menus/titlescreen.png");
+        scenSelect = new Texture("Menus/scenarioSelect.png");
         this.camera = camera;
         font = new BitmapFont();
         font.setColor(Color.BLACK);
-        font.getData().scale(1);
     }
 
     @Override
@@ -39,14 +41,53 @@ public class MainMenuView extends AbstractGameView{
             camera.update();
             spriteBatch.setProjectionMatrix(camera.combined);
             spriteBatch.begin();
+            //Display the title screen
             if (state.getTitle()) {
                 spriteBatch.draw(titleTex, 0, 0);
-            } else {
-                //TODO select scenario
+            }
+            //Display the scenario select screen
+            else {
+                //The currently selected scenario
+                int selection = state.getMenuItemSelected();
+                Scenario scenario = state.getScenarioList().get(selection);
+                //Background
+                spriteBatch.draw(scenSelect, 0, 0);
+                //List of scenarios
+                font.getData().setScale(1);
                 List<Scenario> scenarioList = state.getScenarioList();
                 for (int i = 0; i < scenarioList.size(); i++) {
                     Scenario s = scenarioList.get(i);
-                    font.draw(spriteBatch, s.getName(), 0, 400 - (50*i));
+                    font.draw(
+                            spriteBatch,
+                            s.getName(),
+                            10,
+                            285 - (40*i),
+                            0,
+                            s.getName().length(),
+                            220,
+                            Align.left,
+                            false,
+                            "...");
+                }
+                //Scenario name
+                font.getData().setScale(2);
+                font.draw(spriteBatch, scenario.getName(), 400, 500);
+                //Scenario description
+                font.getData().setScale(1.8f);
+                font.draw(
+                        spriteBatch,
+                        scenario.getDescription(),
+                        320,
+                        200,
+                        550,
+                        Align.left,
+                        true);
+
+                //Scenario screenshot
+                String path = scenario.getScreenshotPath();
+                if (path != null) {
+                    Texture screenshot = new Texture(path);
+                    spriteBatch.draw(screenshot, 300, 600);
                 }
             }
             spriteBatch.end();
