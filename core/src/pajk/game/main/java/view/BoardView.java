@@ -24,31 +24,13 @@ public class BoardView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-    /*private Texture graySwordUnitSprite;
-    private Texture blueSwordUnitSprite;
-    private Texture redSwordUnitSprite;
-
-    private Texture grayBowUnitSprite;
-    private Texture blueBowUnitSprite;
-    private Texture redBowUnitSprite;
-
-    private Texture grayAxeUnitSprite;
-    private Texture blueAxeUnitSprite;
-    private Texture redAxeUnitSprite;
-
-    private Texture grayPikeUnitSprite;
-    private Texture bluePikeUnitSprite;
-    private Texture redPikeUnitSprite;
-
-    private Texture grayMageUnitSprite;
-    private Texture blueMageUnitSprite;
-    private Texture redMageUnitSprite;*/
 
     private Texture unitSprite;
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
 
+    private BitmapFont font;
 
     private Texture cursor;
     private Texture overlayMove;
@@ -70,31 +52,13 @@ public class BoardView extends AbstractGameView {
     public BoardView(OrthographicCamera camera){
         shapeRenderer = new ShapeRenderer();
 
-        /*graySwordUnitSprite = new Texture("gray-sword-sprite");
-        blueSwordUnitSprite = new Texture("blue-sword-sprite");
-        redSwordUnitSprite = new Texture("red-sword-sprite");
-
-        grayBowUnitSprite = new Texture("gray-bow-sprite");
-        blueBowUnitSprite = new Texture("blue-bow-sprite");
-        redBowUnitSprite = new Texture("red-bow-sprite");
-
-        grayAxeUnitSprite = new Texture("gray-axe-sprite");
-        blueAxeUnitSprite = new Texture("blue-axe-sprite");
-        redAxeUnitSprite = new Texture("red-axe-sprite");
-
-        grayPikeUnitSprite = new Texture("gray-pike-sprite");
-        bluePikeUnitSprite = new Texture("blue-pike-sprite");
-        redPikeUnitSprite = new Texture("red-pike-sprite");
-
-        grayMageUnitSprite = new Texture("gray-tome-sprite.png");
-        blueMageUnitSprite = new Texture("blue-tome-sprite.png");
-        redMageUnitSprite = new Texture("red-tome-sprite.png");*/
-
         cursor = new Texture("cursor.png");
         overlayMove = new Texture("overlayBlue.png");
         overlayAttack = new Texture("overlayRed.png");
 
         gridTexture = new Texture("gridOverlay64.png");
+
+        font = new BitmapFont();
 
         hpbarBlue = new Texture("hpbarBlue.png");
         hpbarRed  = new Texture("hpbarRed.png");
@@ -146,7 +110,7 @@ public class BoardView extends AbstractGameView {
         draw(x,y,unitSprite);
 
         drawHealthbar(myUnit, x, y);
-
+        unitSprite.dispose();
     }
 
     /**
@@ -156,16 +120,17 @@ public class BoardView extends AbstractGameView {
      * @param y the y boardcoordinate where the unit's healthbar shoudl be drawn
      */
     private void drawHealthbar(Unit unit, int x, int y){
-            int pixelX = getPixelCoordX(x);
-            int pixelY = getPixelCoordY(y);
+        int pixelX = getPixelCoordX(x);
+        int pixelY = getPixelCoordY(y);
 
-            draw(x, y, hpbarRed);
-            double currentHp = unit.getHealth();
-            double maxhp = unit.getMaxHealth();
-            int hpPixels = (int) (64 * (currentHp / maxhp));
-            TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
 
-            spriteBatch.draw(txtReg, pixelX, pixelY);
+        draw(x, y, hpbarRed);
+        double currentHp = unit.getHealth();
+        double maxhp = unit.getMaxHealth();
+        int hpPixels = (int) (64 * (currentHp / maxhp));
+        TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
+
+        spriteBatch.draw(txtReg, pixelX, pixelY);
     }
 
 
@@ -241,7 +206,6 @@ public class BoardView extends AbstractGameView {
      * if you press a button.
      */
     private void drawButtonText() {
-        BitmapFont font = new BitmapFont();
         font.setColor(Color.BLACK);
         font.getData().setScale((float) 1.5, (float) 1.5);
         int x = (int) (camera.position.x - 400);
@@ -257,7 +221,6 @@ public class BoardView extends AbstractGameView {
         } else {
             font.draw(spriteBatch, "(Z) Menu", x, y);
         }
-
     }
 
 
@@ -317,5 +280,9 @@ public class BoardView extends AbstractGameView {
     }
 
     public Board getBoard(){return board;}
+
+    public void setBoard(Board board){
+        this.board = board;
+    }
 
 }

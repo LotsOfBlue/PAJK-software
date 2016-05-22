@@ -86,7 +86,6 @@ public class CombatView extends AbstractGameView {
         }
         //TODO understand animation time float...
         return new Animation(0.075f, tempTextureRegion);
-
     }
 
 

@@ -93,16 +93,8 @@ public class EnemyTurnState extends State {
         path.remove(currentPos);
 
         while (path.size() > 0 && !moveRange.contains(path.get(0))){
-            System.out.println(path.get(0));
             path.remove(0);
         }
-
-        /*//Starting from the farthest tile, remove tiles until only reachable remains
-        while (path.size() > activeUnit.getMovement()) {
-            if (!moveRange.contains(path.get(0))) {
-                path.remove(0);
-            }
-        }*/
     }
 
     /**

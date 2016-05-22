@@ -25,8 +25,6 @@ public class MainView {
      */
     public MainView(){
         makeNewViews();
-
-
     }
 
     public void render(SpriteBatch spriteBatch){
