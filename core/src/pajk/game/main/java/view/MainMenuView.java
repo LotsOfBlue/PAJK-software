@@ -33,7 +33,7 @@ public class MainMenuView extends AbstractGameView{
         scenarioSelectBG = new Texture("Menus/scenarioSelect.png");
         this.camera = camera;
         font = new BitmapFont();
-        font.setColor(Color.BLACK);
+        font.setColor(Color.LIGHT_GRAY);
         layout = new GlyphLayout();
     }
 
@@ -90,7 +90,7 @@ public class MainMenuView extends AbstractGameView{
                 spriteBatch,
                 scenario.getDescription(),
                 320,
-                200,
+                210,
                 580,
                 Align.left,
                 true);
@@ -99,8 +99,12 @@ public class MainMenuView extends AbstractGameView{
         String path = scenario.getScreenshotPath();
         if (path != null) {
             Texture screenshot = new Texture(path);
-            spriteBatch.draw(screenshot, 400, 400);
+            spriteBatch.draw(screenshot, 440, 260);
         }
+
+        //Help text
+        font.getData().setScale(1.5f);
+        font.draw(spriteBatch, "Z - Select     X - Back", 500, 25);
     }
 
 	/**
