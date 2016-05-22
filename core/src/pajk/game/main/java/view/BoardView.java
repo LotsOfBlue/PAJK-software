@@ -30,6 +30,7 @@ public class BoardView extends AbstractGameView {
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
+    private Texture hpbarContainer;
 
     private BitmapFont font;
 
@@ -62,6 +63,7 @@ public class BoardView extends AbstractGameView {
 
         hpbarBlue = new Texture("hpbarBlue.png");
         hpbarRed  = new Texture("hpbarRed.png");
+        hpbarContainer = new Texture("hpContainer.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -130,12 +132,17 @@ public class BoardView extends AbstractGameView {
         int pixelX = getPixelCoordX(x);
         int pixelY = getPixelCoordY(y);
 
-
-        draw(x, y, hpbarRed);
+        draw(x,y,hpbarContainer);
+//        draw(x, y, hpbarRed);
         double currentHp = unit.getHealth();
         double maxhp = unit.getMaxHealth();
         int hpPixels = (int) (64 * (currentHp / maxhp));
-        TextureRegion txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
+        TextureRegion txtReg;
+        if(unit.getAllegiance() == Unit.Allegiance.PLAYER) {
+            txtReg = new TextureRegion(hpbarBlue, 0, 0, hpPixels, 64);
+        } else {
+            txtReg = new TextureRegion(hpbarRed, 0, 0, hpPixels, 64);
+        }
 
         spriteBatch.draw(txtReg, pixelX, pixelY);
     }
