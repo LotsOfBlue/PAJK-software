@@ -29,12 +29,12 @@ public class Axeman extends Unit {
         health = maxHealth;
         grayTextureFilePath = "gray-axe-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-axe-sprite.png";
-            textureFilePath = "blue-axe-animation.png";
+            animationFilePath = "blue-axe-animation.png";
+            textureFilePath = "blue-axe-sprite.png";
             portraitFilePath = "shrek-blue.png";
         } else {
-            animationFilePath = "red-axe-sprite.png";
-            textureFilePath = "red-axe-animation.png";
+            animationFilePath = "red-axe-animation.png";
+            textureFilePath = "red-axe-sprite.png";
             portraitFilePath = "shrek-red.png";
         }
     }

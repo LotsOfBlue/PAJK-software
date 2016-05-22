@@ -7,7 +7,7 @@ public class IronAxe extends Axe{
     public IronAxe(){
         name = "Iron Axe";
         minRange = 1;
-        maxRange = 2;
+        maxRange = 1;
         damage = 8;
         critChance = 1;
         accuracy = 75;
