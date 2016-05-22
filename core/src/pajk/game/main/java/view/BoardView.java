@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.MainState;
-import pajk.game.main.java.model.units.*;
+import pajk.game.main.java.model.units.Unit;
 
 import java.util.*;
 
