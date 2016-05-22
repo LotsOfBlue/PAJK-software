@@ -44,7 +44,7 @@ public class EnemyTurnState extends State {
         }
 
         if (activeUnit == null){
-            System.out.println("--PLAYER TURN--TEST"); //TODO make graphical
+            System.out.println("--PLAYER TURN--"); //TODO make graphical
             gameModel.newTurn();
             gameModel.setState(GameModel.StateName.MAIN);
             return;
@@ -93,6 +93,7 @@ public class EnemyTurnState extends State {
         path.remove(currentPos);
 
         while (path.size() > 0 && !moveRange.contains(path.get(0))){
+            System.out.println(path.get(0));
             path.remove(0);
         }
 

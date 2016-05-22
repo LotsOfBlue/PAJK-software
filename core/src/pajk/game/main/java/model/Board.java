@@ -243,7 +243,7 @@ public class Board {
         for (Tile t :
                 neighbors) {
             if (    previous != t && //Don't walk backwards
-                    (!t.hasUnit() || (t.getUnit().getAllegiance() == Unit.Allegiance.PLAYER)) && //Don't walk through enemy units, walk through allied.
+                    (!t.hasUnit() || (t.getUnit().getAllegiance() == unit.getAllegiance())) && //Don't walk through enemy units, walk through allied.
                     range >= t.getMovementCost(unit.getMovementType())) { //Make sure the unit has enough movement left to walk there.
                 tiles.addAll(calculateTiles(tiles, t, origin, unit, range - t.getMovementCost(unit.getMovementType())));
             }
