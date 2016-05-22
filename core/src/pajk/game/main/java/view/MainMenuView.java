@@ -27,6 +27,9 @@ public class MainMenuView extends AbstractGameView{
     //Used for centering scenario name properly
     private GlyphLayout layout;
 
+    private int currentSelection;
+    private int prevSelection;
+
     public MainMenuView(OrthographicCamera camera) {
         model = GameModel.getInstance();
         title = new Texture("Menus/titlescreen.png");
@@ -59,43 +62,21 @@ public class MainMenuView extends AbstractGameView{
     }
 
     private void drawScenarioSelectMenu(SpriteBatch spriteBatch, MainMenuState mmState) {
-        //The currently selected scenario
-        int selection = mmState.getMenuItemSelected();
-        Scenario scenario = mmState.getScenarioList().get(selection);
+        //The currently and previously selected scenario
+        prevSelection = currentSelection;
+        currentSelection = mmState.getMenuItemSelected();
+        Scenario scenario = mmState.getScenarioList().get(currentSelection);
         //Background
         spriteBatch.draw(scenarioSelectBG, 0, 0);
         //List of scenarios
-        font.getData().setScale(1);
-        List<Scenario> scenarioList = mmState.getScenarioList();
-        for (Scenario s : scenarioList) {
-            font.draw(
-                    spriteBatch,
-                    s.getName(),
-                    10,
-                    calcListItemOffset(scenarioList.indexOf(s), selection),
-                    0,
-                    s.getName().length(),
-                    220,
-                    Align.left,
-                    false,
-                    "...");
-        }
+        drawScenarioList(spriteBatch, mmState);
         //Scenario name
         font.getData().setScale(2);
         layout.setText(font, scenario.getName());
         font.draw(spriteBatch, layout, 600 - (layout.width / 2), 500);
         //Scenario description
-        font.getData().setScale(1.8f);
-        font.draw(
-                spriteBatch,
-                scenario.getDescription(),
-                320,
-                210,
-                580,
-                Align.left,
-                true);
-
-        //Scenario screenshot
+        drawDescription(spriteBatch, scenario);
+        //Scenario screenshot TODO animate
         String path = scenario.getScreenshotPath();
         if (path != null) {
             Texture screenshot = new Texture(path);
@@ -105,6 +86,53 @@ public class MainMenuView extends AbstractGameView{
         //Help text
         font.getData().setScale(1.5f);
         font.draw(spriteBatch, "Z - Select     X - Back", 500, 25);
+    }
+
+	/**
+     * Draw the list of scenarios to choose from
+     * @param spriteBatch Spritebatch
+     * @param mmState The MainMenuState to retrieve data from.
+     */
+    private void drawScenarioList(SpriteBatch spriteBatch, MainMenuState mmState) {
+        font.getData().setScale(1);
+        List<Scenario> scenarioList = mmState.getScenarioList();
+
+        if (prevSelection != currentSelection) {
+            System.out.println("NEW");
+        }
+        for (Scenario s : scenarioList) {
+            //Calculate the position of the scenarios last frame and their expected position this frame
+            int newYPos = calcListItemOffset(scenarioList.indexOf(s), currentSelection);
+            int oldYPos = calcListItemOffset(scenarioList.indexOf(s), prevSelection);
+            font.draw(
+                    spriteBatch,
+                    s.getName(),
+                    10,
+                    newYPos,
+                    0,
+                    s.getName().length(),
+                    220,
+                    Align.left,
+                    false,
+                    "...");
+        }
+    }
+
+	/**
+     * Draw the currently selected scenario's description.
+     * @param spriteBatch Spritebatch
+     * @param scenario The currently selected scenario.
+     */
+    private void drawDescription(SpriteBatch spriteBatch, Scenario scenario) {
+        font.getData().setScale(1.8f);
+        font.draw(
+                spriteBatch,
+                scenario.getDescription(),
+                320,
+                210,
+                580,
+                Align.left,
+                true);
     }
 
 	/**
