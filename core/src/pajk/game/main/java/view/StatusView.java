@@ -19,6 +19,7 @@ public class StatusView extends AbstractGameView{
     private Texture statusBackground;
     private Texture unitImage;
     private Texture selector;
+    private Texture statusBackgroundRed;
     private OrthographicCamera camera;
     private GameModel model;
     private BitmapFont font;
@@ -37,6 +38,7 @@ public class StatusView extends AbstractGameView{
         statusBackground = new Texture("statusBackground.png");
         unitImage = new Texture("shrek.png");
         selector = new Texture("statusInfoSelector.png");
+        statusBackgroundRed = new Texture("statusBackgroundRed.png");
         this.camera = camera;
         font = new BitmapFont();
         model = GameModel.getInstance();
@@ -65,7 +67,7 @@ public class StatusView extends AbstractGameView{
 
         int x = (int)(camera.position.x - camera.viewportWidth/2)+85;
         int y = (int)(camera.position.y - (camera.viewportHeight/2)) + 30;
-        spriteBatch.draw(statusBackground,x-15,y+30);
+
 
         font.getData().setScale(2,2);
         font.setColor(Color.WHITE);
@@ -74,8 +76,10 @@ public class StatusView extends AbstractGameView{
         //draws name and alligance
         if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
             allegianceText = "ALLY";
+            spriteBatch.draw(statusBackground,x-15,y+30);
         } else {
             allegianceText = "ENEMY";
+            spriteBatch.draw(statusBackgroundRed,x-15,y+30);
         }
         String nameText = allegianceText +": "+state.getInfoItem(0);
         font.draw(spriteBatch,nameText,x+20,y+ camera.viewportHeight - 110);
