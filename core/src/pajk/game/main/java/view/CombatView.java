@@ -52,6 +52,7 @@ public class CombatView extends AbstractGameView {
     private Animation activeUnitAnimation;
     private Animation targetUnitAnimation;
     private Texture gridTexture;
+    private Texture hpBar;
     private HashMap<String, Animation> animationHashMap = new HashMap<>();
 
 
@@ -66,6 +67,7 @@ public class CombatView extends AbstractGameView {
         bitmapFont.getData().setScale(2f,2f);
 
         gridTexture = new Texture("gridOverlay64.png");
+        hpBar = new Texture("hpbarBlue.png");
 
     }
 
@@ -216,7 +218,10 @@ public class CombatView extends AbstractGameView {
     private void drawTile(Tile tile){
         Texture texture = ViewUtils.getTileTexture(tile);
         float[] pos = calcDrawPos(tile);
-        draw(texture, pos[0], pos[1]);
+
+        TextureRegion txtReg = new TextureRegion(texture, 0, 0, TILE_WIDTH, TILE_WIDTH-hpBar.getHeight());
+
+        draw(txtReg, pos[0], pos[1]);
         draw(gridTexture, pos[0], pos[1]);
 
     }
@@ -233,7 +238,7 @@ public class CombatView extends AbstractGameView {
 
                 if(firstHitFromActiveUnit){
                     if(firstCritFromActiveUnit){
-                        draw(uPos[0]+TILE_WIDTH/3,uPos[1]+ (TILE_WIDTH*1.5f), "CRIT");
+                        draw("CRIT", uPos[0]+TILE_WIDTH/3, uPos[1]+ (TILE_WIDTH*1.5f));
                     }
                     message = ""+firstDamageFromActiveUnit;
                 }else{
@@ -243,7 +248,7 @@ public class CombatView extends AbstractGameView {
             }else if(secondAttackFromActiveUnit){
                 if(secondHitFromActiveUnit){
                     if(secondCritFromActiveUnit){
-                        draw(uPos[0]+TILE_WIDTH/3,uPos[1] + (TILE_WIDTH*1.5f),"CRIT");
+                        draw("CRIT", uPos[0]+TILE_WIDTH/3, uPos[1] + (TILE_WIDTH*1.5f));
                     }
                     message = ""+secondDamageFromActiveUnit;
                 }else{
@@ -254,14 +259,14 @@ public class CombatView extends AbstractGameView {
             uPos = calcDrawPos(activeUnit);
             if(hitFromEnemyUnit){
                 if(critFromEnemyUnit){
-                    draw(uPos[0]+TILE_WIDTH/3,uPos[1] + (TILE_WIDTH*1.5f),"CRIT");
+                    draw("CRIT", uPos[0]+TILE_WIDTH/3, uPos[1] + (TILE_WIDTH*1.5f));
                 }
                 message = ""+damageFromEnemyUnit;
             }else{
                 message = "MISS";
             }
         }
-        draw(uPos[0]+TILE_WIDTH/3,uPos[1]+TILE_WIDTH,message);
+        draw(message, uPos[0]+TILE_WIDTH/3, uPos[1]+TILE_WIDTH);
     }
 
     private float[] calcDrawPos(Unit unit){
@@ -293,7 +298,7 @@ public class CombatView extends AbstractGameView {
         spriteBatch.draw(textureRegion,xPos,yPos);
     }
 
-    private void draw(float xPos, float yPos, String str){
+    private void draw(String str, float xPos, float yPos){
         bitmapFont.draw(spriteBatch, str, xPos, yPos);
     }
 
