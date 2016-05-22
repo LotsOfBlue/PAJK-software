@@ -43,7 +43,7 @@ public class EnemyTurnState extends State {
             setNewActiveUnit();
         }
 
-        if (activeUnit == null){
+        if (activeUnit == null || getAllTargets().size() == 0){
             System.out.println("--PLAYER TURN--"); //TODO make graphical
             gameModel.newTurn();
             gameModel.setState(GameModel.StateName.MAIN);
@@ -106,10 +106,15 @@ public class EnemyTurnState extends State {
         List<Tile> result = null;
         Set<Tile> attackPoints = getAttackPoints(target);
         for (Tile t : attackPoints) {
-            List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(activeUnit), t, activeUnit);
-            if (result == null || PathFinder.getPathLength(path, activeUnit) < PathFinder.getPathLength(result, activeUnit)) {
-                result = path;
+            if (!t.hasUnit() || t.getUnit() == activeUnit) {
+                List<Tile> path = PathFinder.getQuickestPath(board, board.getPos(activeUnit), t, activeUnit);
+                if (result == null || PathFinder.getPathLength(path, activeUnit) < PathFinder.getPathLength(result, activeUnit)) {
+                    result = path;
+                }
             }
+        }
+        if (result == null){
+            result = PathFinder.getQuickestPath(board, board.getPos(activeUnit), board.getPos(target), activeUnit);
         }
 
         return result;
@@ -221,7 +226,6 @@ public class EnemyTurnState extends State {
                 result.add(u);
             }
         }
-        System.out.println(result.size() + " targets found: " + result); //TODO debug
 
         return result;
     }
@@ -284,6 +288,7 @@ public class EnemyTurnState extends State {
                 activeUnit = u;
                 stepsLeft = u.getMovement();
                 moveRange = board.getTilesWithinMoveRange(u);
+                moveRange.add(board.getPos(u));
                 target = null;
                 return;
             }
