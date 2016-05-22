@@ -273,7 +273,7 @@ public class EnemyTurnState extends State {
         //Prepare the first active unit
         setNewActiveUnit();
 
-        if (activeUnit == null) {
+        if (activeUnit == null || getAllTargets().size() == 0) {
             System.out.println("--PLAYER TURN--"); //TODO make graphical
             gameModel.newTurn();
             gameModel.setState(GameModel.StateName.MAIN);
