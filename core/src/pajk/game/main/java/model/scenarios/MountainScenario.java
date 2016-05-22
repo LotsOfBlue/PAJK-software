@@ -44,9 +44,19 @@ public class MountainScenario extends Scenario {
         board.moveUnit(currentUnit, board.getTile(5, 18));
         unitList.add(currentUnit);
 
-        currentUnit = new Axeman(Unit.Allegiance.PLAYER, 9);
+        currentUnit = new RidingAxeman(Unit.Allegiance.PLAYER, 9);
         currentUnit.setWeapon(new IronAxe());
-        board.moveUnit(currentUnit, board.getTile(6, 19));
+        board.moveUnit(currentUnit, board.getTile(7, 19));
+        unitList.add(currentUnit);
+
+        currentUnit = new RidingPikeman(Unit.Allegiance.PLAYER, 9);
+        currentUnit.setWeapon(new IronPike());
+        board.moveUnit(currentUnit, board.getTile(6, 18));
+        unitList.add(currentUnit);
+
+        currentUnit = new RidingSwordsman(Unit.Allegiance.PLAYER, 9);
+        currentUnit.setWeapon(new IronSword());
+        board.moveUnit(currentUnit, board.getTile(7, 18));
         unitList.add(currentUnit);
 
 
