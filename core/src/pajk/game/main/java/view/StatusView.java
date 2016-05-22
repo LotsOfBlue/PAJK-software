@@ -61,7 +61,7 @@ public class StatusView extends AbstractGameView{
     private void drawStatusScreen(SpriteBatch spriteBatch){
         state = (StatusState)model.getState();
         model = GameModel.getInstance();
-        unit = GameModel.getInstance().getActiveUnit();
+        unit = state.getStatusUnit();
 
         int x = (int)(camera.position.x - camera.viewportWidth/2)+85;
         int y = (int)(camera.position.y - (camera.viewportHeight/2)) + 30;
@@ -70,9 +70,15 @@ public class StatusView extends AbstractGameView{
         font.getData().setScale(2,2);
         font.setColor(Color.WHITE);
 
-
-        //draws name
-        font.draw(spriteBatch,state.getInfoItem(0),x+20,y+ camera.viewportHeight - 110);
+        String allegianceText;
+        //draws name and alligance
+        if(unit.getAllegiance() == Unit.Allegiance.PLAYER){
+            allegianceText = "ALLY";
+        } else {
+            allegianceText = "ENEMY";
+        }
+        String nameText = allegianceText +": "+state.getInfoItem(0);
+        font.draw(spriteBatch,nameText,x+20,y+ camera.viewportHeight - 110);
         if(0 == state.getSelectedInfoItemNr()){
             drawOverlay(spriteBatch, x+20,(int)(y+ camera.viewportHeight - 110));
         }

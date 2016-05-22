@@ -177,4 +177,5 @@ public class StatusState extends State {
     public boolean isInInfoState() {
         return isInInfoState;
     }
+    public Unit getStatusUnit(){ return statusUnit;}
 }
