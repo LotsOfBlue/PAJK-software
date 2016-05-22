@@ -57,8 +57,14 @@ public class EnemyTurnState extends State {
         if (target == null) {
             target = designateTarget();
             path = getPathTo(target);
+            if (activeUnit.isDefender() && PathFinder.getPathLength(path, activeUnit) > stepsLeft + currentPos.getMovementCost(activeUnit.getMovementType())){
+                activeUnit.setUnitState(Unit.UnitState.DONE);
+                return;
+            }
             trimPath(path, currentPos);
         }
+
+
 
         //If there is no path, the unit doesn't need to move
         if (path.isEmpty()) {

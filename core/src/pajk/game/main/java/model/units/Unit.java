@@ -45,6 +45,8 @@ public abstract class Unit {
     private List<Item> inventory = new ArrayList<>();
     private Weapon weapon = new IronPike();
     private Allegiance allegiance;
+    private boolean defender = false;
+
 
 
 
@@ -159,6 +161,9 @@ public abstract class Unit {
         return health;
     }
 
+    public boolean isDefender() {
+        return defender;
+    }
 
     public Weapon getWeapon() {
         return weapon;
@@ -174,6 +179,10 @@ public abstract class Unit {
 
 
     //--------------------------------------------------Setters
+
+    public void setDefender(boolean defender) {
+        this.defender = defender;
+    }
 
     public void setUnitState(UnitState unitState) {
         this.unitState = unitState;

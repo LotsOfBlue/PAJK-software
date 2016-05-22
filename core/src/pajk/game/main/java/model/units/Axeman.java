@@ -1,6 +1,8 @@
 package pajk.game.main.java.model.units;
 
 /**
+ * Axemen are powerful and have alot of hitpoints, but lack defenses and skill.
+ *
  * Created by jonatan on 19/05/2016.
  */
 public class Axeman extends Unit {
@@ -22,7 +24,7 @@ public class Axeman extends Unit {
         skillGrowth = 45;
         speedGrowth = 35;
         luckGrowth = 30;
-        defenceGrowth = 50;
+        defenceGrowth = 40;
         resistanceGrowth = 25;
 
         addExperience((level - 1) * 100);

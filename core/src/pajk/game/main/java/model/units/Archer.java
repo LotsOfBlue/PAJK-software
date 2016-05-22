@@ -1,13 +1,15 @@
 package pajk.game.main.java.model.units;
 
 /**
+ * Archers are quick and skilled, can attack at range, but have no defenses to speak of.
+ *
  * Created by Gustav on 2016-05-19.
  */
 public class Archer extends Unit {
     public Archer(Allegiance allegiance, int level) {
         super(allegiance, level);
         profession = "Archer";
-        maxHealth = 16;
+        maxHealth = 17;
         strength = 6;
         skill = 7;
         speed = 9;

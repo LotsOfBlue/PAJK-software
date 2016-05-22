@@ -20,7 +20,7 @@ public class Swordsman extends Unit {
         maxHealthGrowth = 80;
         strengthGrowth = 45;
         skillGrowth = 50;
-        speedGrowth = 40;
+        speedGrowth = 45;
         luckGrowth = 45;
         defenceGrowth = 30;
         resistanceGrowth = 35;

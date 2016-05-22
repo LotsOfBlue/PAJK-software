@@ -1,6 +1,8 @@
 package pajk.game.main.java.model.units;
 
 /**
+ * Mages are powerful at range, but cannot withstand physical attacks.
+ *
  * Created by jonatan on 20/05/2016.
  */
 public class Mage extends Unit {

@@ -1,6 +1,8 @@
 package pajk.game.main.java.model.units;
 
 /**
+ * Pikemen are defensive, but slow.
+ *
  * Created by Gustav on 2016-05-19.
  */
 public class Pikeman extends Unit {

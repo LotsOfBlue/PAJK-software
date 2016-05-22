@@ -47,6 +47,7 @@ public class BanditScenario extends Scenario {
         currentUnit = new Swordsman(Unit.Allegiance.AI, 3);
         currentUnit.setWeapon(new IronSword());
         board.moveUnit(currentUnit, board.getTile(4, 8));
+        currentUnit.setDefender(true);
         unitList.add(currentUnit);
 
         currentUnit = new Axeman(Unit.Allegiance.AI, 4);
