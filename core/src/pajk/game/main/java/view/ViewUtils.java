@@ -13,6 +13,7 @@ public class ViewUtils {
     private static Texture mountainTexture = new Texture("mountain64.png");
     private static Texture waterTexture = new Texture("water64.png");
 
+
     public static Texture getTileTexture(Tile tile){
         switch (tile.getTerrainType()){
             case "Forest":

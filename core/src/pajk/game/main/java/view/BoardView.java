@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.MainState;
-//import pajk.game.main.java.model.units.*;
 import pajk.game.main.java.model.units.*;
+
+import java.util.*;
 
 
 /**
@@ -24,8 +26,7 @@ public class BoardView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-
-    private Texture unitSprite;
+    private HashMap<String, Texture> unitTextureMap = new HashMap<>();
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
@@ -50,6 +51,7 @@ public class BoardView extends AbstractGameView {
      * @param camera the camera where the board should be drawn.
      */
     public BoardView(OrthographicCamera camera){
+        font = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
 
         cursor = new Texture("cursor.png");
@@ -57,8 +59,6 @@ public class BoardView extends AbstractGameView {
         overlayAttack = new Texture("overlayRed.png");
 
         gridTexture = new Texture("gridOverlay64.png");
-
-        font = new BitmapFont();
 
         hpbarBlue = new Texture("hpbarBlue.png");
         hpbarRed  = new Texture("hpbarRed.png");
@@ -101,16 +101,23 @@ public class BoardView extends AbstractGameView {
 
     private void drawUnit(int x, int y){
         Unit myUnit = board.getTile(x,y).getUnit();
+        String str;
+
         if(myUnit.getUnitState() == Unit.UnitState.DONE){
-            unitSprite = new Texture(myUnit.getGrayTextureFilePath());
+            str = myUnit.getGrayTextureFilePath();
         } else {
-            unitSprite = new Texture(myUnit.getTextureFilePath());
+            str = myUnit.getTextureFilePath();
         }
 
-        draw(x,y,unitSprite);
+        if(unitTextureMap.isEmpty() || !unitTextureMap.containsKey(str)){
+            System.out.println("inside if");
+            unitTextureMap.put(str, new Texture(str));
+        }
+
+
+        draw(x,y,unitTextureMap.get(str));
 
         drawHealthbar(myUnit, x, y);
-        unitSprite.dispose();
     }
 
     /**

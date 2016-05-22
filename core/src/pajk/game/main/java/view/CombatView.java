@@ -3,16 +3,13 @@ package pajk.game.main.java.view;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.Timer;
-import pajk.game.PajkGdxGame;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.units.*;
 
-import java.sql.Time;
+import java.util.HashMap;
 
 /**
  * Visual representation of the combat.
@@ -55,6 +52,7 @@ public class CombatView extends AbstractGameView {
     private Animation activeUnitAnimation;
     private Animation targetUnitAnimation;
     private Texture gridTexture;
+    private HashMap<String, Animation> animationHashMap = new HashMap<>();
 
 
     private BitmapFont bitmapFont;
@@ -71,21 +69,25 @@ public class CombatView extends AbstractGameView {
 
     }
 
-    private Animation getAnimationFrom(String filePath){
-        Texture tempTexture = new Texture(filePath);
-        int width = tempTexture.getWidth()/(tempTexture.getWidth()/TILE_WIDTH);
-        int height = tempTexture.getHeight()/(tempTexture.getHeight()/TILE_WIDTH);
-        TextureRegion[][] tempTextureRegions = TextureRegion.split(tempTexture, width, height);
-        TextureRegion[] tempTextureRegion = new TextureRegion[width * height];
-        int index = 0;
-        for (int i = 0; i < tempTextureRegions.length; i++) {
-            for (int j = 0; j < tempTextureRegions[i].length; j++) {
-                tempTextureRegion[index++] = tempTextureRegions[i][j];
+    private Animation createAnimationFrom(String filePath){
+        if(animationHashMap.isEmpty() || !animationHashMap.containsKey(filePath)){
+            Texture tempTexture = new Texture(filePath);
+            int width = tempTexture.getWidth()/(tempTexture.getWidth()/TILE_WIDTH);
+            int height = tempTexture.getHeight()/(tempTexture.getHeight()/TILE_WIDTH);
+            TextureRegion[][] tempTextureRegions = TextureRegion.split(tempTexture, width, height);
+            TextureRegion[] tempTextureRegion = new TextureRegion[width * height];
+            int index = 0;
+            for (int i = 0; i < tempTextureRegions.length; i++) {
+                for (int j = 0; j < tempTextureRegions[i].length; j++) {
+                    tempTextureRegion[index++] = tempTextureRegions[i][j];
+                }
+                index = 0;
             }
-            index = 0;
+            //TODO understand animation time float...
+            animationHashMap.put(filePath, new Animation(0.075f, tempTextureRegion));
         }
-        //TODO understand animation time float...
-        return new Animation(0.075f, tempTextureRegion);
+        return animationHashMap.get(filePath);
+
     }
 
 
@@ -114,8 +116,8 @@ public class CombatView extends AbstractGameView {
         board = gameModel.getBoard();
         activeUnit = gameModel.getActiveUnit();
         targetUnit = gameModel.getTargetUnit();
-        activeUnitAnimation = getAnimationFrom(activeUnit.getAnimationFilePath());
-        targetUnitAnimation = getAnimationFrom(targetUnit.getAnimationFilePath());
+        activeUnitAnimation = createAnimationFrom(activeUnit.getAnimationFilePath());
+        targetUnitAnimation = createAnimationFrom(targetUnit.getAnimationFilePath());
 
 
         CombatState combatState = (CombatState)gameModel.getState();
