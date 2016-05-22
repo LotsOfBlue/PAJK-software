@@ -29,12 +29,12 @@ public class Pikeman extends Unit {
         health = maxHealth;
         grayTextureFilePath = "gray-pike-sprite.png";
         if(allegiance == Allegiance.PLAYER){
-            animationFilePath = "blue-pike-sprite.png";
-            textureFilePath = "blue-pike-animation.png";
+            animationFilePath = "blue-pike-animation.png";
+            textureFilePath = "blue-pike-sprite.png";
             portraitFilePath = "shrek-blue.png";
         } else {
-            animationFilePath = "red-pike-sprite.png";
-            textureFilePath = "red-pike-animation.png";
+            animationFilePath = "red-pike-animation.png";
+            textureFilePath = "red-pike-sprite.png";
             portraitFilePath = "shrek-red.png";
         }
     }

@@ -79,7 +79,6 @@ public class EnemyTurnState extends State {
         else {
             moveTowards(path);
             if (stepsLeft == 0 || path.isEmpty()) {
-                System.out.println("Test1");
                 activeUnit.setUnitState(Unit.UnitState.MOVED);
             }
         }
@@ -93,12 +92,16 @@ public class EnemyTurnState extends State {
     private void trimPath(List<Tile> path, Tile currentPos) {
         path.remove(currentPos);
 
-        //Starting from the farthest tile, remove tiles until only reachable remains
+        while (path.size() > 0 && !moveRange.contains(path.get(0))){
+            path.remove(0);
+        }
+
+        /*//Starting from the farthest tile, remove tiles until only reachable remains
         while (path.size() > activeUnit.getMovement()) {
             if (!moveRange.contains(path.get(0))) {
                 path.remove(0);
             }
-        }
+        }*/
     }
 
     /**
