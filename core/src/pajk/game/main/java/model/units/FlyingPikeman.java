@@ -7,6 +7,7 @@ public class FlyingPikeman extends Pikeman {
     public FlyingPikeman(Allegiance allegiance, int level){
         super(allegiance, level);
         movementType = MovementType.FLYING;
+        profession = "Flying Pikeman";
         grayTextureFilePath = "gray-pike-flying-sprite.png";
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "blue-pike-flying-animation.png";

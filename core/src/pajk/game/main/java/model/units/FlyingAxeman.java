@@ -7,6 +7,7 @@ public class FlyingAxeman extends Axeman {
     public FlyingAxeman(Allegiance allegiance, int level){
         super(allegiance, level);
         movementType = MovementType.FLYING;
+        profession = "Flying Axeman";
         grayTextureFilePath = "gray-axe-flying-sprite.png";
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "blue-axe-flying-animation.png";

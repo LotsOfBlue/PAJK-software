@@ -7,6 +7,7 @@ public class FlyingSwordsman extends Swordsman {
     public FlyingSwordsman(Allegiance allegiance, int level){
         super(allegiance, level);
         movementType = MovementType.FLYING;
+        profession = "Flying Swordsman";
         grayTextureFilePath = "gray-sword-flying-sprite.png";
         if(allegiance == Allegiance.PLAYER){
             animationFilePath = "blue-sword-flying-animation.png";
