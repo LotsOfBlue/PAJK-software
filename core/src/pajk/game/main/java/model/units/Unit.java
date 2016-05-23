@@ -47,9 +47,6 @@ public abstract class Unit {
     private Allegiance allegiance;
     private boolean defender = false;
 
-
-
-
     /**
      * Which entity the unit belongs to.
      */
@@ -82,7 +79,6 @@ public abstract class Unit {
         return maxHealth;
     }
 
-
     public String getName() {
         return name;
     }
@@ -91,71 +87,57 @@ public abstract class Unit {
         return level;
     }
 
-
     public int getExperience() {
         return experience;
     }
-
 
     public int getStrength() {
         return strength;
     }
 
-
     public int getSkill() {
         return skill;
     }
-
 
     public int getSpeed() {
         return speed;
     }
 
-
     public int getLuck() {
         return luck;
     }
-
 
     public int getDefence() {
         return defence;
     }
 
-
     public int getResistance() {
         return resistance;
     }
-
 
     public int getMovement() {
         return movement;
     }
 
-
     public String getProfession(){
         return profession;
     }
-
 
     public MovementType getMovementType() {
         return movementType;
     }
 
-
     public List<Item> getInventory() {
         return inventory;
     }
-
 
     public UnitState getUnitState() {
         return unitState;
     }
 
-
     public Allegiance getAllegiance() {
         return allegiance;
     }
-
 
     public int getHealth() {
         return health;
@@ -176,7 +158,6 @@ public abstract class Unit {
     public String getGrayTextureFilePath(){ return grayTextureFilePath; }
 
     public String getPortraitFilePath(){ return portraitFilePath; }
-
 
     //--------------------------------------------------Setters
 
@@ -204,7 +185,7 @@ public abstract class Unit {
 
     /**
      * Increases the experience of the unit by the @param value, can cause lvl up in unit
-     * @param experience
+     * @param experience The amount of experience points to add
      */
     public void addExperience(int experience) {
         this.experience += experience;
