@@ -11,6 +11,7 @@ import pajk.game.main.java.model.states.*;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.states.EnemyTurnState;
 import pajk.game.main.java.model.states.MainState;
+import pajk.game.main.java.model.states.StatusState;
 import pajk.game.main.java.model.units.Unit;
 
 import java.util.*;
@@ -88,14 +89,17 @@ public class BoardView extends AbstractGameView {
     @Override
     public void render(SpriteBatch spriteBatch) {
 
+        this.spriteBatch = spriteBatch;
+        spriteBatch.begin();
+
         //Always draw the board, except when the main menu is open
         if (!(gameModel.getState() instanceof MainMenuState)) {
-            this.spriteBatch = spriteBatch;
-
+//            this.spriteBatch = spriteBatch;
+//            spriteBatch.begin();
             camera.update();
             spriteBatch.setProjectionMatrix(camera.combined);
 
-            spriteBatch.begin();
+//            spriteBatch.begin();
             drawBoard();
             if(gameModel.getState().getClass() != CombatState.class) {
                 drawCursor();
@@ -112,7 +116,7 @@ public class BoardView extends AbstractGameView {
                     !(gameModel.getState() instanceof EndState)){
                 drawTooltip();
             }
-            spriteBatch.end();
+//            spriteBatch.end();
         }
 
         boolean shouldDrawEnemy;
@@ -120,7 +124,6 @@ public class BoardView extends AbstractGameView {
 
             MainState state = (MainState)(gameModel.getState());
             if(state.isEnemyTurnBannerActive()){
-                System.out.println("hej");
                 shouldDrawEnemy = true;
                 drawTurnText(shouldDrawEnemy);
 
