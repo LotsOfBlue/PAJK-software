@@ -8,9 +8,9 @@ import pajk.game.main.java.model.units.Unit;
  * @author Jonatan
  */
 public class EndState extends State {
-    private int score = 1;
-    private int turns = 1;
-    private int units = 1;
+    private int score;
+    private int turns;
+    private int units;
 
     private GameModel gameModel;
     private Unit.Allegiance winner;
@@ -36,7 +36,7 @@ public class EndState extends State {
 
     private int getGameScore(){
         final int BASE = 100;
-        return BASE *units/turns;
+        return BASE * units / turns;
     }
 
     public int getScore() {

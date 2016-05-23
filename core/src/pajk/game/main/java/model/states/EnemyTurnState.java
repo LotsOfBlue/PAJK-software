@@ -202,7 +202,6 @@ public class EnemyTurnState extends State {
         Unit target = null;
         for (Unit u : targets) {
             int dmg = CombatCalculator.calcDamageThisToThat(activeUnit, u);
-            //TODO consider evasion
             if (dmg >= highestDmg) {
                 highestDmg = dmg;
                 target = u;

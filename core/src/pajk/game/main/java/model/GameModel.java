@@ -220,9 +220,6 @@ public final class GameModel {
                 result = false;
             }
         }
-        if(result){
-            numberOfTurns++;
-        }
         return result;
     }
 
@@ -244,6 +241,7 @@ public final class GameModel {
         for (Unit u : unitList) {
             u.setUnitState(Unit.UnitState.READY);
         }
+        numberOfTurns++;
     }
 
     /**
