@@ -92,10 +92,8 @@ public class Board {
      */
     public Tile getTile(int x, int y) {
         if (isWithinBoard(x, y)) {
-            //System.out.println("board gief tile");
             return tileMatrix[x][y];
         }
-        System.out.println("board gief null");
         return null;
     }
 
@@ -203,7 +201,7 @@ public class Board {
 
     /**
      * Sets the cursor position to the given tile.
-     * @param t
+     * @param t The tile to set the cursor to.
      */
     public void setCursor(Tile t) {
         cursor = t;
@@ -254,8 +252,7 @@ public class Board {
 
         //Check if we can move to the neighbor.
         List<Tile> neighbors = getNeighbors(origin);
-        for (Tile t :
-                neighbors) {
+        for (Tile t : neighbors) {
             if (    previous != t && //Don't walk backwards
                     (!t.hasUnit() || (t.getUnit().getAllegiance() == unit.getAllegiance())) && //Don't walk through enemy units, walk through allied.
                     range >= t.getMovementCost(unit.getMovementType())) { //Make sure the unit has enough movement left to walk there.
@@ -333,10 +330,8 @@ public class Board {
      * @param dest The tile to move to.
      */
     public void moveUnit(Unit unit, Tile dest) {
-        for (Tile[] arr:
-             tileMatrix) {
-            for (Tile t:
-                 arr) {
+        for (Tile[] arr : tileMatrix) {
+            for (Tile t : arr) {
                 if (t.hasUnit() && t.getUnit() == unit){
                     t.setUnit(null);
                 }
