@@ -23,21 +23,7 @@ public class BoardView extends AbstractGameView {
 
     private HashMap<String, Texture> unitTextureMap = new HashMap<>();
 
-    private Texture graySwordUnitSprite;
-    private Texture blueSwordUnitSprite;
-    private Texture redSwordUnitSprite;
 
-    private Texture grayBowUnitSprite;
-    private Texture blueBowUnitSprite;
-    private Texture redBowUnitSprite;
-
-    private Texture grayAxeUnitSprite;
-    private Texture blueAxeUnitSprite;
-    private Texture redAxeUnitSprite;
-
-    private Texture grayPikeUnitSprite;
-    private Texture bluePikeUnitSprite;
-    private Texture redPikeUnitSprite;
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
@@ -49,6 +35,8 @@ public class BoardView extends AbstractGameView {
     private Texture overlayMove;
     private Texture overlayAttack;
     private Texture gridTexture;
+    private Texture enemyTurnText;
+    private Texture playerTurnText;
 
     private Texture tooltipBackground;
 
@@ -75,6 +63,11 @@ public class BoardView extends AbstractGameView {
 
         hpbarBlue = new Texture("Sprites/Units/hpbarBlue.png");
         hpbarRed  = new Texture("Sprites/Units/hpbarRed.png");
+
+        hpbarContainer = new Texture("hpContainer.png");
+
+        enemyTurnText = new Texture("enemyTurnText.png");
+        playerTurnText = new Texture("playerTurnText.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -118,6 +111,11 @@ public class BoardView extends AbstractGameView {
             }
             spriteBatch.end();
         }
+
+        drawTurnText(true);
+
+
+        spriteBatch.end();
     }
 
     private void drawUnit(int x, int y){
@@ -152,7 +150,7 @@ public class BoardView extends AbstractGameView {
         int pixelX = getPixelCoordX(x);
         int pixelY = getPixelCoordY(y);
 
-        //draw(x,y,hpbarContainer);
+        draw(x,y,hpbarContainer);
 //        draw(x, y, hpbarRed);
         double currentHp = unit.getHealth();
         double maxhp = unit.getMaxHealth();
@@ -182,6 +180,14 @@ public class BoardView extends AbstractGameView {
         int cursorX = gameModel.getBoard().getCursorTile().getX();
         int cursorY = gameModel.getBoard().getCursorTile().getY();
         draw(cursorX,cursorY,cursor);
+    }
+
+    private void drawTurnText(boolean isEnemyTurn){
+        if(isEnemyTurn){
+            spriteBatch.draw(enemyTurnText, camera.position.x - camera.viewportWidth/2,camera.position.y-camera.viewportHeight/2+20);
+        } else {
+            spriteBatch.draw(playerTurnText,camera.position.x - camera.viewportWidth/2,camera.position.y-camera.viewportHeight/2+20);
+        }
     }
 
     /**
