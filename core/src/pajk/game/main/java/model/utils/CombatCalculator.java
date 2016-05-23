@@ -29,7 +29,6 @@ public class CombatCalculator {
                     + getWeaponAdvantageThisToThat(attackerUnit, defenderUnit)
                     - defenderUnit.getDefence();
         }
-
         //The lower bound of damage is 0
         if (damage < 0) {
             return 0;
@@ -78,6 +77,7 @@ public class CombatCalculator {
         }
     }
 
+
     /**
      * This method calculates the weapon advantage the attacker has on the defender, wich can be posetive and negative.
      * Works as axe beats pike beats sword beats axe, bow beats flying and magic beats magic.
@@ -85,8 +85,9 @@ public class CombatCalculator {
      * @param defenderUnit is the unit being hit
      * @return the advantage the attacker has on the defender (+ & -)
      */
-    private static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
 
+    public static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
+        //Bow types has inate advantage against flying
         if(attackerUnit.getWeapon() instanceof Bow && defenderUnit.getMovementType() == Unit.MovementType.FLYING){
             return 5;
         }

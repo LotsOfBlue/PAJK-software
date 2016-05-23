@@ -9,6 +9,8 @@ import pajk.game.main.java.model.states.EndState;
 import pajk.game.main.java.model.states.State;
 import pajk.game.main.java.model.units.Unit;
 
+import java.util.HashMap;
+
 /**
  * Created by jonatan on 17/05/2016.
  */
@@ -18,6 +20,8 @@ public class EndView extends AbstractGameView{
     private OrthographicCamera camera;
     private GameModel model;
     private BitmapFont font;
+
+
 
     public EndView(OrthographicCamera camera){
         model = GameModel.getInstance();

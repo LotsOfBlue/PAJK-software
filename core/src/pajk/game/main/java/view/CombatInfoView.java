@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatInfoState;
 import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.units.Unit.*;
+
+import java.util.HashMap;
 
 /**
  * Created by jonatan on 18/05/2016.
@@ -22,6 +23,13 @@ public class CombatInfoView extends AbstractGameView{
     private BitmapFont font;
     private Unit activeUnit, targetUnit;
 
+    private HashMap<String, Texture> unitTextureHashMap = new HashMap<>();
+
+
+    /**
+     *
+     * @param camera
+     */
     public CombatInfoView(OrthographicCamera camera){
         statusBackground = new Texture("Menus/statusBackground.png");
         this.camera = camera;
@@ -29,6 +37,9 @@ public class CombatInfoView extends AbstractGameView{
         model = GameModel.getInstance();
     }
 
+    /**
+     *
+     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         if(model.getState() instanceof CombatInfoState){
@@ -36,16 +47,26 @@ public class CombatInfoView extends AbstractGameView{
         }
     }
 
+    private Texture getTexture (Unit unit){
+        String str = unit.getPortraitFilePath();
+        if(unitTextureHashMap.isEmpty() || !unitTextureHashMap.containsKey(str)){
+            unitTextureHashMap.put(str, new Texture(str));
+        }
+        return unitTextureHashMap.get(str);
+    }
+    /*
+     *
+     */
     private void drawInfoScreen(SpriteBatch spriteBatch){
         CombatInfoState combatInfoState = (CombatInfoState)model.getState();
 
         if(activeUnit != combatInfoState.getActiveUnit()){
             activeUnit = combatInfoState.getActiveUnit();
-            activeUnitImage = new Texture(activeUnit.getPortraitFilePath());
+            activeUnitImage = getTexture(activeUnit);
         }
         if(targetUnit != combatInfoState.getTargetUnit()){
             targetUnit = combatInfoState.getTargetUnit();
-            targetUnitImage = new Texture(targetUnit.getPortraitFilePath());
+            targetUnitImage = getTexture(targetUnit);
         }
         int x = (int)(camera.position.x - (statusBackground.getWidth()/2));
         int y = (int)(camera.position.y - (statusBackground.getHeight()/2));
@@ -77,11 +98,6 @@ public class CombatInfoView extends AbstractGameView{
         spriteBatch.end();
     }
 
-    private Texture getTextureFor(Unit unit){
-        if (unit.getAllegiance().equals(Allegiance.PLAYER)){
-            return new Texture("Sprites/Units/shrek-red.png");
-        } else {
-            return new Texture("Sprites/Units/shrek-blue.png");
-        }
-    }
+
+
 }

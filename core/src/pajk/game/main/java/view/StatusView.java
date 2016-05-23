@@ -16,7 +16,6 @@ import java.util.HashMap;
 public class StatusView extends AbstractGameView{
 
     private Texture statusBackground;
-    private Texture unitImage;
     private Texture selector;
     private Texture statusBackgroundRed;
     private OrthographicCamera camera;
@@ -24,7 +23,7 @@ public class StatusView extends AbstractGameView{
     private BitmapFont font;
     private Unit unit;
     private StatusState state;
-    private HashMap<String, Texture> unitTextureMap = new HashMap<>();
+    private HashMap<String, Texture> unitTextureHashMap = new HashMap<>();
 
     /**
      * Creates a StatusView.
@@ -36,7 +35,6 @@ public class StatusView extends AbstractGameView{
     public StatusView(OrthographicCamera camera){
 
         statusBackground = new Texture("Menus/statusBackground.png");
-        unitImage = new Texture("Menus/shrek.png");
         selector = new Texture("Menus/statusInfoSelector.png");
         statusBackgroundRed = new Texture("Menus/statusBackgroundRed.png");
 
@@ -44,6 +42,8 @@ public class StatusView extends AbstractGameView{
         font = new BitmapFont();
         model = GameModel.getInstance();
     }
+
+
 
     @Override
     public void render(SpriteBatch spriteBatch) {
@@ -60,7 +60,6 @@ public class StatusView extends AbstractGameView{
 
     private void drawStatusScreen(SpriteBatch spriteBatch){
         state = (StatusState)model.getState();
-        model = GameModel.getInstance();
         unit = state.getStatusUnit();
 
         int x = (int)(camera.position.x - camera.viewportWidth/2)+85;
@@ -85,10 +84,12 @@ public class StatusView extends AbstractGameView{
         }
         //draws image
         String str = unit.getPortraitFilePath();
-        if(unitTextureMap.isEmpty() || !unitTextureMap.containsKey(str)){
-            unitTextureMap.put(str, new Texture(str));
+        if(unitTextureHashMap.isEmpty() || !unitTextureHashMap.containsKey(str)){
+            unitTextureHashMap.put(str, new Texture(str));
         }
-        spriteBatch.draw(unitTextureMap.get(str), x + 20, y + camera.viewportHeight - 100 - 50 - 130);
+
+        spriteBatch.draw(unitTextureHashMap.get(str),x+20,y+ camera.viewportHeight - 100 -50 -130);
+
 
         //draws first column
         for(int i = 1; i < 5; i++){

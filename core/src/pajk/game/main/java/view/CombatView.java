@@ -54,23 +54,28 @@ public class CombatView extends AbstractGameView {
     private Animation targetUnitAnimation;
     private Texture gridTexture;
     private Texture hpBar;
-    private HashMap<String, Animation> animationHashMap = new HashMap<>();
+    private HashMap<String, Animation> unitAnimationHashMap = new HashMap<>();
 
-    private BitmapFont bitmapFont;
+
+    private BitmapFont font;
+
+
 
     /**
-     * Constructor of CombatView, initializes the class and get all required
+     * Constructor of CombatView, initializes the class and get all requiered
      */
     public CombatView (){
-        bitmapFont = new BitmapFont();
-        bitmapFont.getData().setScale(2f,2f);
 
+        gameModel = GameModel.getInstance();
+
+        font = new BitmapFont();
+        font.getData().setScale(2f,2f);
         gridTexture = new Texture("Sprites/Tiles/gridOverlay64.png");
         hpBar = new Texture("Sprites/Units/hpbarBlue.png");
     }
 
     private Animation createAnimationFrom(String filePath){
-        if(animationHashMap.isEmpty() || !animationHashMap.containsKey(filePath)){
+        if(unitAnimationHashMap.isEmpty() || !unitAnimationHashMap.containsKey(filePath)){
             Texture tempTexture = new Texture(filePath);
             int width = tempTexture.getWidth()/(tempTexture.getWidth()/TILE_WIDTH);
             int height = tempTexture.getHeight()/(tempTexture.getHeight()/TILE_WIDTH);
@@ -83,15 +88,16 @@ public class CombatView extends AbstractGameView {
                 }
                 index = 0;
             }
-            animationHashMap.put(filePath, new Animation(0.075f, tempTextureRegion));
+
+            unitAnimationHashMap.put(filePath, new Animation(0.075f, tempTextureRegion));
         }
-        animationHashMap.get(filePath).setFrameDuration(0.5f);
-        return animationHashMap.get(filePath);
+        unitAnimationHashMap.get(filePath).setFrameDuration(0.5f);
+        return unitAnimationHashMap.get(filePath);
+
     }
 
     public void render(SpriteBatch spriteBatch){
         this.spriteBatch = spriteBatch;
-        gameModel = GameModel.getInstance();
         if(gameModel.getState() instanceof CombatState){
             CombatState combatState = (CombatState)gameModel.getState();
             if (combatState.isCalcDone()){
@@ -222,9 +228,9 @@ public class CombatView extends AbstractGameView {
 
     private void drawDamageNumber(Unit unit, float frame){
         float uPos[] = {0f,0f};
-        float scale = animationClock/30f;
-        bitmapFont.getData().setScale(scale);
-        bitmapFont.setColor(Color.SCARLET);
+        float scale = 2;
+        font.getData().setScale(scale);
+        font.setColor(Color.SCARLET);
         String message = "null";
         if(unit.equals(activeUnit)){
             uPos = calcDrawPos(targetUnit);
@@ -293,7 +299,7 @@ public class CombatView extends AbstractGameView {
     }
 
     private void draw(String str, float xPos, float yPos){
-        bitmapFont.draw(spriteBatch, str, xPos, yPos);
+        font.draw(spriteBatch, str, xPos, yPos);
     }
 
     private void reset(){

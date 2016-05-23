@@ -24,8 +24,8 @@ public class BoardView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-    private HashMap<String, Texture> unitTextureMap = new HashMap<>();
-    
+    private HashMap<String, Texture> unitTextureHashMap = new HashMap<>();
+
     private Texture hpbarRed;
     private Texture hpbarBlue;
     private Texture hpbarContainer;
@@ -71,6 +71,7 @@ public class BoardView extends AbstractGameView {
         enemyTurnText = new Texture("Menus/enemyTurnText.png");
         playerTurnText = new Texture("Menus/playerTurnText.png");
         endTurnConfirmation = new Texture("Menus/endTurnConfirmation.png");
+
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -82,6 +83,7 @@ public class BoardView extends AbstractGameView {
         this.camera.update();
     }
 
+
     @Override
     public void render(SpriteBatch spriteBatch) {
 
@@ -90,12 +92,12 @@ public class BoardView extends AbstractGameView {
 
         //Always draw the board, except when the main menu is open
         if (!(gameModel.getState() instanceof MainMenuState)) {
-//            this.spriteBatch = spriteBatch;
-//            spriteBatch.begin();
+            this.board = gameModel.getBoard();
+            this.spriteBatch = spriteBatch;
+
             camera.update();
             spriteBatch.setProjectionMatrix(camera.combined);
 
-//            spriteBatch.begin();
             drawBoard();
             if(gameModel.getState().getClass() != CombatState.class) {
                 drawCursor();
@@ -112,7 +114,6 @@ public class BoardView extends AbstractGameView {
                     !(gameModel.getState() instanceof EndState)){
                 drawTooltip();
             }
-//            spriteBatch.end();
         }
 
         boolean shouldDrawEnemy;
@@ -146,12 +147,12 @@ public class BoardView extends AbstractGameView {
             str = myUnit.getTextureFilePath();
         }
 
-        if(unitTextureMap.isEmpty() || !unitTextureMap.containsKey(str)){
-            unitTextureMap.put(str, new Texture(str));
+        if(unitTextureHashMap.isEmpty() || !unitTextureHashMap.containsKey(str)){
+            unitTextureHashMap.put(str, new Texture(str));
         }
 
         if (!(gameModel.getCurrentStateName().equals(GameModel.StateName.COMBAT)) || (gameModel.getActiveUnit() != myUnit && gameModel.getTargetUnit() != myUnit)){
-            draw(x,y,unitTextureMap.get(str));
+            draw(x,y, unitTextureHashMap.get(str));
         }
 
         drawHealthbar(myUnit, x, y);
@@ -379,5 +380,9 @@ public class BoardView extends AbstractGameView {
 
     public void setBoard(Board board){
         this.board = board;
+    }
+
+    public void setCamera(OrthographicCamera camera){
+        this.camera = camera;
     }
 }

@@ -12,6 +12,7 @@ import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.scenarios.Scenario;
 import pajk.game.main.java.model.states.MainMenuState;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,12 +24,17 @@ public class MainMenuView extends AbstractGameView{
     private Texture title;
     private Texture scenarioSelectBG;
     private OrthographicCamera camera;
+    private Texture screenshot;
     private BitmapFont font;
     //Used for centering scenario name properly
     private GlyphLayout layout;
 
     private MainMenuState mmState;
     private int selection;
+    private HashMap<String, Texture> screenshotHashMap = new HashMap<>();
+
+    private int currentSelection;
+    private int prevSelection;
 
     public MainMenuView(OrthographicCamera camera) {
         model = GameModel.getInstance();
@@ -39,6 +45,8 @@ public class MainMenuView extends AbstractGameView{
         font.setColor(Color.LIGHT_GRAY);
         layout = new GlyphLayout();
     }
+
+
 
     @Override
     public void render(SpriteBatch spriteBatch) {
@@ -82,7 +90,10 @@ public class MainMenuView extends AbstractGameView{
         //Scenario screenshot
         String path = scenario.getScreenshotPath();
         if (path != null) {
-            Texture screenshot = new Texture(path);
+            if(screenshotHashMap.isEmpty() || !screenshotHashMap.containsKey(path)){
+                screenshotHashMap.put(path, new Texture(path));
+            }
+            screenshot = screenshotHashMap.get(path);
             spriteBatch.draw(screenshot, 440, 260);
         }
 

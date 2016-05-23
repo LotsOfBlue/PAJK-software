@@ -25,23 +25,6 @@ public class ViewHandler {
      * ViewHandler creates all other views and draws them. The separate View classes decides if it should be drawn or not.
      */
     public ViewHandler(){
-        makeNewViews();
-    }
-
-    public void render(SpriteBatch spriteBatch){
-        if (boardView.getBoard() != gameModel.getBoard()){
-            makeNewViews();
-        }
-        mainMenuView.render(spriteBatch);
-        boardView.render(spriteBatch);
-        combatView.render(spriteBatch);
-        menuView.render(spriteBatch);
-        statusView.render(spriteBatch);
-        endView.render(spriteBatch);
-        combatInfoView.render(spriteBatch);
-    }
-
-    private void makeNewViews(){
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(w, h);
@@ -53,4 +36,17 @@ public class ViewHandler {
         combatInfoView = new CombatInfoView(camera);
         mainMenuView = new MainMenuView(camera);
     }
+
+    public void render(SpriteBatch spriteBatch){
+        mainMenuView.render(spriteBatch);
+        boardView.render(spriteBatch);
+        combatView.render(spriteBatch);
+        menuView.render(spriteBatch);
+        statusView.render(spriteBatch);
+        endView.render(spriteBatch);
+        combatInfoView.render(spriteBatch);
+    }
+
+
+
 }
