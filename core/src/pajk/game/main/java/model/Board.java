@@ -98,17 +98,19 @@ public class Board {
      */
     public List<Tile> getNeighbors(Tile t){
         List<Tile> result = new ArrayList<>();
-        if (isWithinBoard(t.getX(), t.getY() - 1)){
-            result.add(getTile(t.getX(), t.getY() - 1));
+        int centerX = t.getX();
+        int centerY = t.getY();
+        if (isWithinBoard(centerX, centerY - 1)){
+            result.add(getTile(centerX, centerY - 1));
         }
-        if (isWithinBoard(t.getX(), t.getY() + 1)){
-            result.add(getTile(t.getX(), t.getY() + 1));
+        if (isWithinBoard(centerX, centerY + 1)){
+            result.add(getTile(centerX, centerY + 1));
         }
-        if (isWithinBoard(t.getX() - 1, t.getY())){
-            result.add(getTile(t.getX() - 1, t.getY()));
+        if (isWithinBoard(centerX - 1, centerY)){
+            result.add(getTile(centerX - 1, centerY));
         }
-        if (isWithinBoard(t.getX() + 1, t.getY())){
-            result.add(getTile(t.getX() + 1, t.getY()));
+        if (isWithinBoard(centerX + 1, centerY)){
+            result.add(getTile(centerX + 1, centerY));
         }
         return result;
     }
@@ -267,21 +269,23 @@ public class Board {
      */
     public Set<Tile> getTilesAround(Tile center, int minRange, int maxRange){
         Set<Tile> result = new HashSet<>();
+        int centerX = center.getX();
+        int centerY = center.getY();
         //I add the tiles in "rings" around the center tile, starting from i steps to the left, right, above and below,
         // then going clockwise adding tiles.
         for (int i = minRange; i <= maxRange; i++) {
             for (int j = 0; j < i; j++) {
-                if (isWithinBoard(center.getX() - i + j, center.getY() - j)){
-                    result.add(getTile(center.getX() - i + j, center.getY() - j));
+                if (isWithinBoard(centerX - i + j, centerY - j)){
+                    result.add(getTile(centerX - i + j, centerY - j));
                 }
-                if (isWithinBoard(center.getX()+ j, center.getY() - i + j)){
-                    result.add(getTile(center.getX()+ j, center.getY() - i + j));
+                if (isWithinBoard(centerX+ j, centerY - i + j)){
+                    result.add(getTile(centerX+ j, centerY - i + j));
                 }
-                if (isWithinBoard(center.getX() + i - j, center.getY() + j)){
-                    result.add(getTile(center.getX() + i - j, center.getY() + j));
+                if (isWithinBoard(centerX + i - j, centerY + j)){
+                    result.add(getTile(centerX + i - j, centerY + j));
                 }
-                if (isWithinBoard(center.getX() - j, center.getY() + i - j)){
-                    result.add(getTile(center.getX() - j, center.getY() + i - j));
+                if (isWithinBoard(centerX - j, centerY + i - j)){
+                    result.add(getTile(centerX - j, centerY + i - j));
                 }
             }
         }
