@@ -18,7 +18,6 @@ import pajk.game.main.java.model.states.State;
 
 import pajk.game.main.java.model.units.Unit;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +30,6 @@ import java.util.List;
  */
 public final class GameModel {
 
-    int numberOfTurns = 1;
-
     private static GameModel ourInstance = null;
 
     private Board board;
@@ -42,6 +39,7 @@ public final class GameModel {
     private Tile targetTile;
 
     private Unit.Allegiance winner;
+    private int numberOfTurns = 1;
 
     //States
     private State currentState;
@@ -131,16 +129,20 @@ public final class GameModel {
         currentState.activate();
     }
 
-    public Unit.Allegiance getWinner() { return winner; }
+    public Unit.Allegiance getWinner() {
+        return winner;
+    }
 
-    //public void setWinner(Unit.Allegiance winner) { this.winner = winner;}
+    public void setWinner(Unit.Allegiance winner) {
+        this.winner = winner;
+    }
 
     public void removeUnit (Unit unit){
         unitList.remove(unit);
         board.getPos(unit).setUnit(null);
         if(activeUnit == unit){//TODO is needed or not?
             activeUnit = null;
-        }else if(targetUnit == unit){
+        } else if(targetUnit == unit) {
             targetUnit = null;
         }
     }
@@ -148,17 +150,13 @@ public final class GameModel {
     public boolean isGameOver(){
         if(getNumberOfUnits(Unit.Allegiance.AI) < 1){
             winner = Unit.Allegiance.PLAYER;
-            System.out.println("I returned PLAYER as winner");
             return true;
-        }else if(getNumberOfUnits(Unit.Allegiance.PLAYER) < 1){
+        } else if(getNumberOfUnits(Unit.Allegiance.PLAYER) < 1) {
             winner = Unit.Allegiance.AI;
-            System.out.println("I returned AI as winner");
             return true;
-        }else{
-            System.out.println("I returned no winner");
+        } else {
             return false;
         }
-
     }
 
     public int getNumberOfUnits (Unit.Allegiance allegiance){
@@ -167,11 +165,6 @@ public final class GameModel {
             if(u.getAllegiance() == allegiance){
                 myInt++;
             }
-        }
-        if (allegiance == Unit.Allegiance.AI){
-            System.out.println("I counted "+myInt+" AI units");
-        }else{
-            System.out.println("I counted "+myInt+" PLAYER units");
         }
         return myInt;
     }
@@ -258,7 +251,6 @@ public final class GameModel {
      * @param action The action to be performed by the current state.
      */
     public void performAction(ActionName action){
-
         currentState.performAction(action);
     }
 
@@ -269,5 +261,7 @@ public final class GameModel {
         numberOfTurns = 1;
     }
 
-    public int getNumberOfTurns(){ return numberOfTurns; }
+    public int getNumberOfTurns(){
+        return numberOfTurns;
+    }
 }
