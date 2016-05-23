@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.*;
+import pajk.game.main.java.model.states.CombatState;
+import pajk.game.main.java.model.states.EnemyTurnState;
+import pajk.game.main.java.model.states.MainState;
 import pajk.game.main.java.model.units.Unit;
 
 import java.util.*;
@@ -112,7 +115,23 @@ public class BoardView extends AbstractGameView {
             spriteBatch.end();
         }
 
-        drawTurnText(true);
+        boolean shouldDrawEnemy;
+        if(gameModel.getState().getClass() == MainState.class){
+
+            MainState state = (MainState)(gameModel.getState());
+            if(state.isEnemyTurnBannerActive()){
+                System.out.println("hej");
+                shouldDrawEnemy = true;
+                drawTurnText(shouldDrawEnemy);
+
+            }
+        } else if (gameModel.getState().getClass() == EnemyTurnState.class){
+            EnemyTurnState enemyState = (EnemyTurnState)(gameModel.getState());
+            if(enemyState.isPlayerTurnBannerActive()){
+                shouldDrawEnemy = false;
+                drawTurnText(shouldDrawEnemy);
+            }
+        }
 
 
         spriteBatch.end();
