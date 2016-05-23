@@ -27,7 +27,7 @@ public class Tile{
         MOVEMENT, TARGET, NONE
     }
 
-    Tile(int x, int y, Terrain terrain){
+    public Tile(int x, int y, Terrain terrain){
         this.x = x;
         this.y = y;
         this.terrain = terrain;
