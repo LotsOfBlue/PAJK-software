@@ -61,7 +61,7 @@ public class CombatInfoView extends AbstractGameView{
                         + "\n\n" + activeUnit.getSpeed() + " SPEED"
                         + "\n\n" + activeUnit.getWeapon().getName()
                 , x + (statusBackground.getWidth()/8)
-                ,  y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
+                , y + 7 * (statusBackground.getHeight()/8) - activeUnitImage.getHeight());
         font.draw(spriteBatch,
                 targetUnit.getHealth() + " --> " +
                         (targetUnit.getHealth() - combatInfoState.getActiveDmg())

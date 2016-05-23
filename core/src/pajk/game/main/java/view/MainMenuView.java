@@ -27,8 +27,8 @@ public class MainMenuView extends AbstractGameView{
     //Used for centering scenario name properly
     private GlyphLayout layout;
 
-    private int currentSelection;
-    private int prevSelection;
+    private MainMenuState mmState;
+    private int selection;
 
     public MainMenuView(OrthographicCamera camera) {
         model = GameModel.getInstance();
@@ -43,7 +43,7 @@ public class MainMenuView extends AbstractGameView{
     @Override
     public void render(SpriteBatch spriteBatch) {
         if(model.getState() instanceof MainMenuState){
-            MainMenuState mmState = (MainMenuState) model.getState();
+            mmState = (MainMenuState) model.getState();
             //Reset the camera in case it has been moved
             camera.position.set(PajkGdxGame.WIDTH / 2f, PajkGdxGame.HEIGHT / 2f, 0);
             camera.update();
@@ -55,28 +55,31 @@ public class MainMenuView extends AbstractGameView{
             }
             //Display the scenario select screen
             else {
-                drawScenarioSelectMenu(spriteBatch, mmState);
+                drawScenarioSelectMenu(spriteBatch);
             }
             spriteBatch.end();
         }
     }
 
-    private void drawScenarioSelectMenu(SpriteBatch spriteBatch, MainMenuState mmState) {
+    /**
+     * Draw the scenario select menu.
+     * @param spriteBatch Spritebatch.
+     */
+    private void drawScenarioSelectMenu(SpriteBatch spriteBatch) {
         //The currently and previously selected scenario
-        prevSelection = currentSelection;
-        currentSelection = mmState.getMenuItemSelected();
-        Scenario scenario = mmState.getScenarioList().get(currentSelection);
+        selection = mmState.getMenuItemSelected();
+        Scenario scenario = mmState.getScenarioList().get(selection);
         //Background
         spriteBatch.draw(scenarioSelectBG, 0, 0);
         //List of scenarios
-        drawScenarioList(spriteBatch, mmState);
+        drawScenarioList(spriteBatch);
         //Scenario name
         font.getData().setScale(2);
         layout.setText(font, scenario.getName());
         font.draw(spriteBatch, layout, 600 - (layout.width / 2), 500);
         //Scenario description
         drawDescription(spriteBatch, scenario);
-        //Scenario screenshot TODO animate
+        //Scenario screenshot
         String path = scenario.getScreenshotPath();
         if (path != null) {
             Texture screenshot = new Texture(path);
@@ -89,26 +92,21 @@ public class MainMenuView extends AbstractGameView{
     }
 
 	/**
-     * Draw the list of scenarios to choose from
+     * Draw the list of scenarios to choose from.
      * @param spriteBatch Spritebatch
-     * @param mmState The MainMenuState to retrieve data from.
      */
-    private void drawScenarioList(SpriteBatch spriteBatch, MainMenuState mmState) {
+    private void drawScenarioList(SpriteBatch spriteBatch) {
         font.getData().setScale(1);
         List<Scenario> scenarioList = mmState.getScenarioList();
 
-        if (prevSelection != currentSelection) {
-            System.out.println("NEW");
-        }
         for (Scenario s : scenarioList) {
             //Calculate the position of the scenarios last frame and their expected position this frame
-            int newYPos = calcListItemOffset(scenarioList.indexOf(s), currentSelection);
-            int oldYPos = calcListItemOffset(scenarioList.indexOf(s), prevSelection);
+            int yPos = calcListItemOffset(scenarioList.indexOf(s), selection);
             font.draw(
                     spriteBatch,
                     s.getName(),
                     10,
-                    newYPos,
+                    yPos,
                     0,
                     s.getName().length(),
                     220,

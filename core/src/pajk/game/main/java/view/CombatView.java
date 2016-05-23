@@ -16,7 +16,7 @@ import java.util.HashMap;
  * Gets values from CombatState
  */
 public class CombatView extends AbstractGameView {
-    private final int TILE_WIDTH = 64; //TODO make global tile width?
+    private final int TILE_WIDTH = 64;
 
     private SpriteBatch spriteBatch;
     private GameModel gameModel;
@@ -47,8 +47,8 @@ public class CombatView extends AbstractGameView {
         ACTIVE_SECOND_HIT
 
     }
-    private CombatDrawState combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
 
+    private CombatDrawState combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
 
     private Animation activeUnitAnimation;
     private Animation targetUnitAnimation;
@@ -56,20 +56,17 @@ public class CombatView extends AbstractGameView {
     private Texture hpBar;
     private HashMap<String, Animation> animationHashMap = new HashMap<>();
 
-
     private BitmapFont bitmapFont;
 
     /**
-     * Construktor of CombatView, initializes the class and get all requierd
+     * Constructor of CombatView, initializes the class and get all required
      */
     public CombatView (){
-
         bitmapFont = new BitmapFont();
         bitmapFont.getData().setScale(2f,2f);
 
         gridTexture = new Texture("Sprites/Tiles/gridOverlay64.png");
         hpBar = new Texture("Sprites/Units/hpbarBlue.png");
-
     }
 
     private Animation createAnimationFrom(String filePath){
@@ -86,13 +83,10 @@ public class CombatView extends AbstractGameView {
                 }
                 index = 0;
             }
-            //TODO understand animation time float...
             animationHashMap.put(filePath, new Animation(0.075f, tempTextureRegion));
         }
         return animationHashMap.get(filePath);
-
     }
-
 
     public void render(SpriteBatch spriteBatch){
         this.spriteBatch = spriteBatch;
@@ -118,7 +112,6 @@ public class CombatView extends AbstractGameView {
         activeUnitAnimation = createAnimationFrom(activeUnit.getAnimationFilePath());
         targetUnitAnimation = createAnimationFrom(targetUnit.getAnimationFilePath());
 
-
         CombatState combatState = (CombatState)gameModel.getState();
         firstDamageFromActiveUnit = combatState.getFirstDamageFromActiveUnit();
         firstHitFromActiveUnit = combatState.isFirstHitFromActiveUnit();
@@ -134,11 +127,10 @@ public class CombatView extends AbstractGameView {
     }
 
     public void update(float deltaTime){
-        //TODO nothing?
+
     }
 
     private void drawCombat(){
-
 
         float frame = 0f;
         if (animationClock<30) {
@@ -192,20 +184,17 @@ public class CombatView extends AbstractGameView {
         cooldown--;
     }
 
-
-
-
     private void drawAttackAnimation(Unit unit, float frame){
         drawTile(board.getPos(unit));
         TextureRegion textureRegion;
         boolean isFlip = false;
-        if(unit  == activeUnit){
+        if(unit == activeUnit){
             textureRegion = activeUnitAnimation.getKeyFrame(frame);
             if(calcDrawPos(activeUnit)[0] < calcDrawPos(targetUnit)[0]){
                 isFlip = true;
             }
 
-        }else{
+        } else {
             textureRegion = targetUnitAnimation.getKeyFrame(frame);
             if(calcDrawPos(targetUnit)[0] < calcDrawPos(activeUnit)[0]){
                 isFlip = true;
@@ -213,7 +202,7 @@ public class CombatView extends AbstractGameView {
         }
         if(isFlip && !textureRegion.isFlipX()){
             textureRegion.flip(true, false);
-        } else if(!isFlip && textureRegion.isFlipX()){
+        } else if(!isFlip && textureRegion.isFlipX()) {
             textureRegion.flip(true, false);
         }
 
@@ -232,7 +221,6 @@ public class CombatView extends AbstractGameView {
 
         draw(txtReg, pos[0], pos[1]);
         draw(gridTexture, pos[0], pos[1]);
-
     }
 
     private void drawDamageNumber(Unit unit, float frame){

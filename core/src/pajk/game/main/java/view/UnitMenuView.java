@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class UnitMenuView extends AbstractGameView {
 
-    private BitmapFont font;        //TODO change to "freetype" instead, use gradle
+    private BitmapFont font;
     private Texture menuOverlay;
     private Texture background;
     private GameModel gameModel = GameModel.getInstance();
@@ -25,7 +25,7 @@ public class UnitMenuView extends AbstractGameView {
     /**
      * Creates a UnitMenuView.
      * Draws the menu if in UnitMenuState. Displays options depending on menuList in UnitMenuState
-     * @param camera
+     * @param camera Camera.
      */
     public UnitMenuView(OrthographicCamera camera) {
         font = new BitmapFont();

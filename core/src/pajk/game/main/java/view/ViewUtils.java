@@ -15,7 +15,6 @@ public class ViewUtils {
     private static Texture floorTexture = new Texture("Sprites/Tiles/floor64.png");
     private static Texture wallTexture = new Texture("Sprites/Tiles/wall64.png");
 
-
     public static Texture getTileTexture(Tile tile){
         switch (tile.getTerrainType()){
             case "Forest":
@@ -33,5 +32,4 @@ public class ViewUtils {
         }
         return plainsTexture;
     }
-
 }
