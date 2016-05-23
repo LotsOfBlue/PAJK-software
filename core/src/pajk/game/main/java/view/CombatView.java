@@ -154,7 +154,7 @@ public class CombatView extends AbstractGameView {
 
         switch (combatDrawState) {
             case ACTIVE_FIRST_HIT:
-                if(animationClock == 30 && cooldown == 0){
+                if(animationClock == 30 && cooldown <= 0){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
                     animationClock = 0;
                     cooldown = 60;
@@ -163,9 +163,10 @@ public class CombatView extends AbstractGameView {
                 }
                 cooldown --;
                 drawAttackAnimation(activeUnit, frame);
+                drawAttackAnimation(targetUnit, 0);
                 break;
             case ENEMY_HIT:
-                if((animationClock == 30 && cooldown == 0) || !attackFromEnemyUnit){
+                if((animationClock == 30 && cooldown <= 0) || !attackFromEnemyUnit){
                     combatDrawState = CombatDrawState.ACTIVE_SECOND_HIT;
                     animationClock = 0;
                     cooldown = 60;
@@ -174,9 +175,10 @@ public class CombatView extends AbstractGameView {
                 }
                 cooldown--;
                 drawAttackAnimation(targetUnit, frame);
+                drawAttackAnimation(activeUnit, 0);
                 break;
             case ACTIVE_SECOND_HIT:
-                if((animationClock == 30 && cooldown == 0) || !secondAttackFromActiveUnit){
+                if((animationClock == 30 && cooldown <= 0) || !secondAttackFromActiveUnit){
                     combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
                     animationClock = 0;
                     cooldown = 60;
@@ -186,6 +188,7 @@ public class CombatView extends AbstractGameView {
                 }
                 cooldown--;
                 drawAttackAnimation(activeUnit, frame);
+                drawAttackAnimation(targetUnit, 0);
                 break;
         }
 

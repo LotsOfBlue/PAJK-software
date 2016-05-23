@@ -116,8 +116,10 @@ public class BoardView extends AbstractGameView {
             unitTextureMap.put(str, new Texture(str));
         }
 
+        if (!(gameModel.getCurrentStateName().equals(GameModel.StateName.COMBAT)) || (gameModel.getActiveUnit() != myUnit && gameModel.getTargetUnit() != myUnit)){
+            draw(x,y,unitTextureMap.get(str));
+        }
 
-        draw(x,y,unitTextureMap.get(str));
 
         drawHealthbar(myUnit, x, y);
     }
