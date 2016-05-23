@@ -8,10 +8,12 @@ import pajk.game.main.java.model.units.Unit;
  * Created by jonatan on 16/05/2016.
  */
 public class EndState extends State {
-    private int score = 1, turns = 1, units = 1, base=100;
+    private int score = 1;
+    private int turns = 1;
+    private int units = 1;
 
-    GameModel gameModel;
-    Unit.Allegiance winner;
+    private GameModel gameModel;
+    private Unit.Allegiance winner;
 
     @Override
     public StateName getName(){
@@ -33,8 +35,9 @@ public class EndState extends State {
         gameModel.setState(StateName.MAIN_MENU);
     }
 
-    public int getGameScore(Unit.Allegiance player){
-        return base*units/turns;//TODO more advanced calcs?
+    private int getGameScore(Unit.Allegiance player){
+        final int BASE = 100;
+        return BASE *units/turns;
     }
 
     public int getScore() {
