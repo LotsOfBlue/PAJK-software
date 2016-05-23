@@ -22,7 +22,7 @@ public class River implements Terrain {
 
     @Override
     public int getEvasion() {
-        return 20;
+        return -5;
     }
 
     @Override

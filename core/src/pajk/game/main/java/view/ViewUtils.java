@@ -12,6 +12,8 @@ public class ViewUtils {
     private static Texture forestTexture = new Texture("Sprites/Tiles/forest64.png");
     private static Texture mountainTexture = new Texture("Sprites/Tiles/mountain64.png");
     private static Texture waterTexture = new Texture("Sprites/Tiles/water64.png");
+    private static Texture floorTexture = new Texture("Sprites/Tiles/floor64.png");
+    private static Texture wallTexture = new Texture("Sprites/Tiles/wall64.png");
 
 
     public static Texture getTileTexture(Tile tile){
@@ -24,6 +26,10 @@ public class ViewUtils {
                 return mountainTexture;
             case "River":
                 return waterTexture;
+            case "Floor":
+                return floorTexture;
+            case "Wall":
+                return wallTexture;
         }
         return plainsTexture;
     }

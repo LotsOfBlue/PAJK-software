@@ -71,6 +71,12 @@ public class Board {
                     case '3':
                         terrain = new River();
                         break;
+                    case 'f':
+                        terrain = new Floor();
+                        break;
+                    case 'w':
+                        terrain = new Wall();
+                        break;
                 }
                 tileMatrix[x][y] = new Tile(x,y, terrain);
             }
