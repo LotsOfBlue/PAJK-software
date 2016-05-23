@@ -10,5 +10,4 @@ public abstract class AbstractGameView {
 
     public abstract void render(SpriteBatch spriteBatch);
     public abstract void update(float deltaTime);
-
 }

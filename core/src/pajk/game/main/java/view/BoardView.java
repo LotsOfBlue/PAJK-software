@@ -14,7 +14,6 @@ import java.util.*;
 
 /**
  * Created by palm on 2016-04-22.
- * Should maybe be divided into smaller classes?
  */
 public class BoardView extends AbstractGameView {
 
@@ -22,22 +21,6 @@ public class BoardView extends AbstractGameView {
     private Board board;
 
     private HashMap<String, Texture> unitTextureMap = new HashMap<>();
-
-    private Texture graySwordUnitSprite;
-    private Texture blueSwordUnitSprite;
-    private Texture redSwordUnitSprite;
-
-    private Texture grayBowUnitSprite;
-    private Texture blueBowUnitSprite;
-    private Texture redBowUnitSprite;
-
-    private Texture grayAxeUnitSprite;
-    private Texture blueAxeUnitSprite;
-    private Texture redAxeUnitSprite;
-
-    private Texture grayPikeUnitSprite;
-    private Texture bluePikeUnitSprite;
-    private Texture redPikeUnitSprite;
 
     private Texture hpbarRed;
     private Texture hpbarBlue;
@@ -131,7 +114,6 @@ public class BoardView extends AbstractGameView {
         }
 
         if(unitTextureMap.isEmpty() || !unitTextureMap.containsKey(str)){
-            System.out.println("inside if");
             unitTextureMap.put(str, new Texture(str));
         }
 
@@ -240,7 +222,6 @@ public class BoardView extends AbstractGameView {
 
     /**
      * Draws board with units and overlay
-     *
      */
     private void drawBoard(){
 
