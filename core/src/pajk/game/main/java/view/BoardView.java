@@ -68,11 +68,6 @@ public class BoardView extends AbstractGameView {
     }
 
     @Override
-    public void update(float deltaTime) {
-
-    }
-
-    @Override
     public void render(SpriteBatch spriteBatch) {
 
         //Always draw the board, except when the main menu is open

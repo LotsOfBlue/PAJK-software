@@ -46,11 +46,6 @@ public class UnitMenuView extends AbstractGameView {
         }
     }
 
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
     /**
      * Draws background, all menu items, all menu text and a overlay on selected item.
      * Draws text gray if item cannot be selected. 

@@ -144,9 +144,4 @@ public class StatusView extends AbstractGameView{
             spriteBatch.draw(selector, x - 30, y - 35);
         }
     }
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
 }

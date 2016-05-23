@@ -144,9 +144,4 @@ public class MainMenuView extends AbstractGameView{
         int posInList = index - selected;
         return CENTER - (BASE_OFFSET * posInList);
     }
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
 }

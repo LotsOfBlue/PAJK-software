@@ -58,9 +58,4 @@ public class EndView extends AbstractGameView{
         }
         spriteBatch.end();
     }
-
-    @Override
-    public void update(float deltaTime) {
-
-    }
 }
