@@ -100,7 +100,6 @@ public class UnitMenuState extends State {
         else {
             menuItemSelected = 0;
         }
-        System.out.println(this);
     }
 
     public String toString(){
@@ -120,8 +119,8 @@ public class UnitMenuState extends State {
         return GameModel.StateName.UNIT_MENU;
     }
 
-    public List<String> getMenuList(){        //TODO make deepcopy
-        return menuList;
+    public List<String> getMenuList(){
+        return new ArrayList<String>(menuList);
     }
 
     public int getMenuItemSelected(){

@@ -30,7 +30,6 @@ public class CombatInfoState extends State {
 
     @Override
     public void activate() {
-        //TODO get combat preview values here
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
 

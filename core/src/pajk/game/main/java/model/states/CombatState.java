@@ -13,7 +13,6 @@ import java.util.Random;
  * Where activeUnit is the unit which initiated combat and targetUnit is the defendant.
  * These units are delivered by the game model singleton.
  * Refer to docs for combat turn breakdown.
- *  needs to perform combat on it's active and target units
  */
 public class CombatState extends State {
 

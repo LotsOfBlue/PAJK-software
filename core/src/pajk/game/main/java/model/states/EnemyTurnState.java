@@ -54,8 +54,6 @@ public class EnemyTurnState extends State {
             }
         }
 
-
-
         if (metaCooldown != 0){
             metaCooldown --;
             return;
@@ -74,8 +72,6 @@ public class EnemyTurnState extends State {
             }
             trimPath(path, currentPos);
         }
-
-
 
         //If there is no path, the unit doesn't need to move
         if (path.isEmpty()) {
@@ -242,7 +238,7 @@ public class EnemyTurnState extends State {
      * given the stats of the active unit.
      */
     private Set<Tile> getAttackPoints(Unit target) {
-        Set<Tile> attackPoints = null;
+        Set<Tile> attackPoints;
         Weapon weapon = activeUnit.getWeapon();
         attackPoints = board.getTilesAround(
                 board.getPos(target),
