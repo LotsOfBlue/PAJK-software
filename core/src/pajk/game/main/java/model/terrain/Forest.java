@@ -3,7 +3,7 @@ package pajk.game.main.java.model.terrain;
 import pajk.game.main.java.model.units.Unit;
 
 /**
- * Created by Johan on 2016-04-28.
+ * @author Johan
  */
 public class Forest implements Terrain {
     @Override
