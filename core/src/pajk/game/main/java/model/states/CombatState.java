@@ -52,10 +52,12 @@ public class CombatState extends State {
 
             if (targetUnit.getHealth() < 1) {
                 gameModel.removeUnit(targetUnit);
+                activeUnit.addExperience(targetUnit.getLevel()*10);
 
             }
             if (activeUnit.getHealth() < 1) {
                 gameModel.removeUnit(activeUnit);
+                targetUnit.addExperience(activeUnit.getLevel()*10);
 
             }
             Unit myUnit = activeUnit;
@@ -133,20 +135,22 @@ public class CombatState extends State {
 
                 }
             }
-        }
 
-        //If active still alive and fast enough, hit enemy again
-        if (activeUnit.getHealth()-damageFromEnemyUnit > 0) {
-            if (activeUnit.getSpeed() >= (targetUnit.getSpeed() + 4)) {
-                secondAttackFromActiveUnit = true;
-                //Try to hit
-                if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)){
-                    int critMult = (secondCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit)) ? 2 : 1;
-                    secondDamageFromActiveUnit = critMult*CombatCalculator.calcDamageThisToThat(activeUnit, targetUnit);
+            //If active still alive and fast enough, hit enemy again
+            if (activeUnit.getHealth()-damageFromEnemyUnit > 0) {
+                if (activeUnit.getSpeed() >= (targetUnit.getSpeed() + 4)) {
+                    secondAttackFromActiveUnit = true;
+                    //Try to hit
+                    if(secondHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)){
+                        int critMult = (secondCritFromActiveUnit = doesThisCritThat(activeUnit, targetUnit)) ? 2 : 1;
+                        secondDamageFromActiveUnit = critMult*CombatCalculator.calcDamageThisToThat(activeUnit, targetUnit);
 
+                    }
                 }
             }
         }
+
+
 
         calcDone = true;
         activeUnit.setUnitState(Unit.UnitState.DONE);

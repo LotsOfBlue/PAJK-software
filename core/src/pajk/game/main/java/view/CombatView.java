@@ -85,6 +85,7 @@ public class CombatView extends AbstractGameView {
             }
             animationHashMap.put(filePath, new Animation(0.075f, tempTextureRegion));
         }
+        animationHashMap.get(filePath).setFrameDuration(0.5f);
         return animationHashMap.get(filePath);
     }
 
