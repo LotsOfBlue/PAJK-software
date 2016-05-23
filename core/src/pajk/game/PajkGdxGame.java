@@ -17,8 +17,6 @@ public class PajkGdxGame extends ApplicationAdapter {
     private ViewHandler viewHandler;
     private GameModel gameModel;
     private Controller gameController;
-//    private BoardView boardView;
-//    private CombatView combatView;
     private SpriteBatch batch;
 
     private int inputCooldown = 0;
@@ -64,7 +62,7 @@ public class PajkGdxGame extends ApplicationAdapter {
             gameController.enterInput();
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.X)){
             gameController.backInput();
-        }else{
+        } else {
             gameController.noInput();
         }
 
