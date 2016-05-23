@@ -30,6 +30,7 @@ public class EnemyTurnState extends State {
     private List<Tile> path;
 
     private int cooldown = 0;
+    private int metaCooldown = 50;
 
     @Override
     public void performAction(ActionName action) {
@@ -41,12 +42,19 @@ public class EnemyTurnState extends State {
         //If the current unit is done, get a new one.
         if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)){
             setNewActiveUnit();
+            if (isAllDone()){
+                endTurn();
+                return;
+            } else {
+                board.setCursor(board.getPos(activeUnit));
+                metaCooldown = 50;
+            }
         }
 
-        if (activeUnit == null || getAllTargets().size() == 0){
-            System.out.println("--PLAYER TURN--"); //TODO make graphical
-            gameModel.newTurn();
-            gameModel.setState(GameModel.StateName.MAIN);
+
+
+        if (metaCooldown != 0){
+            metaCooldown --;
             return;
         }
 
@@ -101,6 +109,20 @@ public class EnemyTurnState extends State {
         while (path.size() > 0 && !moveRange.contains(path.get(0))){
             path.remove(0);
         }
+    }
+
+    private void endTurn(){
+        System.out.println("--PLAYER TURN--"); //TODO make graphical
+        if (getAllTargets().size() > 0){
+            board.setCursor(board.getPos(getAllTargets().get(0)));
+        }
+        gameModel.newTurn();
+        gameModel.setState(GameModel.StateName.MAIN);
+        return;
+    }
+
+    private boolean isAllDone(){
+        return activeUnit == null || getAllTargets().size() == 0;
     }
 
     /**
@@ -279,11 +301,8 @@ public class EnemyTurnState extends State {
         //Prepare the first active unit
         setNewActiveUnit();
 
-        if (activeUnit == null || getAllTargets().size() == 0) {
-            System.out.println("--PLAYER TURN--"); //TODO make graphical
-            gameModel.newTurn();
-            gameModel.setState(GameModel.StateName.MAIN);
-            return;
+        if (isAllDone()){
+            endTurn();
         }
     }
 

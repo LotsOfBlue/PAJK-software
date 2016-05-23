@@ -196,6 +196,14 @@ public class Board {
     }
 
     /**
+     * Sets the cursor position to the given tile.
+     * @param t
+     */
+    public void setCursor(Tile t) {
+        cursor = t;
+    }
+
+    /**
      * @return The tile that the cursor is currently on.
      */
     public Tile getCursorTile(){
