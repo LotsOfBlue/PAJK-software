@@ -81,11 +81,6 @@ public class BoardView extends AbstractGameView {
     }
 
     @Override
-    public void update(float deltaTime) {
-
-    }
-
-    @Override
     public void render(SpriteBatch spriteBatch) {
 
         this.spriteBatch = spriteBatch;

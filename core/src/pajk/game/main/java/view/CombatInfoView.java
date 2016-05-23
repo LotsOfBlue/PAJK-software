@@ -77,11 +77,6 @@ public class CombatInfoView extends AbstractGameView{
         spriteBatch.end();
     }
 
-    @Override
-    public void update(float deltaTime) {
-
-    }
-
     private Texture getTextureFor(Unit unit){
         if (unit.getAllegiance().equals(Allegiance.PLAYER)){
             return new Texture("Sprites/Units/shrek-red.png");

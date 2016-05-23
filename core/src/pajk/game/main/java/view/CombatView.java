@@ -126,10 +126,6 @@ public class CombatView extends AbstractGameView {
         attackFromEnemyUnit = combatState.isAttackFromEnemyUnit();
     }
 
-    public void update(float deltaTime){
-
-    }
-
     private void drawCombat(){
 
         float frame = 0f;
