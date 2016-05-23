@@ -31,6 +31,9 @@ public class EnemyTurnState extends State {
 
     private int cooldown = 0;
     private int metaCooldown = 50;
+    private int bannerCooldown = 60;
+
+    private boolean bannerActive = false;
 
     @Override
     public void performAction(ActionName action) {
@@ -40,7 +43,7 @@ public class EnemyTurnState extends State {
     private void update(){
 
         //If the current unit is done, get a new one.
-        if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)){
+        if (activeUnit == null || activeUnit.getUnitState().equals(Unit.UnitState.DONE)){
             setNewActiveUnit();
             if (isAllDone()){
                 endTurn();
@@ -112,12 +115,19 @@ public class EnemyTurnState extends State {
     }
 
     private void endTurn(){
-        System.out.println("--PLAYER TURN--"); //TODO make graphical
-        if (getAllTargets().size() > 0){
-            board.setCursor(board.getPos(getAllTargets().get(0)));
+        if (bannerCooldown == 0) {
+            bannerCooldown = 60;
+            bannerActive = false;
+            System.out.println("--PLAYER TURN--"); //TODO make graphical
+            if (getAllTargets().size() > 0){
+                board.setCursor(board.getPos(getAllTargets().get(0)));
+            }
+            gameModel.newTurn();
+            gameModel.setState(GameModel.StateName.MAIN);
+        } else {
+            bannerCooldown--;
+            bannerActive = true;
         }
-        gameModel.newTurn();
-        gameModel.setState(GameModel.StateName.MAIN);
         return;
     }
 
@@ -319,6 +329,10 @@ public class EnemyTurnState extends State {
             }
         }
         activeUnit = null;
+    }
+
+    public boolean isPlayerTurnBannerActive(){
+        return bannerActive;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package pajk.game.main.java.model.states;
 
 import pajk.game.main.java.model.GameModel;
+import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.utils.FileReader;
 
@@ -96,7 +97,7 @@ public class StatusState extends State {
 
         String name = statusUnit.getName();
         String health = "Health: "+statusUnit.getHealth() + "/" + statusUnit.getMaxHealth();
-        String level = "Level: " +statusUnit.getLevel();
+        String level = "Level: " + statusUnit.getLevel() + " " + statusUnit.getProfession();
         String defence = "Defence: " +statusUnit.getDefence();
         String weapon = "Weapon: " +statusUnit.getWeapon().getName();
         String exp = "Experience: " +statusUnit.getExperience();
@@ -111,22 +112,25 @@ public class StatusState extends State {
         statusList.add(name);
         statusList.add(health);
         statusList.add(level);
-        statusList.add(defence);
-        statusList.add(weapon);
         statusList.add(exp);
+        statusList.add(weapon);
         statusList.add(strength);
         statusList.add(skill);
-        statusList.add(luck);
-        statusList.add(resistance);
         statusList.add(speed);
+        statusList.add(luck);
+        statusList.add(defence);
+        statusList.add(resistance);
         statusList.add(movement);
 
         statLines = FileReader.readFile("statusInfo.txt"); //statusInfo.txt needs to match the units stats
         for(int i = 0; i < statLines.size(); i++){
             String tmp1 = statLines.get(i);
             String tmp2 = tmp1;
+            String wepStatsText = "";
             if(i==4){   //row 4 is weapon row
-                tmp1 = statusUnit.getWeapon().getDescription();
+                Weapon wep = statusUnit.getWeapon();
+                wepStatsText = "Mgt: " + wep.getDamage() + " Acc: " + wep.getAccuracy() + " Crit: " + wep.getCritChance() + "\n";
+                tmp1 = wep.getDescription();
             }
 
             if(tmp1.length() > 29 && tmp1.substring(29).contains(" ") && tmp1.length() < 65){
@@ -142,7 +146,7 @@ public class StatusState extends State {
             }
 
             statLines.remove(i);
-            statLines.add(i,tmp2);
+            statLines.add(i,wepStatsText + tmp2);
 
         }
 

@@ -208,7 +208,8 @@ public abstract class Unit {
      */
     public void addExperience(int experience) {
         this.experience += experience;
-        while (this.experience >= level * 100) {
+        while (this.experience >= 100) {
+            this.experience -= 100;
             levelUp();
         }
     }

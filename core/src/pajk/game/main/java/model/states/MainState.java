@@ -16,29 +16,39 @@ public class MainState extends MoveState {
     private GameModel model;
     private Board board;
 
+    private boolean bannerActive = false;
+    private int bannerCooldown = 60;
+
     @Override
     public void enterAction() {
-        //Open the menu for the unit under the cursor of it's an allied unit that has not yet acted this turn.
-        Tile cursorTile = board.getCursorTile();
-        if (cursorTile.hasUnit()){
-            Unit currentUnit = cursorTile.getUnit();
-            model.setActiveUnit(currentUnit);
-            if(currentUnit.getAllegiance() == Unit.Allegiance.AI){
-                model.setState(GameModel.StateName.STATUS);
-            } else {
-                model.setState(GameModel.StateName.UNIT_MENU);
+        if (bannerActive == false) {
+            //Open the menu for the unit under the cursor of it's an allied unit that has not yet acted this turn.
+            Tile cursorTile = board.getCursorTile();
+            if (cursorTile.hasUnit()){
+                Unit currentUnit = cursorTile.getUnit();
+                model.setActiveUnit(currentUnit);
+                if(currentUnit.getAllegiance() == Unit.Allegiance.AI){
+                    model.setState(GameModel.StateName.STATUS);
+                } else {
+                    model.setState(GameModel.StateName.UNIT_MENU);
+                }
             }
-//            if (    currentUnit.getAllegiance() == Unit.Allegiance.PLAYER &&
-//                    currentUnit.getUnitState() != Unit.UnitState.DONE) {
-//                model.setActiveUnit(currentUnit);
-//                model.setState(GameModel.StateName.UNIT_MENU);
-//            }
         }
     }
 
     @Override
-    public void backAction() {
+    public void anyAction(){
+        if(model.allUnitsDone()) {
+            if (bannerCooldown == 0){
+                bannerActive = false;
+                bannerCooldown = 60;
+                model.setState(GameModel.StateName.ENEMY_TURN);
+            } else {
+                bannerCooldown--;
+                bannerActive = true;
+            }
 
+        }
     }
 
     @Override
@@ -54,9 +64,10 @@ public class MainState extends MoveState {
         if(model.isGameOver()){
             model.setState(GameModel.StateName.END);
         }
-        //If all units are done when this state activates, begin enemy turn
-        else if(model.allUnitsDone()) {
-            model.setState(GameModel.StateName.ENEMY_TURN);
-        }
+
+    }
+
+    public boolean isEnemyTurnBannerActive(){
+        return bannerActive;
     }
 }

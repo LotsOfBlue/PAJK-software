@@ -35,14 +35,16 @@ public abstract class State {
                     backAction();
                     break;
             }
+        anyAction();
 
     }
-     void upAction(){}
-     void downAction(){}
-     void leftAction(){}
-     void rightAction(){}
-     void enterAction(){}
-     void backAction(){}
+    void upAction(){}
+    void downAction(){}
+    void leftAction(){}
+    void rightAction(){}
+    void enterAction(){}
+    void backAction(){}
+    void anyAction(){}
 
     /**
      * Called when the state becomes active. Initializes everything the state needs.
