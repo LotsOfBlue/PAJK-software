@@ -114,7 +114,6 @@ public class EnemyTurnState extends State {
         if (bannerCooldown == 0) {
             bannerCooldown = 60;
             bannerActive = false;
-            System.out.println("--PLAYER TURN--"); //TODO make graphical
             if (getAllTargets().size() > 0){
                 board.setCursor(board.getPos(getAllTargets().get(0)));
             }
@@ -124,7 +123,6 @@ public class EnemyTurnState extends State {
             bannerCooldown--;
             bannerActive = true;
         }
-        return;
     }
 
     private boolean isAllDone(){
@@ -292,7 +290,6 @@ public class EnemyTurnState extends State {
 
     @Override
     public void activate() {
-        System.out.println("--ENEMY TURN--"); //TODO make graphical
         gameModel = GameModel.getInstance();
         board = gameModel.getBoard();
         unitList = gameModel.getUnitList();

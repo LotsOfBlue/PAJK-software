@@ -6,7 +6,7 @@ import pajk.game.main.java.model.items.Tome;
 import pajk.game.main.java.model.units.Unit;
 
 /**
- * Created by jonatan on 20/05/2016.
+ * @author Jonatan
  */
 public class CombatCalculator {
     /**
@@ -78,7 +78,6 @@ public class CombatCalculator {
         }
     }
 
-    //TODO remove?
     /**
      * This method calculates the weapon advantage the attacker has on the defender, wich can be posetive and negative.
      * Works as axe beats pike beats sword beats axe, bow beats flying and magic beats magic.
@@ -86,7 +85,7 @@ public class CombatCalculator {
      * @param defenderUnit is the unit being hit
      * @return the advantage the attacker has on the defender (+ & -)
      */
-    public static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
+    private static int getWeaponAdvantageThisToThat(Unit attackerUnit, Unit defenderUnit) {
 
         if(attackerUnit.getWeapon() instanceof Bow && defenderUnit.getMovementType() == Unit.MovementType.FLYING){
             return 5;
