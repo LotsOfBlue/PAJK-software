@@ -16,6 +16,7 @@ public class BanditScenario extends Scenario {
         description = "Your group of mercenaries have been tasked to hunt down a small pack of bandits that has been " +
                 "troubling the nearby town.";
         mapName = "BanditMap.txt";
+        screenshotPath = null;
     }
 
     @Override

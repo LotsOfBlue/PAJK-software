@@ -16,6 +16,7 @@ public class MountainScenario extends Scenario {
         description = "Your merry band of adventurers are pelted on all sides by pesky angels as you try to " +
                 "climb up a mountain. Stave them off and get to the top!";
         mapName = "MountainMap.txt";
+        screenshotPath = null;
     }
 
     @Override
