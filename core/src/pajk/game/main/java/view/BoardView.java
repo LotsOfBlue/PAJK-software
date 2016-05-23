@@ -106,7 +106,7 @@ public class BoardView extends AbstractGameView {
             if(gameModel.getState().getClass() != CombatState.class) {
                 drawCursor();
             }
-            if(gameModel.getBoard().getCursorTile().hasUnit() && gameModel.getState().getClass() == MainState.class) {
+            if(gameModel.getState().getClass() == MainState.class) {
                 drawButtonText();
             }
 
@@ -308,16 +308,23 @@ public class BoardView extends AbstractGameView {
         font.getData().setScale((float) 1.5, (float) 1.5);
         int x = (int) (camera.position.x - 400);
 
-        if(shouldDrawButtonTextRight()){
-            x = (int) (camera.position.x-200);
-        }
+
 
         int y = (int) (camera.position.y - camera.viewportHeight / 2 + 50);
 
-        if (gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI) {
-            font.draw(spriteBatch, "(Z) Status", x, y);
+
+        if(gameModel.getBoard().getCursorTile().hasUnit()) {
+
+            if (shouldDrawButtonTextRight()) {
+                x = (int) (camera.position.x - 200);
+            }
+            if (gameModel.getBoard().getCursorTile().getUnit().getAllegiance() == Unit.Allegiance.AI) {
+                font.draw(spriteBatch, "(Z) Status", x, y);
+            } else {
+                font.draw(spriteBatch, "(Z) Menu", x, y);
+            }
         } else {
-            font.draw(spriteBatch, "(Z) Menu", x, y);
+            font.draw(spriteBatch, "(Z) End Turn",x,y);
         }
     }
 
