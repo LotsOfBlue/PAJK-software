@@ -120,7 +120,11 @@ public abstract class PathFinder {
     public static int getPathLength(List<Tile> path, Unit active) {
         int distance = 0;
         for (Tile t : path) {
-            distance += t.getMovementCost(active.getMovementType());
+            if (t.getMovementCost(active.getMovementType()) <= active.getMovement()) {
+                distance += t.getMovementCost(active.getMovementType());
+            } else {
+                distance += 1000; //If the unit can't ever move over a tile, the path cost is practically infinite.
+            }
         }
         return distance;
     }
