@@ -22,6 +22,7 @@ public class CombatView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
+    private int cooldown = 60;
     private int animationClock = 0;
     private boolean isUpdated = false;
 
@@ -153,31 +154,37 @@ public class CombatView extends AbstractGameView {
 
         switch (combatDrawState) {
             case ACTIVE_FIRST_HIT:
-                if(animationClock == 30){
+                if(animationClock == 30 && cooldown == 0){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
                     animationClock = 0;
+                    cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_ACTIVE_HIT);
                     break;
                 }
+                cooldown --;
                 drawAttackAnimation(activeUnit, frame);
                 break;
             case ENEMY_HIT:
-                if(animationClock == 30 || !attackFromEnemyUnit){
+                if((animationClock == 30 && cooldown == 0) || !attackFromEnemyUnit){
                     combatDrawState = CombatDrawState.ACTIVE_SECOND_HIT;
                     animationClock = 0;
+                    cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_TARGET_HIT);
                     break;
                 }
+                cooldown--;
                 drawAttackAnimation(targetUnit, frame);
                 break;
             case ACTIVE_SECOND_HIT:
-                if(animationClock == 30 || !secondAttackFromActiveUnit){
+                if((animationClock == 30 && cooldown == 0) || !secondAttackFromActiveUnit){
                     combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
                     animationClock = 0;
+                    cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_DONE);
                     flush();
                     break;
                 }
+                cooldown--;
                 drawAttackAnimation(activeUnit, frame);
                 break;
         }
@@ -266,7 +273,7 @@ public class CombatView extends AbstractGameView {
                 message = "MISS";
             }
         }
-        draw(message, uPos[0]+TILE_WIDTH/3, uPos[1]+TILE_WIDTH);
+        draw(message, uPos[0]+TILE_WIDTH/3, uPos[1]+TILE_WIDTH * 1.2f);
     }
 
     private float[] calcDrawPos(Unit unit){
