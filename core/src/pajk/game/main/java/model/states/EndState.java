@@ -5,7 +5,7 @@ import pajk.game.main.java.model.GameModel.StateName;
 import pajk.game.main.java.model.units.Unit;
 
 /**
- * Created by jonatan on 16/05/2016.
+ * @author Jonatan
  */
 public class EndState extends State {
     private int score = 1;
@@ -22,12 +22,11 @@ public class EndState extends State {
 
     @Override
     public void activate(){
-        System.out.println("end state engaged");
         gameModel = GameModel.getInstance();
         winner = gameModel.getWinner();
         units = gameModel.getNumberOfUnits(winner);
         turns = gameModel.getNumberOfTurns();
-        score = getGameScore(winner);
+        score = getGameScore();
     }
 
     @Override
@@ -35,7 +34,7 @@ public class EndState extends State {
         gameModel.setState(StateName.MAIN_MENU);
     }
 
-    private int getGameScore(Unit.Allegiance player){
+    private int getGameScore(){
         final int BASE = 100;
         return BASE *units/turns;
     }

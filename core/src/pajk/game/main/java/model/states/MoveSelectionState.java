@@ -1,6 +1,5 @@
 package pajk.game.main.java.model.states;
 
-
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.Tile;
@@ -21,12 +20,10 @@ public class MoveSelectionState extends MoveState {
     private GameModel model;
     private Set<Tile> allowedTiles;
 
-
     @Override
     public GameModel.StateName getName() {
         return GameModel.StateName.MOVE_SELECT;
     }
-
 
     public void enterAction(){
         //If the player selected an allowed tile, proceed to the state for moving units.

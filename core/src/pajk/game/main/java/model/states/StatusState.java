@@ -26,32 +26,24 @@ public class StatusState extends State {
         //no action in this state
         if(!isInInfoState){
             isInInfoState = true;
-        } else {
-            System.out.println(getActiveInfoItemText());
         }
     }
 
     @Override
     void upAction(){
-        //show statusscreen for other ally unit?
         if(isInInfoState){
             selectedInfoItemNr = (selectedInfoItemNr + statusList.size() -1) % statusList.size();
         } else {
-
             unitIndex = (unitIndex + model.getUnitList().size() -1) % model.getUnitList().size();
-
             setUpStatList();
         }
     }
 
     @Override
     void downAction(){
-        //show statusscreen for other ally unit?
-
         if(isInInfoState){
             selectedInfoItemNr = (selectedInfoItemNr + 1) % statusList.size();
         } else {
-
             unitIndex = (unitIndex + 1) % model.getUnitList().size();
             setUpStatList();
         }
@@ -78,7 +70,6 @@ public class StatusState extends State {
         } else {
             isInInfoState = false;
         }
-
     }
 
     @Override
@@ -146,7 +137,6 @@ public class StatusState extends State {
 
             statLines.remove(i);
             statLines.add(i,wepStatsText + tmp2);
-
         }
     }
 
@@ -159,18 +149,20 @@ public class StatusState extends State {
         isInInfoState = false;
         selectedInfoItemNr = 0;
         setUpStatList();
-
-
     }
+
     public String getActiveInfoItemText(){
         return statLines.get(selectedInfoItemNr);
     }
+
     public String getInfoItem(int i){
         return statusList.get(i);
     }
+
     public int getSelectedInfoItemNr(){
         return selectedInfoItemNr;
     }
+
     public int getStateSize(){
         return statusList.size();
     }
@@ -178,5 +170,6 @@ public class StatusState extends State {
     public boolean isInInfoState() {
         return isInInfoState;
     }
+
     public Unit getStatusUnit(){ return statusUnit;}
 }

@@ -1,6 +1,5 @@
 package pajk.game.main.java.model.states;
 
-
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.Tile;
@@ -21,7 +20,7 @@ public class MainState extends MoveState {
 
     @Override
     public void enterAction() {
-        if (bannerActive == false) {
+        if (!bannerActive) {
             //Open the menu for the unit under the cursor of it's an allied unit that has not yet acted this turn.
             Tile cursorTile = board.getCursorTile();
             if (cursorTile.hasUnit()){
@@ -49,7 +48,6 @@ public class MainState extends MoveState {
                 bannerCooldown--;
                 bannerActive = true;
             }
-
         }
     }
 

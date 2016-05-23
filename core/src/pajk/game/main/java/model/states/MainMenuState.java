@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Gustav on 2016-05-16.
+ * @author Gustav
  */
 public class MainMenuState extends State {
     private List<Scenario> scenarioList = new ArrayList<>();

@@ -36,7 +36,6 @@ public abstract class State {
                     break;
             }
         anyAction();
-
     }
     void upAction(){}
     void downAction(){}
@@ -51,12 +50,9 @@ public abstract class State {
      */
     public abstract void activate();
 
-
-
     /**
      * Get the name of the current state.
      * @return This state's name.
      */
     public abstract GameModel.StateName getName();
-        //TODO make abstract and define performaction with methods for each buttonpress (switch case here instead of in all states)
 }
