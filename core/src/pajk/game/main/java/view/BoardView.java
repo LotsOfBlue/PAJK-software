@@ -43,6 +43,7 @@ public class BoardView extends AbstractGameView {
     private Texture playerTurnText;
 
     private Texture tooltipBackground;
+    private Texture endTurnConfirmation;
 
     private SpriteBatch spriteBatch;
     private final int TILE_WIDTH = 64;
@@ -72,6 +73,7 @@ public class BoardView extends AbstractGameView {
 
         enemyTurnText = new Texture("enemyTurnText.png");
         playerTurnText = new Texture("playerTurnText.png");
+        endTurnConfirmation = new Texture("endTurnConfirmation.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
@@ -135,7 +137,7 @@ public class BoardView extends AbstractGameView {
                 drawTurnText(shouldDrawEnemy);
             }
         }
-
+        drawEndTurnConfirmation();
 
         spriteBatch.end();
     }
@@ -209,6 +211,12 @@ public class BoardView extends AbstractGameView {
             spriteBatch.draw(enemyTurnText, camera.position.x - camera.viewportWidth/2,camera.position.y-camera.viewportHeight/2+20);
         } else {
             spriteBatch.draw(playerTurnText,camera.position.x - camera.viewportWidth/2,camera.position.y-camera.viewportHeight/2+20);
+        }
+    }
+
+    private void drawEndTurnConfirmation(){
+        if(gameModel.getState().getClass() == EndConfirmState.class){
+            spriteBatch.draw(endTurnConfirmation,camera.position.x - camera.viewportWidth/2,camera.position.y-camera.viewportHeight/2+20);
         }
     }
 
