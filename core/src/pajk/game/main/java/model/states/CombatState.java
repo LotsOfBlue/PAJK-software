@@ -2,15 +2,11 @@ package pajk.game.main.java.model.states;
 
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.items.Tome;
-import pajk.game.main.java.model.items.Weapon;
 import pajk.game.main.java.model.units.Unit;
 import pajk.game.main.java.model.utils.CombatCalculator;
 import pajk.game.main.java.model.utils.PathFinder;
 
 import java.util.Random;
-
-//TODO make combat make sense after the refactoring
 
 /**
  * Combat state is the part of the game model which deals with the combat of two units.
@@ -110,8 +106,6 @@ public class CombatState extends State {
         //Enemy chosen by user
         targetUnit = gameModel.getTargetUnit();
 
-
-
         //If the first hit lands
         if (firstHitFromActiveUnit = doesThisHitThat(activeUnit, targetUnit)) {
 
@@ -121,7 +115,6 @@ public class CombatState extends State {
             firstDamageFromActiveUnit = critMult*CombatCalculator.calcDamageThisToThat(activeUnit, targetUnit);
 
         }
-
 
         //If enemy still alive, hit active
         if (targetUnit.getHealth()-firstDamageFromActiveUnit > 0) {
@@ -141,9 +134,6 @@ public class CombatState extends State {
 
                 }
             }
-
-
-
         }
 
         //If active still alive and fast enough, hit enemy again
@@ -175,9 +165,6 @@ public class CombatState extends State {
 
     //----------------------------------------------------------------------------
 
-    //TODO refactor to util combat logic?
-
-
     /*
      * Determines if attackerUnit criticaly hits defenderUnit (with rng)
      */
@@ -193,14 +180,10 @@ public class CombatState extends State {
     private boolean doesThisHitThat(Unit attackerUnit, Unit defenderUnit) {
         Random random = new Random();
         return CombatCalculator.getHitChance(attackerUnit,defenderUnit, board)
-                > random.nextInt(100);//TODO change to correct value instead of test
+                > random.nextInt(100);
     }
 
-
-
-
     //----------------------------------------------------------------------------
-
 
     public boolean isAttackFromEnemyUnit() {
         return attackFromEnemyUnit;
@@ -252,4 +235,3 @@ public class CombatState extends State {
 
     //----------------------------------------------------------------------------
 }
-
