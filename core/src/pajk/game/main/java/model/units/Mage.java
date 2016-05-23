@@ -1,5 +1,7 @@
 package pajk.game.main.java.model.units;
 
+import pajk.game.main.java.model.items.ArcaneBolt;
+
 /**
  * Mages are powerful at range, but cannot withstand physical attacks.
  *
@@ -26,6 +28,8 @@ public class Mage extends Unit {
         luckGrowth = 55;
         defenceGrowth = 30;
         resistanceGrowth = 40;
+
+        this.setWeapon(new ArcaneBolt());
 
         addExperience((level - 1) * 100);
         health = maxHealth;

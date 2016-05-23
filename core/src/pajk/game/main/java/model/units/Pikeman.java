@@ -1,5 +1,7 @@
 package pajk.game.main.java.model.units;
 
+import pajk.game.main.java.model.items.IronPike;
+
 /**
  * Pikemen are defensive, but slow.
  *
@@ -26,6 +28,8 @@ public class Pikeman extends Unit {
         luckGrowth = 30;
         defenceGrowth = 50;
         resistanceGrowth = 25;
+
+        this.setWeapon(new IronPike());
 
         addExperience((level - 1) * 100);
         health = maxHealth;

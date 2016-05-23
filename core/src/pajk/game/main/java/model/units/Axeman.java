@@ -1,5 +1,7 @@
 package pajk.game.main.java.model.units;
 
+import pajk.game.main.java.model.items.IronAxe;
+
 /**
  * Axemen are powerful and have alot of hitpoints, but lack defenses and skill.
  *
@@ -18,6 +20,7 @@ public class Axeman extends Unit {
         resistance = 0;
         movement = 5;
         movementType = MovementType.WALKING;
+        this.setWeapon(new IronAxe());
 
         maxHealthGrowth = 90;
         strengthGrowth = 60;

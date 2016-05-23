@@ -43,7 +43,7 @@ public abstract class Unit {
     private UnitState unitState;
     protected MovementType movementType;
     private List<Item> inventory = new ArrayList<>();
-    private Weapon weapon = new IronPike();
+    private Weapon weapon;
     private Allegiance allegiance;
     private boolean defender = false;
 

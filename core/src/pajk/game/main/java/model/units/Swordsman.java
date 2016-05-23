@@ -1,5 +1,7 @@
 package pajk.game.main.java.model.units;
 
+import pajk.game.main.java.model.items.IronSword;
+
 /**
  * Created by Gustav on 2016-05-19.
  */
@@ -24,6 +26,8 @@ public class Swordsman extends Unit {
         luckGrowth = 45;
         defenceGrowth = 30;
         resistanceGrowth = 35;
+
+        this.setWeapon(new IronSword());
 
         addExperience((level - 1) * 100);
         health = maxHealth;

@@ -1,5 +1,7 @@
 package pajk.game.main.java.model.units;
 
+import pajk.game.main.java.model.items.HuntingBow;
+
 /**
  * Archers are quick and skilled, can attack at range, but have no defenses to speak of.
  *
@@ -18,6 +20,7 @@ public class Archer extends Unit {
         resistance = 0;
         movement = 5;
         movementType = MovementType.WALKING;
+        this.setWeapon(new HuntingBow());
 
         maxHealthGrowth = 70;
         strengthGrowth = 40;
