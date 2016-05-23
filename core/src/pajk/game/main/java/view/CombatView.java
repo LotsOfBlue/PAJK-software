@@ -154,6 +154,7 @@ public class CombatView extends AbstractGameView {
 
         switch (combatDrawState) {
             case ACTIVE_FIRST_HIT:
+                //Are we done?
                 if(animationClock == 30 && cooldown <= 0){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
                     animationClock = 0;
@@ -161,8 +162,9 @@ public class CombatView extends AbstractGameView {
                     gameModel.performAction(ActionName.COMBAT_ACTIVE_HIT);
                     break;
                 }
-                cooldown --;
+                //else do the painting
                 drawAttackAnimation(activeUnit, frame);
+                drawDamageNumber(activeUnit, frame);
                 drawAttackAnimation(targetUnit, 0);
                 break;
             case ENEMY_HIT:
@@ -173,8 +175,9 @@ public class CombatView extends AbstractGameView {
                     gameModel.performAction(ActionName.COMBAT_TARGET_HIT);
                     break;
                 }
-                cooldown--;
+
                 drawAttackAnimation(targetUnit, frame);
+                drawDamageNumber(targetUnit, frame);
                 drawAttackAnimation(activeUnit, 0);
                 break;
             case ACTIVE_SECOND_HIT:
@@ -183,15 +186,16 @@ public class CombatView extends AbstractGameView {
                     animationClock = 0;
                     cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_DONE);
-                    flush();
+                    reset();
                     break;
                 }
-                cooldown--;
+
                 drawAttackAnimation(activeUnit, frame);
+                drawDamageNumber(activeUnit, frame);
                 drawAttackAnimation(targetUnit, 0);
                 break;
         }
-
+        cooldown--;
     }
 
 
@@ -199,26 +203,27 @@ public class CombatView extends AbstractGameView {
 
     private void drawAttackAnimation(Unit unit, float frame){
         drawTile(board.getPos(unit));
-        drawDamageNumber(unit, frame);
         TextureRegion textureRegion;
+        boolean isFlip = false;
         if(unit  == activeUnit){
             textureRegion = activeUnitAnimation.getKeyFrame(frame);
-            if((calcDrawPos(activeUnit)[0] < calcDrawPos(targetUnit)[0]) && (!textureRegion.isFlipX())){
-                textureRegion.flip(true, false);
-            } else if(textureRegion.isFlipX()){
-                textureRegion.flip(false, false);
+            if(calcDrawPos(activeUnit)[0] < calcDrawPos(targetUnit)[0]){
+                isFlip = true;
             }
-            drawAttackFrame(unit, textureRegion);
+
         }else{
             textureRegion = targetUnitAnimation.getKeyFrame(frame);
-            if((calcDrawPos(targetUnit)[0] < calcDrawPos(activeUnit)[0]) && (!textureRegion.isFlipX())){
-                textureRegion.flip(true, false);
-            } else if(textureRegion.isFlipX()){
-                textureRegion.flip(false, false);
+            if(calcDrawPos(targetUnit)[0] < calcDrawPos(activeUnit)[0]){
+                isFlip = true;
             }
-            drawAttackFrame(unit, textureRegion);
+        }
+        if(isFlip && !textureRegion.isFlipX()){
+            textureRegion.flip(true, false);
+        } else if(!isFlip && textureRegion.isFlipX()){
+            textureRegion.flip(true, false);
         }
 
+        drawAttackFrame(unit, textureRegion);
     }
 
     /**
@@ -312,7 +317,7 @@ public class CombatView extends AbstractGameView {
         bitmapFont.draw(spriteBatch, str, xPos, yPos);
     }
 
-    private void flush(){
+    private void reset(){
         isUpdated = false;
 
     }
