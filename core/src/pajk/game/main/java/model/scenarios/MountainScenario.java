@@ -49,16 +49,6 @@ public class MountainScenario extends Scenario {
         board.moveUnit(currentUnit, board.getTile(7, 19));
         unitList.add(currentUnit);
 
-        currentUnit = new RidingPikeman(Unit.Allegiance.PLAYER, 9);
-        currentUnit.setWeapon(new IronPike());
-        board.moveUnit(currentUnit, board.getTile(6, 18));
-        unitList.add(currentUnit);
-
-        currentUnit = new RidingSwordsman(Unit.Allegiance.PLAYER, 9);
-        currentUnit.setWeapon(new IronSword());
-        board.moveUnit(currentUnit, board.getTile(7, 18));
-        unitList.add(currentUnit);
-
 
         //Enemy Units
         //Super easy boss unit.

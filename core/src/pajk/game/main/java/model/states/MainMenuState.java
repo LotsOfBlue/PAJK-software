@@ -3,6 +3,7 @@ package pajk.game.main.java.model.states;
 import pajk.game.main.java.model.Board;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.scenarios.BanditScenario;
+import pajk.game.main.java.model.scenarios.JailBreakScenario;
 import pajk.game.main.java.model.scenarios.MountainScenario;
 import pajk.game.main.java.model.scenarios.Scenario;
 
@@ -21,6 +22,7 @@ public class MainMenuState extends State {
     public MainMenuState(){
         scenarioList.add(new BanditScenario());
         scenarioList.add(new MountainScenario());
+        scenarioList.add(new JailBreakScenario());
     }
 
     @Override

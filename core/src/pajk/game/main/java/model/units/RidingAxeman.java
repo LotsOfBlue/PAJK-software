@@ -7,6 +7,7 @@ public class RidingAxeman extends Axeman {
     public RidingAxeman(Allegiance allegiance, int level) {
         super(allegiance, level);
         profession = "Riding Axeman";
+        movement = 6;
         movementType = MovementType.RIDING;
         grayTextureFilePath = "Sprites/Units/Gray/gray-axe-riding-sprite.png";
         if(allegiance == Allegiance.PLAYER){

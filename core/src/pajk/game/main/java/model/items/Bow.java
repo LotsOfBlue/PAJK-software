@@ -6,12 +6,6 @@ package pajk.game.main.java.model.items;
 public abstract class Bow extends Weapon {
     @Override
     public int getAdvantageModifier(Weapon weapon) {
-        if (weapon instanceof Sword){
-            return -2;
-        }
-        if (weapon instanceof Pike){
-            return +2;
-        }
         return 0;
     }
 }

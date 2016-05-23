@@ -7,6 +7,7 @@ public class RidingPikeman extends Pikeman{
     public RidingPikeman(Allegiance allegiance, int level) {
         super(allegiance, level);
         profession = "Riding Pikeman";
+        movement = 6;
         movementType = MovementType.RIDING;
         grayTextureFilePath = "Sprites/Units/Gray/gray-pike-riding-sprite.png";
         if(allegiance == Allegiance.PLAYER){

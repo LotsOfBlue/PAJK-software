@@ -32,6 +32,8 @@ public class MainState extends MoveState {
                 } else {
                     model.setState(GameModel.StateName.UNIT_MENU);
                 }
+            } else {
+                model.setState(GameModel.StateName.END_CONFIRM);
             }
         }
     }

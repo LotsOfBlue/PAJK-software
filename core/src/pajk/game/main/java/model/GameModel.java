@@ -1,19 +1,8 @@
 package pajk.game.main.java.model;
 
 import pajk.game.main.java.ActionName;
+import pajk.game.main.java.model.states.*;
 import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.states.State;
-import pajk.game.main.java.model.states.MainMenuState;
-import pajk.game.main.java.model.states.MainState;
-import pajk.game.main.java.model.states.StatusState;
-import pajk.game.main.java.model.states.EndState;
-import pajk.game.main.java.model.states.ChooseTargetState;
-import pajk.game.main.java.model.states.CombatInfoState;
-import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.states.EnemyTurnState;
-import pajk.game.main.java.model.states.MoveSelectionState;
-import pajk.game.main.java.model.states.UnitMenuState;
-import pajk.game.main.java.model.states.MoveUnitState;
 
 
 import java.util.ArrayList;
@@ -53,6 +42,7 @@ public final class GameModel {
     private final StatusState statusState = new StatusState();
     private final EndState endState = new EndState();
     private final MainMenuState mainMenuState = new MainMenuState();
+    private final EndConfirmState endConfirmState = new EndConfirmState();
 
     public enum StateName{
         MAIN,
@@ -65,7 +55,8 @@ public final class GameModel {
         MOVE_UNIT,
         STATUS,
         END,
-        MAIN_MENU
+        MAIN_MENU,
+        END_CONFIRM
     }
 
     public static GameModel getInstance(){
@@ -117,6 +108,9 @@ public final class GameModel {
                 break;
             case MAIN_MENU:
                 currentState = mainMenuState;
+                break;
+            case END_CONFIRM:
+                currentState = endConfirmState;
                 break;
         }
 

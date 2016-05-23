@@ -7,6 +7,7 @@ public class RidingSwordsman extends Swordsman {
     public RidingSwordsman(Allegiance allegiance, int level) {
         super(allegiance, level);
         profession = "Riding Swordsman";
+        movement = 6;
         movementType = MovementType.RIDING;
         grayTextureFilePath = "Sprites/Units/Gray/gray-sword-riding-sprite.png";
         if(allegiance == Allegiance.PLAYER){
