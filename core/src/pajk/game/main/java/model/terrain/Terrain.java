@@ -4,7 +4,7 @@ import pajk.game.main.java.model.units.Unit;
 
 /**
  * Represents a type of terrain with its specific parameters.
- * @author Johan Blomberg
+ * @author Johan
  */
 public interface Terrain {
 
