@@ -3,12 +3,14 @@ package pajk.game.main.java.view;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.utils.TimeUtils;
 import pajk.game.main.java.ActionName;
 import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.GameModel;
 import pajk.game.main.java.model.states.CombatState;
 import pajk.game.main.java.model.units.Unit;
 
+import java.sql.Time;
 import java.util.HashMap;
 
 /**
@@ -22,8 +24,7 @@ public class CombatView extends AbstractGameView {
     private GameModel gameModel;
     private Board board;
 
-    private int cooldown = 60;
-    private int animationClock = 0;
+    private float animationTime = 1.6f;
     private boolean isUpdated = false;
 
     private Unit activeUnit;
@@ -50,6 +51,7 @@ public class CombatView extends AbstractGameView {
 
     private CombatDrawState combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
 
+    private long timeStamp;
     private Animation activeUnitAnimation;
     private Animation targetUnitAnimation;
     private Texture gridTexture;
@@ -65,7 +67,6 @@ public class CombatView extends AbstractGameView {
      * Constructor of CombatView, initializes the class and get all requiered
      */
     public CombatView (){
-
         gameModel = GameModel.getInstance();
 
         font = new BitmapFont();
@@ -77,10 +78,11 @@ public class CombatView extends AbstractGameView {
     private Animation createAnimationFrom(String filePath){
         if(unitAnimationHashMap.isEmpty() || !unitAnimationHashMap.containsKey(filePath)){
             Texture tempTexture = new Texture(filePath);
-            int width = tempTexture.getWidth()/(tempTexture.getWidth()/TILE_WIDTH);
-            int height = tempTexture.getHeight()/(tempTexture.getHeight()/TILE_WIDTH);
+            int width = TILE_WIDTH;
+            int height = TILE_WIDTH;
+            float animationDuration = animationTime/2f;
             TextureRegion[][] tempTextureRegions = TextureRegion.split(tempTexture, width, height);
-            TextureRegion[] tempTextureRegion = new TextureRegion[width * height];
+            TextureRegion[] tempTextureRegion = new TextureRegion[tempTextureRegions.length * tempTextureRegions[0].length];
             int index = 0;
             for (int i = 0; i < tempTextureRegions.length; i++) {
                 for (int j = 0; j < tempTextureRegions[i].length; j++) {
@@ -88,10 +90,9 @@ public class CombatView extends AbstractGameView {
                 }
                 index = 0;
             }
-
-            unitAnimationHashMap.put(filePath, new Animation(0.075f, tempTextureRegion));
+            float frameDuration = animationDuration / tempTextureRegion.length;
+            unitAnimationHashMap.put(filePath, new Animation(frameDuration, tempTextureRegion));
         }
-        unitAnimationHashMap.get(filePath).setFrameDuration(0.5f);
         return unitAnimationHashMap.get(filePath);
 
     }
@@ -119,6 +120,8 @@ public class CombatView extends AbstractGameView {
         activeUnitAnimation = createAnimationFrom(activeUnit.getAnimationFilePath());
         targetUnitAnimation = createAnimationFrom(targetUnit.getAnimationFilePath());
 
+        timeStamp = TimeUtils.millis();
+
         CombatState combatState = (CombatState)gameModel.getState();
         firstDamageFromActiveUnit = combatState.getFirstDamageFromActiveUnit();
         firstHitFromActiveUnit = combatState.isFirstHitFromActiveUnit();
@@ -135,56 +138,59 @@ public class CombatView extends AbstractGameView {
 
     private void drawCombat(){
 
-        float frame = 0f;
-        if (animationClock<30) {
-            frame = animationClock/100f;
-            animationClock++;
-        }
+
+        float frame = (TimeUtils.millis() - timeStamp) / 1000f;
+
 
         switch (combatDrawState) {
             case ACTIVE_FIRST_HIT:
                 //Are we done?
-                if(animationClock == 30 && cooldown <= 0){
+                if(frame >= animationTime){
                     combatDrawState = CombatDrawState.ENEMY_HIT;
-                    animationClock = 0;
-                    cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_ACTIVE_HIT);
+                    timeStamp = TimeUtils.millis();
                     break;
                 }
                 //else do the painting
-                drawAttackAnimation(activeUnit, frame);
+                if(frame < animationTime/2f){
+                    drawAttackAnimation(activeUnit, frame);
+                }else {
+                    drawAttackAnimation(activeUnit, 0);
+                }
                 drawDamageNumber(activeUnit, frame);
                 drawAttackAnimation(targetUnit, 0);
                 break;
             case ENEMY_HIT:
-                if((animationClock == 30 && cooldown <= 0) || !attackFromEnemyUnit){
+                if(frame >= animationTime || !attackFromEnemyUnit){
                     combatDrawState = CombatDrawState.ACTIVE_SECOND_HIT;
-                    animationClock = 0;
-                    cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_TARGET_HIT);
+                    timeStamp = TimeUtils.millis();
                     break;
                 }
-
-                drawAttackAnimation(targetUnit, frame);
+                if(frame < animationTime/2f){
+                    drawAttackAnimation(targetUnit, frame);
+                }else {
+                    drawAttackAnimation(targetUnit, 0);
+                }
                 drawDamageNumber(targetUnit, frame);
                 drawAttackAnimation(activeUnit, 0);
                 break;
             case ACTIVE_SECOND_HIT:
-                if((animationClock == 30 && cooldown <= 0) || !secondAttackFromActiveUnit){
+                if(frame >= animationTime || !secondAttackFromActiveUnit){
                     combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
-                    animationClock = 0;
-                    cooldown = 60;
                     gameModel.performAction(ActionName.COMBAT_DONE);
                     reset();
                     break;
                 }
-
-                drawAttackAnimation(activeUnit, frame);
+                if(frame < animationTime/2f){
+                    drawAttackAnimation(activeUnit, frame);
+                }else {
+                    drawAttackAnimation(activeUnit, 0);
+                }
                 drawDamageNumber(activeUnit, frame);
                 drawAttackAnimation(targetUnit, 0);
                 break;
         }
-        cooldown--;
     }
 
     private void drawAttackAnimation(Unit unit, float frame){
@@ -228,7 +234,11 @@ public class CombatView extends AbstractGameView {
 
     private void drawDamageNumber(Unit unit, float frame){
         float uPos[] = {0f,0f};
-        float scale = 2;
+
+        if (frame == 0f){
+            frame = 0.01f;
+        }
+        float scale = frame * 1.1f;
         font.getData().setScale(scale);
         font.setColor(Color.SCARLET);
         String message = "null";
@@ -266,7 +276,9 @@ public class CombatView extends AbstractGameView {
                 message = "MISS";
             }
         }
-        draw(message, uPos[0]+TILE_WIDTH/3, uPos[1]+TILE_WIDTH * 1.2f);
+        if(!message.equals("null")){
+            draw(message, uPos[0]+TILE_WIDTH/3, uPos[1]+TILE_WIDTH * 1.2f);
+        }
     }
 
     private float[] calcDrawPos(Unit unit){
