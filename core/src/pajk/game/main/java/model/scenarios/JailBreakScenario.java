@@ -15,6 +15,7 @@ public class JailBreakScenario extends Scenario {
         name = "Save the Captive!";
         description = "Two of your allies have been captured, rush to their aid before they're executed!";
         mapName = "Scenarios/JailbreakMap.txt";
+        screenshotPath = "Scenarios/SaveCaptives.png";
     }
 
     @Override
