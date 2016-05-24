@@ -25,11 +25,6 @@ public class CombatInfoView extends AbstractGameView{
 
     private HashMap<String, Texture> unitTextureHashMap = new HashMap<>();
 
-
-    /**
-     *
-     * @param camera
-     */
     public CombatInfoView(OrthographicCamera camera){
         statusBackground = new Texture("Menus/statusBackground.png");
         this.camera = camera;
@@ -37,9 +32,6 @@ public class CombatInfoView extends AbstractGameView{
         model = GameModel.getInstance();
     }
 
-    /**
-     *
-     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         if(model.getState() instanceof CombatInfoState){
@@ -54,9 +46,7 @@ public class CombatInfoView extends AbstractGameView{
         }
         return unitTextureHashMap.get(str);
     }
-    /*
-     *
-     */
+
     private void drawInfoScreen(SpriteBatch spriteBatch){
         CombatInfoState combatInfoState = (CombatInfoState)model.getState();
 
@@ -97,7 +87,4 @@ public class CombatInfoView extends AbstractGameView{
         spriteBatch.draw(targetUnitImage,x + 7 * (statusBackground.getWidth()/8) - targetUnitImage.getWidth(), y + (statusBackground.getHeight()/8));
         spriteBatch.end();
     }
-
-
-
 }

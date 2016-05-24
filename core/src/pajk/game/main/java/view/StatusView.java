@@ -21,7 +21,6 @@ public class StatusView extends AbstractGameView{
     private OrthographicCamera camera;
     private GameModel model;
     private BitmapFont font;
-    private Unit unit;
     private StatusState state;
     private HashMap<String, Texture> unitTextureHashMap = new HashMap<>();
 
@@ -43,8 +42,6 @@ public class StatusView extends AbstractGameView{
         model = GameModel.getInstance();
     }
 
-
-
     @Override
     public void render(SpriteBatch spriteBatch) {
         if(model.getState() instanceof StatusState){
@@ -60,7 +57,7 @@ public class StatusView extends AbstractGameView{
 
     private void drawStatusScreen(SpriteBatch spriteBatch){
         state = (StatusState)model.getState();
-        unit = state.getStatusUnit();
+        Unit unit = state.getStatusUnit();
 
         int x = (int)(camera.position.x - camera.viewportWidth/2)+85;
         int y = (int)(camera.position.y - (camera.viewportHeight/2)) + 30;

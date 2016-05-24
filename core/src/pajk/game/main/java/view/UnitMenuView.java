@@ -8,7 +8,6 @@ import pajk.game.main.java.model.*;
 import pajk.game.main.java.model.states.UnitMenuState;
 import pajk.game.main.java.model.units.Unit;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,8 +33,6 @@ public class UnitMenuView extends AbstractGameView {
         background = new Texture("Menus/menuBackgroundEdges.png");
         this.camera = camera;
     }
-
-
 
     @Override
     public void render(SpriteBatch spriteBatch){

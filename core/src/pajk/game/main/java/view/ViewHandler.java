@@ -17,8 +17,6 @@ public class ViewHandler {
     private EndView endView;
     private CombatInfoView combatInfoView;
     private MainMenuView mainMenuView;
-    private GameModel gameModel = GameModel.getInstance();
-    private OrthographicCamera camera;
 
     /**
      * Creates the ViewHandler
@@ -27,7 +25,7 @@ public class ViewHandler {
     public ViewHandler(){
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        camera = new OrthographicCamera(w, h);
+        OrthographicCamera camera = new OrthographicCamera(w, h);
         boardView = new BoardView(camera);
         combatView = new CombatView();
         menuView = new UnitMenuView(camera);
@@ -46,7 +44,4 @@ public class ViewHandler {
         endView.render(spriteBatch);
         combatInfoView.render(spriteBatch);
     }
-
-
-
 }

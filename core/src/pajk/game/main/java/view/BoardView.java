@@ -43,7 +43,6 @@ public class BoardView extends AbstractGameView {
     private Texture endTurnConfirmation;
 
     private SpriteBatch spriteBatch;
-    private final int TILE_WIDTH = 64;
 
     private OrthographicCamera camera;
 
@@ -78,11 +77,10 @@ public class BoardView extends AbstractGameView {
         this.camera = camera;
 
         if (board != null) {
-            this.camera.position.set(camera.viewportWidth / 2f, board.getBoardHeight() * TILE_WIDTH - camera.viewportHeight / 2f, 0);
+            this.camera.position.set(camera.viewportWidth / 2f, board.getBoardHeight() * ViewUtils.TILE_WIDTH - camera.viewportHeight / 2f, 0);
         }
         this.camera.update();
     }
-
 
     @Override
     public void render(SpriteBatch spriteBatch) {
@@ -229,10 +227,10 @@ public class BoardView extends AbstractGameView {
      * @return the pixel coordinates of where on the screen the board should be represented.
      */
     private int getPixelCoordX(int boardCoordX){
-        return boardCoordX * TILE_WIDTH;
+        return boardCoordX * ViewUtils.TILE_WIDTH;
     }
     private int getPixelCoordY(int boardCoordY){
-        return (gameModel.getBoard().getBoardHeight() - 1 - boardCoordY)*(TILE_WIDTH);
+        return (gameModel.getBoard().getBoardHeight() - 1 - boardCoordY)*(ViewUtils.TILE_WIDTH);
     }
 
     private void drawTooltip(){
@@ -258,10 +256,9 @@ public class BoardView extends AbstractGameView {
     }
 
     private boolean shouldDrawTooltipRight(){
-        int tileWidth = 64;
         int x = gameModel.getBoard().getCursorTile().getX();
 
-        return x * tileWidth < camera.position.x;
+        return x * ViewUtils.TILE_WIDTH < camera.position.x;
     }
 
     /**
@@ -321,10 +318,10 @@ public class BoardView extends AbstractGameView {
         boolean verdict = true;
         int x = tile.getX();
         int y = tile.getY();
-        if (camera.position.y + camera.viewportHeight / 2 < (board.getBoardHeight() - y - 1) * TILE_WIDTH ||
-                camera.position.y - camera.viewportHeight / 2 > (board.getBoardHeight() - y + 1) * TILE_WIDTH ||
-                camera.position.x + camera.viewportWidth / 2 < (x + 0) * TILE_WIDTH ||
-                camera.position.x - camera.viewportWidth / 2 > (x + 1) * TILE_WIDTH){
+        if (camera.position.y + camera.viewportHeight / 2 < (board.getBoardHeight() - y - 1) * ViewUtils.TILE_WIDTH ||
+                camera.position.y - camera.viewportHeight / 2 > (board.getBoardHeight() - y + 1) * ViewUtils.TILE_WIDTH ||
+                camera.position.x + camera.viewportWidth / 2 < (x + 0) * ViewUtils.TILE_WIDTH ||
+                camera.position.x - camera.viewportWidth / 2 > (x + 1) * ViewUtils.TILE_WIDTH){
             verdict = false;
         }
         return verdict;
@@ -337,15 +334,15 @@ public class BoardView extends AbstractGameView {
         int height = board.getBoardHeight();
         int width = board.getBoardWidth();
         //UP
-        if (camera.position.y + camera.viewportHeight / 2 < (height - cursorY + 1) * TILE_WIDTH){
-            if (camera.position.y + camera.viewportHeight / 2 + 16 <= height * TILE_WIDTH){
+        if (camera.position.y + camera.viewportHeight / 2 < (height - cursorY + 1) * ViewUtils.TILE_WIDTH){
+            if (camera.position.y + camera.viewportHeight / 2 + 16 <= height * ViewUtils.TILE_WIDTH){
                 camera.translate(0, 16);
-            }else if (camera.position.y + camera.viewportHeight / 2 + 4 <= height * TILE_WIDTH){
+            }else if (camera.position.y + camera.viewportHeight / 2 + 4 <= height * ViewUtils.TILE_WIDTH){
                 camera.translate(0, 4);
             }
         }
         //DOWN
-        if (camera.position.y - camera.viewportHeight / 2 > (height - cursorY - 2) * TILE_WIDTH){
+        if (camera.position.y - camera.viewportHeight / 2 > (height - cursorY - 2) * ViewUtils.TILE_WIDTH){
             if (camera.position.y - camera.viewportHeight / 2 - 16 >= 0){
                 camera.translate(0, -16);
             }else if (camera.position.y - camera.viewportHeight / 2 - 4 >= 0){
@@ -353,15 +350,15 @@ public class BoardView extends AbstractGameView {
             }
         }
         //RIGHT
-        if (camera.position.x + camera.viewportWidth / 2 < (cursorX + 2) * TILE_WIDTH){
-            if (camera.position.x + camera.viewportWidth / 2 + 16 <= width * TILE_WIDTH){
+        if (camera.position.x + camera.viewportWidth / 2 < (cursorX + 2) * ViewUtils.TILE_WIDTH){
+            if (camera.position.x + camera.viewportWidth / 2 + 16 <= width * ViewUtils.TILE_WIDTH){
                 camera.translate(16, 0);
-            }else if (camera.position.x + camera.viewportWidth / 2 + 4 <= width * TILE_WIDTH){
+            }else if (camera.position.x + camera.viewportWidth / 2 + 4 <= width * ViewUtils.TILE_WIDTH){
                 camera.translate(4, 0);
             }
         }
         //LEFT
-        if (camera.position.x - camera.viewportWidth / 2 > (cursorX - 1) * TILE_WIDTH){
+        if (camera.position.x - camera.viewportWidth / 2 > (cursorX - 1) * ViewUtils.TILE_WIDTH){
             if (camera.position.x - camera.viewportWidth / 2 - 16 > 0){
                 camera.translate(-16, 0);
             }else if (camera.position.x - camera.viewportWidth / 2 - 4 >= 0){
@@ -371,9 +368,8 @@ public class BoardView extends AbstractGameView {
     }
 
     private boolean shouldDrawButtonTextRight(){
-        int tileWidth = 64;
         int x = gameModel.getBoard().getCursorTile().getX();
-        return x * tileWidth > (camera.viewportWidth/2);
+        return x * ViewUtils.TILE_WIDTH > (camera.viewportWidth/2);
     }
 
     public Board getBoard(){return board;}

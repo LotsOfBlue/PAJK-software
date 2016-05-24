@@ -10,6 +10,8 @@ import pajk.game.main.java.model.Tile;
  */
 public class ViewUtils {
 
+    public static final int TILE_WIDTH = 64;
+
     private static Texture plainsTexture = new Texture("Sprites/Tiles/grass64.png");
     private static Texture forestTexture = new Texture("Sprites/Tiles/forest64.png");
     private static Texture mountainTexture = new Texture("Sprites/Tiles/mountain64.png");
