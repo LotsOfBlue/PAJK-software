@@ -157,7 +157,9 @@ public class CombatView extends AbstractGameView {
                 }else {
                     drawAttackAnimation(activeUnit, 0);
                 }
-                drawDamageNumber(activeUnit, frame);
+                if(frame >= animationTime/2f){
+                    drawDamageNumber(activeUnit, frame);
+                }
                 drawAttackAnimation(targetUnit, 0);
                 break;
             case ENEMY_HIT:
@@ -172,7 +174,9 @@ public class CombatView extends AbstractGameView {
                 }else {
                     drawAttackAnimation(targetUnit, 0);
                 }
-                drawDamageNumber(targetUnit, frame);
+                if(frame >= animationTime/2f){
+                    drawDamageNumber(targetUnit, frame);
+                }
                 drawAttackAnimation(activeUnit, 0);
                 break;
             case ACTIVE_SECOND_HIT:
@@ -187,7 +191,9 @@ public class CombatView extends AbstractGameView {
                 }else {
                     drawAttackAnimation(activeUnit, 0);
                 }
-                drawDamageNumber(activeUnit, frame);
+                if(frame >= animationTime/2f){
+                    drawDamageNumber(activeUnit, frame);
+                }
                 drawAttackAnimation(targetUnit, 0);
                 break;
         }
@@ -235,12 +241,10 @@ public class CombatView extends AbstractGameView {
     private void drawDamageNumber(Unit unit, float frame){
         float uPos[] = {0f,0f};
 
-        if (frame == 0f){
-            frame = 0.01f;
-        }
+
         float scale = frame * 1.1f;
         font.getData().setScale(scale);
-        font.setColor(Color.SCARLET);
+        font.setColor(Color.BLACK);
         String message = "null";
         if(unit.equals(activeUnit)){
             uPos = calcDrawPos(targetUnit);
