@@ -43,18 +43,14 @@ public class EndView extends AbstractGameView{
 
         if(endState.getWinner() == Unit.Allegiance.PLAYER){
             font.getData().setScale(5,5);
-            font.draw(spriteBatch,"Victory",x+20,y+ statusBackground.getHeight() - 110);
+            font.draw(spriteBatch, "Victory", x + 20, y + statusBackground.getHeight() - 110);
             font.getData().setScale(3,3);
-            font.draw(spriteBatch,"Your score was "+endState.getScore(),x+20,y+ statusBackground.getHeight() - 180);
-            font.draw(spriteBatch,"It took you "+endState.getTurns()+" turns to finish.",x+20,y+ statusBackground.getHeight() - 220);
-            font.draw(spriteBatch,"You had "+endState.getUnits()+" units left.",x+20,y+ statusBackground.getHeight() - 260);
-            font.draw(spriteBatch,"More useless stats coming soon!",x+20,y+ statusBackground.getHeight() - 300);
+            font.draw(spriteBatch, "Your score was " + endState.getScore(), x + 20, y + statusBackground.getHeight() - 180);
+            font.draw(spriteBatch, "It took you "+ endState.getTurns() + " turns to finish.", x + 20, y + statusBackground.getHeight() - 220);
+            font.draw(spriteBatch, "You had "+ endState.getUnits() + " units left.", x + 20, y + statusBackground.getHeight() - 260);
         } else {
             font.getData().setScale(5,5);
-            font.draw(spriteBatch,"Defeat",x+20,y+ statusBackground.getHeight() - 110);
-            font.getData().setScale(3,3);
-            font.draw(spriteBatch,"Your score was "+endState.getScore(),x+20,y+ statusBackground.getHeight() - 180);
-            font.draw(spriteBatch,"More useless stats coming soon!",x+20,y+ statusBackground.getHeight() - 220);
+            font.draw(spriteBatch,"Defeat", x + 20, y + statusBackground.getHeight() - 110);
         }
         spriteBatch.end();
     }
