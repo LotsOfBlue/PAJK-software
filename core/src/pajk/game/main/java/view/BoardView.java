@@ -116,20 +116,16 @@ public class BoardView extends AbstractGameView {
             }
         }
 
-        boolean shouldDrawEnemy;
         if(gameModel.getState().getClass() == MainState.class){
 
             MainState state = (MainState)(gameModel.getState());
             if(state.isEnemyTurnBannerActive()){
-                shouldDrawEnemy = true;
-                drawTurnText(shouldDrawEnemy);
-
+                drawTurnText(true);
             }
         } else if (gameModel.getState().getClass() == EnemyTurnState.class){
             EnemyTurnState enemyState = (EnemyTurnState)(gameModel.getState());
             if(enemyState.isPlayerTurnBannerActive()){
-                shouldDrawEnemy = false;
-                drawTurnText(shouldDrawEnemy);
+                drawTurnText(false);
             }
         }
         drawEndTurnConfirmation();
@@ -336,16 +332,20 @@ public class BoardView extends AbstractGameView {
 
     private void updateCamera(Board board){
         Tile cursor = board.getCursorTile();
+        int cursorX = cursor.getX();
+        int cursorY = cursor.getY();
+        int height = board.getBoardHeight();
+        int width = board.getBoardWidth();
         //UP
-        if (camera.position.y + camera.viewportHeight / 2 < (board.getBoardHeight() - cursor.getY() + 1) * TILE_WIDTH){
-            if (camera.position.y + camera.viewportHeight / 2 + 16 <= board.getBoardHeight() * TILE_WIDTH){
+        if (camera.position.y + camera.viewportHeight / 2 < (height - cursorY + 1) * TILE_WIDTH){
+            if (camera.position.y + camera.viewportHeight / 2 + 16 <= height * TILE_WIDTH){
                 camera.translate(0, 16);
-            }else if (camera.position.y + camera.viewportHeight / 2 + 4 <= board.getBoardHeight() * TILE_WIDTH){
+            }else if (camera.position.y + camera.viewportHeight / 2 + 4 <= height * TILE_WIDTH){
                 camera.translate(0, 4);
             }
         }
         //DOWN
-        if (camera.position.y - camera.viewportHeight / 2 > (board.getBoardHeight() - cursor.getY() - 2) * TILE_WIDTH){
+        if (camera.position.y - camera.viewportHeight / 2 > (height - cursorY - 2) * TILE_WIDTH){
             if (camera.position.y - camera.viewportHeight / 2 - 16 >= 0){
                 camera.translate(0, -16);
             }else if (camera.position.y - camera.viewportHeight / 2 - 4 >= 0){
@@ -353,15 +353,15 @@ public class BoardView extends AbstractGameView {
             }
         }
         //RIGHT
-        if (camera.position.x + camera.viewportWidth / 2 < (cursor.getX() + 2) * TILE_WIDTH){
-            if (camera.position.x + camera.viewportWidth / 2 + 16 <= board.getBoardWidth() * TILE_WIDTH){
+        if (camera.position.x + camera.viewportWidth / 2 < (cursorX + 2) * TILE_WIDTH){
+            if (camera.position.x + camera.viewportWidth / 2 + 16 <= width * TILE_WIDTH){
                 camera.translate(16, 0);
-            }else if (camera.position.x + camera.viewportWidth / 2 + 4 <= board.getBoardWidth() * TILE_WIDTH){
+            }else if (camera.position.x + camera.viewportWidth / 2 + 4 <= width * TILE_WIDTH){
                 camera.translate(4, 0);
             }
         }
         //LEFT
-        if (camera.position.x - camera.viewportWidth / 2 > (cursor.getX() - 1) * TILE_WIDTH){
+        if (camera.position.x - camera.viewportWidth / 2 > (cursorX - 1) * TILE_WIDTH){
             if (camera.position.x - camera.viewportWidth / 2 - 16 > 0){
                 camera.translate(-16, 0);
             }else if (camera.position.x - camera.viewportWidth / 2 - 4 >= 0){
