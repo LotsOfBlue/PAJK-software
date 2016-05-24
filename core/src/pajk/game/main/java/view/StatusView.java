@@ -38,7 +38,7 @@ public class StatusView extends AbstractGameView{
         statusBackground = new Texture("Menus/statusBackground.png");
         unitImage = new Texture("Menus/shrek.png");
         selector = new Texture("Menus/statusInfoSelector.png");
-        statusBackgroundRed = new Texture("statusBackgroundRed.png");
+        statusBackgroundRed = new Texture("Menus/statusBackgroundRed.png");
 
         this.camera = camera;
         font = new BitmapFont();

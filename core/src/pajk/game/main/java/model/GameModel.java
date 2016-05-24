@@ -78,10 +78,6 @@ public final class GameModel {
         return ourInstance;
     }
 
-    private GameModel(){
-        board = new Board("plains.txt");
-    }
-
     /**
      * Changes the current game state to another state, and also fires off its starting actions.
      * @param state The name of the state you want to swap to.

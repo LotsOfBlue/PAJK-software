@@ -66,17 +66,19 @@ public class BoardView extends AbstractGameView {
         hpbarBlue = new Texture("Sprites/Units/hpbarBlue.png");
         hpbarRed  = new Texture("Sprites/Units/hpbarRed.png");
 
-        hpbarContainer = new Texture("hpContainer.png");
+        hpbarContainer = new Texture("Sprites/Units/hpContainer.png");
 
-        enemyTurnText = new Texture("enemyTurnText.png");
-        playerTurnText = new Texture("playerTurnText.png");
-        endTurnConfirmation = new Texture("endTurnConfirmation.png");
+        enemyTurnText = new Texture("Menus/enemyTurnText.png");
+        playerTurnText = new Texture("Menus/playerTurnText.png");
+        endTurnConfirmation = new Texture("Menus/endTurnConfirmation.png");
         this.gameModel = GameModel.getInstance();
         this.board = gameModel.getBoard();
 
         this.camera = camera;
 
-        this.camera.position.set(camera.viewportWidth / 2f, board.getBoardHeight() * TILE_WIDTH - camera.viewportHeight / 2f, 0);
+        if (board != null) {
+            this.camera.position.set(camera.viewportWidth / 2f, board.getBoardHeight() * TILE_WIDTH - camera.viewportHeight / 2f, 0);
+        }
         this.camera.update();
     }
 
