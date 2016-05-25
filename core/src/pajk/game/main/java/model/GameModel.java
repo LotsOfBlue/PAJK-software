@@ -234,10 +234,13 @@ public final class GameModel {
     }
 
     public void newTurn() {
+        numberOfTurns++;
+    }
+
+    public void setAllUnitsReady(){
         for (Unit u : unitList) {
             u.setUnitState(Unit.UnitState.READY);
         }
-        numberOfTurns++;
     }
 
     /**

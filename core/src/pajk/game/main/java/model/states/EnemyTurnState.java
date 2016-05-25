@@ -118,6 +118,7 @@ public class EnemyTurnState extends State {
                 board.setCursor(board.getPos(getAllTargets().get(0)));
             }
             gameModel.newTurn();
+            gameModel.setAllUnitsReady();
             gameModel.setState(GameModel.StateName.MAIN);
         } else {
             bannerCooldown--;

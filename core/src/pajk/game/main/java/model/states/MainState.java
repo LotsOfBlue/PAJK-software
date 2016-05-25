@@ -44,6 +44,7 @@ public class MainState extends MoveState {
                 bannerActive = false;
                 bannerCooldown = 60;
                 model.setState(GameModel.StateName.ENEMY_TURN);
+                model.setAllUnitsReady();
             } else {
                 bannerCooldown--;
                 bannerActive = true;
