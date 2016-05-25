@@ -17,7 +17,6 @@ import java.util.HashMap;
  * Gets values from CombatState
  */
 public class CombatView extends AbstractGameView {
-    private final int TILE_WIDTH = 64;
 
     private SpriteBatch spriteBatch;
     private GameModel gameModel;
@@ -45,7 +44,6 @@ public class CombatView extends AbstractGameView {
         ACTIVE_FIRST_HIT,
         ENEMY_HIT,
         ACTIVE_SECOND_HIT
-
     }
 
     private CombatDrawState combatDrawState = CombatDrawState.ACTIVE_FIRST_HIT;
@@ -57,10 +55,7 @@ public class CombatView extends AbstractGameView {
     private Texture hpBar;
     private HashMap<String, Animation> unitAnimationHashMap = new HashMap<>();
 
-
     private BitmapFont font;
-
-
 
     /**
      * Constructor of CombatView, initializes the class and get all requiered
@@ -77,10 +72,9 @@ public class CombatView extends AbstractGameView {
     private Animation createAnimationFrom(String filePath){
         if(unitAnimationHashMap.isEmpty() || !unitAnimationHashMap.containsKey(filePath)){
             Texture tempTexture = new Texture(filePath);
-            int width = TILE_WIDTH;
-            int height = TILE_WIDTH;
+            int tileSize = ViewUtils.TILE_WIDTH;
             float animationDuration = animationTime/2f;
-            TextureRegion[][] tempTextureRegions = TextureRegion.split(tempTexture, width, height);
+            TextureRegion[][] tempTextureRegions = TextureRegion.split(tempTexture, tileSize, tileSize);
             TextureRegion[] tempTextureRegion = new TextureRegion[tempTextureRegions.length * tempTextureRegions[0].length];
             int index = 0;
             for (int i = 0; i < tempTextureRegions.length; i++) {
@@ -93,7 +87,6 @@ public class CombatView extends AbstractGameView {
             unitAnimationHashMap.put(filePath, new Animation(frameDuration, tempTextureRegion));
         }
         return unitAnimationHashMap.get(filePath);
-
     }
 
     public void render(SpriteBatch spriteBatch){
@@ -137,9 +130,6 @@ public class CombatView extends AbstractGameView {
 
     private void drawCombat(){
 
-
-
-
         switch (combatDrawState) {
             case ACTIVE_FIRST_HIT:
                 drawCombat(activeUnit,
@@ -165,7 +155,7 @@ public class CombatView extends AbstractGameView {
         }
     }
 
-    private void drawCombat(Unit activeUnit,Unit targetUnit, Boolean doesAttack, CombatDrawState nextDrawState, ActionName nextModelAction){
+    private void drawCombat(Unit activeUnit, Unit targetUnit, Boolean doesAttack, CombatDrawState nextDrawState, ActionName nextModelAction){
         float frame = (TimeUtils.millis() - timeStamp) / 1000f;
         //Are we done?
         if(frame >= animationTime || !doesAttack){
@@ -216,7 +206,7 @@ public class CombatView extends AbstractGameView {
         Texture texture = ViewUtils.getTileTexture(tile);
         float[] pos = calcDrawPos(tile);
 
-        TextureRegion txtReg = new TextureRegion(texture, 0, 0, TILE_WIDTH, TILE_WIDTH-hpBar.getHeight());
+        TextureRegion txtReg = new TextureRegion(texture, 0, 0, ViewUtils.TILE_WIDTH, ViewUtils.TILE_WIDTH - hpBar.getHeight());
 
         draw(txtReg, pos[0], pos[1]);
         draw(gridTexture, pos[0], pos[1]);
@@ -249,7 +239,6 @@ public class CombatView extends AbstractGameView {
                     critFromEnemyUnit,
                     damageFromEnemyUnit);
         }
-
     }
 
     private void drawDamageMessage(Unit targetUnit, float frame, boolean doesAttack, boolean doesHit, boolean doesCrit, int damage){
@@ -260,24 +249,23 @@ public class CombatView extends AbstractGameView {
         String message = "null";
 
         if(!message.equals("null")){
-            draw(message, uPos[0]+TILE_WIDTH/3, uPos[1]+TILE_WIDTH * 1.2f);
+            draw(message, uPos[0]+ViewUtils.TILE_WIDTH/3, uPos[1]+ViewUtils.TILE_WIDTH * 1.2f);
         }
     }
 
     private float[] calcDrawPos(Unit unit){
         float uPos[] = new float[2];
         Tile myTile = board.getPos(unit);
-        uPos[0] = (myTile.getX() ) * TILE_WIDTH;
-        uPos[1] = (board.getBoardHeight() - myTile.getY() - 1) * TILE_WIDTH;
+        uPos[0] = (myTile.getX() ) * ViewUtils.TILE_WIDTH;
+        uPos[1] = (board.getBoardHeight() - myTile.getY() - 1) * ViewUtils.TILE_WIDTH;
         return uPos;
-
     }
+
     private float[] calcDrawPos(Tile tile){
         float uPos[] = new float[2];
-        uPos[0] = (tile.getX() ) * TILE_WIDTH;
-        uPos[1] = (board.getBoardHeight() - tile.getY() - 1) * TILE_WIDTH;
+        uPos[0] = (tile.getX() ) * ViewUtils.TILE_WIDTH;
+        uPos[1] = (board.getBoardHeight() - tile.getY() - 1) * ViewUtils.TILE_WIDTH;
         return uPos;
-
     }
 
     private void drawAttackFrame(Unit unit, TextureRegion textureRegion){
@@ -299,6 +287,5 @@ public class CombatView extends AbstractGameView {
 
     private void reset(){
         isUpdated = false;
-
     }
 }
