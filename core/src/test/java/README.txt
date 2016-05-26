@@ -1,1 +1,1 @@
-Här bor test!
+HÃ¤r bor test!
