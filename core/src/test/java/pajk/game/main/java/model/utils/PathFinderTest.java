@@ -28,7 +28,7 @@ public class PathFinderTest {
 
     @Before
     public void setUp() throws Exception{
-        board = new Board("Scenarios/PathFindTestMap.txt");
+        board = new Board("testAssets/Scenarios/PathFindTestMap.txt");
         walkingUnit = new Swordsman(Unit.Allegiance.PLAYER, 1);
         ridingUnit = new RidingSwordsman(Unit.Allegiance.PLAYER, 1);
         flyingUnit = new FlyingSwordsman(Unit.Allegiance.PLAYER, 1);
