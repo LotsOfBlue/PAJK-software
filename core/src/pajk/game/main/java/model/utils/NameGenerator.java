@@ -1,6 +1,6 @@
-package pajk.game.main.java.model.utils;
+package game.main.java.model.utils;
 
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.units.Unit;
 
 import java.util.List;
 import java.util.Random;

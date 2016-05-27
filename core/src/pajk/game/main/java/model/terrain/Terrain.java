@@ -1,6 +1,6 @@
-package pajk.game.main.java.model.terrain;
+package game.main.java.model.terrain;
 
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.units.Unit;
 
 /**
  * Represents a type of terrain with its specific parameters.

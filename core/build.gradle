@@ -6,10 +6,19 @@ sourceCompatibility = 1.8
 sourceSets {
     main {
         java {
-            srcDir 'src/'
+            srcDir 'src/pajk/'
         }
         resources {
             srcDir 'assets/'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/'
+        }
+        resources {
+            srcDir 'src/test/resources'
         }
     }
 }

@@ -1,10 +1,10 @@
-package pajk.game.main.java.model;
+package game.main.java.model;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.units.Swordsman;
+import game.main.java.model.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package pajk.game.main.java.model.scenarios;
+package game.main.java.model.scenarios;
 
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.items.*;
-import pajk.game.main.java.model.units.*;
+import game.main.java.model.Board;
+import game.main.java.model.items.*;
+import game.main.java.model.units.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
-import pajk.game.main.java.model.items.ArcaneBolt;
+import game.main.java.model.items.ArcaneBolt;
 
 /**
  * Mages are powerful at range, but cannot withstand physical attacks.

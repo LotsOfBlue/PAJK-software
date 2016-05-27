@@ -1,4 +1,4 @@
-package pajk.game.main.java;
+package game.main.java;
 
 /**
  * Created by Gustav on 2016-04-22.

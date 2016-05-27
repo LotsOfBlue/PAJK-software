@@ -1,6 +1,7 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
-import pajk.game.main.java.model.items.IronPike;
+import game.main.java.model.units.Unit;
+import game.main.java.model.items.IronPike;
 
 /**
  * Pikemen are defensive, but slow.

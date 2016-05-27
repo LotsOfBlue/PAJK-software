@@ -1,12 +1,12 @@
-package pajk.game.main.java.model.states;
+package game.main.java.model.states;
 
 import org.junit.Before;
 import org.junit.Test;
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.items.IronSword;
-import pajk.game.main.java.model.items.Sword;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.Board;
+import game.main.java.model.GameModel;
+import game.main.java.model.items.IronSword;
+import game.main.java.model.items.Sword;
+import game.main.java.model.units.Unit;
 
 import java.util.Random;
 

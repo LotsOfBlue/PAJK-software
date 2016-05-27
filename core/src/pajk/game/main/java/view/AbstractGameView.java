@@ -1,4 +1,4 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

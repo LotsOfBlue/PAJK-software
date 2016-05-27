@@ -1,4 +1,4 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.states.*;
-import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.states.EnemyTurnState;
-import pajk.game.main.java.model.states.MainState;
-import pajk.game.main.java.model.states.StatusState;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.*;
+import game.main.java.model.states.*;
+import game.main.java.model.states.CombatState;
+import game.main.java.model.states.EnemyTurnState;
+import game.main.java.model.states.MainState;
+import game.main.java.model.states.StatusState;
+import game.main.java.model.units.Unit;
 
 import java.util.*;
 

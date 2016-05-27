@@ -1,4 +1,4 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import pajk.game.PajkGdxGame;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.scenarios.Scenario;
-import pajk.game.main.java.model.states.MainMenuState;
+import game.PajkGdxGame;
+import game.main.java.model.GameModel;
+import game.main.java.model.scenarios.Scenario;
+import game.main.java.model.states.MainMenuState;
 
 import java.util.HashMap;
 import java.util.List;

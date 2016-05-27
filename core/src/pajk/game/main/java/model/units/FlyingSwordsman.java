@@ -1,4 +1,4 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
 /**
  * Created by jonatan on 21/05/2016.

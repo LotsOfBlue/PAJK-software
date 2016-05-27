@@ -1,15 +1,15 @@
-package pajk.game.main.java.model.utils;
+package game.main.java.model.utils;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.Tile;
-import pajk.game.main.java.model.terrain.*;
-import pajk.game.main.java.model.units.FlyingSwordsman;
-import pajk.game.main.java.model.units.RidingSwordsman;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.Board;
+import game.main.java.model.Tile;
+import game.main.java.model.terrain.*;
+import game.main.java.model.units.FlyingSwordsman;
+import game.main.java.model.units.RidingSwordsman;
+import game.main.java.model.units.Swordsman;
+import game.main.java.model.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;

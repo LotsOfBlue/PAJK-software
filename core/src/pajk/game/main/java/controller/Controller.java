@@ -1,7 +1,7 @@
-package pajk.game.main.java.controller;
+package game.main.java.controller;
 
-import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.GameModel;
+import game.main.java.ActionName;
+import game.main.java.model.GameModel;
 
 /**
  * Created by palm on 2016-04-18.

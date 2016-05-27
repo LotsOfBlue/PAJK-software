@@ -1,9 +1,9 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pajk.game.main.java.model.items.*;
+import game.main.java.model.items.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,13 @@
-package pajk.game;
+package game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pajk.game.main.java.controller.Controller;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.view.ViewHandler;
+import game.main.java.controller.Controller;
+import game.main.java.model.GameModel;
+import game.main.java.view.ViewHandler;
 
 public class PajkGdxGame extends ApplicationAdapter {
     public static final int WIDTH = 960;

@@ -1,8 +1,8 @@
-package pajk.game.main.java.model.states;
+package game.main.java.model.states;
 
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.GameModel.StateName;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.GameModel;
+import game.main.java.model.GameModel.StateName;
+import game.main.java.model.units.Unit;
 
 /**
  * @author Jonatan

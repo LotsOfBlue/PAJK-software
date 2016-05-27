@@ -1,4 +1,4 @@
-package pajk.game.main.java.model.items;
+package game.main.java.model.items;
 
 /**
  * Created by jonatan on 20/04/2016.

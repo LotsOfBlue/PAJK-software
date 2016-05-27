@@ -1,7 +1,7 @@
-package pajk.game.main.java.model.states;
+package game.main.java.model.states;
 
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.GameModel;
+import game.main.java.model.Board;
+import game.main.java.model.GameModel;
 
 /**
  * Abstract state that allows you to move the cursor with the arrow keys.

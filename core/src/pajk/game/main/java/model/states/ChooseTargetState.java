@@ -1,8 +1,8 @@
-package pajk.game.main.java.model.states;
+package game.main.java.model.states;
 
-import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.items.Weapon;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.*;
+import game.main.java.model.items.Weapon;
+import game.main.java.model.units.Unit;
 
 import java.util.Set;
 

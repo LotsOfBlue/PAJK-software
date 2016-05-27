@@ -1,6 +1,6 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
-import pajk.game.main.java.model.items.IronSword;
+import game.main.java.model.items.IronSword;
 
 /**
  * Created by Gustav on 2016-05-19.

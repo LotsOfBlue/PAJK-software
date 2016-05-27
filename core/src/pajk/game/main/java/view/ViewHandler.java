@@ -1,9 +1,9 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pajk.game.main.java.model.GameModel;
+import game.main.java.model.GameModel;
 
 /**
  * Created by palm on 2016-05-10.

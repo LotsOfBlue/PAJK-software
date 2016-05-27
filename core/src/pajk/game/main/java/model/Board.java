@@ -1,8 +1,8 @@
-package pajk.game.main.java.model;
+package game.main.java.model;
 
-import pajk.game.main.java.model.terrain.*;
-import pajk.game.main.java.model.units.Unit;
-import pajk.game.main.java.model.utils.FileReader;
+import game.main.java.model.terrain.*;
+import game.main.java.model.units.Unit;
+import game.main.java.model.utils.FileReader;
 
 import java.util.ArrayList;
 import java.util.HashSet;

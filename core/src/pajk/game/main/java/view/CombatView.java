@@ -1,14 +1,14 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.utils.TimeUtils;
-import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.states.CombatState;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.ActionName;
+import game.main.java.model.*;
+import game.main.java.model.GameModel;
+import game.main.java.model.states.CombatState;
+import game.main.java.model.units.Unit;
 
 import java.util.HashMap;
 

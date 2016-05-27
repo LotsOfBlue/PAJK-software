@@ -1,9 +1,9 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import pajk.game.main.java.model.Tile;
+import game.main.java.model.Tile;
 
 /**
  * Created by jonatan on 21/05/2016.

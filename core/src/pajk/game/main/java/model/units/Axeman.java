@@ -1,6 +1,6 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
-import pajk.game.main.java.model.items.IronAxe;
+import game.main.java.model.items.IronAxe;
 
 /**
  * Axemen are powerful and have alot of hitpoints, but lack defenses and skill.

@@ -1,4 +1,4 @@
-package pajk.game.main.java.model.utils;
+package game.main.java.model.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

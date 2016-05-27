@@ -1,7 +1,7 @@
-package pajk.game.main.java.model.states;
+package game.main.java.model.states;
 
-import pajk.game.main.java.ActionName;
-import pajk.game.main.java.model.GameModel;
+import game.main.java.ActionName;
+import game.main.java.model.GameModel;
 
 /**
  * The game is always in one of multiple states, represented by this interface.

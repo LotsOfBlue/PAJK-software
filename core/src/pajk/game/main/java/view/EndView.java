@@ -1,13 +1,13 @@
-package pajk.game.main.java.view;
+package game.main.java.view;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import pajk.game.main.java.model.*;
-import pajk.game.main.java.model.states.EndState;
-import pajk.game.main.java.model.states.State;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.*;
+import game.main.java.model.states.EndState;
+import game.main.java.model.states.State;
+import game.main.java.model.units.Unit;
 
 /**
  * Created by jonatan on 17/05/2016.

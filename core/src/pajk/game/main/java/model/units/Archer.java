@@ -1,6 +1,6 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
-import pajk.game.main.java.model.items.HuntingBow;
+import game.main.java.model.items.HuntingBow;
 
 /**
  * Archers are quick and skilled, can attack at range, but have no defenses to speak of.

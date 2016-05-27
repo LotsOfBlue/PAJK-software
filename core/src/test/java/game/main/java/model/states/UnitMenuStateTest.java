@@ -1,13 +1,13 @@
-package pajk.game.main.java.model.states;
+package game.main.java.model.states;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.GameModel;
-import pajk.game.main.java.model.units.Axeman;
-import pajk.game.main.java.model.units.Swordsman;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.Board;
+import game.main.java.model.GameModel;
+import game.main.java.model.units.Axeman;
+import game.main.java.model.units.Swordsman;
+import game.main.java.model.units.Unit;
 
 import java.util.ArrayList;
 import java.util.List;

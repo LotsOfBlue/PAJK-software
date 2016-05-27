@@ -1,9 +1,9 @@
-package pajk.game.main.java.model.units;
+package game.main.java.model.units;
 
-import pajk.game.main.java.model.items.IronPike;
-import pajk.game.main.java.model.items.Item;
-import pajk.game.main.java.model.items.Weapon;
-import pajk.game.main.java.model.utils.NameGenerator;
+import game.main.java.model.items.IronPike;
+import game.main.java.model.items.Item;
+import game.main.java.model.items.Weapon;
+import game.main.java.model.utils.NameGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

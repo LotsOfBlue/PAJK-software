@@ -1,9 +1,9 @@
-package pajk.game.main.java.model.utils;
+package game.main.java.model.utils;
 
-import pajk.game.main.java.model.Board;
-import pajk.game.main.java.model.items.Bow;
-import pajk.game.main.java.model.items.Tome;
-import pajk.game.main.java.model.units.Unit;
+import game.main.java.model.Board;
+import game.main.java.model.items.Bow;
+import game.main.java.model.items.Tome;
+import game.main.java.model.units.Unit;
 
 /**
  * @author Jonatan
