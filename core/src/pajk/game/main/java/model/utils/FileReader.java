@@ -1,11 +1,15 @@
 package pajk.game.main.java.model.utils;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,16 +19,11 @@ import java.util.List;
  */
 public abstract class FileReader {
     public static List<String> readFile(String fileName){
-        try {
-            Path path = Paths.get(fileName);
-            return Files.readAllLines(path, StandardCharsets.UTF_8);
-        } catch (InvalidPathException e) {
-            System.out.println("Couldn't load " + fileName);
-            e.printStackTrace();
-            return null;
-        } catch (IOException e){
-            e.printStackTrace();
-            return null;
+        List<String> stringList = new ArrayList<>();
+        FileHandle file = Gdx.files.internal(fileName);
+        for (String returnVal : file.readString().split("\\r?\\n")){
+            stringList.add(returnVal);
         }
+        return stringList;
     }
 }
