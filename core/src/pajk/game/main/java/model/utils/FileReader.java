@@ -1,7 +1,6 @@
 package game.main.java.model.utils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,22 +13,25 @@ import java.util.Scanner;
  */
 public abstract class FileReader {
     public static List<String> readFile(String fileName){
+        try (InputStream is = FileReader.class.getResourceAsStream("/" + fileName)){
 
-        try {
             List<String> list = new ArrayList<>();
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(new java.io.FileReader(file));
+            Scanner scanner = new Scanner(is);
             while (scanner.hasNext()){
                 list.add(scanner.nextLine());
             }
             return list;
+
         } catch (InvalidPathException e) {
             System.out.println("Couldn't load " + fileName);
             e.printStackTrace();
             return null;
         } catch (FileNotFoundException e){
             System.out.println("Couldn't find file " + fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return null;
     }
 }
