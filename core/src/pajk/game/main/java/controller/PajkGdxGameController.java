@@ -1,22 +1,21 @@
-package game;
+package game.main.java.controller;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import game.main.java.controller.Controller;
 import game.main.java.model.GameModel;
 import game.main.java.view.ViewHandler;
 
-public class PajkGdxGame extends ApplicationAdapter {
+public class PajkGdxGameController extends ApplicationAdapter {
     public static final int WIDTH = 960;
     public static final int HEIGHT = 540;
     public static final String TITLE = "Pajkification";
 
     private ViewHandler viewHandler;
     private GameModel gameModel;
-    private Controller gameController;
+    private ControllerAdapter gameController;
     private SpriteBatch batch;
 
     private int inputCooldown = 0;
@@ -27,7 +26,7 @@ public class PajkGdxGame extends ApplicationAdapter {
         batch = new SpriteBatch();
         gameModel = GameModel.getInstance();
         gameModel.setState(GameModel.StateName.MAIN_MENU);
-        gameController = new Controller(gameModel);
+        gameController = new ControllerAdapter(gameModel);
 
         viewHandler = new ViewHandler();
     }

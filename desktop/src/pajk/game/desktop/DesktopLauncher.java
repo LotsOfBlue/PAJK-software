@@ -2,15 +2,15 @@ package pajk.game.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import game.PajkGdxGame;
+import game.main.java.controller.PajkGdxGameController;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = PajkGdxGame.WIDTH;
-		config.height = PajkGdxGame.HEIGHT;
+		config.width = PajkGdxGameController.WIDTH;
+		config.height = PajkGdxGameController.HEIGHT;
 		config.resizable = true;
-		config.title = PajkGdxGame.TITLE;
-		new LwjglApplication(new PajkGdxGame(), config);
+		config.title = PajkGdxGameController.TITLE;
+		new LwjglApplication(new PajkGdxGameController(), config);
 	}
 }
