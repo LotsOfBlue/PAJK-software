@@ -163,9 +163,6 @@ public class UnitTest {
         assertTrue(swordsman.getWeapon() instanceof Sword);
     }
 
-
-
-
     @Test
     public void takeDamage() throws Exception {
         archer.takeDamage(archer.getMaxHealth());

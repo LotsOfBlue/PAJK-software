@@ -34,7 +34,6 @@ public class BoardTest {
         testUnit = null;
     }
 
-
     @Test
     public void setCursor() throws Exception {
         int x = 3;
@@ -44,7 +43,6 @@ public class BoardTest {
         assertTrue(testBoard.getCursorTile().getX() == x && testBoard.getCursorTile().getY() == y);
         //what if setCursor(x > width)??
     }
-
 
     @Test
     public void getTile() throws Exception {
@@ -87,8 +85,6 @@ public class BoardTest {
         testBoard.moveCursor(Board.Direction.WEST);
         testBoard.moveCursor(Board.Direction.SOUTH);
         assertTrue(testBoard.getCursorTile().getX() == 1 && testBoard.getCursorTile().getY() == 2);
-
-
     }
 
     @Test
@@ -118,7 +114,6 @@ public class BoardTest {
         assertTrue(tileSet.contains(testBoard.getTile(2,1)));
         assertTrue(tileSet.contains(testBoard.getTile(2,2)));
         assertTrue(tileSet.contains(testBoard.getTile(3,1)));
-
     }
 
     @Test
@@ -140,7 +135,6 @@ public class BoardTest {
         testBoard.moveUnit(testUnit,testBoard.getTile(3,3));
         assertTrue(testBoard.getTile(3,3).hasUnit());
         assertFalse(testBoard.getTile(3,1).hasUnit());
-
     }
 
 }

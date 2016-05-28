@@ -1,18 +1,18 @@
 package game.main.java.model.states;
 
-import org.junit.Before;
-import org.junit.Test;
 import game.main.java.model.Board;
 import game.main.java.model.GameModel;
-import game.main.java.model.Tile;
 import game.main.java.model.units.Axeman;
 import game.main.java.model.units.Swordsman;
 import game.main.java.model.units.Unit;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by palm on 2016-05-20.

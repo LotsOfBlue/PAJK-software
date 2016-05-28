@@ -1,14 +1,8 @@
 package game.main.java.model.utils;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -34,7 +28,7 @@ public abstract class FileReader {
             e.printStackTrace();
             return null;
         } catch (FileNotFoundException e){
-
+            System.out.println("Couldn't find file " + fileName);
         }
         return null;
     }

@@ -1,31 +1,27 @@
 package game.main.java.model.states;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 import game.main.java.ActionName;
 import game.main.java.model.Board;
 import game.main.java.model.GameModel;
 import game.main.java.model.units.Axeman;
 import game.main.java.model.units.Unit;
-import game.main.java.view.CombatInfoView;
+import org.junit.Before;
+import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by jonatan on 20/05/2016.
  */
 public class CombatInfoStateTest {
-    GameModel gameModel;
-    Board board;
-    Unit activeUnit;
-    Unit targetUnit;
+    private GameModel gameModel;
+
     @Before
     public void setUp() throws Exception {
-        activeUnit = new Axeman(Unit.Allegiance.PLAYER, 1);
-        targetUnit = new Axeman(Unit.Allegiance.AI, 1);
-        gameModel = gameModel.getInstance();
-        board = new Board("testAssets/Scenarios/testboard.txt");
+        Unit activeUnit = new Axeman(Unit.Allegiance.PLAYER, 1);
+        Unit targetUnit = new Axeman(Unit.Allegiance.AI, 1);
+        gameModel = GameModel.getInstance();
+        Board board = new Board("testAssets/Scenarios/testboard.txt");
         gameModel.setBoard(board);
         gameModel.setActiveUnit(activeUnit);
         gameModel.setTargetUnit(targetUnit);
@@ -61,15 +57,11 @@ public class CombatInfoStateTest {
                 && !(cIS.getTargetDmg() < 0)
                 && !(cIS.getTargetHitChance() < 0)
                 && !(cIS.getTargetCritChance() < 0)));
-
-
     }
 
     @Test
     public void getName() throws Exception {
         gameModel.setState(GameModel.StateName.COMBAT_INFO);
         assertTrue("Doesn't return the right name!", gameModel.getState().getName() == GameModel.StateName.COMBAT_INFO);
-
     }
-
 }
