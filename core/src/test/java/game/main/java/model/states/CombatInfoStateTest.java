@@ -25,7 +25,7 @@ public class CombatInfoStateTest {
         activeUnit = new Axeman(Unit.Allegiance.PLAYER, 1);
         targetUnit = new Axeman(Unit.Allegiance.AI, 1);
         gameModel = gameModel.getInstance();
-        board = new Board("Scenarios/testboard.txt");
+        board = new Board("testAssets/Scenarios/testboard.txt");
         gameModel.setBoard(board);
         gameModel.setActiveUnit(activeUnit);
         gameModel.setTargetUnit(targetUnit);

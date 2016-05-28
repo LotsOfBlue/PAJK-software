@@ -52,9 +52,9 @@ public class StatusStateTest {
     @Test
     public void upAction() throws Exception {
 
-        String text1 = state.getInfoItem(3);
+        String text1 = state.getInfoItem(2);
         state.upAction();
-        String text2 = state.getInfoItem(3);
+        String text2 = state.getInfoItem(2);
         assertNotEquals(text1,text2);
 
         state.enterAction();

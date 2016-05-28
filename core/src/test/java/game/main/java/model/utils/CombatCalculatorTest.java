@@ -69,7 +69,7 @@ public class CombatCalculatorTest {
     @Before
     public void setUp() throws Exception {
         gameModel = GameModel.getInstance();
-        gameModel.setBoard(new Board("Scenarios/testboard.txt"));
+        gameModel.setBoard(new Board("testAssets/Scenarios/testboard.txt"));
         board = gameModel.getBoard();
         random = new Random();
     }

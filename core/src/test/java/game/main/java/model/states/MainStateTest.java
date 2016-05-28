@@ -31,7 +31,7 @@ public class MainStateTest {
         unitList.add(axeman);
         gameModel.setActiveUnit(axeman);
         gameModel.setUnitList(unitList);
-        gameModel.setBoard(new Board("map1.txt"));
+        gameModel.setBoard(new Board("testAssets/map1.txt"));
         gameModel.getBoard().getTile(0,0).setUnit(swordsman);
         gameModel.getBoard().getTile(0,1).setUnit(axeman);
         gameModel.setState(GameModel.StateName.MAIN);

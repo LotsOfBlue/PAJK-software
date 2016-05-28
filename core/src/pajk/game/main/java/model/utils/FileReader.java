@@ -23,7 +23,7 @@ public abstract class FileReader {
 
         try {
             List<String> list = new ArrayList<>();
-            File file = new File("core/assets/" + fileName);
+            File file = new File(fileName);
             Scanner scanner = new Scanner(new java.io.FileReader(file));
             while (scanner.hasNext()){
                 list.add(scanner.next());

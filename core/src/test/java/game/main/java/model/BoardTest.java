@@ -24,7 +24,7 @@ public class BoardTest {
     @Before
     public void setUp() throws Exception {
         //should test with other maps.
-        testBoard = new Board("map1.txt");
+        testBoard = new Board("testAssets/map1.txt");
         testUnit = new Swordsman(Unit.Allegiance.PLAYER, 5);
     }
 
@@ -101,7 +101,7 @@ public class BoardTest {
     public void getTilesWithinMoveRange() throws Exception {
         testBoard.placeUnit(testUnit,testBoard.getTile(0,0));
         Set<Tile> tileSet = testBoard.getTilesWithinMoveRange(testUnit);
-        assertTrue(tileSet.size() == 16);
+        assertTrue(tileSet.size() == 20);
 
     }
 
