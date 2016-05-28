@@ -26,7 +26,7 @@ public abstract class FileReader {
             File file = new File(fileName);
             Scanner scanner = new Scanner(new java.io.FileReader(file));
             while (scanner.hasNext()){
-                list.add(scanner.next());
+                list.add(scanner.nextLine());
             }
             return list;
         } catch (InvalidPathException e) {
