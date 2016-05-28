@@ -3,6 +3,10 @@ apply plugin: "java"
 sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
+test {
+    workingDir = new File("../core/assets")
+}
+
 sourceSets {
     main {
         java {
@@ -17,13 +21,9 @@ sourceSets {
         java {
             srcDir 'src/test/'
         }
-        resources {
-            srcDir 'src/test/resources'
-        }
     }
 }
 //sourceSets.main.java.srcDirs = [ "src/" ]
-
 
 eclipse.project {
     name = appName + "-core"
