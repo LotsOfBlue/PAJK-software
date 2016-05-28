@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
-import game.PajkGdxGame;
+import game.main.java.controller.PajkGdxGameController;
 import game.main.java.model.GameModel;
 import game.main.java.model.scenarios.Scenario;
 import game.main.java.model.states.MainMenuState;
@@ -47,7 +47,7 @@ public class MainMenuView extends AbstractGameView{
         if(model.getState() instanceof MainMenuState){
             mmState = (MainMenuState) model.getState();
             //Reset the camera in case it has been moved
-            camera.position.set(PajkGdxGame.WIDTH / 2f, PajkGdxGame.HEIGHT / 2f, 0);
+            camera.position.set(PajkGdxGameController.WIDTH / 2f, PajkGdxGameController.HEIGHT / 2f, 0);
             camera.update();
             spriteBatch.setProjectionMatrix(camera.combined);
             spriteBatch.begin();

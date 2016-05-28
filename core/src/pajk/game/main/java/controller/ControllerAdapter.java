@@ -6,9 +6,9 @@ import game.main.java.model.GameModel;
 /**
  * Created by palm on 2016-04-18.
  */
-public class Controller {
+public class ControllerAdapter {
     private GameModel gameModel;
-    public Controller(GameModel gameModel){
+    public ControllerAdapter(GameModel gameModel){
         this.gameModel = gameModel;
     }
 
