@@ -11,7 +11,7 @@ import game.main.java.view.ViewHandler;
 public class PajkGdxGameController extends ApplicationAdapter {
     public static final int WIDTH = 960;
     public static final int HEIGHT = 540;
-    public static final String TITLE = "Skirmish - A game of Pikes";
+    public static final String TITLE = "Skirmish - A Game of Pikes";
 
     private ViewHandler viewHandler;
     private GameModel gameModel;
