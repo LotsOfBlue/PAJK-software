@@ -41,18 +41,20 @@ public class EnemyTurnState extends State {
     }
 
     private void update(){
+        if (isAllDone()){
+            endTurn();
+            return;
+        }
+
+        if (activeUnit.getUnitState().equals(Unit.UnitState.DONE)){
+            setNewActiveUnit();
+            board.setCursor(board.getPos(activeUnit));
+            metaCooldown = 50;
+        }
+
 
         //If the current unit is done, get a new one.
-        if (activeUnit == null || activeUnit.getUnitState().equals(Unit.UnitState.DONE)){
-            setNewActiveUnit();
-            if (isAllDone()){
-                endTurn();
-                return;
-            } else {
-                board.setCursor(board.getPos(activeUnit));
-                metaCooldown = 50;
-            }
-        }
+
 
         if (metaCooldown != 0){
             metaCooldown --;
@@ -306,7 +308,10 @@ public class EnemyTurnState extends State {
 
         if (isAllDone()){
             endTurn();
+            return;
         }
+        board.setCursor(board.getPos(activeUnit));
+        metaCooldown = 50;
     }
 
     private void setNewActiveUnit(){
