@@ -9,6 +9,10 @@ Use `gradle run` in the project root directory PAJK-software.
 ##Deployment
 Use `gradle dist` in the project root directory PAJK-software.
 The resulting jar can be found in desktop/build/libs.
+
+##Documentation
+All relevant documentation can be found under the docs directory.
+
 ##Guidelines
 All files should use the UTF-8 encoding.
 
