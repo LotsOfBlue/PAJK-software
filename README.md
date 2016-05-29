@@ -1,4 +1,4 @@
-# PAJK-software
+# Skirmish - A Game of Pikes
 
 ##Running the application
 ###IDE
