@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by palm on 2016-04-22.
  */
-public class UnitMenuView extends AbstractGameView {
+public class UnitMenuView implements IGameView {
 
     private BitmapFont font;
     private Texture menuOverlay;

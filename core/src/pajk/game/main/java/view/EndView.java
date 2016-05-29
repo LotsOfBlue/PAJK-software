@@ -12,7 +12,7 @@ import game.main.java.model.units.Unit;
 /**
  * Created by jonatan on 17/05/2016.
  */
-public class EndView extends AbstractGameView{
+public class EndView implements IGameView {
 
     private Texture statusBackground;
     private OrthographicCamera camera;

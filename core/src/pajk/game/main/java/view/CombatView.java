@@ -16,7 +16,7 @@ import java.util.HashMap;
  * Visual representation of the combat.
  * Gets values from CombatState
  */
-public class CombatView extends AbstractGameView {
+public class CombatView implements IGameView {
 
     private SpriteBatch spriteBatch;
     private GameModel gameModel;

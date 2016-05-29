@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * @author Johan
  */
-public class MainMenuView extends AbstractGameView{
+public class MainMenuView implements IGameView {
 
     private GameModel model;
     private Texture title;

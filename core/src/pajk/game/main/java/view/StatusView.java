@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by palm on 2016-05-14.
  */
-public class StatusView extends AbstractGameView{
+public class StatusView implements IGameView {
 
     private Texture statusBackground;
     private Texture selector;

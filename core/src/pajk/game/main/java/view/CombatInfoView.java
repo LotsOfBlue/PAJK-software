@@ -13,7 +13,7 @@ import java.util.HashMap;
 /**
  * Created by jonatan on 18/05/2016.
  */
-public class CombatInfoView extends AbstractGameView{
+public class CombatInfoView implements IGameView {
 
     private Texture statusBackground;
     private Texture activeUnitImage;

@@ -19,7 +19,7 @@ import java.util.*;
 /**
  * Created by palm on 2016-04-22.
  */
-public class BoardView extends AbstractGameView {
+public class BoardView implements IGameView {
 
     private GameModel gameModel;
     private Board board;
